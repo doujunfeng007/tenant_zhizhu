@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpm.mapper.BpmCapitalInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="capitalInfoResultMap" type="com.minigod.zero.bpm.entity.BpmCapitalInfoEntity">
+        <result column="id" property="id"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="capital_account" property="capitalAccount"/>
+        <result column="account_type" property="accountType"/>
+        <result column="is_current" property="isCurrent"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+
+    <select id="selectBpmCapitalInfoPage" resultMap="capitalInfoResultMap">
+        select * from bpm_capital_info where is_deleted = 0
+    </select>
+
+
+</mapper>

@@ -1,0 +1,10 @@
+#数据源配置
+server:
+  port: 8000
+
+spring:
+  datasource:
+    url: ${zero.datasource.prd.url}
+    username: ${zero.datasource.prd.username}
+    password: ${zero.datasource.prd.password}
+

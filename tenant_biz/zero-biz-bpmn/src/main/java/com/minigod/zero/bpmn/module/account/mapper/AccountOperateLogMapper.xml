@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountOperateLogMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_operate_logResultMap"
+               type="com.minigod.zero.bpmn.module.account.entity.AccountOperateLogEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="current_node" property="currentNode"/>
+        <result column="update_content" property="updateContent"/>
+        <result column="operate_pre" property="operatePre"/>
+        <result column="operate_after" property="operateAfter"/>
+        <result column="application_id" property="applicationId"/>
+    </resultMap>
+    <resultMap id="account_operate_logResultMapVo" type="com.minigod.zero.bpmn.module.account.vo.AccountOperateLogVO"
+               extends="account_operate_logResultMap">
+    </resultMap>
+    <select id="queryListByApplicationId" resultMap="account_operate_logResultMapVo">
+        select *
+        from open_account_operate_log
+        where application_id = #{applicationId}
+        order by create_time desc;
+    </select>
+</mapper>

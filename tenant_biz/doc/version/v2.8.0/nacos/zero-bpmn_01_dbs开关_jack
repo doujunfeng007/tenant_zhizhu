@@ -1,0 +1,6 @@
+********************  zero-biz-bpmn-sit.yaml ********************
+
+dbs:
+  withdraw:
+    #dbs出金开关  关闭则不走dbs接口
+    enable: false

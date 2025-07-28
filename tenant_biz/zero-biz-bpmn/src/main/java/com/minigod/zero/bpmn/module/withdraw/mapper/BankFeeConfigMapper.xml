@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.withdraw.mapper.BankFeeConfigMapper">
+    <resultMap type="com.minigod.zero.bpmn.module.withdraw.entity.BankFeeConfig" id="BankFeeConfigResult">
+        <result property="id" column="id"/>
+        <result property="bankCode" column="bank_code"/>
+        <result property="bankName" column="bank_name"/>
+        <result property="transferType" column="transfer_type"/>
+        <result property="transferTypeDesc" column="transfer_type_desc"/>
+        <result property="ccy" column="ccy"/>
+        <result property="chargeFee" column="charge_fee"/>
+        <result property="active" column="active"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUser" column="create_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="createDept" column="create_dept"/>
+        <result property="status" column="status"/>
+        <result property="tenantId" column="tenant_id"/>
+    </resultMap>
+
+    <sql id="selectBankFeeConfigVo">
+        select id,
+               bank_code,
+               bank_name,
+               transfer_type,
+               transfer_type_desc,
+               ccy,
+               charge_fee,
+               active,
+               create_time,
+               create_user,
+               update_time,
+               update_user,
+               is_deleted,
+               create_dept,
+               status,
+               tenant_id
+        from bank_fee_config
+    </sql>
+
+    <select id="selectBankFeeConfigList" parameterType="BankFeeConfig" resultMap="BankFeeConfigResult">
+        <include refid="selectBankFeeConfigVo"/>
+        <where>
+            <if test="bankCode != null  and bankCode != ''">
+                and bank_code = #{bankCode}
+            </if>
+            <if test="bankName != null  and bankName != ''">
+                and bank_name like concat('%', #{bankName}, '%')
+            </if>
+            <if test="transferType != null">
+                and transfer_type = #{transferType}
+            </if>
+            <if test="transferTypeDesc != null  and transferTypeDesc != ''">
+                and transfer_type_desc = #{transferTypeDesc}
+            </if>
+            <if test="ccy != null  and ccy != ''">
+                and ccy = #{ccy}
+            </if>
+            <if test="chargeFee != null">
+                and charge_fee = #{chargeFee}
+            </if>
+            <if test="active != null">
+                and active = #{active}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBankFeeConfigByid" parameterType="Long" resultMap="BankFeeConfigResult">
+        <include refid="selectBankFeeConfigVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertBankFeeConfig" parameterType="BankFeeConfig" useGeneratedKeys="true" keyProperty="id">
+        insert into bank_fee_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bankCode != null and bankCode != ''">
+                bank_code,
+            </if>
+            <if test="bankName != null and bankName != ''">
+                bank_name,
+            </if>
+            <if test="transferType != null">
+                transfer_type,
+            </if>
+            <if test="transferTypeDesc != null and transferTypeDesc != ''">
+                transfer_type_desc,
+            </if>
+            <if test="ccy != null and ccy != ''">
+                ccy,
+            </if>
+            <if test="chargeFee != null">
+                charge_fee,
+            </if>
+            <if test="active != null">
+                active,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bankCode != null and bankCode != ''">
+                #{bankCode},
+            </if>
+            <if test="bankName != null and bankName != ''">
+                #{bankName},
+            </if>
+            <if test="transferType != null">
+                #{transferType},
+            </if>
+            <if test="transferTypeDesc != null and transferTypeDesc != ''">
+                #{transferTypeDesc},
+            </if>
+            <if test="ccy != null and ccy != ''">
+                #{ccy},
+            </if>
+            <if test="chargeFee != null">
+                #{chargeFee},
+            </if>
+            <if test="active != null">
+                #{active},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="createUser != null">
+                #{createUser},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateBankFeeConfig" parameterType="BankFeeConfig">
+        update bank_fee_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bankCode != null and bankCode != ''">
+                bank_code = #{bankCode},
+            </if>
+            <if test="bankName != null and bankName != ''">
+                bank_name = #{bankName},
+            </if>
+            <if test="transferType != null">
+                transfer_type = #{transferType},
+            </if>
+            <if test="transferTypeDesc != null and transferTypeDesc != ''">
+                transfer_type_desc = #{transferTypeDesc},
+            </if>
+            <if test="ccy != null and ccy != ''">
+                ccy = #{ccy},
+            </if>
+            <if test="chargeFee != null">
+                charge_fee = #{chargeFee},
+            </if>
+            <if test="active != null">
+                active = #{active},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBankFeeConfigByid" parameterType="Long">
+        delete
+        from bank_fee_config
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteBankFeeConfigByids" parameterType="String">
+        delete
+        from bank_fee_config where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

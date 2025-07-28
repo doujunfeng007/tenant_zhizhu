@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.minigod.zero.manage.mapper.SnActivityUserCollectMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.minigod.zero.manage.entity.SnActivityUserCollectEntity">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="account_open_status" property="accountOpenStatus"/>
+        <result column="account_open_time" property="accountOpenTime"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="fund_account" property="fundAccount"/>
+        <result column="first_deposit_amount" property="firstDepositAmount"/>
+        <result column="first_deposit_time" property="firstDepositTime"/>
+        <result column="first_transfer_amount" property="firstTransferAmount"/>
+        <result column="first_transfer_time" property="firstTransferTime"/>
+        <result column="trade_status" property="tradeStatus"/>
+        <result column="last_withdrawal_time" property="lastWithdrawalTime"/>
+        <result column="last_transfer_out_time" property="lastTransferOutTime"/>
+        <result column="lock_version" property="lockVersion"/>
+        <result column="client_id" property="clientId"/>
+        <result column="account_id" property="accountId"/>
+        <result column="client_name" property="clientName"/>
+        <result column="client_phone_number" property="clientPhoneNumber"/>
+        <result column="client_email" property="clientEmail"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, account_open_status, account_open_time, trade_account,
+        fund_account, first_deposit_amount, first_deposit_time, first_transfer_amount,
+        first_transfer_time, trade_status, last_withdrawal_time, last_transfer_out_time,
+        lock_version, client_id, account_id, client_name, client_phone_number,
+        client_email, create_time, update_time, create_user, update_user,
+        is_deleted, tenant_id, create_dept, status
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_activity_user_collect
+        WHERE is_deleted = 0
+        <if test="clientName != null and clientName != ''">
+            AND client_name LIKE CONCAT('%', #{clientName}, '%')
+        </if>
+        <if test="clientPhoneNumber != null and clientPhoneNumber != ''">
+            AND client_phone_number = #{clientPhoneNumber}
+        </if>
+        <if test="accountOpenStatus != null and accountOpenStatus != ''">
+            AND account_open_status = #{accountOpenStatus}
+        </if>
+        <if test="tradeStatus != null">
+            AND trade_status = #{tradeStatus}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 根据用户ID查询信息 -->
+    <select id="getByUserId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_activity_user_collect
+        WHERE is_deleted = 0
+        AND user_id = #{userId}
+        LIMIT 1
+    </select>
+
+    <!-- 更新用户开户信息 -->
+    <update id="updateAccountInfo" parameterType="com.minigod.zero.manage.entity.SnActivityUserCollectEntity">
+        UPDATE sn_activity_user_collect
+        <set>
+            <if test="accountOpenStatus != null">
+                account_open_status = #{accountOpenStatus},
+            </if>
+            <if test="accountOpenTime != null">
+                account_open_time = #{accountOpenTime},
+            </if>
+            <if test="tradeAccount != null">
+                trade_account = #{tradeAccount},
+            </if>
+            <if test="fundAccount != null">
+                fund_account = #{fundAccount},
+            </if>
+            <if test="clientId != null">
+                client_id = #{clientId},
+            </if>
+            <if test="accountId != null">
+                account_id = #{accountId},
+            </if>
+            lock_version = lock_version + 1,
+            update_time = NOW()
+        </set>
+        WHERE id = #{id}
+        AND is_deleted = 0
+        AND lock_version = #{lockVersion}
+    </update>
+
+    <!-- 更新用户交易信息 -->
+    <update id="updateTradeInfo" parameterType="com.minigod.zero.manage.entity.SnActivityUserCollectEntity">
+        UPDATE sn_activity_user_collect
+        <set>
+            <if test="firstDepositAmount != null">
+                first_deposit_amount = #{firstDepositAmount},
+            </if>
+            <if test="firstDepositTime != null">
+                first_deposit_time = #{firstDepositTime},
+            </if>
+            <if test="firstTransferAmount != null">
+                first_transfer_amount = #{firstTransferAmount},
+            </if>
+            <if test="firstTransferTime != null">
+                first_transfer_time = #{firstTransferTime},
+            </if>
+            <if test="tradeStatus != null">
+                trade_status = #{tradeStatus},
+            </if>
+            <if test="lastWithdrawalTime != null">
+                last_withdrawal_time = #{lastWithdrawalTime},
+            </if>
+            <if test="lastTransferOutTime != null">
+                last_transfer_out_time = #{lastTransferOutTime},
+            </if>
+            lock_version = lock_version + 1,
+            update_time = NOW()
+        </set>
+        WHERE id = #{id}
+        AND is_deleted = 0
+        AND lock_version = #{lockVersion}
+    </update>
+
+</mapper>

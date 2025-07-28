@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountOpenApplicationMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_open_applicationResultMap"
+               type="com.minigod.zero.bpmn.module.account.entity.AccountOpenApplicationEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="application_title" property="applicationTitle"/>
+        <result column="current_node" property="currentNode"/>
+        <result column="approve_result" property="approveResult"/>
+        <result column="current_account_open_step" property="currentAccountOpenStep"/>
+        <result column="current_account_open_step_status" property="currentAccountOpenStepStatus"/>
+        <result column="account_open_result_status" property="accountOpenResultStatus"/>
+        <result column="last_approval_user" property="lastApprovalUser"/>
+        <result column="approval_opinion" property="approvalOpinion"/>
+        <result column="error_images" property="errorImages"/>
+        <result column="error_content_types" property="errorContentTypes"/>
+        <result column="callback_status" property="callbackStatus"/>
+        <result column="code" property="code"/>
+        <result column="start_user_id" property="startUserId"/>
+        <result column="start_time" property="startTime"/>
+        <result column="remark" property="remark"/>
+        <result column="act_result" property="actResult"/>
+        <result column="application_status" property="applicationStatus"/>
+        <result column="is_back" property="isBack"/>
+        <result column="assign_drafter" property="assignDrafter"/>
+        <result column="flow_path" property="flowPath"/>
+        <result column="witness_user" property="witnessUser"/>
+        <result column="witnesses_type" property="witnessesType"/>
+        <result column="license_number" property="licenseNumber"/>
+        <result column="submit_approval_user" property="submitApprovalUser"/>
+        <result column="fire_aid" property="fireAid"/>
+        <result column="other_reasons" property="otherReasons"/>
+        <result column="is_exp_counter" property="isExpCounter"/>
+        <result column="instance_id" property="instanceId"/>
+        <result column="definition_id" property="definitionId"/>
+        <result column="process_instance_id" property="processInstanceId"/>
+        <result column="task_id" property="taskId"/>
+        <result column="deploy_id" property="deployId"/>
+        <result column="ref_key" property="refKey"/>
+        <result column="blacklist" property="blacklist"/>
+    </resultMap>
+    <resultMap id="account_open_applicationResultMapVO"
+               type="com.minigod.zero.bpmn.module.account.vo.AccountOpenApplicationVO"
+               extends="account_open_applicationResultMap">
+        <result column="client_name" property="clientName"/>
+        <result column="client_name_spell" property="clientNameSpell"/>
+        <result column="family_name" property="familyName"/>
+        <result column="given_name" property="givenName"/>
+        <result column="phone_area" property="phoneArea"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="phone_area_number" property="phoneAreaNumber"/>
+        <result column="id_no" property="idNo"/>
+        <result column="id_kind" property="idKind"/>
+        <result column="open_account_access_way" property="openAccountAccessWay"/>
+        <result column="source_channel_name" property="sourceChannelName"/>
+        <result column="source_channel_id" property="sourceChannelId"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="channel_name" property="sourceChannelName"/>
+        <result column="ae_code" property="aeCode"/>
+        <result column="client_id" property="clientId"/>
+    </resultMap>
+
+    <select id="queryPageList" resultType="com.minigod.zero.bpmn.module.account.vo.AccountOpenApplicationVO">
+        select a.*,i.client_name,i.client_name_spell,i.phone_area,i.phone_number,
+               CONCAT(IFNULL(i.phone_area,''), IF(i.phone_area is NULL OR i.phone_area='','','-'), IFNULL(i.phone_number,'')) AS phone_area_number,
+               i.id_no,i.open_account_access_way,i.accept_risk,i.expiry_date,
+               u.name as nick_name,i.id_kind,i.ae_code,i.user_id,
+               i.client_id,i.family_name,i.given_name,i.sex
+        from customer_account_open_application a
+        left join customer_account_open_info i on a.application_id = i.application_id
+        left join zero_cloud.zero_user u on a.assign_drafter = u.id
+        <where>
+            <if test="query.tenantId!='' and query.tenantId!=null">
+                and a.tenant_id = #{query.tenantId}
+            </if>
+            <if test="query.applicationId!='' and query.applicationId!=null">
+                and a.application_id like concat('%',concat(#{query.applicationId},'%'))
+            </if>
+            <if test="query.status!=null and query.status !='' ">
+                and a.status = #{query.status}
+            </if>
+            <if test="query.currentNode!=null and query.currentNode!=''">
+                and a.current_node = #{query.currentNode}
+            </if>
+            <if test="query.applicationStatus!=null and query.applicationStatus!=''">
+                and a.application_status = #{query.applicationStatus}
+            </if>
+            <if test="query.idNo!=null and query.idNo!=''">
+                and i.id_no like concat('%',concat(#{query.idNo},'%'))
+            </if>
+            <if test="query.clientName!=null and query.clientName!=''">
+                and i.client_name like concat('%',concat(#{query.clientName},'%'))
+            </if>
+            <if test="query.clientNameSpell!=null and query.clientNameSpell!=''">
+                and i.client_name_spell like concat('%',concat(#{query.clientNameSpell},'%'))
+            </if>
+            <if test="query.phoneNumber!=null and query.phoneNumber!=''">
+                and i.phone_number like concat('%',concat(#{query.phoneNumber},'%'))
+            </if>
+            <if test="query.userId!=null and query.userId!=''">
+                and i.user_id like concat('%',concat(#{query.userId},'%'))
+            </if>
+            <if test="query.clientId!=null and query.clientId!=''">
+                and i.client_id like concat('%',concat(#{query.clientId},'%'))
+            </if>
+            <if test="query.idNo!=null and query.idNo!=''">
+                and i.id_no like concat('%',concat(#{query.idNo},'%'))
+            </if>
+            <if test="query.sourceChannelId!=null and query.sourceChannelId!=''">
+                and i.source_channel_id = #{query.sourceChannelId}
+            </if>
+            <if test="query.openAccountAccessWay!=null and query.openAccountAccessWay!=''">
+                and i.open_account_access_way = #{query.openAccountAccessWay}
+            </if>
+            <if test="query.assignDrafterStatus!=null">
+                <choose>
+                    <when test="query.assignDrafterStatus == 1">
+                        and a.assign_drafter is NOT NULL
+                    </when>
+                    <when test=" query.assignDrafterStatus == 2">
+                        and a.assign_drafter is NULL
+                    </when>
+                </choose>
+            </if>
+            <if test="query.assignDrafter!=null and query.assignDrafter!=''">
+               and (a.assign_drafter = #{query.assignDrafter} or a.assign_drafter is NULL)
+            </if>
+            <if test="query.aeCodes!=null and query.aeCodes.size()>0">
+                and i.ae_code in (
+                <foreach collection="query.aeCodes" item="aeCode" separator=",">
+                    #{aeCode}
+                </foreach>
+                )
+            </if>
+            <if test="query.unAeCodes!=null and query.unAeCodes.size()>0">
+                and i.ae_code not in (
+                <foreach collection="query.unAeCodes" item="unAeCode" separator=",">
+                    #{unAeCode}
+                </foreach>
+                )
+            </if>
+            <if test="query.aeCode!=null and query.aeCode!=''">
+                and i.ae_code like concat('%',concat(#{query.aeCode},'%'))
+            </if>
+            <if test="query.applicationStatusList!=null and query.applicationStatusList.size() > 0">
+                and a.application_status in (
+                <foreach collection="query.applicationStatusList" item="applicationStatus" separator=",">
+                    #{applicationStatus}
+                </foreach>
+                )
+            </if>
+            <choose>
+                <when test="query.blacklist!=null">
+                    and a.blacklist = #{query.blacklist}
+                </when>
+                <otherwise>
+                    and a.blacklist = 0
+                </otherwise>
+            </choose>
+        </where>
+        ORDER BY a.create_time DESC
+    </select>
+
+    <select id="queryBackPageList" resultType="com.minigod.zero.bpmn.module.account.vo.AccountBackInfoVO">
+        SELECT
+        account.application_id,
+        application.instance_id,
+        application.definition_id,
+        application.process_instance_id,
+        application.task_id,
+        account.user_id,
+        CASE cust.access_way
+        WHEN 1 THEN
+        '线上H5开户'
+        WHEN 2 THEN
+        '线上APP开户'
+        WHEN 3 THEN
+        '线下开户'
+        ELSE
+        '未知'
+        END AS access_way,
+        CASE cust.id_kind
+        WHEN 1 THEN
+        '大陆身份证'
+        WHEN 2 THEN
+        '香港身份证'
+        WHEN 3 THEN
+        '护照'
+        ELSE
+        '未知'
+        END AS id_kind,
+        account.tenant_id,
+        account.id_no,
+        account.client_name,
+        account.client_name_spell,
+        account.given_name_spell,
+        account.family_name_spell,
+        CASE account.sex
+        WHEN 0 THEN
+        '男'
+        WHEN 1 THEN
+        '女'
+        ELSE
+        '其它'
+        END AS sex,
+        account.phone_area,
+        account.phone_number,
+        CONCAT(IFNULL(account.phone_area,''), IF(account.phone_area is NULL OR account.phone_area = '','','-'), IFNULL(account.phone_number,'')) AS phone_area_number,
+        CASE cust.`status`
+        WHEN 4 THEN
+        '退回给客户'
+        WHEN 7 THEN
+        '退回给客户(重新走开户流程)'
+        ELSE
+        '未知'
+        END AS `status`,
+        account.open_account_time,
+        account.application_time,
+        cust.update_time
+        FROM custom_open_info AS cust
+        INNER JOIN customer_account_open_info AS account
+        ON cust.user_id = account.user_id AND cust.`status` IN(4,7)
+        INNER JOIN customer_account_open_application AS application
+        ON account.application_id = application.application_id
+        <where>
+            <if test="query.tenantId!='' and query.tenantId!=null">
+                and account.tenant_id = #{query.tenantId}
+            </if>
+            <if test="query.applicationId!='' and query.applicationId!=null">
+                and account.application_id like concat('%',concat(#{query.applicationId},'%'))
+            </if>
+            <if test="query.status!=null and query.status !='' ">
+                and cust.status = #{query.status}
+            </if>
+            <if test="query.idNo!=null and query.idNo!=''">
+                and account.id_no like concat('%',concat(#{query.idNo},'%'))
+            </if>
+            <if test="query.clientName!=null and query.clientName!=''">
+                and (
+                account.client_name like concat('%',concat(#{query.clientName},'%'))
+                or
+                account.client_name_spell like concat('%',concat(#{query.clientName},'%'))
+                )
+            </if>
+            <if test="query.phoneNumber!=null and query.phoneNumber!=''">
+                and account.phone_number like concat('%',concat(#{query.phoneNumber},'%'))
+            </if>
+            <if test="query.userId!=null and query.userId!=''">
+                and account.user_id like concat('%',concat(#{query.userId},'%'))
+            </if>
+        AND cust.is_deleted = 0
+        </where>
+        ORDER BY cust.update_time DESC
+    </select>
+
+    <select id="queryCABankVerifyInfoPageList" resultType="com.minigod.zero.bpmn.module.account.vo.AccountCABankVerifyInfoVO">
+        SELECT bank.application_id,
+        application.instance_id,
+        application.definition_id,
+        application.process_instance_id,
+        application.task_id,
+        bank.user_id,
+        bank.client_name,
+        bank.phone_area,
+        bank.phone_number,
+        CONCAT(IFNULL(bank.phone_area,''), IF(bank.phone_area is NULL OR bank.phone_area = '','','-'), IFNULL(bank.phone_number,'')) AS phone_area_number,
+        bank.id_no,
+        account.tenant_id,
+        account.client_name_spell,
+        account.given_name_spell,
+        account.family_name_spell,
+        CASE account.sex
+        WHEN 0 THEN
+        '男'
+        WHEN 1 THEN
+        '女'
+        ELSE
+        '其它'
+        END AS sex,
+        bank.bank_card,
+        CASE bank.verify_status
+        WHEN 0 THEN
+        'CA认证失败'
+        WHEN 1 THEN
+        'CA认证成功'
+        ELSE
+        '未知'
+        END AS verify_status,
+        bank.verify_count,
+        bank.verify_time,
+        bank.verify_reason
+        FROM open_account_bank_verity_info AS bank
+        INNER JOIN customer_account_open_application AS application
+        ON bank.application_id = application.application_id
+        INNER JOIN customer_account_open_info AS account
+        ON bank.application_id = account.application_id
+        AND bank.verify_count>=1 AND bank.`verify_status`=0
+        <where>
+            <if test="query.tenantId!='' and query.tenantId!=null">
+                and account.tenant_id = #{query.tenantId}
+            </if>
+            <if test="query.applicationId!='' and query.applicationId!=null">
+                and account.application_id like concat('%',concat(#{query.applicationId},'%'))
+            </if>
+            <if test="query.idNo!=null and query.idNo!=''">
+                and account.id_no like concat('%',concat(#{query.idNo},'%'))
+            </if>
+            <if test="query.clientName!=null and query.clientName!=''">
+                and (
+                account.client_name like concat('%',concat(#{query.clientName},'%'))
+                or
+                account.client_name_spell like concat('%',concat(#{query.clientName},'%'))
+                )
+            </if>
+            <if test="query.phoneNumber!=null and query.phoneNumber!=''">
+                and account.phone_number like concat('%',concat(#{query.phoneNumber},'%'))
+            </if>
+            <if test="query.userId!=null and query.userId!=''">
+                and account.user_id like concat('%',concat(#{query.userId},'%'))
+            </if>
+        AND bank.is_deleted = 0
+        </where>
+        ORDER BY bank.verify_time DESC
+    </select>
+
+    <select id="queryByApplicationId" resultMap="account_open_applicationResultMapVO">
+        select *
+        from customer_account_open_application
+        where application_id = #{applicationId}
+    </select>
+    <select id="queryListByNode" resultMap="account_open_applicationResultMapVO">
+        select *
+        from customer_account_open_application
+        where current_node = #{node}
+    </select>
+    <select id="selectApplicationIds" resultMap="account_open_applicationResultMapVO">
+        select * from
+        customer_account_open_application
+        where application_id in (
+        <foreach collection="applicationIds" separator="," item="applicationId">
+            #{applicationId}
+        </foreach>
+        )
+        <if test="applicationStatus!=null">
+            and application_status = #{applicationStatus}
+        </if>
+    </select>
+    <update id="clearAssignDrafter">
+        update
+            customer_account_open_application
+        set assign_drafter = NULL
+        where application_id = #{applicationId}
+    </update>
+    <update id="addAssignDrafter">
+        update
+            customer_account_open_application
+        set assign_drafter = #{userId}
+        where application_id = #{applicationId}
+    </update>
+    <update id="updateRefKeyByApplicationId">
+        update
+            customer_account_open_application
+        set ref_key = #{refKey},
+            status  = #{status}
+        where application_id = #{applicationId}
+    </update>
+    <select id="queryAmlChecking" resultMap="account_open_applicationResultMap">
+        select *
+        from customer_account_open_application
+        where status = '1'
+          and ref_key is not NULL
+          and application_status = 2
+    </select>
+    <update id="updateBlackListStatus">
+        update
+        customer_account_open_application
+        <set>
+            assign_drafter = NULL ,
+            <if test="blacklist!=null">
+                blacklist = #{blacklist},
+            </if>
+            <if test="reason!=null and reason!=''">
+                approval_opinion = #{reason},
+            </if>
+        </set>
+        where application_id = #{applicationId}
+    </update>
+</mapper>

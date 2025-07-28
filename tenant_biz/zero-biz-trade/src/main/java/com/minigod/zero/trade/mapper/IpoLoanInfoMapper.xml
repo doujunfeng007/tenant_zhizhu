@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.trade.mapper.IpoLoanInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="ipoLoanInfoResultMap" type="com.minigod.zero.trade.entity.IpoLoanInfoEntity">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="asset_id" property="assetId"/>
+        <result column="biz_time" property="bizTime"/>
+        <result column="event_type" property="eventType"/>
+        <result column="loan_amount" property="loanAmount"/>
+        <result column="remain_amount" property="remainAmount"/>
+        <result column="is_back" property="isBack"/>
+        <result column="back_id" property="backId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+
+    <select id="selectIpoLoanInfoPage" resultMap="ipoLoanInfoResultMap">
+        select * from ipo_loan_info where is_deleted = 0
+    </select>
+
+
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountOpenImageMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_open_imageResultMap" type="com.minigod.zero.bpmn.module.account.entity.AccountOpenImageEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="file_name" property="fileName"/>
+        <result column="file_storage_name" property="fileStorageName"/>
+        <result column="ext_name" property="extName"/>
+        <result column="image_location" property="imageLocation"/>
+        <result column="image_location_type" property="imageLocationType"/>
+        <result column="storage_path" property="storagePath"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+    <resultMap type="com.minigod.zero.bpmn.module.account.vo.AccountOpenImageVO" id="account_open_imageResultMapVO"
+               extends="account_open_imageResultMap">
+    </resultMap>
+    <select id="queryListByApplicationId" resultMap="account_open_imageResultMapVO">
+        select * from
+        customer_account_open_image
+        <where>
+            <if test="applicationId!=null and applicationId!=''">
+                and application_id = #{applicationId}
+            </if>
+            <if test="imageLocation!=null">
+                and image_location = #{imageLocation}
+            </if>
+            <if test="imageLocationType!=null">
+                and image_location_type = #{imageLocationType}
+            </if>
+        </where>
+    </select>
+    <select id="queryOneByApplicationId" resultMap="account_open_imageResultMapVO">
+        select * from
+        customer_account_open_image
+        <where>
+            <if test="applicationId!=null and applicationId!=''">
+                and application_id = #{applicationId}
+            </if>
+            <if test="imageLocation!=null">
+                and image_location = #{imageLocation}
+            </if>
+            <if test="imageLocationType!=null">
+                and image_location_type = #{imageLocationType}
+            </if>
+        </where>
+        order by create_time desc limit 1
+    </select>
+    <delete id="deleteByApplicationId">
+        delete
+        from customer_account_open_image
+        where application_id = #{applicationId}
+    </delete>
+</mapper>

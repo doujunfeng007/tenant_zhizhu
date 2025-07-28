@@ -1,0 +1,11 @@
+
+# zero-biz-bpmn.yaml
+minigod:
+  tenant:
+    pi:
+      placePath:  '/data/apps/place'
+      templatePath: '/template'
+      tenantMap:
+        '000000':
+          professionalInvestorsNoticeForm: pi/professional_investors_notice_form.pdf
+          professionalInvestorsConfirmForm: pi/professional_investors_confirm_form.pdf

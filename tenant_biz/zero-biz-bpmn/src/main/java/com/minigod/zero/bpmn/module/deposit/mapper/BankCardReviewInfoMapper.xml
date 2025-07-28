@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.deposit.mapper.BankCardReviewInfoMapper">
+  <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.deposit.vo.BankCardReviewInfoVO">
+    <!--@mbg.generated-->
+    <!--@Table client_bank_card_review_info-->
+    <id     column="ri_id" property="id" />
+    <result column="ri_client_id" property="clientId" />
+    <result column="ri_bank_type" property="bankType" />
+    <result column="ri_bank_name" property="bankName" />
+    <result column="ri_bank_no" property="bankNo" />
+    <result column="ri_bank_account" property="bankAccount" />
+    <result column="ri_bank_code" property="bankCode" />
+    <result column="ri_bank_account_category" property="bankAccountCategory" />
+    <result column="ri_auth_sign" property="authSign" />
+    <result column="ri_tenant_id" property="tenantId" />
+    <result column="ri_application_id" property="applicationId" />
+    <result column="ri_application_type" property="applicationType" />
+    <result column="ri_bank_card_id" property="bankCardId" />
+    <result column="ri_is_finish" property="isFinish" />
+    <result column="ri_swift_code" property="swiftCode" />
+    <result column="ri_receive_region" property="receiveRegion" />
+    <result column="ri_bank_id" property="bankId" />
+    <result column="ri_bind_source" property="bindSource" />
+    <result column="ri_user_id" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ri.id ri_id,
+    ri.client_id ri_client_id,
+    ri.bank_type ri_bank_type,
+    ri.bank_name ri_bank_name,
+    ri.bank_no ri_bank_no,
+    ri.bank_account ri_bank_account,
+    ri.bank_code ri_bank_code,
+    ri.bank_account_category ri_bank_account_category,
+    ri.auth_sign ri_auth_sign,
+    ri.tenant_id ri_tenant_id,
+    ri.application_id ri_application_id,
+    ri.application_type ri_application_type,
+    ri.bank_card_id ri_bank_card_id,
+    ri.is_finish ri_is_finish,
+    ri.swift_code ri_swift_code,
+    ri.receive_region ri_receive_region,
+    ri.bank_id ri_bank_id,
+    ri.bind_source ri_bind_source,
+    ri.user_id ri_user_id
+  </sql>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into client_bank_card_review_info
+    (client_id, bank_type,  bank_name, bank_no, bank_account, bank_code,
+      bank_account_category, auth_sign, tenant_id, application_id, application_type,
+      bank_card_id, is_finish, swift_code, receive_region, bank_id,bind_source,user_id
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.clientId}, #{item.bankType},  #{item.bankName}, #{item.bankNo},
+        #{item.bankAccount}, #{item.bankCode}, #{item.bankAccountCategory}, #{item.authSign},
+        #{item.tenantId}, #{item.applicationId}, #{item.applicationType}, #{item.bankCardId}, #{item.isFinish}
+      , #{item.swiftCode}, #{item.receiveRegion}, #{item.bankId},#{item.bindSource},#{item.userId}
+        )
+    </foreach>
+  </insert>
+
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.OrderMapper">
+    <resultMap id="OrderStatisticsMap" type="com.minigod.zero.data.vo.OrderStatisticsVO">
+        <result column="subAccountId" property="subAccountId"/>
+        <result column="isin" property="isin"/>
+        <result column="currency" property="currency"/>
+        <result column="totalAmount" property="totalAmount"/>
+        <result column="daysToIssueDate" property="daysToIssueDate"/>
+    </resultMap>
+
+    <!--
+        这个 SQL 查询用于选择客户买入资产的总金额，
+        按币种分组，其中订单类型为 1（买入）或 11（IPO），
+        且状态为 300, 310, 510 或 730。
+    -->
+    <select id="selectTotalAmountByCurrency" resultType="java.util.Map">
+        SELECT
+            SUM( tuh.totalQuantity * tp.nominalValue ) / 10000 AS totalAmount,
+            tuh.currency
+        FROM
+            t_user_holding tuh
+                LEFT JOIN t_product tp ON tp.productId = tuh.fundCode
+        GROUP BY
+            tuh.currency
+    </select>
+    <!-- 按产品类型统计订单情况 -->
+    <select id="selectOrderStatsByBusiType" resultType="com.minigod.zero.data.vo.OrderTotalCountVO">
+        SELECT COALESCE(busitype, 0) as busitype,
+               SUM(CASE
+                       WHEN type IN (1, 3, 11) AND status IN (300, 310) THEN 1 -- 买入数量 1:买;3:交换买;11:IPO买
+                       ELSE 0
+                   END) as buyCount,
+               SUM(CASE
+                       WHEN type IN (2, 4) AND status IN (300, 310) THEN 1 -- 卖出数量 2:卖;4:交换卖
+                       ELSE 0
+                   END) as sellCount,
+               SUM(CASE
+                       WHEN type IN (1, 2, 3, 4, 11) AND status IN (500, 510) THEN 1 -- 买入和卖出的撤单数量 500-已撤销 510-部分撤销
+                       ELSE 0
+                   END) as cancelCount,
+               SUM(CASE
+                       WHEN  type IN (1, 2, 3, 4, 11) AND status IN (300, 310) THEN 1 -- 买入和卖出的成交数量 300-已结算 310-部份成交
+                       ELSE 0
+                   END) as dealCount,
+               SUM(CASE
+                       WHEN type IN (1, 3, 11) AND status IN (230, 310) THEN 1 -- 买入挂单数量 230-挂单中 310-已部分成交
+                       ELSE 0
+                   END) as pendingBuyCount,
+               SUM(CASE
+                       WHEN type IN (2, 4) AND status IN (230, 310) THEN 1 -- 卖出挂单数量 230-挂单中 310-已部分成交
+                       ELSE 0
+                   END) as pendingSellCount
+        FROM t_order
+        GROUP BY COALESCE(busitype, 0);
+    </select>
+
+    <select id="selectOrderStatistics" resultMap="OrderStatisticsMap">
+        SELECT
+            o.subAccountId,  -- 子账户标识
+            p.isin AS isin,  -- 基金isin
+            p.currency, -- 币种
+            SUM(o.amount * o.quantity) / 10000 AS totalAmount, -- 份额*金额(万元)
+            DATEDIFF(p.issueDate, CURDATE()) as daysToIssueDate -- 距离发行日期剩余天数
+        FROM
+            t_product AS p
+                INNER JOIN t_order AS o ON p.isin COLLATE utf8mb4_general_ci = o.fundIsin COLLATE utf8mb4_general_ci
+        WHERE
+            p.auditStatus = 3 AND p.issueDate > now()
+        GROUP BY
+            o.subAccountId,
+            p.currency,
+            p.isin;
+    </select>
+</mapper>

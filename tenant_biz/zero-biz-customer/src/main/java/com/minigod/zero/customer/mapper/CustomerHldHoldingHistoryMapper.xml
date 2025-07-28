@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerHldHoldingHistoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerHldHoldingHistory">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="subaccountid" column="subAccountId" jdbcType="VARCHAR"/>
+            <result property="fundcode" column="fundCode" jdbcType="VARCHAR"/>
+            <result property="holdingtype" column="holdingType" jdbcType="INTEGER"/>
+            <result property="totalquantity" column="totalQuantity" jdbcType="DECIMAL"/>
+            <result property="availablequantity" column="availableQuantity" jdbcType="DECIMAL"/>
+            <result property="frozenquantity" column="frozenQuantity" jdbcType="DECIMAL"/>
+            <result property="transitedquantity" column="transitedQuantity" jdbcType="DECIMAL"/>
+            <result property="withdrawquantity" column="withdrawQuantity" jdbcType="DECIMAL"/>
+            <result property="averagecost" column="averageCost" jdbcType="DECIMAL"/>
+            <result property="dilutedcost" column="dilutedCost" jdbcType="DECIMAL"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="accumulatedbuyamount" column="accumulatedBuyAmount" jdbcType="DECIMAL"/>
+            <result property="accumulatedcashdividends" column="accumulatedCashDividends" jdbcType="DECIMAL"/>
+            <result property="realizedgainloss" column="realizedGainLoss" jdbcType="DECIMAL"/>
+            <result property="totalgainloss" column="totalGainLoss" jdbcType="DECIMAL"/>
+            <result property="totalfee" column="totalFee" jdbcType="DECIMAL"/>
+            <result property="flowid" column="flowId" jdbcType="INTEGER"/>
+            <result property="transactiontime" column="transactionTime" jdbcType="TIMESTAMP"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,subAccountId,fundCode,
+        holdingType,totalQuantity,availableQuantity,
+        frozenQuantity,transitedQuantity,withdrawQuantity,
+        averageCost,dilutedCost,currency,
+        accumulatedBuyAmount,accumulatedCashDividends,realizedGainLoss,
+        totalGainLoss,totalFee,flowId,
+        transactionTime,createTime,updateTime
+    </sql>
+</mapper>

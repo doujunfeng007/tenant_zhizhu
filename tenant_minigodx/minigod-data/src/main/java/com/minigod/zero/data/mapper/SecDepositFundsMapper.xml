@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.SecDepositFundsMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.SecDepositFunds">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="currency" column="currency" jdbcType="INTEGER"/>
+            <result property="bankType" column="bank_type" jdbcType="INTEGER"/>
+            <result property="clientId" column="client_id" jdbcType="VARCHAR"/>
+            <result property="bankName" column="bank_name" jdbcType="VARCHAR"/>
+            <result property="bankCode" column="bank_code" jdbcType="VARCHAR"/>
+            <result property="fundAccount" column="fund_account" jdbcType="VARCHAR"/>
+            <result property="fundAccountName" column="fund_account_name" jdbcType="VARCHAR"/>
+            <result property="depositMoney" column="deposit_money" jdbcType="DECIMAL"/>
+            <result property="inviter" column="inviter" jdbcType="INTEGER"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+            <result property="state" column="state" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="isFind" column="is_find" jdbcType="INTEGER"/>
+            <result property="chargeMoney" column="charge_money" jdbcType="DECIMAL"/>
+            <result property="backPerson" column="back_person" jdbcType="VARCHAR"/>
+            <result property="backReason" column="back_reason" jdbcType="VARCHAR"/>
+            <result property="info" column="info" jdbcType="VARCHAR"/>
+            <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+            <result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP"/>
+            <result property="receivingAccount" column="receiving_account" jdbcType="VARCHAR"/>
+            <result property="receivingAccountName" column="receiving_account_name" jdbcType="VARCHAR"/>
+            <result property="receivingBankCode" column="receiving_bank_code" jdbcType="VARCHAR"/>
+            <result property="receivingAddress" column="receiving_address" jdbcType="VARCHAR"/>
+            <result property="receivingBankNameCn" column="receiving_bank_name_cn" jdbcType="VARCHAR"/>
+            <result property="receivingBankNameEn" column="receiving_bank_name_en" jdbcType="VARCHAR"/>
+            <result property="receivingBankAddress" column="receiving_bank_address" jdbcType="VARCHAR"/>
+            <result property="swiftCode" column="swift_code" jdbcType="VARCHAR"/>
+            <result property="isReward" column="is_reward" jdbcType="TINYINT"/>
+            <result property="actId" column="act_id" jdbcType="INTEGER"/>
+            <result property="remittanceBankName" column="remittance_bank_name" jdbcType="VARCHAR"/>
+            <result property="remittanceBankAccount" column="remittance_bank_account" jdbcType="VARCHAR"/>
+            <result property="remittanceAccountNameEn" column="remittance_account_name_en" jdbcType="VARCHAR"/>
+            <result property="remittanceBankCode" column="remittance_bank_code" jdbcType="VARCHAR"/>
+            <result property="remittanceBankId" column="remittance_bank_id" jdbcType="VARCHAR"/>
+            <result property="pushrecved" column="pushrecved" jdbcType="INTEGER"/>
+            <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+            <result property="errCnt" column="err_cnt" jdbcType="INTEGER"/>
+            <result property="eddaApplicationId" column="edda_application_id" jdbcType="VARCHAR"/>
+            <result property="settlementAmt" column="settlement_amt" jdbcType="DECIMAL"/>
+            <result property="settlementDt" column="settlement_dt" jdbcType="TIMESTAMP"/>
+            <result property="banksecApplicationId" column="banksec_application_id" jdbcType="VARCHAR"/>
+            <result property="txnRefId" column="txn_ref_id" jdbcType="VARCHAR"/>
+            <result property="bankAccountCategory" column="bank_account_category" jdbcType="INTEGER"/>
+            <result property="isCancel" column="is_cancel" jdbcType="INTEGER"/>
+            <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+            <result property="supportType" column="support_type" jdbcType="INTEGER"/>
+            <result property="remittanceSwiftCode" column="remittance_swift_code" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,currency,bank_type,
+        client_id,bank_name,bank_code,
+        fund_account,fund_account_name,deposit_money,
+        inviter,remarks,state,
+        user_id,is_find,charge_money,
+        back_person,back_reason,info,
+        created_time,modify_time,receiving_account,
+        receiving_account_name,receiving_bank_code,receiving_address,
+        receiving_bank_name_cn,receiving_bank_name_en,receiving_bank_address,
+        swift_code,is_reward,act_id,
+        remittance_bank_name,remittance_bank_account,remittance_account_name_en,
+        remittance_bank_code,remittance_bank_id,pushrecved,
+        application_id,err_cnt,edda_application_id,
+        settlement_amt,settlement_dt,banksec_application_id,
+        txn_ref_id,bank_account_category,is_cancel,
+        tenant_id,support_type,remittance_swift_code
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sec_deposit_funds
+        where  id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sec_deposit_funds
+        where  id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.SecDepositFunds" useGeneratedKeys="true">
+        insert into sec_deposit_funds
+        ( id,currency,bank_type
+        ,client_id,bank_name,bank_code
+        ,fund_account,fund_account_name,deposit_money
+        ,inviter,remarks,state
+        ,user_id,is_find,charge_money
+        ,back_person,back_reason,info
+        ,created_time,modify_time,receiving_account
+        ,receiving_account_name,receiving_bank_code,receiving_address
+        ,receiving_bank_name_cn,receiving_bank_name_en,receiving_bank_address
+        ,swift_code,is_reward,act_id
+        ,remittance_bank_name,remittance_bank_account,remittance_account_name_en
+        ,remittance_bank_code,remittance_bank_id,pushrecved
+        ,application_id,err_cnt,edda_application_id
+        ,settlement_amt,settlement_dt,banksec_application_id
+        ,txn_ref_id,bank_account_category,is_cancel
+        ,tenant_id,support_type,remittance_swift_code
+        )
+        values (#{id,jdbcType=BIGINT},#{currency,jdbcType=INTEGER},#{bankType,jdbcType=INTEGER}
+        ,#{clientId,jdbcType=VARCHAR},#{bankName,jdbcType=VARCHAR},#{bankCode,jdbcType=VARCHAR}
+        ,#{fundAccount,jdbcType=VARCHAR},#{fundAccountName,jdbcType=VARCHAR},#{depositMoney,jdbcType=DECIMAL}
+        ,#{inviter,jdbcType=INTEGER},#{remarks,jdbcType=VARCHAR},#{state,jdbcType=INTEGER}
+        ,#{userId,jdbcType=BIGINT},#{isFind,jdbcType=INTEGER},#{chargeMoney,jdbcType=DECIMAL}
+        ,#{backPerson,jdbcType=VARCHAR},#{backReason,jdbcType=VARCHAR},#{info,jdbcType=VARCHAR}
+        ,#{createdTime,jdbcType=TIMESTAMP},#{modifyTime,jdbcType=TIMESTAMP},#{receivingAccount,jdbcType=VARCHAR}
+        ,#{receivingAccountName,jdbcType=VARCHAR},#{receivingBankCode,jdbcType=VARCHAR},#{receivingAddress,jdbcType=VARCHAR}
+        ,#{receivingBankNameCn,jdbcType=VARCHAR},#{receivingBankNameEn,jdbcType=VARCHAR},#{receivingBankAddress,jdbcType=VARCHAR}
+        ,#{swiftCode,jdbcType=VARCHAR},#{isReward,jdbcType=TINYINT},#{actId,jdbcType=INTEGER}
+        ,#{remittanceBankName,jdbcType=VARCHAR},#{remittanceBankAccount,jdbcType=VARCHAR},#{remittanceAccountNameEn,jdbcType=VARCHAR}
+        ,#{remittanceBankCode,jdbcType=VARCHAR},#{remittanceBankId,jdbcType=VARCHAR},#{pushrecved,jdbcType=INTEGER}
+        ,#{applicationId,jdbcType=VARCHAR},#{errCnt,jdbcType=INTEGER},#{eddaApplicationId,jdbcType=VARCHAR}
+        ,#{settlementAmt,jdbcType=DECIMAL},#{settlementDt,jdbcType=TIMESTAMP},#{banksecApplicationId,jdbcType=VARCHAR}
+        ,#{txnRefId,jdbcType=VARCHAR},#{bankAccountCategory,jdbcType=INTEGER},#{isCancel,jdbcType=INTEGER}
+        ,#{tenantId,jdbcType=VARCHAR},#{supportType,jdbcType=INTEGER},#{remittanceSwiftCode,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.SecDepositFunds" useGeneratedKeys="true">
+        insert into sec_deposit_funds
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="currency != null">currency,</if>
+                <if test="bankType != null">bank_type,</if>
+                <if test="clientId != null">client_id,</if>
+                <if test="bankName != null">bank_name,</if>
+                <if test="bankCode != null">bank_code,</if>
+                <if test="fundAccount != null">fund_account,</if>
+                <if test="fundAccountName != null">fund_account_name,</if>
+                <if test="depositMoney != null">deposit_money,</if>
+                <if test="inviter != null">inviter,</if>
+                <if test="remarks != null">remarks,</if>
+                <if test="state != null">state,</if>
+                <if test="userId != null">user_id,</if>
+                <if test="isFind != null">is_find,</if>
+                <if test="chargeMoney != null">charge_money,</if>
+                <if test="backPerson != null">back_person,</if>
+                <if test="backReason != null">back_reason,</if>
+                <if test="info != null">info,</if>
+                <if test="createdTime != null">created_time,</if>
+                <if test="modifyTime != null">modify_time,</if>
+                <if test="receivingAccount != null">receiving_account,</if>
+                <if test="receivingAccountName != null">receiving_account_name,</if>
+                <if test="receivingBankCode != null">receiving_bank_code,</if>
+                <if test="receivingAddress != null">receiving_address,</if>
+                <if test="receivingBankNameCn != null">receiving_bank_name_cn,</if>
+                <if test="receivingBankNameEn != null">receiving_bank_name_en,</if>
+                <if test="receivingBankAddress != null">receiving_bank_address,</if>
+                <if test="swiftCode != null">swift_code,</if>
+                <if test="isReward != null">is_reward,</if>
+                <if test="actId != null">act_id,</if>
+                <if test="remittanceBankName != null">remittance_bank_name,</if>
+                <if test="remittanceBankAccount != null">remittance_bank_account,</if>
+                <if test="remittanceAccountNameEn != null">remittance_account_name_en,</if>
+                <if test="remittanceBankCode != null">remittance_bank_code,</if>
+                <if test="remittanceBankId != null">remittance_bank_id,</if>
+                <if test="pushrecved != null">pushrecved,</if>
+                <if test="applicationId != null">application_id,</if>
+                <if test="errCnt != null">err_cnt,</if>
+                <if test="eddaApplicationId != null">edda_application_id,</if>
+                <if test="settlementAmt != null">settlement_amt,</if>
+                <if test="settlementDt != null">settlement_dt,</if>
+                <if test="banksecApplicationId != null">banksec_application_id,</if>
+                <if test="txnRefId != null">txn_ref_id,</if>
+                <if test="bankAccountCategory != null">bank_account_category,</if>
+                <if test="isCancel != null">is_cancel,</if>
+                <if test="tenantId != null">tenant_id,</if>
+                <if test="supportType != null">support_type,</if>
+                <if test="remittanceSwiftCode != null">remittance_swift_code,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="currency != null">#{currency,jdbcType=INTEGER},</if>
+                <if test="bankType != null">#{bankType,jdbcType=INTEGER},</if>
+                <if test="clientId != null">#{clientId,jdbcType=VARCHAR},</if>
+                <if test="bankName != null">#{bankName,jdbcType=VARCHAR},</if>
+                <if test="bankCode != null">#{bankCode,jdbcType=VARCHAR},</if>
+                <if test="fundAccount != null">#{fundAccount,jdbcType=VARCHAR},</if>
+                <if test="fundAccountName != null">#{fundAccountName,jdbcType=VARCHAR},</if>
+                <if test="depositMoney != null">#{depositMoney,jdbcType=DECIMAL},</if>
+                <if test="inviter != null">#{inviter,jdbcType=INTEGER},</if>
+                <if test="remarks != null">#{remarks,jdbcType=VARCHAR},</if>
+                <if test="state != null">#{state,jdbcType=INTEGER},</if>
+                <if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+                <if test="isFind != null">#{isFind,jdbcType=INTEGER},</if>
+                <if test="chargeMoney != null">#{chargeMoney,jdbcType=DECIMAL},</if>
+                <if test="backPerson != null">#{backPerson,jdbcType=VARCHAR},</if>
+                <if test="backReason != null">#{backReason,jdbcType=VARCHAR},</if>
+                <if test="info != null">#{info,jdbcType=VARCHAR},</if>
+                <if test="createdTime != null">#{createdTime,jdbcType=TIMESTAMP},</if>
+                <if test="modifyTime != null">#{modifyTime,jdbcType=TIMESTAMP},</if>
+                <if test="receivingAccount != null">#{receivingAccount,jdbcType=VARCHAR},</if>
+                <if test="receivingAccountName != null">#{receivingAccountName,jdbcType=VARCHAR},</if>
+                <if test="receivingBankCode != null">#{receivingBankCode,jdbcType=VARCHAR},</if>
+                <if test="receivingAddress != null">#{receivingAddress,jdbcType=VARCHAR},</if>
+                <if test="receivingBankNameCn != null">#{receivingBankNameCn,jdbcType=VARCHAR},</if>
+                <if test="receivingBankNameEn != null">#{receivingBankNameEn,jdbcType=VARCHAR},</if>
+                <if test="receivingBankAddress != null">#{receivingBankAddress,jdbcType=VARCHAR},</if>
+                <if test="swiftCode != null">#{swiftCode,jdbcType=VARCHAR},</if>
+                <if test="isReward != null">#{isReward,jdbcType=TINYINT},</if>
+                <if test="actId != null">#{actId,jdbcType=INTEGER},</if>
+                <if test="remittanceBankName != null">#{remittanceBankName,jdbcType=VARCHAR},</if>
+                <if test="remittanceBankAccount != null">#{remittanceBankAccount,jdbcType=VARCHAR},</if>
+                <if test="remittanceAccountNameEn != null">#{remittanceAccountNameEn,jdbcType=VARCHAR},</if>
+                <if test="remittanceBankCode != null">#{remittanceBankCode,jdbcType=VARCHAR},</if>
+                <if test="remittanceBankId != null">#{remittanceBankId,jdbcType=VARCHAR},</if>
+                <if test="pushrecved != null">#{pushrecved,jdbcType=INTEGER},</if>
+                <if test="applicationId != null">#{applicationId,jdbcType=VARCHAR},</if>
+                <if test="errCnt != null">#{errCnt,jdbcType=INTEGER},</if>
+                <if test="eddaApplicationId != null">#{eddaApplicationId,jdbcType=VARCHAR},</if>
+                <if test="settlementAmt != null">#{settlementAmt,jdbcType=DECIMAL},</if>
+                <if test="settlementDt != null">#{settlementDt,jdbcType=TIMESTAMP},</if>
+                <if test="banksecApplicationId != null">#{banksecApplicationId,jdbcType=VARCHAR},</if>
+                <if test="txnRefId != null">#{txnRefId,jdbcType=VARCHAR},</if>
+                <if test="bankAccountCategory != null">#{bankAccountCategory,jdbcType=INTEGER},</if>
+                <if test="isCancel != null">#{isCancel,jdbcType=INTEGER},</if>
+                <if test="tenantId != null">#{tenantId,jdbcType=VARCHAR},</if>
+                <if test="supportType != null">#{supportType,jdbcType=INTEGER},</if>
+                <if test="remittanceSwiftCode != null">#{remittanceSwiftCode,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.SecDepositFunds">
+        update sec_deposit_funds
+        <set>
+                <if test="currency != null">
+                    currency = #{currency,jdbcType=INTEGER},
+                </if>
+                <if test="bankType != null">
+                    bank_type = #{bankType,jdbcType=INTEGER},
+                </if>
+                <if test="clientId != null">
+                    client_id = #{clientId,jdbcType=VARCHAR},
+                </if>
+                <if test="bankName != null">
+                    bank_name = #{bankName,jdbcType=VARCHAR},
+                </if>
+                <if test="bankCode != null">
+                    bank_code = #{bankCode,jdbcType=VARCHAR},
+                </if>
+                <if test="fundAccount != null">
+                    fund_account = #{fundAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="fundAccountName != null">
+                    fund_account_name = #{fundAccountName,jdbcType=VARCHAR},
+                </if>
+                <if test="depositMoney != null">
+                    deposit_money = #{depositMoney,jdbcType=DECIMAL},
+                </if>
+                <if test="inviter != null">
+                    inviter = #{inviter,jdbcType=INTEGER},
+                </if>
+                <if test="remarks != null">
+                    remarks = #{remarks,jdbcType=VARCHAR},
+                </if>
+                <if test="state != null">
+                    state = #{state,jdbcType=INTEGER},
+                </if>
+                <if test="userId != null">
+                    user_id = #{userId,jdbcType=BIGINT},
+                </if>
+                <if test="isFind != null">
+                    is_find = #{isFind,jdbcType=INTEGER},
+                </if>
+                <if test="chargeMoney != null">
+                    charge_money = #{chargeMoney,jdbcType=DECIMAL},
+                </if>
+                <if test="backPerson != null">
+                    back_person = #{backPerson,jdbcType=VARCHAR},
+                </if>
+                <if test="backReason != null">
+                    back_reason = #{backReason,jdbcType=VARCHAR},
+                </if>
+                <if test="info != null">
+                    info = #{info,jdbcType=VARCHAR},
+                </if>
+                <if test="createdTime != null">
+                    created_time = #{createdTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="modifyTime != null">
+                    modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="receivingAccount != null">
+                    receiving_account = #{receivingAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="receivingAccountName != null">
+                    receiving_account_name = #{receivingAccountName,jdbcType=VARCHAR},
+                </if>
+                <if test="receivingBankCode != null">
+                    receiving_bank_code = #{receivingBankCode,jdbcType=VARCHAR},
+                </if>
+                <if test="receivingAddress != null">
+                    receiving_address = #{receivingAddress,jdbcType=VARCHAR},
+                </if>
+                <if test="receivingBankNameCn != null">
+                    receiving_bank_name_cn = #{receivingBankNameCn,jdbcType=VARCHAR},
+                </if>
+                <if test="receivingBankNameEn != null">
+                    receiving_bank_name_en = #{receivingBankNameEn,jdbcType=VARCHAR},
+                </if>
+                <if test="receivingBankAddress != null">
+                    receiving_bank_address = #{receivingBankAddress,jdbcType=VARCHAR},
+                </if>
+                <if test="swiftCode != null">
+                    swift_code = #{swiftCode,jdbcType=VARCHAR},
+                </if>
+                <if test="isReward != null">
+                    is_reward = #{isReward,jdbcType=TINYINT},
+                </if>
+                <if test="actId != null">
+                    act_id = #{actId,jdbcType=INTEGER},
+                </if>
+                <if test="remittanceBankName != null">
+                    remittance_bank_name = #{remittanceBankName,jdbcType=VARCHAR},
+                </if>
+                <if test="remittanceBankAccount != null">
+                    remittance_bank_account = #{remittanceBankAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="remittanceAccountNameEn != null">
+                    remittance_account_name_en = #{remittanceAccountNameEn,jdbcType=VARCHAR},
+                </if>
+                <if test="remittanceBankCode != null">
+                    remittance_bank_code = #{remittanceBankCode,jdbcType=VARCHAR},
+                </if>
+                <if test="remittanceBankId != null">
+                    remittance_bank_id = #{remittanceBankId,jdbcType=VARCHAR},
+                </if>
+                <if test="pushrecved != null">
+                    pushrecved = #{pushrecved,jdbcType=INTEGER},
+                </if>
+                <if test="applicationId != null">
+                    application_id = #{applicationId,jdbcType=VARCHAR},
+                </if>
+                <if test="errCnt != null">
+                    err_cnt = #{errCnt,jdbcType=INTEGER},
+                </if>
+                <if test="eddaApplicationId != null">
+                    edda_application_id = #{eddaApplicationId,jdbcType=VARCHAR},
+                </if>
+                <if test="settlementAmt != null">
+                    settlement_amt = #{settlementAmt,jdbcType=DECIMAL},
+                </if>
+                <if test="settlementDt != null">
+                    settlement_dt = #{settlementDt,jdbcType=TIMESTAMP},
+                </if>
+                <if test="banksecApplicationId != null">
+                    banksec_application_id = #{banksecApplicationId,jdbcType=VARCHAR},
+                </if>
+                <if test="txnRefId != null">
+                    txn_ref_id = #{txnRefId,jdbcType=VARCHAR},
+                </if>
+                <if test="bankAccountCategory != null">
+                    bank_account_category = #{bankAccountCategory,jdbcType=INTEGER},
+                </if>
+                <if test="isCancel != null">
+                    is_cancel = #{isCancel,jdbcType=INTEGER},
+                </if>
+                <if test="tenantId != null">
+                    tenant_id = #{tenantId,jdbcType=VARCHAR},
+                </if>
+                <if test="supportType != null">
+                    support_type = #{supportType,jdbcType=INTEGER},
+                </if>
+                <if test="remittanceSwiftCode != null">
+                    remittance_swift_code = #{remittanceSwiftCode,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.SecDepositFunds">
+        update sec_deposit_funds
+        set
+            currency =  #{currency,jdbcType=INTEGER},
+            bank_type =  #{bankType,jdbcType=INTEGER},
+            client_id =  #{clientId,jdbcType=VARCHAR},
+            bank_name =  #{bankName,jdbcType=VARCHAR},
+            bank_code =  #{bankCode,jdbcType=VARCHAR},
+            fund_account =  #{fundAccount,jdbcType=VARCHAR},
+            fund_account_name =  #{fundAccountName,jdbcType=VARCHAR},
+            deposit_money =  #{depositMoney,jdbcType=DECIMAL},
+            inviter =  #{inviter,jdbcType=INTEGER},
+            remarks =  #{remarks,jdbcType=VARCHAR},
+            state =  #{state,jdbcType=INTEGER},
+            user_id =  #{userId,jdbcType=BIGINT},
+            is_find =  #{isFind,jdbcType=INTEGER},
+            charge_money =  #{chargeMoney,jdbcType=DECIMAL},
+            back_person =  #{backPerson,jdbcType=VARCHAR},
+            back_reason =  #{backReason,jdbcType=VARCHAR},
+            info =  #{info,jdbcType=VARCHAR},
+            created_time =  #{createdTime,jdbcType=TIMESTAMP},
+            modify_time =  #{modifyTime,jdbcType=TIMESTAMP},
+            receiving_account =  #{receivingAccount,jdbcType=VARCHAR},
+            receiving_account_name =  #{receivingAccountName,jdbcType=VARCHAR},
+            receiving_bank_code =  #{receivingBankCode,jdbcType=VARCHAR},
+            receiving_address =  #{receivingAddress,jdbcType=VARCHAR},
+            receiving_bank_name_cn =  #{receivingBankNameCn,jdbcType=VARCHAR},
+            receiving_bank_name_en =  #{receivingBankNameEn,jdbcType=VARCHAR},
+            receiving_bank_address =  #{receivingBankAddress,jdbcType=VARCHAR},
+            swift_code =  #{swiftCode,jdbcType=VARCHAR},
+            is_reward =  #{isReward,jdbcType=TINYINT},
+            act_id =  #{actId,jdbcType=INTEGER},
+            remittance_bank_name =  #{remittanceBankName,jdbcType=VARCHAR},
+            remittance_bank_account =  #{remittanceBankAccount,jdbcType=VARCHAR},
+            remittance_account_name_en =  #{remittanceAccountNameEn,jdbcType=VARCHAR},
+            remittance_bank_code =  #{remittanceBankCode,jdbcType=VARCHAR},
+            remittance_bank_id =  #{remittanceBankId,jdbcType=VARCHAR},
+            pushrecved =  #{pushrecved,jdbcType=INTEGER},
+            application_id =  #{applicationId,jdbcType=VARCHAR},
+            err_cnt =  #{errCnt,jdbcType=INTEGER},
+            edda_application_id =  #{eddaApplicationId,jdbcType=VARCHAR},
+            settlement_amt =  #{settlementAmt,jdbcType=DECIMAL},
+            settlement_dt =  #{settlementDt,jdbcType=TIMESTAMP},
+            banksec_application_id =  #{banksecApplicationId,jdbcType=VARCHAR},
+            txn_ref_id =  #{txnRefId,jdbcType=VARCHAR},
+            bank_account_category =  #{bankAccountCategory,jdbcType=INTEGER},
+            is_cancel =  #{isCancel,jdbcType=INTEGER},
+            tenant_id =  #{tenantId,jdbcType=VARCHAR},
+            support_type =  #{supportType,jdbcType=INTEGER},
+            remittance_swift_code =  #{remittanceSwiftCode,jdbcType=VARCHAR}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="queryReportPage" parameterType="com.minigod.zero.data.dto.DepositAndWithdrawalReportDTO" resultType="com.minigod.zero.data.vo.DepositAndWithdrawalFundsReportVO">
+        select
+            result.*,
+            b.client_name AS customer_name
+
+        from (
+                select
+                    sdf.application_id                                                          as applicationId,
+                    sdf.created_time                                                            as createTime,
+                    sdf.settlement_dt                                                           as deliveryTime,
+                    sdf.client_id                                                               as clientId,
+                    sdf.fund_account_name                                                       as clientName,
+                    sdf.support_type                                                            as supportType,
+                    case   when sdf.currency = 1 then 'HKD'
+                    when sdf.currency = 2 then 'USD'
+                    when sdf.currency = 3 then 'CNY'
+                    else sdf.currency end                                                       as currency,
+                    sdf.deposit_money                                                           as amount,
+                    case when support_type = 6 then '系统' else cfda.last_approval_user end as operatorName,
+                    case when support_type = 6 then ceifa.bank_state else cfda.status end       as status,
+                    1                                                                           as type
+                from sec_deposit_funds as sdf
+                left join client_fund_deposit_application as cfda on cfda.application_id = sdf.application_id
+                left join client_edda_fund_application as ceifa on ceifa.application_id = sdf.application_id
+                <where>
+                    <if test="depositAndWithdrawalReportDTO.startTime != null and depositAndWithdrawalReportDTO.startTime !=''">
+                        and sdf.created_time &gt;= STR_TO_DATE(#{depositAndWithdrawalReportDTO.startTime},'%Y-%m-%d %H:%i:%s')
+                    </if>
+                    <if test="depositAndWithdrawalReportDTO.endTime != null and depositAndWithdrawalReportDTO.endTime !=''">
+                        and sdf.created_time &lt;= STR_TO_DATE(#{depositAndWithdrawalReportDTO.endTime},'%Y-%m-%d %H:%i:%s')
+                    </if>
+                    <if test="depositAndWithdrawalReportDTO.clientId != null and depositAndWithdrawalReportDTO.clientId != ''">
+                        and sdf.client_id = #{depositAndWithdrawalReportDTO.clientId}
+                    </if>
+                    <if test="depositAndWithdrawalReportDTO.currency != null and depositAndWithdrawalReportDTO.currency != ''">
+                        and sdf.currency = #{depositAndWithdrawalReportDTO.currency}
+                    </if>
+
+                </where>
+                union all
+                select
+                    cfwa.application_id                                                         as applicationId,
+                    cfwa.create_time                                                            as createTime,
+                    cfwi.update_time                                                            as deliveryTime,
+                    cfwi.client_id                                                              as clientId,
+                    cfwi.client_name                                                            as clientName,
+                    cfwi.transfer_type                                                          as supportType,
+                    cfwi.ccy                                                                    as currency,
+                    cfwi.actual_amount                                                          as amount,
+                    cfwa.last_approval_user                                                     as operatorName,
+                    cfwa.status                                                                 as status,
+                    2                                                                           as type
+                from client_fund_withdraw_application as cfwa
+                left join client_fund_withdraw_info as cfwi on cfwi.application_id = cfwa.application_id
+                <where>
+                    <if test="depositAndWithdrawalReportDTO.startTime != null and depositAndWithdrawalReportDTO.startTime !=''">
+                        and cfwa.create_time &gt;= STR_TO_DATE(#{depositAndWithdrawalReportDTO.startTime},'%Y-%m-%d %H:%i:%s')
+                    </if>
+                    <if test="depositAndWithdrawalReportDTO.endTime != null and depositAndWithdrawalReportDTO.endTime !=''">
+                        and cfwa.create_time &lt;= STR_TO_DATE(#{depositAndWithdrawalReportDTO.endTime},'%Y-%m-%d %H:%i:%s')
+                    </if>
+                    <if test="depositAndWithdrawalReportDTO.clientId != null and depositAndWithdrawalReportDTO.clientId != ''">
+                        and cfwi.client_id = #{depositAndWithdrawalReportDTO.clientId}
+                    </if>
+                    <if test="depositAndWithdrawalReportDTO.currency != null and depositAndWithdrawalReportDTO.currency == 1">
+                        and cfwi.ccy    = 'HKD'
+                    </if>
+                    <if test="depositAndWithdrawalReportDTO.currency != null and depositAndWithdrawalReportDTO.currency == 2">
+                        and cfwi.ccy    = 'USD'
+                    </if>
+                    <if test="depositAndWithdrawalReportDTO.currency != null and depositAndWithdrawalReportDTO.currency == 3">
+                        and cfwi.ccy    = 'CNY'
+                    </if>
+                    <if test="depositAndWithdrawalReportDTO.withdrawalStatus != null">
+                        and cfwa.status = #{depositAndWithdrawalReportDTO.withdrawalStatus}
+                    </if>
+
+                </where>
+        ) as result
+        LEFT JOIN customer_financing_account AS c ON c.account_id = result.clientId
+        LEFT JOIN customer_basic_info AS b ON b.cust_id = c.cust_id
+        <where>
+            <if test="depositAndWithdrawalReportDTO.applicationIdList != null">
+                and result.applicationId in (
+                <foreach collection="applicationIdList" item="applicationId" separator=",">
+                    #{applicationId}
+                </foreach>
+                )
+            </if>
+
+            <if test="depositAndWithdrawalReportDTO.withdrawalStatus != null">
+                and result.status = #{depositAndWithdrawalReportDTO.withdrawalStatus}
+            </if>
+            <if test="depositAndWithdrawalReportDTO.depositStatus != null">
+                and
+                <choose>
+                    <when test="depositAndWithdrawalReportDTO.depositStatus == 4">
+                        case when result.supportType = 6  then result.status = 5 else result.status = #{depositAndWithdrawalReportDTO.depositStatus} end
+                    </when>
+                    <when test="depositAndWithdrawalReportDTO.depositStatus == 5">
+                        case when result.supportType = 6  then result.status = 4 else result.status = #{depositAndWithdrawalReportDTO.depositStatus} end
+                    </when>
+                    <otherwise>
+                        result.status = #{depositAndWithdrawalReportDTO.depositStatus}
+                    </otherwise>
+                </choose>
+            </if>
+            <if test="depositAndWithdrawalReportDTO.type != null">
+                and result.type = #{depositAndWithdrawalReportDTO.type}
+            </if>
+        </where>
+        order by result.createTime desc
+    </select>
+</mapper>

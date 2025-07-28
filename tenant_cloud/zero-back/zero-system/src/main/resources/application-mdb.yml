@@ -1,0 +1,13 @@
+#服务器端口
+server:
+  port: 16015
+#开启sql日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#数据源配置
+spring:
+  datasource:
+    url: ${zero.datasource.sit.url}
+    username: ${zero.datasource.sit.username}
+    password: ${zero.datasource.sit.password}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.trade.mapper.IpoOmsConfigMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="ipoOmsConfigResultMap" type="com.minigod.zero.trade.entity.IpoOmsConfigEntity">
+        <result column="id" property="id"/>
+        <result column="asset_id" property="assetId"/>
+        <result column="entrance_fee" property="entranceFee"/>
+        <result column="price_ceiling" property="priceCeiling"/>
+        <result column="price_floor" property="priceFloor"/>
+        <result column="end_time" property="endTime"/>
+        <result column="market" property="market"/>
+        <result column="enable_financing" property="enableFinancing"/>
+        <result column="operator_id" property="operatorId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="financing_ceiling" property="financingCeiling"/>
+        <result column="vip_financing_ceiling" property="vipFinancingCeiling"/>
+        <result column="discount" property="discount"/>
+        <result column="financing_time" property="financingTime"/>
+        <result column="max_queue_amount" property="maxQueueAmount"/>
+        <result column="max_queue_amount_vip" property="maxQueueAmountVip"/>
+        <result column="user_ipo_rate" property="userIpoRate"/>
+        <result column="ipo_msg" property="ipoMsg"/>
+        <result column="max_queue_zero_amount" property="maxQueueZeroAmount"/>
+        <result column="enable_zero_principal" property="enableZeroPrincipal"/>
+    </resultMap>
+
+
+    <select id="selectIpoOmsConfigPage" resultMap="ipoOmsConfigResultMap">
+        select * from ipo_oms_config where is_deleted = 0
+    </select>
+
+
+</mapper>

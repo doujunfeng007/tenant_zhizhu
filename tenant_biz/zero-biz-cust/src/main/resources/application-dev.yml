@@ -1,0 +1,24 @@
+#服务器端口
+server:
+  port: 8000
+
+#数据源配置
+spring:
+  datasource:
+    url: ${zero.datasource.cust.dev.url}
+    username: ${zero.datasource.cust.dev.username}
+    password: ${zero.datasource.cust.dev.password}
+
+#使用柜台 hs-恒生,icbca-工银
+trade:
+  type: "hs"
+
+zero:
+  trade-token:
+    exp-seconds: 10800
+  trade-phone:
+    exp-seconds: 300
+
+# 跳过短信验证码
+skip:
+  captcha: true

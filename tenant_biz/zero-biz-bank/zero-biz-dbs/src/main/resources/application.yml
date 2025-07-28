@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: dev
+
+  datasource:
+    url: ${zero.datasource.bpmn.dev.url}
+    username: ${zero.datasource.bpmn.dev.username}
+    password: ${zero.datasource.bpmn.dev.password}
+
+  main:
+    allow-bean-definition-overriding: true
+

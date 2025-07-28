@@ -1,0 +1,67 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+                    "name": "mysqlreader",
+          "parameter": {
+            "username": "X3saU2xIvqh/xJ2natkJRQ==",
+            "password": "bDLTlVUgOz6kcv+kvsVSS6vBjgKzpK/rW8CQFZqbmPQ=",
+            "column": [
+              "`id`",
+              "`srcCurrency`",
+              "`dstCurrency`",
+              "`rate`",
+              "`dataUpdTime`",
+              "`recordUpdTime`"
+            ],
+            "splitPk": "",
+            "connection": [
+              {
+                "table": [
+                  "t_exch_rate"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://203.86.123.168:43436/c_tradedb?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "username": "x23iAGFtBmYzhTgDDjvFPg==",
+            "password": "sTO8zolMP4HE+FE4/Q/juOlJhAfkZyhMvpevvHYrEc8=",
+            "column": [
+              "`id`",
+              "`srcCurrency`",
+              "`dstCurrency`",
+              "`rate`",
+              "`dataUpdTime`",
+              "`recordUpdTime`"
+            ],
+            "writeMode": "update",
+            "connection": [
+              {
+                "table": [
+                  "t_exch_rate"
+                ],
+                "jdbcUrl": "jdbc:mysql://203.86.123.168:43436/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

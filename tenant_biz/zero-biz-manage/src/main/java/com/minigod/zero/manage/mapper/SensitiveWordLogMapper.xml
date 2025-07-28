@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.SensitiveWordLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="sensitivewordlogMap" type="com.minigod.zero.manage.entity.SensitiveWordLogEntity">
+        <result column="id" property="id"/>
+        <result column="word" property="word"/>
+        <result column="scope" property="scope"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="ext_id" property="extId"/>
+        <result column="stocks" property="stocks"/>
+        <result column="effective_source" property="effectiveSource"/>
+        <result column="log_time" property="logTime"/>
+        <result column="hit_count" property="hitCount"/>
+<!--        <result column="update_user" property="updateUser"/>-->
+<!--        <result column="create_user" property="createUser"/>-->
+<!--        <result column="create_dept" property="createDept"/>-->
+<!--        <result column="update_time" property="updateTime"/>-->
+<!--        <result column="create_time" property="createTime"/>-->
+<!--        <result column="is_deleted" property="isDeleted"/>-->
+<!--        <result column="status" property="status"/>-->
+    </resultMap>
+
+
+    <select id="selectSensitiveWordLogePage" resultType="com.minigod.zero.manage.vo.response.SensitiveWordLogRespDto">
+        SELECT max(id) as id ,
+               `status` as status,
+               max(log_time) as logTime,
+               word,
+               scope,
+               stocks,
+               effective_source as effectiveSource,
+               SUM(hit_count) as hitCount
+        FROM oms_sensitive_word_log
+        where is_deleted = 0
+        <if test="params.word != null and params.word !=''">
+            and word like concat('%', #{params.word},'%')
+        </if>
+        <if test="params.scope != null">
+            and scope = #{params.scope}
+        </if>
+        <if test="params.status != null">
+            and status = #{params.status}
+        </if>
+        <if test="params.effectiveSource != null and params.effectiveSource !='' ">
+            and effective_source = #{params.effectiveSource}
+        </if>
+        GROUP BY word,scope,effective_source
+        ORDER BY hitCount DESC
+    </select>
+
+</mapper>

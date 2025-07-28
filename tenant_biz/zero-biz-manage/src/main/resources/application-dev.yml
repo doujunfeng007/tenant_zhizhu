@@ -1,0 +1,38 @@
+#服务器端口
+server:
+  port: 8000
+
+#数据源配置
+spring:
+  datasource:
+    dynamic:
+      primary: default
+      datasource:
+        default:
+          url: ${zero.datasource.dev.url}
+          username: ${zero.datasource.dev.username}
+          password: ${zero.datasource.dev.password}
+#        simulate:
+#          url: ${zero.datasource.simulate.dev.url}
+#          username: ${zero.datasource.simulate.dev.username}
+#          password: ${zero.datasource.simulate.dev.password}
+
+isEnable:
+  update:
+    stock: false
+
+update:
+  assetid:
+    market: HK,SH,SZ,US
+
+ad:
+  user:
+    can:
+      see: 155,28
+  discover:
+    # 广告轮播地址
+    url: /webstatic/promotion/base/ad_discover.html
+
+web:
+  app:
+    host: http://172.18.0.56:9003

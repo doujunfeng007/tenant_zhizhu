@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.CashDepositWayMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.manage.entity.CashDepositWay">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="supportType" column="support_type" jdbcType="INTEGER"/>
+            <result property="wayName" column="way_name" jdbcType="VARCHAR"/>
+            <result property="currency" column="currency" jdbcType="INTEGER"/>
+            <result property="bankType" column="bank_type" jdbcType="INTEGER"/>
+            <result property="chargeMoney" column="charge_money" jdbcType="DECIMAL"/>
+            <result property="chargeMoneyRemark" column="charge_money_remark" jdbcType="VARCHAR"/>
+            <result property="timeArrival" column="time_arrival" jdbcType="VARCHAR"/>
+            <result property="timeArrivalRemark" column="time_arrival_remark" jdbcType="VARCHAR"/>
+            <result property="pcGuideUrl" column="pc_guide_url" jdbcType="VARCHAR"/>
+            <result property="appGuideUrl" column="app_guide_url" jdbcType="VARCHAR"/>
+            <result property="founder" column="founder" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,support_type,way_name,
+        currency,bank_type,charge_money,
+        charge_money_remark,time_arrival,time_arrival_remark,
+        pc_guide_url,app_guide_url,founder,
+        create_time,update_time,tenant_id,status
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from cash_deposit_way
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from cash_deposit_way
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.manage.entity.CashDepositWay" useGeneratedKeys="true">
+        insert into cash_deposit_way
+        ( id,support_type,way_name
+        ,currency,bank_type,charge_money
+        ,charge_money_remark,time_arrival,time_arrival_remark
+        ,pc_guide_url,app_guide_url,founder
+        ,create_time,update_time,tenant_id,status
+        )
+        values (#{id,jdbcType=INTEGER},#{supportType,jdbcType=INTEGER},#{wayName,jdbcType=VARCHAR}
+        ,#{currency,jdbcType=INTEGER},#{bankType,jdbcType=INTEGER},#{chargeMoney,jdbcType=DECIMAL}
+        ,#{chargeMoneyRemark,jdbcType=VARCHAR},#{timeArrival,jdbcType=VARCHAR},#{timeArrivalRemark,jdbcType=VARCHAR}
+        ,#{pcGuideUrl,jdbcType=VARCHAR},#{appGuideUrl,jdbcType=VARCHAR},#{founder,jdbcType=VARCHAR}
+        ,#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{tenantId,jdbcType=VARCHAR},#{status}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.manage.entity.CashDepositWay" useGeneratedKeys="true">
+        insert into cash_deposit_way
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="supportType != null">support_type,</if>
+                <if test="wayName != null">way_name,</if>
+                <if test="currency != null">currency,</if>
+                <if test="bankType != null">bank_type,</if>
+                <if test="chargeMoney != null">charge_money,</if>
+                <if test="chargeMoneyRemark != null">charge_money_remark,</if>
+                <if test="timeArrival != null">time_arrival,</if>
+                <if test="timeArrivalRemark != null">time_arrival_remark,</if>
+                <if test="pcGuideUrl != null">pc_guide_url,</if>
+                <if test="appGuideUrl != null">app_guide_url,</if>
+                <if test="founder != null">founder,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="tenantId != null">tenant_id,</if>
+                <if test="status != null">
+                    status,
+                </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="supportType != null">#{supportType,jdbcType=INTEGER},</if>
+                <if test="wayName != null">#{wayName,jdbcType=VARCHAR},</if>
+                <if test="currency != null">#{currency,jdbcType=INTEGER},</if>
+                <if test="bankType != null">#{bankType,jdbcType=INTEGER},</if>
+                <if test="chargeMoney != null">#{chargeMoney,jdbcType=DECIMAL},</if>
+                <if test="chargeMoneyRemark != null">#{chargeMoneyRemark,jdbcType=VARCHAR},</if>
+                <if test="timeArrival != null">#{timeArrival,jdbcType=VARCHAR},</if>
+                <if test="timeArrivalRemark != null">#{timeArrivalRemark,jdbcType=VARCHAR},</if>
+                <if test="pcGuideUrl != null">#{pcGuideUrl,jdbcType=VARCHAR},</if>
+                <if test="appGuideUrl != null">#{appGuideUrl,jdbcType=VARCHAR},</if>
+                <if test="founder != null">#{founder,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="tenantId != null">#{tenantId,jdbcType=VARCHAR},</if>
+                <if test="status != null">
+                    #{status},
+                </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.manage.entity.CashDepositWay">
+        update cash_deposit_way
+        <set>
+                <if test="supportType != null">
+                    support_type = #{supportType,jdbcType=INTEGER},
+                </if>
+                <if test="wayName != null">
+                    way_name = #{wayName,jdbcType=VARCHAR},
+                </if>
+                <if test="currency != null">
+                    currency = #{currency,jdbcType=INTEGER},
+                </if>
+                <if test="bankType != null">
+                    bank_type = #{bankType,jdbcType=INTEGER},
+                </if>
+                <if test="chargeMoney != null">
+                    charge_money = #{chargeMoney,jdbcType=DECIMAL},
+                </if>
+                <if test="chargeMoneyRemark != null">
+                    charge_money_remark = #{chargeMoneyRemark,jdbcType=VARCHAR},
+                </if>
+                <if test="timeArrival != null">
+                    time_arrival = #{timeArrival,jdbcType=VARCHAR},
+                </if>
+                <if test="timeArrivalRemark != null">
+                    time_arrival_remark = #{timeArrivalRemark,jdbcType=VARCHAR},
+                </if>
+                <if test="pcGuideUrl != null">
+                    pc_guide_url = #{pcGuideUrl,jdbcType=VARCHAR},
+                </if>
+                <if test="appGuideUrl != null">
+                    app_guide_url = #{appGuideUrl,jdbcType=VARCHAR},
+                </if>
+                <if test="founder != null">
+                    founder = #{founder,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="tenantId != null">
+                    tenant_id = #{tenantId,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">
+                    status = #{status},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.manage.entity.CashDepositWay">
+        update cash_deposit_way
+        set
+            support_type =  #{supportType,jdbcType=INTEGER},
+            way_name =  #{wayName,jdbcType=VARCHAR},
+            currency =  #{currency,jdbcType=INTEGER},
+            bank_type =  #{bankType,jdbcType=INTEGER},
+            charge_money =  #{chargeMoney,jdbcType=DECIMAL},
+            charge_money_remark =  #{chargeMoneyRemark,jdbcType=VARCHAR},
+            time_arrival =  #{timeArrival,jdbcType=VARCHAR},
+            time_arrival_remark =  #{timeArrivalRemark,jdbcType=VARCHAR},
+            pc_guide_url =  #{pcGuideUrl,jdbcType=VARCHAR},
+            app_guide_url =  #{appGuideUrl,jdbcType=VARCHAR},
+            founder =  #{founder,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            tenant_id =  #{tenantId,jdbcType=VARCHAR},
+            status = #{status}
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectDepositWay" resultMap="BaseResultMap" parameterType="java.lang.Object">
+        select * from cash_deposit_way where status = 0 and currency = #{currency} and bank_type = #{bankType}
+    </select>
+</mapper>

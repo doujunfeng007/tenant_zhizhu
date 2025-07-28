@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CostPackageMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CostPackage">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="number" column="number" jdbcType="VARCHAR"/>
+            <result property="packageName" column="package_name" jdbcType="VARCHAR"/>
+            <result property="packageNameHk" column="package_name_hk" jdbcType="VARCHAR"/>
+            <result property="packageNameEn" column="package_name_en" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="remarkHk" column="remark_hk" jdbcType="VARCHAR"/>
+            <result property="remarkEn" column="remark_en" jdbcType="VARCHAR"/>
+            <result property="createrId" column="creater_id" jdbcType="BIGINT"/>
+            <result property="createrName" column="creater_name" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="updaterId" column="updater_id" jdbcType="BIGINT"/>
+            <result property="updaterName" column="updater_name" jdbcType="VARCHAR"/>
+            <result property="isDefault" column="is_default" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ctp.id,ctp.number,ctp.package_name,
+        ctp.status,ctp.create_time,ctp.tenant_id,
+        ctp.remark,ctp.creater_id,ctp.creater_name,
+        ctp.update_time,ctp.updater_id,ctp.updater_name,ctp.package_name_hk,ctp.package_name_en,ctp.remark_hk,ctp.remark_en,ctp.is_default
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from cost_package as ctp
+        where  ctp.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from cost_package
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CostPackage" useGeneratedKeys="true">
+        insert into cost_package
+        ( id,number,package_name,package_name_hk,package_name_en,
+        ,status,create_time,tenant_id
+        ,remark,remark_hk,remark_en,creater_id,creater_name
+        ,update_time,updater_id,updater_name,is_default
+        )
+        values (#{id,jdbcType=INTEGER},#{number,jdbcType=VARCHAR},#{packageName,jdbcType=VARCHAR},#{packageNameHk,jdbcType=VARCHAR},#{packageNameEn,jdbcType=VARCHAR}
+        ,#{status,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{tenantId,jdbcType=VARCHAR}
+        ,#{remark,jdbcType=VARCHAR},#{remarkHk,jdbcType=VARCHAR},#{remarkEn,jdbcType=VARCHAR},#{createrId,jdbcType=BIGINT},#{createrName,jdbcType=VARCHAR}
+        ,#{updateTime,jdbcType=TIMESTAMP},#{updaterId,jdbcType=BIGINT},#{updaterName,jdbcType=VARCHAR},#{isDefault}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CostPackage" useGeneratedKeys="true">
+        insert into cost_package
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="number != null">number,</if>
+                <if test="packageName != null">package_name,</if>
+                <if test="packageNameHk != null">package_name_hk,</if>
+                <if test="packageNameEn != null">package_name_en,</if>
+                <if test="status != null">status,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="tenantId != null">tenant_id,</if>
+                <if test="remark != null">remark,</if>
+                <if test="remarkHk != null">remark_hk,</if>
+                <if test="remarkEn != null">remark_en,</if>
+                <if test="createrId != null">creater_id,</if>
+                <if test="createrName != null">creater_name,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="updaterId != null">updater_id,</if>
+                <if test="updaterName != null">updater_name,</if>
+                <if test="isDefault != null">is_default,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="number != null">#{number,jdbcType=VARCHAR},</if>
+                <if test="packageName != null">#{packageName,jdbcType=VARCHAR},</if>
+                <if test="packageNameHk != null">#{packageNameHk,jdbcType=VARCHAR},</if>
+                <if test="packageNameEn != null">#{packageNameEn,jdbcType=VARCHAR},</if>
+                <if test="status != null">#{status,jdbcType=INTEGER},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="tenantId != null">#{tenantId,jdbcType=VARCHAR},</if>
+                <if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
+                <if test="remarkHk != null">#{remarkHk,jdbcType=VARCHAR},</if>
+                <if test="remarkEn != null">#{remarkEn,jdbcType=VARCHAR},</if>
+                <if test="createrId != null">#{createrId,jdbcType=BIGINT},</if>
+                <if test="createrName != null">#{createrName,jdbcType=VARCHAR},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="updaterId != null">#{updaterId,jdbcType=BIGINT},</if>
+                <if test="updaterName != null">#{updaterName,jdbcType=VARCHAR},</if>
+                <if test="isDefault != null">#{isDefault},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.CostPackage">
+        update cost_package
+        <set>
+                <if test="number != null">
+                    number = #{number,jdbcType=VARCHAR},
+                </if>
+                <if test="packageName != null">
+                    package_name = #{packageName,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=INTEGER},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="tenantId != null">
+                    tenant_id = #{tenantId,jdbcType=VARCHAR},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark,jdbcType=VARCHAR},
+                </if>
+                <if test="createrId != null">
+                    creater_id = #{createrId,jdbcType=BIGINT},
+                </if>
+                <if test="createrName != null">
+                    creater_name = #{createrName,jdbcType=VARCHAR},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updaterId != null">
+                    updater_id = #{updaterId,jdbcType=BIGINT},
+                </if>
+                <if test="updaterName != null">
+                    updater_name = #{updaterName,jdbcType=VARCHAR},
+                </if>
+                <if test="packageNameHk != null">
+                    package_name_hk = #{packageNameHk,jdbcType=VARCHAR},
+                </if>
+                <if test="packageNameEn != null">
+                    package_name_en = #{packageNameEn,jdbcType=VARCHAR},
+                </if>
+                <if test="remarkHk != null">
+                    remark_hk = #{remarkHk,jdbcType=VARCHAR},
+                </if>
+                <if test="remarkEn != null">
+                    remark_en = #{remarkEn,jdbcType=VARCHAR},
+                </if>
+                <if test="isDefault != null">
+                    is_default = #{isDefault},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.CostPackage">
+        update cost_package
+        set
+            number =  #{number,jdbcType=VARCHAR},
+            package_name =  #{packageName,jdbcType=VARCHAR},
+            status =  #{status,jdbcType=INTEGER},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            tenant_id =  #{tenantId,jdbcType=VARCHAR},
+            remark =  #{remark,jdbcType=VARCHAR},
+            creater_id =  #{createrId,jdbcType=BIGINT},
+            creater_name =  #{createrName,jdbcType=VARCHAR},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            updater_id =  #{updaterId,jdbcType=BIGINT},
+            updater_name =  #{updaterName,jdbcType=VARCHAR},
+            package_name_hk = #{packageNameHk,jdbcType=VARCHAR},
+            package_name_en = #{packageNameEn,jdbcType=VARCHAR},
+            remark_hk = #{remarkHk,jdbcType=VARCHAR},
+            remark_en = #{remarkEn,jdbcType=VARCHAR},
+            is_default = #{isDefault}
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="queryPage" resultMap="BaseResultMap" parameterType="java.lang.Object">
+        select
+        <include refid="Base_Column_List" />
+        from cost_package as ctp
+        <where>
+            <if test="number != null and number != ''">
+                and ctp.number = #{number}
+            </if>
+            <if test="packageName != null and packageName != ''">
+                and ctp.package_name = #{packageName}
+            </if>
+        </where>
+        order by ctp.create_time desc
+    </select>
+
+    <select id="selectByNumber" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from cost_package as ctp where ctp.number = #{number}
+    </select>
+
+    <select id="selectByPackageName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from cost_package as  ctp where ctp.package_name = #{packageName}
+    </select>
+
+
+    <select id="selectByCustId" parameterType="java.lang.Object" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />
+        from customer_package as cp
+        left join cost_package as ctp on ctp.id = cp.package_id
+        where cp.cust_id = #{custId} and cp.status = 0
+    </select>
+
+    <select id="getAllPackage" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />
+        from cost_package as ctp
+        where ctp.status = 1
+    </select>
+
+    <select id="getDefaultPackage"  resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from cost_package as ctp
+        where ctp .status = 1 and is_default = 1
+    </select>
+ </mapper>

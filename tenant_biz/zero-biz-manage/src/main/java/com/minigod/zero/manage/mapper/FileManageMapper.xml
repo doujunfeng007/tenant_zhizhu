@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.FileManageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="fileManageResultMap" type="com.minigod.zero.manage.entity.FileManageEntity">
+        <result column="id" property="id"/>
+        <result column="file_name" property="fileName"/>
+        <result column="file_path" property="filePath"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_user_name" property="updateUserName"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <select id="selectFileManagePage" resultType="com.minigod.zero.manage.vo.FileManageVO">
+        select * from oms_file_manage where is_deleted = 0
+        <if test="fileManage.fileName != null and fileManage.fileName !=''">
+            and file_name like concat(concat('%', #{fileManage.fileName}),'%')
+        </if>
+        <if test="fileManage.filePath != null and fileManage.filePath !=''">
+            and file_path like concat(concat('%', #{fileManage.filePath}),'%')
+        </if>
+        <if test="fileManage.updateUserName != null and fileManage.updateUserName !=''">
+            and update_user_name like concat(concat('%', #{fileManage.updateUserName}),'%')
+        </if>
+        <if test="fileManage.startTime != null ">
+            and update_time <![CDATA[ >= ]]> #{fileManage.startTime}
+        </if>
+        <if test="fileManage.endTime != null ">
+            and update_time <![CDATA[ <= ]]> #{fileManage.endTime}
+        </if>
+        order by create_time desc
+    </select>
+
+
+</mapper>

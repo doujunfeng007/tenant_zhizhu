@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.FinancingAccountAmountFlowsMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.FinancingAccountAmountFlows">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="accountId" column="account_id" jdbcType="VARCHAR"/>
+            <result property="beforeAmount" column="before_amount" jdbcType="DECIMAL"/>
+            <result property="amount" column="amount" jdbcType="DECIMAL"/>
+            <result property="afterAmount" column="after_amount" jdbcType="DECIMAL"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="INTEGER"/>
+            <result property="businessType" column="business_type" jdbcType="INTEGER"/>
+            <result property="accountBusinessFlowId" column="account_business_flow_id" jdbcType="INTEGER"/>
+            <result property="operationType" column="operation_type" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,account_id,before_amount,
+        amount,after_amount,currency,
+        create_time,remark,type,
+        business_type,account_business_flow_id,operation_type
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from financing_account_amount_flows
+        where  id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from financing_account_amount_flows
+        where  id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.FinancingAccountAmountFlows" useGeneratedKeys="true">
+        insert into financing_account_amount_flows
+        ( id,account_id,before_amount
+        ,amount,after_amount,currency
+        ,create_time,remark,type
+        ,business_type,account_business_flow_id,operation_type
+        )
+        values (#{id,jdbcType=BIGINT},#{accountId,jdbcType=VARCHAR},#{beforeAmount,jdbcType=DECIMAL}
+        ,#{amount,jdbcType=DECIMAL},#{afterAmount,jdbcType=DECIMAL},#{currency,jdbcType=VARCHAR}
+        ,#{createTime,jdbcType=TIMESTAMP},#{remark,jdbcType=VARCHAR},#{type,jdbcType=INTEGER}
+        ,#{businessType,jdbcType=INTEGER},#{accountBusinessFlowId,jdbcType=INTEGER},#{operationType,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.FinancingAccountAmountFlows" useGeneratedKeys="true">
+        insert into financing_account_amount_flows
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="accountId != null">account_id,</if>
+                <if test="beforeAmount != null">before_amount,</if>
+                <if test="amount != null">amount,</if>
+                <if test="afterAmount != null">after_amount,</if>
+                <if test="currency != null">currency,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="remark != null">remark,</if>
+                <if test="type != null">type,</if>
+                <if test="businessType != null">business_type,</if>
+                <if test="accountBusinessFlowId != null">account_business_flow_id,</if>
+                <if test="operationType != null">operation_type,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="accountId != null">#{accountId,jdbcType=VARCHAR},</if>
+                <if test="beforeAmount != null">#{beforeAmount,jdbcType=DECIMAL},</if>
+                <if test="amount != null">#{amount,jdbcType=DECIMAL},</if>
+                <if test="afterAmount != null">#{afterAmount,jdbcType=DECIMAL},</if>
+                <if test="currency != null">#{currency,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
+                <if test="type != null">#{type,jdbcType=INTEGER},</if>
+                <if test="businessType != null">#{businessType,jdbcType=INTEGER},</if>
+                <if test="accountBusinessFlowId != null">#{accountBusinessFlowId,jdbcType=INTEGER},</if>
+                <if test="operationType != null">#{operationType,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.FinancingAccountAmountFlows">
+        update financing_account_amount_flows
+        <set>
+                <if test="accountId != null">
+                    account_id = #{accountId,jdbcType=VARCHAR},
+                </if>
+                <if test="beforeAmount != null">
+                    before_amount = #{beforeAmount,jdbcType=DECIMAL},
+                </if>
+                <if test="amount != null">
+                    amount = #{amount,jdbcType=DECIMAL},
+                </if>
+                <if test="afterAmount != null">
+                    after_amount = #{afterAmount,jdbcType=DECIMAL},
+                </if>
+                <if test="currency != null">
+                    currency = #{currency,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark,jdbcType=VARCHAR},
+                </if>
+                <if test="type != null">
+                    type = #{type,jdbcType=INTEGER},
+                </if>
+                <if test="businessType != null">
+                    business_type = #{businessType,jdbcType=INTEGER},
+                </if>
+                <if test="accountBusinessFlowId != null">
+                    account_business_flow_id = #{accountBusinessFlowId,jdbcType=INTEGER},
+                </if>
+                <if test="operationType != null">
+                    operation_type = #{operationType,jdbcType=INTEGER},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.FinancingAccountAmountFlows">
+        update financing_account_amount_flows
+        set
+            account_id =  #{accountId,jdbcType=VARCHAR},
+            before_amount =  #{beforeAmount,jdbcType=DECIMAL},
+            amount =  #{amount,jdbcType=DECIMAL},
+            after_amount =  #{afterAmount,jdbcType=DECIMAL},
+            currency =  #{currency,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            remark =  #{remark,jdbcType=VARCHAR},
+            type =  #{type,jdbcType=INTEGER},
+            business_type =  #{businessType,jdbcType=INTEGER},
+            account_business_flow_id =  #{accountBusinessFlowId,jdbcType=INTEGER},
+            operation_type =  #{operationType,jdbcType=INTEGER}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <select id="getTodayFlows" parameterType="java.lang.Object" resultMap="BaseResultMap">
+        select * from financing_account_amount_flows
+        where account_id = #{accountId} and operation_type in (1,2,4) and currency =#{currency} and DATE_FORMAT(create_time, '%Y-%m-%d') = #{date}
+    </select>
+
+    <select id="selectCustByFlowList" resultType="java.lang.String">
+
+        SELECT a5.cust_id
+        FROM financing_account_amount_flows AS f1
+        LEFT JOIN customer_financing_account AS a5 ON a5.account_id = f1.account_id
+        where f1.create_time between #{startTime}  and #{endTime}
+        <if test="businessTypeList != null and businessTypeList.size >0">
+            AND operation_type IN
+            <foreach item="item" index="index" collection="businessTypeList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        group by a5.cust_id
+    </select>
+
+    <select id="selectFlowList" resultType="com.minigod.zero.data.entity.FinancingAccountAmountFlows">
+        SELECT
+        a.*
+        FROM
+        financing_account_amount_flows  as a
+
+        where a.account_id = #{custStatementDTO.accountId} and a.create_time between #{custStatementDTO.startDate}  and #{custStatementDTO.endDate}
+        <if test="operationTypeList != null and operationTypeList.size >0">
+            AND a.operation_type IN
+            <foreach item="item" index="index" collection="operationTypeList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+
+    </select>
+</mapper>

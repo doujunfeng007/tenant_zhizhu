@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountDealLogMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_deal_logResultMap" type="com.minigod.zero.bpmn.module.account.entity.AccountDealLogEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="user_id" property="userId"/>
+        <result column="status" property="status"/>
+        <result column="node" property="node"/>
+        <result column="deal_time" property="dealTime"/>
+        <result column="result" property="result"/>
+        <result column="reason" property="reason"/>
+    </resultMap>
+</mapper>

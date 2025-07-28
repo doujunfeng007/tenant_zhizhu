@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpm.mapper.AcctChangeInfoTempMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="acctChangeInfoTempResultMap" type="com.minigod.zero.bpm.entity.AcctChangeInfoTempEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="json_info" property="jsonInfo"/>
+        <result column="img_list" property="imgList"/>
+        <result column="step" property="step"/>
+        <result column="check_status" property="checkStatus"/>
+        <result column="change_result" property="changeResult"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="push_recved" property="pushRecved"/>
+        <result column="appointment_id" property="appointmentId"/>
+        <result column="err_cnt" property="errCnt"/>
+    </resultMap>
+
+
+    <select id="selectAcctChangeInfoTempPage" resultMap="acctChangeInfoTempResultMap">
+        select * from acct_change_info_temp where is_deleted = 0
+    </select>
+
+
+</mapper>

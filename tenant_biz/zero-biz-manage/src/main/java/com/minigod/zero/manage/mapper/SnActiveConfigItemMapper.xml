@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.minigod.zero.manage.mapper.SnActiveConfigItemMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.minigod.zero.manage.entity.SnActiveConfigItemEntity">
+        <id column="id" property="id"/>
+        <result column="active_item_name" property="activeItemName"/>
+        <result column="sn_active_config_id" property="snActiveConfigId"/>
+        <result column="reward_type" property="rewardType"/>
+        <result column="reward_money" property="rewardMoney"/>
+        <result column="package_id" property="packageId"/>
+        <result column="remain_count" property="remainCount"/>
+        <result column="introduce" property="introduce"/>
+        <result column="remark" property="remark"/>
+        <result column="type" property="type"/>
+        <result column="opr_id" property="oprId"/>
+        <result column="opr_name" property="oprName"/>
+        <result column="commission_day" property="commissionDay"/>
+        <result column="rule_info" property="ruleInfo"/>
+        <result column="asset_id" property="assetId"/>
+        <result column="stk_num" property="stkNum"/>
+        <result column="points" property="points"/>
+        <result column="reward_subtype" property="rewardSubtype"/>
+        <result column="commission_type" property="commissionType"/>
+        <result column="month_num" property="monthNum"/>
+        <result column="stock_ico" property="stockIco"/>
+        <result column="stock_bg" property="stockBg"/>
+        <result column="stk_name" property="stkName"/>
+        <result column="stk_name_eng" property="stkNameEng"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="create_dept" property="createDept"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, active_item_name, sn_active_config_id, reward_type, reward_money, package_id,
+        remain_count, introduce, remark, type, opr_id, opr_name, commission_day, rule_info,
+        asset_id, stk_num, points, reward_subtype, commission_type, month_num, stock_ico,
+        stock_bg, stk_name, stk_name_eng, status, create_time, update_time, create_user,
+        update_user, is_deleted, tenant_id, create_dept
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_active_config_item
+        WHERE is_deleted = 0
+        <if test="snActiveConfigId != null">
+            AND sn_activ_config_id = #{snActiveConfigId}
+        </if>
+        <if test="rewardType != null">
+            AND reward_type = #{rewardType}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="queryPageBySearch" resultType="com.minigod.zero.manage.vo.SnActiveConfigItemVO">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_active_config_item
+        WHERE is_deleted = 0
+    </select>
+
+    <!-- 根据活动ID查询奖品列表 -->
+    <select id="queryByActiveConfigId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_active_config_item
+        WHERE is_deleted = 0
+        AND sn_activ_config_id = #{snActiveConfigId}
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 更新奖品库存 -->
+    <update id="updateRemainCount">
+        UPDATE sn_active_config_item
+        SET remain_count = remain_count + #{count}
+        WHERE id = #{id}
+          AND is_deleted = 0
+          AND remain_count + #{count} >= 0
+    </update>
+
+    <!-- 根据规则ID获取奖品列表 -->
+    <select id="getRewardsListByRule" resultMap="BaseResultMap">
+        SELECT
+            item.*
+        FROM sn_active_config_item as item
+        INNER JOIN operate_rule_reward_relation as relation
+        ON item.id = relation.reward_id AND relation.rule_id = #{ruleId}
+        WHERE item.is_deleted = 0
+    </select>
+
+</mapper>

@@ -1,0 +1,504 @@
+package com.minigod.zero.trade.hs.constants;
+
+import org.apache.commons.lang.StringUtils;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+public class HsFunctions {
+    public static Map<String, Integer> funcMapper = new HashMap();
+    public static final Set<String> brokersidFuncs = new HashSet<>();
+    static {
+        funcMapper.put(GrmFunctions.SV_EXT_SYS_LOGIN, 100);
+        funcMapper.put(GrmFunctions.GET_BRANCH_NO, 104);
+        funcMapper.put(GrmFunctions.CLIENT_LOGIN, 200);
+        funcMapper.put(GrmFunctions.CLIENT_MODIFY_PASSWORD, 201);
+        funcMapper.put(GrmFunctions.CLIENT_GET_STOCK_AMOUNT, 300);
+        funcMapper.put(GrmFunctions.CLIENT_GET_MAX_BUYABLE, 301);
+        funcMapper.put(GrmFunctions.CLIENT_MODIFY_ORDER, 304);
+
+        funcMapper.put(GrmFunctions.FAST_ORDER, 316);
+        funcMapper.put(GrmFunctions.STRATEGY_ORDER, 341);
+        funcMapper.put(GrmFunctions.STRATEGY_ORDER_MODIFY, 342);
+        funcMapper.put(GrmFunctions.STRATEGY_ORDER_CANCEL, 343);
+        funcMapper.put(GrmFunctions.STRATEGY_GET_OQ_UPDOWN_PRICE, 344);
+        funcMapper.put(GrmFunctions.STRATEGY_GET_ORDERBOOK, 345);
+
+        funcMapper.put(GrmFunctions.CLIENT_BUSINESS_TODAY, 402);
+        funcMapper.put(GrmFunctions.CLIENT_BUSINESS_HIS, 411);
+        funcMapper.put(GrmFunctions.CLIENT_FUNDRECORD_HIS, 412);
+        funcMapper.put(GrmFunctions.CLIENT_HISTORY_ENTRUST,421);
+        funcMapper.put(GrmFunctions.CLIENT_GET_BUSINESS, 806);
+        funcMapper.put(GrmFunctions.CLIENT_GET_FUND_ACCT_INFO, 808);
+        funcMapper.put(GrmFunctions.CLIENT_GET_ENTRUST_DETAIL, 809);
+        funcMapper.put(GrmFunctions.CLIENT_FUNDACCOUNT_GET, 810);
+        funcMapper.put(GrmFunctions.CLIENT_CHECK_PASSWORD_EXPIRED, 811);
+
+        funcMapper.put(GrmFunctions.CLIENT_GET_EXCH_RATE, 814);
+        funcMapper.put(GrmFunctions.CLIENT_GET_FUND_ACCT_TYPE, 816);
+        funcMapper.put(GrmFunctions.CLIENT_GET_CLIENT_HOLDING, 403);
+        funcMapper.put(GrmFunctions.CLIENT_ENTRUST_ENTER, 302);
+        funcMapper.put(GrmFunctions.CLIENT_SET_COST_PRICE,309);
+        funcMapper.put(GrmFunctions.CLIENT_GET_CANC_OR_MODIFY_ORDERS,303);
+        funcMapper.put(GrmFunctions.CLIENT_FUNDJOUR_TODAY,404);
+        funcMapper.put(GrmFunctions.CLIENT_FUNDJOUR_HIS,417);
+        funcMapper.put(GrmFunctions.CLIENT_SEC_BankInfo,802);
+
+        funcMapper.put(GrmFunctions.CLIENT_SEC_CUSQRY,823);
+        funcMapper.put(GrmFunctions.CLIENT_SEC_TO_BANK,824);
+        funcMapper.put(GrmFunctions.CLIENT_SEC_BANK_ACTIVE,825);
+        funcMapper.put(GrmFunctions.CLIENT_SEC_QRYREQ,830);
+        funcMapper.put(GrmFunctions.CLIENT_FUND_INNERTRANSFER,832);
+
+        funcMapper.put(GrmFunctions.CLIENT_STOCKJOUR_TODAY,839);
+        funcMapper.put(GrmFunctions.CLIENT_STOCKJOUR_HIS,840);
+
+        funcMapper.put(GrmFunctions.BROKE_LOGIN, 10000);
+        funcMapper.put(GrmFunctions.BROKER_GET_BROKER_INFO, 10001);
+        funcMapper.put(GrmFunctions.BROKER_GET_BRKCLT_B, 10002);
+        funcMapper.put(GrmFunctions.BROKER_GET_CACHE_INFO, 10003);
+        funcMapper.put(GrmFunctions.BROKER_GET_CACHE_SUM_INFO, 10004);
+        funcMapper.put(GrmFunctions.BROKER_GET_CLIENT_HOLDING, 10005);
+        funcMapper.put(GrmFunctions.BROKER_FUND_FROZEN, 10006);
+        funcMapper.put(GrmFunctions.BROKER_FUND_UNFROZEN, 10007);
+        funcMapper.put(GrmFunctions.BROKER_FUND_DEPOSIT, 10008);
+        funcMapper.put(GrmFunctions.BROKER_FUND_FETCH, 10009);
+        funcMapper.put(GrmFunctions.BROKER_STOCK_FROZEN, 10010);
+        funcMapper.put(GrmFunctions.BROKER_STOCK_UNFROZEN, 10011);
+        funcMapper.put(GrmFunctions.BROKER_STOCK_IN, 10012);
+        funcMapper.put(GrmFunctions.BROKER_STOCK_OUT, 10013);
+        funcMapper.put(GrmFunctions.BROKER_GET_CLIENT_FUND_ACCT_INFO, 10014);
+        funcMapper.put(GrmFunctions.BROKER_GET_FUND_ACCT_TYPE, 10015);
+        funcMapper.put(GrmFunctions.BROKE_GET_STK_ACCT_INFO, 10016);
+        funcMapper.put(GrmFunctions.BROKER_CLIENT_CONFIRM, 10017);
+        funcMapper.put(GrmFunctions.CLIENT_PASSWD_VALIDATION, 10018);
+        funcMapper.put(GrmFunctions.BROKER_LOGOUT, 10019);
+        funcMapper.put(GrmFunctions.BROKER_QUANTITY_MAX, 10101);
+        funcMapper.put(GrmFunctions.BROKER_AMOUNT_MAX, 10102);
+        funcMapper.put(GrmFunctions.BROKER_ORDER_NEW, 10103);
+		funcMapper.put(GrmFunctions.BROKER_ORDER_MODIFY, 10104);
+        funcMapper.put(GrmFunctions.BROKER_ENTRUST_CURRFILL,10111);
+        funcMapper.put(GrmFunctions.BROKER_GET_BUSINESS,10112);
+        funcMapper.put(GrmFunctions.BROKER_FUNDJOUR_TODAY,10113);
+        funcMapper.put(GrmFunctions.BROKER_STOCKJOUR_TODAY,10114);
+        funcMapper.put(GrmFunctions.BROKER_GET_CLIENTINFO, 10125);
+        funcMapper.put(GrmFunctions.BROKER_TRADEFARE_SET, 10126);
+        funcMapper.put(GrmFunctions.BROKER_IPO_DEPO, 10127);
+        funcMapper.put(GrmFunctions.BROKER_IPO_REFUND, 10128);
+
+        funcMapper.put(GrmFunctions.OPEN_CLIENT_ACCOUNT, 10117);
+        funcMapper.put(GrmFunctions.OPEN_FUND_ACCOUNT, 10119);
+
+        funcMapper.put(GrmFunctions.BROKER_SET_CLIENT_FEE,10135);
+        funcMapper.put(GrmFunctions.BROKER_GET_CLIENT_FEE,10136);
+        funcMapper.put(GrmFunctions.BROKER_HISTORY_ENTRUST,10148);
+		funcMapper.put(GrmFunctions.BROKER_HISTORY_ENTRUST_DETAIL,10181);
+        funcMapper.put(GrmFunctions.BROKER_GET_HIS_BARGAIN_INFO,10149);
+        funcMapper.put(GrmFunctions.BROKER_GET_HIS_BARGAIN_INFO_DETAIL,10150);
+        funcMapper.put(GrmFunctions.BROKER_STOCKJOUR_HIS,10172);
+        funcMapper.put(GrmFunctions.BROKER_FUNDJOUR_HIS,10173);
+        funcMapper.put(GrmFunctions.BROKER_GET_MV_RATIO,10180);
+		funcMapper.put(GrmFunctions.BROKER_GET_MARGIN_RATIO,10186);
+        funcMapper.put(GrmFunctions.BROKER_GET_IPODETAIL,10184);
+
+        funcMapper.put(GrmFunctions.QUERY_CONDITION_ORDER,622307);
+        funcMapper.put(GrmFunctions.ADD_CONDITION_ORDER,622300);
+        funcMapper.put(GrmFunctions.UPDATE_CONDITION_ORDER,622316);
+        funcMapper.put(GrmFunctions.CANNEL_CONDITION_ORDER,622304);
+        funcMapper.put(GrmFunctions.STOP_ACTIVE_CONDITION_ORDER,622312);
+
+        funcMapper.put(GrmFunctions.CLIENT_GET_9F_DAILYFUNDINCOME,18000);
+        funcMapper.put(GrmFunctions.CLIENT_GET_BCAN_INFO,940);
+        funcMapper.put(GrmFunctions.CLIENT_GET_BCAN_INFO2,10229);
+        funcMapper.put(GrmFunctions.BROKER_IPO_APPLY,10230);
+        funcMapper.put(GrmFunctions.BROKER_FUND_TOTAL,10109);
+        funcMapper.put(GrmFunctions.BROKER_FUND_INFO,10108);
+
+        funcMapper.put(GrmFunctions.MARGIN_FUND_INFO,817);
+        funcMapper.put(GrmFunctions.MARGIN_FUND_TOTAL,818);
+        funcMapper.put(GrmFunctions.CLIENT_PASSWORD_CHECK,883);
+        funcMapper.put(GrmFunctions.GET_FUND_INFO,942);
+        funcMapper.put(GrmFunctions.FUND_INCOME_HIS_GET,946);
+        funcMapper.put(GrmFunctions.FUND_INCOME_SUM_GET,947);
+        funcMapper.put(GrmFunctions.YESTERDAY_FUND_INCOME_GET,948);
+        funcMapper.put(GrmFunctions.FUND_REDEEM_AMOUNT_GET,7430);
+        funcMapper.put(GrmFunctions.FUND_BALANCE_GET,7431);
+        funcMapper.put(GrmFunctions.FUND_ENTRUST,7432);
+        funcMapper.put(GrmFunctions.FUND_CANCEL,7433);
+        funcMapper.put(GrmFunctions.FUND_ORIGINAL_GET,7434);
+        funcMapper.put(GrmFunctions.HIS_FUND_ORIGINAL_GET,7435);
+        funcMapper.put(GrmFunctions.FUND_STK_CODE_GET,7437);
+        funcMapper.put(GrmFunctions.BROKER_SECUHK_STOCK_ACCOUNT_OPEN,10122);
+        funcMapper.put(GrmFunctions.BROKER_FUND_PROTOCOL_SET,10216);
+        funcMapper.put(GrmFunctions.BROKER_FUND_PROTOCOL_GET,10217);
+        funcMapper.put(GrmFunctions.BROKER_FUND_PROTOCOL_CANCEL,10218);
+
+
+        /**
+         * 互联网接口，需要operator_no
+         */
+        brokersidFuncs.add(GrmFunctions.BROKE_LOGIN);
+        brokersidFuncs.add(GrmFunctions.BROKER_GET_BROKER_INFO);
+        brokersidFuncs.add(GrmFunctions.BROKER_GET_BRKCLT_B);
+        brokersidFuncs.add(GrmFunctions.BROKER_GET_CACHE_INFO);
+        brokersidFuncs.add(GrmFunctions.BROKER_GET_CACHE_SUM_INFO);
+        brokersidFuncs.add(GrmFunctions.BROKER_GET_CLIENT_HOLDING);
+        brokersidFuncs.add(GrmFunctions.BROKER_FUND_FROZEN);
+        brokersidFuncs.add(GrmFunctions.BROKER_FUND_UNFROZEN);
+        brokersidFuncs.add(GrmFunctions.BROKER_FUND_DEPOSIT);
+        brokersidFuncs.add(GrmFunctions.BROKER_FUND_FETCH);
+        brokersidFuncs.add(GrmFunctions.BROKER_STOCK_FROZEN);
+        brokersidFuncs.add(GrmFunctions.BROKER_STOCK_UNFROZEN);
+        brokersidFuncs.add(GrmFunctions.BROKER_STOCK_IN);
+        brokersidFuncs.add(GrmFunctions.BROKER_STOCK_OUT);
+        brokersidFuncs.add(GrmFunctions.BROKER_GET_CLIENT_FUND_ACCT_INFO);
+        brokersidFuncs.add(GrmFunctions.BROKER_GET_FUND_ACCT_TYPE);
+        brokersidFuncs.add(GrmFunctions.BROKE_GET_STK_ACCT_INFO);
+        brokersidFuncs.add(GrmFunctions.BROKER_CLIENT_CONFIRM);
+        brokersidFuncs.add(GrmFunctions.CLIENT_PASSWD_VALIDATION);
+        brokersidFuncs.add(GrmFunctions.BROKER_LOGOUT);
+        brokersidFuncs.add(GrmFunctions.BROKER_GET_CLIENTINFO);
+        brokersidFuncs.add(GrmFunctions.BROKER_TRADEFARE_SET);
+        brokersidFuncs.add(GrmFunctions.BROKER_IPO_DEPO);
+        brokersidFuncs.add(GrmFunctions.BROKER_IPO_REFUND);
+        brokersidFuncs.add(GrmFunctions.OPEN_CLIENT_ACCOUNT);
+        brokersidFuncs.add(GrmFunctions.OPEN_FUND_ACCOUNT);
+        brokersidFuncs.add(GrmFunctions.BROKER_SET_CLIENT_FEE);
+        brokersidFuncs.add(GrmFunctions.BROKER_GET_CLIENT_FEE);
+
+        brokersidFuncs.add(GrmFunctions.QUERY_CONDITION_ORDER);
+        brokersidFuncs.add(GrmFunctions.ADD_CONDITION_ORDER);
+        brokersidFuncs.add(GrmFunctions.UPDATE_CONDITION_ORDER);
+        brokersidFuncs.add(GrmFunctions.CANNEL_CONDITION_ORDER);
+        brokersidFuncs.add(GrmFunctions.STOP_ACTIVE_CONDITION_ORDER);
+        brokersidFuncs.add(GrmFunctions.CLIENT_GET_9F_DAILYFUNDINCOME);
+        brokersidFuncs.add(GrmFunctions.BROKER_GET_HIS_BARGAIN_INFO);
+        brokersidFuncs.add(GrmFunctions.BROKER_QUANTITY_MAX);
+        brokersidFuncs.add(GrmFunctions.BROKER_AMOUNT_MAX);
+        brokersidFuncs.add(GrmFunctions.BROKER_GET_HIS_BARGAIN_INFO_DETAIL);
+        brokersidFuncs.add(GrmFunctions.BROKER_ENTRUST_CURRFILL);
+        brokersidFuncs.add(GrmFunctions.BROKER_GET_BUSINESS);
+        brokersidFuncs.add(GrmFunctions.BROKER_HISTORY_ENTRUST);
+		brokersidFuncs.add(GrmFunctions.BROKER_HISTORY_ENTRUST_DETAIL);
+        brokersidFuncs.add(GrmFunctions.BROKER_FUNDJOUR_TODAY);
+        brokersidFuncs.add(GrmFunctions.BROKER_FUNDJOUR_HIS);
+        brokersidFuncs.add(GrmFunctions.BROKER_GET_IPODETAIL);
+        brokersidFuncs.add(GrmFunctions.BROKER_STOCKJOUR_HIS);
+        brokersidFuncs.add(GrmFunctions.BROKER_STOCKJOUR_TODAY);
+		brokersidFuncs.add(GrmFunctions.BROKER_ORDER_NEW);
+		brokersidFuncs.add(GrmFunctions.BROKER_ORDER_MODIFY);
+ 		brokersidFuncs.add(GrmFunctions.CLIENT_GET_BCAN_INFO2);
+        brokersidFuncs.add(GrmFunctions.BROKER_IPO_APPLY);
+        brokersidFuncs.add(GrmFunctions.BROKER_FUND_TOTAL);
+        brokersidFuncs.add(GrmFunctions.BROKER_FUND_INFO);
+
+        brokersidFuncs.add(GrmFunctions.BROKER_SECUHK_STOCK_ACCOUNT_OPEN);
+        brokersidFuncs.add(GrmFunctions.BROKER_FUND_PROTOCOL_SET);
+        brokersidFuncs.add(GrmFunctions.BROKER_FUND_PROTOCOL_GET);
+        brokersidFuncs.add(GrmFunctions.BROKER_FUND_PROTOCOL_CANCEL);
+        brokersidFuncs.add(GrmFunctions.BROKER_GET_MV_RATIO);
+		brokersidFuncs.add(GrmFunctions.BROKER_GET_MARGIN_RATIO);
+    }
+
+
+    public static Map<String, Integer> getFuncMapper() {
+        return funcMapper;
+    }
+
+    public static Integer getNativeFuncId(String grmFuncId) {
+        if (StringUtils.isNotEmpty(grmFuncId)) {
+            return funcMapper.get(grmFuncId);
+        }
+        return null;
+    }
+
+    public static void setFuncMapper(Map<String, Integer> funcMapper) {
+        HsFunctions.funcMapper = funcMapper;
+    }
+
+    public static final String USER_USER_LOGIN = "120058";
+    public static final String USER_USERMENU_GET = "120055";
+    public static final String USER_ENBRANCH_GET = "120061";
+    public static final String USER_MENUBRANCH_GET = "730056";
+    public static final String USER_HSMENU_GET = "120029";
+    public static final String SYS_INIT_DATE = "730049";
+    public static final String SYS_ATUO_INIT = "730040";
+    public static final String SYS_TO_HISTORY = "730038";
+    public static final String USER_OPERATOR_GET = "120104";
+    public static final String USER_PASSWORD_MOD = "120005";
+    public static final String USER_SPECRIGHTS_USERS_GET = "120078";
+    public static final String SYSARG_SYSCONFIG_GET = "110006";
+    public static final String SYSARG_DICTIONARY_GET = "110010";
+    public static final String SYS_STATUS_CHECK = "730139";
+    public static final String FILE_UPLOAD = "709997";
+    public static final String FILE_LIST_GET = "709998";
+    public static final String FILE_DOWNLOAD = "709999";
+    public static final String USER_ACCO_NO_GET = "120017";
+    public static final String ACCTSYNC_CLIENTMODEL_GET = "708955";
+    public static final String ARCHIVE_SCANTASK_QRY = "703001";
+    public static final String ARCHIVE_SCANTASK_ADD = "703000";
+    public static final String ARCHIVE_SCANIMAGE_UPLOAD = "703019";
+    public static final String ARCHIVE_SCANIMAGE_CLEAR = "703020";
+    public static final String ARCHIVE_SCANIMAGE_UPLOAD_UPDATE = "703030";
+    public static final String ARCHIVE_CLIENTIMAGE_UPLOAD_UPDATE = "703031";
+    public static final String ARCHIVE_SERIALINFO_GET = "703041";
+    public static final String ARCHIVE_SCANOPTPPE_GET = "703042";
+    public static final String ARCHIVE_SCANTASK_READ = "703002";
+    public static final String ARCHIVE_SCANTASKIMAGE_READ = "703003";
+    public static final String ARCHIVE_ACANIMAGEST_QRY = "703013";
+    public static final String ARCHIVE_SCANSERVERSET_QRY = "703014";
+    public static final String ARCHIVE_SCANCHECKSET_QRY = "703016";
+    public static final String ARCHIVE_SCANTASK_BRANCHCHECK = "703023";
+    public static final String ARCHIVE_SCANTASK_CHECK = "703024";
+    public static final String ARCHIVE_SCANSUBTASK_READ = "703048";
+    public static final String ARCHIVE_SCANTASK_UPLOAD_UPDATE = "703037";
+    public static final String ARCHIVE_CLIENTARCHIVE_QRY = "703059";
+    public static final String ARCHIVE_SCANTASKIMAGE_CHECK = "703060";
+    public static final String ARCHIVE_SCANTASK_LOCK = "703004";
+    public static final String ARCHIVE_SCANTASK_DELETE = "703005";
+    public static final String ARCHIVE_SCANTASK_COUNT = "703069";
+    public static final String ARCHIVE_SCANTASK_IMAGESTAT = "703070";
+    public static final String ARCHIVE_CLIENT_BRANCH_TRANS = "703071";
+    public static final String FUTUACCSYNC_CLIENT_GET06 = "730101";
+    public static final String FUTUACCSYNC_CLIENTINFO_GET06 = "730102";
+    public static final String FUTUACCSYNC_FUNDACCOUNT_GET06 = "730119";
+    public static final String FUTUACCSYNC_ORGANINFO_GET06 = "730103";
+    public static final String FUTUACCSYNC_DRAWER_QRY06 = "730112";
+    public static final String FUTUACCSYNC_DICTATER_QRY06 = "730113";
+    public static final String FUTUACCSYNC_BILL_QRY06 = "730124";
+    public static final String FUTUACCSYNC_PRODUCT_QRY06 = "730108";
+    public static final String FUTUACCSYNC_BILLACCOUNT_QRY06 = "730121";
+    public static final String FUTUACCSYNC_OPEN_MEMBER_QRY06 = "730122";
+    public static final String FUTUACCSYNC_WARRANTY_QRY06 = "730123";
+    public static final String FUTUACCSYNC_MONEYINFO_QRY06 = "730126";
+    public static final String FUTUACCSYNC_TRADERRANGE_QRY06 = "730127";
+    public static final String FUTUACCSYNC_PRODUCTINFO_QRY06 = "730128";
+    public static final String FUTUACCSYNC_MODELNO_GET06 = "730100";
+    public static final String FUTUACCSYNC_MODELNO_QRY06 = "730118";
+    public static final String FUTUACCSYNC_CUST_ACCO_OPEN = "730105";
+    public static final String FUTUACCSYNC_CUST_FUND_ACCO_OPEN = "730106";
+    public static final String FUTUACCSYNC_CUST_DRAWER_ACCO_OPEN = "730114";
+    public static final String FUTUACCSYNC_CUST_DICTATER_ACCO_OPEN = "730115";
+    public static final String FUTUACCSYNC_CUST_BATCH_ACCO_OPEN = "730107";
+    public static final String FUTUACCSYNC_CUST_BANK_ACCO_OPEN = "730117";
+    public static final String FUTUACCSYNC_CUST_FUND_OPEN = "730129";
+    public static final String FUTUACCSYNC_CUST_CLIENTINFO_UPDATE = "730133";
+    public static final String FUTUACCSYNC_CUST_BANKACCOUNT_UPDATE = "730134";
+    public static final String FUTUACCSYNC_CUST_DRAWER_ACCO_UPDATE = "730135";
+    public static final String FUTUACCSYNC_CUST_DICTATER_ACCO_UPDATE = "730136";
+    public static final String FUTUACCSYNC_CLIENT_PASSWORD_CLEAR = "730138";
+    public static final String FUTUACCSYNC_FUNDACCOUNT_PASSWORD_CLEAR = "730137";
+    public static final String FUTUACC_BUSIN_GET = "730003";
+    public static final String FUTUACC_CLIENT_GET = "730019";
+    public static final String FUTUACC_CLIENTINFO_GET = "730020";
+    public static final String FUTUACC_ORGANINFO_GET = "730021";
+    public static final String FUTUACC_FUNDACCOUNT_GET = "730022";
+    public static final String FUTUACC_BUSIN_QRY = "730001";
+    public static final String FUTUACC_BUSIN_COUNT = "730066";
+    public static final String FUTUACC_FUNDACCOUNT_QRY = "700221";
+    public static final String FUTUACC_CLIENT_QRY = "700227";
+    public static final String FUTUACC_CLIENTINFO_QRY = "700228";
+    public static final String FUTUACC_ORGANINFO_QRY = "700229";
+    public static final String FUTUACC_DRAWER_QRY = "730006";
+    public static final String FUTUACC_DICTATER_QRY = "730008";
+    public static final String FUTUACC_BILL_QRY = "730016";
+    public static final String FUTUACC_PRODUCT_QRY = "730010";
+    public static final String FUTUACC_BILLACCOUNT_QRY = "730018";
+    public static final String FUTUACC_FUND_QRY = "730014";
+    public static final String FUTUACC_BILLACCOUNT_DEL = "730047";
+    public static final String FUTUACC_PRODUCT_DEL = "730011";
+    public static final String FUTUACC_DRAWER_DEL = "730045";
+    public static final String FUTUACC_DICTATER_DEL = "730048";
+    public static final String FUTUACC_STATUS_CHECKING = "730023";
+    public static final String FUTUACC_STATUS_BRANCH_CHECKING = "730062";
+    public static final String FUTUACC_STATUS_CHKPASS = "730024";
+    public static final String FUTUACC_STATUS_BRANCH_CHKPASS = "730063";
+    public static final String FUTUACC_STATUS_CHKDENY = "730025";
+    public static final String FUTUACC_STATUS_BRANCH_CHKDENY = "730064";
+    public static final String FUTUACC_STATUS_SUCCESS = "730030";
+    public static final String FUTUACC_STATUS_FAIL = "730031";
+    public static final String FUTUACC_STATUS_UNLOCK = "730032";
+    public static final String FUTUACC_STATUS_BRANCH_UNLOCK = "730065";
+    public static final String FUTUACC_STATUS_ROLLBACK = "730057";
+    public static final String FUTUACC_HAND_HISTORY = "730036";
+    public static final String FUTUACC_CALLBACK_QUERY = "730043";
+    public static final String FUTUACC_CALLBACK_ADD = "730041";
+    public static final String FUTUACC_CALLBACK_MODIFY = "730042";
+    public static final String FUTUACC_CALLBACK_CANCEL = "730028";
+    public static final String FUTUACC_CALLBACK_DEL = "730052";
+    public static final String FUTUACC_CALLBACK_COUNT = "730053";
+    public static final String FUTUACC_BUSIN_CANCEL = "730033";
+    public static final String FUTUACCSYNC_CUST_FUPROVINCECODE_GET06 = "730109";
+    public static final String FUTUACCSYNC_CUST_FUCITYCODE_GET06 = "730110";
+    public static final String FUTUACC_FUTUCHKID_GET = "730000";
+    public static final String FUTUACC_FUTUACCT_SUBMIT = "730002";
+    public static final String FUTUACC_FUTUACCT_REG = "730004";
+    public static final String FUTUACC_FUNDACCOUNT_UPDATE = "730012";
+    public static final String FUTUACC_DICTATER_ADD = "730007";
+    public static final String FUTUACC_DRAWER_ADD = "730005";
+    public static final String FUTUACC_BILL_UPDATE = "730015";
+    public static final String FUTUACC_PRODUCT_UPDATE = "730009";
+    public static final String FUTUACC_BANKACCOUNT_UPDATE = "730017";
+    public static final String FUTUACC_MONEYTYPE_UPDATE = "730013";
+    public static final String FUTUACC_PASSWORD_ENCODE = "730039";
+    public static final String FUTUACC_ACCOUNTEXIST_VALIDATE = "730037";
+    public static final String FUTUACC_ACCOUNTEXIST_VALIDATE06 = "730104";
+    public static final String FUTUACC_ACCOUNTPARTITION_VALIDATE06 = "730131";
+    public static final String FUTUACC_IDCARDSTATUS_VALIDATE06 = "730130";
+    public static final String FUTUACC_ARCHIVE_CLIENT_UPDATE = "730054";
+    public static final String FUTUACC_DRAWER_CHECK_UPDATE = "730059";
+    public static final String FUTUACC_DICTATER_CHECK_UPDATE = "730060";
+    public static final String FUTUACC_BANKACCOUNT_CHECK_UPDATE = "730061";
+    public static final String HFUTUACC_BUSIN_QRY = "730900";
+    public static final String HFUTUACC_BUSIN_GET = "730901";
+    public static final String HFUTUACC_CLIENT_GET = "730902";
+    public static final String HFUTUACC_FUNDACCOUNT_GET = "730905";
+    public static final String HFUTUACC_CLIENTINFO_GET = "730903";
+    public static final String HFUTUACC_ORGANINFO_GET = "730904";
+    public static final String HFUTUACC_FUND_QRY = "730906";
+    public static final String HFUTUACC_DRAWER_QRY = "730907";
+    public static final String HFUTUACC_DICTATER_QRY = "730908";
+    public static final String HFUTUACC_BILL_QRY = "730910";
+    public static final String HFUTUACC_PRODUCT_QRY = "730909";
+    public static final String HFUTUACC_BILLACCOUNT_QRY = "730911";
+    public static final String HFUTUACC_BUSIN_COUNT = "730912";
+    public static final String ELECTFARE_MODEL_QRY = "730200";
+    public static final String ELECTFARE_EXCH_TYPE_QRY = "730132";
+    public static final String ELECTFARE_MODEL_ADD = "730201";
+    public static final String ELECTFARE_MODEL_UPDATE = "730208";
+    public static final String ELECTFARE_MODEL_DEL = "730209";
+    public static final String ELECTFARE_MODELINFO_QRY = "730207";
+    public static final String ELECTFARE_ELECTFAREID_GET = "730202";
+    public static final String ELECTFARE_ELECTFARE_ADD = "730203";
+    public static final String ELECTFARE_ELECTFAREINFO_ADD = "730205";
+    public static final String ELECTFARE_ELECTFARE_UPDATE = "730204";
+    public static final String ELECTFARE_ELECTFAREINFO_UPDATE = "730206";
+    public static final String ELECTFARE_DATA_QRY = "730210";
+    public static final String ELECTFARE_DATA_GET = "730211";
+    public static final String ELECTFARE_DATADETAIL_QRY = "730212";
+    public static final String ELECTFARE_STATUS_CHANGE = "730213";
+    public static final String ELECTFARE_CHECK = "730214";
+    public static final String ELECTFARE_HEAD_CHECK = "730215";
+    public static final String ELECTFARE_SETTLE = "730216";
+    public static final String ELECTFARE_NOADUIT = "730217";
+    public static final String ELECTFARE_SIGN_QRY = "730218";
+    public static final String FUTUEVA_EVALUATION_SUBMIT = "730400";
+    public static final String FUTUEVA_EVALUATION_GET = "730401";
+    public static final String FUTUEVA_EVALUATION_QRY = "730402";
+    public static final String FUTUEVA_SIGNINFO_QRY = "730406";
+    public static final String FUTUEVA_EVALUATION_SIGN = "730405";
+    public static final String FUTUEVA_EVALUATION_DENY = "730407";
+    public static final String FUTUEVA_EVALUATION_CONFIRM = "730408";
+    public static final String FUTUEVA_EVALUATION_DEL = "730409";
+    public static final String CONTRACT_APPLY_ID = "730320";
+    public static final String CONTRACT_APPLY_CREATE = "730302";
+    public static final String CONTRACT_APPLY_DEAL = "730321";
+    public static final String CONTRACT_APPLY_QRY = "730303";
+    public static final String CONTRACT_REG = "730300";
+    public static final String CONTRACT_QRY = "730301";
+    public static final String CONTRACT_GET = "730304";
+    public static final String CONTRACT_USE = "730305";
+    public static final String CONTRACT_INVALID = "730306";
+    public static final String CONTRACT_LOSE = "730309";
+    public static final String CONTRACT_ARCHIVE = "730308";
+    public static final String CONTRACT_CANCEL = "730322";
+    public static final String CONTRACT_COUNT = "730323";
+    public static final String NEW_CONTRACT_REG = "730501";
+    public static final String NEW_CONTRACT_APPLY_CREATE = "730502";
+    public static final String NEW_CONTRACT_SEND_CREATE = "730503";
+    public static final String NEW_CONTRACT_SEND_REVOKE = "730504";
+    public static final String NEW_CONTRACT_SEND = "730505";
+    public static final String NEW_CONTRACT_ACCEPT = "730506";
+    public static final String NEW_CONTRACT_REJECT = "730507";
+    public static final String NEW_CONTRACT_USE = "730508";
+    public static final String NEW_CONTRACT_CHKPASS = "730509";
+    public static final String NEW_CONTRACT_CHKDENY = "730510";
+    public static final String NEW_CONTRACT_INVALID = "730511";
+    public static final String NEW_CONTRACT_LOSE = "730512";
+    public static final String NEW_CONTRACT_BRANCH_ARCHIVE = "730513";
+    public static final String NEW_CONTRACT_HEAD_ARCHIVE = "730514";
+    public static final String NEW_CONTRACT_GET = "730515";
+    public static final String NEW_CONTRACT_COUNT = "730516";
+    public static final String NEW_CONTRACT_QRY = "730517";
+    public static final String NEW_CONTRACT_SEND_QRY = "730518";
+    public static final String NEW_CONTRACT_APPLY_QRY = "730519";
+    public static final String NEW_CONTRACT_CLIENT_ARCHIVE = "730520";
+    public static final String NEW_CONTRACT_MOD = "730521";
+    public static final String ACCEPTSYS_THIRDPARTYORG_GET = "745001";
+    public static final String ACCEPTSYS_THIRDPARTYTOOPERATOR_GET = "745005";
+    public static final String ACCEPTSYS_THIRDPARTYTOOPERATOR_SET = "745004";
+    public static final String ACCEPTSYS_OPENACCEPTADV_GET = "745006";
+    public static final String ACCEPTSYS_OPENACCEPTFORM_GET = "745011";
+    public static final String ACCEPTSYS_RESERVEBRANCH_GET = "745005";
+    public static final String ACCEPTSYS_BLACKLIST_GET = "745007";
+    public static final String ARCHIVE_SCANSUBTASK_ADD = "703033";
+    public static final String ARCHIVE_TASKIMAGE_ADD = "703064";
+    public static final String ACCEPTSYS_BLACKLIST_SET = "745009";
+    public static final String ACCEPTSYS_OPENACCEPTFLOW_COMMIT = "745012";
+    public static final String ACCEPTSYS_WITNESS_GET = "745003";
+    public static final String ARCHIVE_SCANTASKIMAGE_SHARE = "703086";
+    public static final String HKCUST_ACCT_OPEN = "351001";
+    public static final String HKFUNDACCT_OPEN = "352001";
+    public static final String HKSECUACCT_STOCKHOLDER_OPEN = "353001";
+    public static final String HKSECUACCT_STOCKHOLDER_BATCHOPEN = "353020";
+    public static final String HKCUST_GET_CLIENT_BASEINFO = "351011";
+    public static final String HKCUST_CLIENT_BASEINFO_MODI = "351004";
+    public static final String HKCUST_GET_CLIENT_OTHERINFO = "351012";
+    public static final String HKCUST_CLIENT_OTHERINFO_MODI = "351005";
+    public static final String HKCUST_GET_CLCLIENT_BASEINFOJOUR = "351018";
+    public static final String HKCUST_GET_CLCLIENT_OTHERINFOJOUR = "351019";
+    public static final String HKCUST_BROKER_CLIENT_SET = "350311";
+    public static final String HKCUST_ADDRESS_ADD = "351110";
+    public static final String HKCUST_ADDRESS_MODIFY = "351111";
+    public static final String HKCUST_ACCO_NO_GET = "351017";
+    public static final String HKCUST_FUNDACCOUNT_QRY = "352045";
+    public static final String HKCUST_FUNDACCOUNT_MIGRATE = "352044";
+    public static final String HKCUST_WITHDRAWBANK_ADD = "352071";
+    public static final String HKCUST_CLIENTFARE_ADD = "352079";
+    public static final String HKCUST_CLIENTFARE_MODIFY = "352080";
+    public static final String HKCUST_STKRESTRICT_BATCHADD = "353021";
+    public static final String HKCUST_FUNDACCOUNT_GET = "351013";
+    public static final String HKCUST_STOCKHOLDER_GET = "353010";
+    public static final String HKCUST_CLIENT_GET = "359502";
+    public static final String HKCUST_BENEFICIARYACCOUNT_ADD = "352014";
+    public static final String HKCUST_BENEFICIARYRELATION_ADD = "352018";
+    public static final String HKCUST_DEPUTYACC_OPEN = "350400";
+    public static final String HKCUST_DICTIONARY_GET = "350902";
+    public static final String HKCUST_BENEFICIARYACCOUNT_GET = "352017";
+    public static final String HKCUST_NOTIFICATION_LIST_AUTOADD = "351124";
+
+    public static class AccSys {
+        public static final int QRY_DICT_ENTRY_CN = 335036;
+        public static final int QRY_DEPOSIT_WITHDRAWAL_APPLICATION = 335037;
+        public static final int ADD_DEPOSIT_WITHDRAWAL_APPLICATION = 335038;
+        public static final int ADD_CASH_TRANSFER_APPLICATION = 335039;
+        public static final int QRY_CASH_TRANSFER_APPLICATION = 335040;
+        public static final int QRY_CURRENCY_EXCHANGE_APPLICATION = 335041;
+        public static final int ADD_CURRENCY_EXCHANGE_APPLICATION = 335042;
+        public static final int ADD_CLIENT_WITHDRAWAL_BANK = 335043;
+        public static final int ADD_CLIENT_QUOTA_INFO = 335044;
+        public static final int QRY_CLIENT_QUOTA_INFO = 335045;
+        public static final int QRY_PROMPT_INFO = 335046;
+        public static final int QRY_CLIENT_WITHDRAWAL_BANK = 335033;
+        public static final int QRY_CLIENT_BASIC_INFO = 335031;
+        public static final int QRY_CLIENT_EXTRA_INFO = 335032;
+        public static final int OPEN_ACCOUNT = 351001;
+        public static final int OPEN_CLIENT_ACCOUNT = 335068;
+        public static final int OPEN_FUND_ACCOUNT = 335067;
+        public static final int OPEN_STOCK_ACCOUNT = 335069;
+        public static Map<String, String> fieldDefValue = new HashMap();
+
+        static {
+            fieldDefValue.put("branch_no", "100");
+        }
+
+    }
+
+    public static class TradSys {
+        public static final int GET_BRANCH_NO = 100;
+        public static final int CLIENT_LOGIN = 200;
+    }
+
+}

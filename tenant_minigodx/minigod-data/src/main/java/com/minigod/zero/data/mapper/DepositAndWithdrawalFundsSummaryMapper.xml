@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.DepositAndWithdrawalFundsSummaryMapper">
+
+    <select id="queryDepositAndWithdrawalFundsSummary" parameterType="com.minigod.zero.data.dto.DepositAndWithdrawalStatisticsDTO"
+            resultType="com.minigod.zero.data.vo.DepositAndWithdrawalFundsRecordVO">
+        SELECT
+        sdf.client_id AS clientId,
+        sdf.fund_account_name AS clientName,
+        sdf.created_time AS createTime,
+        CASE
+        WHEN sdf.currency = 1 THEN 'HKD'
+        WHEN sdf.currency = 2 THEN 'USD'
+        WHEN sdf.currency = 3 THEN 'CNY'
+            ELSE sdf.currency
+        END AS currency,
+        sdf.deposit_money / 10000 AS amount,
+        1 AS type
+        FROM sec_deposit_funds AS sdf -- 入金记录
+        <where>
+            <if test="depositAndWithdrawalStatisticsDTO.startTime != null and depositAndWithdrawalStatisticsDTO.startTime !=''">
+                AND STR_TO_DATE(sdf.created_time,'%Y-%m-%d') &gt;=
+                STR_TO_DATE(#{depositAndWithdrawalStatisticsDTO.startTime},'%Y-%m-%d')
+            </if>
+            <if test="depositAndWithdrawalStatisticsDTO.endTime != null and depositAndWithdrawalStatisticsDTO.endTime !=''">
+                AND STR_TO_DATE(sdf.created_time,'%Y-%m-%d') &lt;=
+                STR_TO_DATE(#{depositAndWithdrawalStatisticsDTO.endTime},'%Y-%m-%d')
+            </if>
+            AND sdf.deposit_money IS NOT NULL
+            AND sdf.state = 3 -- 状态 0已提交 1已受理 2已退回 3已完成 4已取消
+        </where>
+        UNION ALL
+        SELECT
+        cfwi.client_id AS clientId,
+        cfwi.client_name AS clientName,
+        cfwi.entrust_time AS createTime,
+        cfwi.ccy AS currency,
+        cfwi.actual_amount / 10000 AS amount,
+        2 AS type
+        FROM  client_fund_withdraw_info AS cfwi -- 出金记录
+        <where>
+            <if test="depositAndWithdrawalStatisticsDTO.startTime != null and depositAndWithdrawalStatisticsDTO.startTime !=''">
+                AND STR_TO_DATE(cfwi.entrust_time,'%Y-%m-%d') &gt;= STR_TO_DATE(#{depositAndWithdrawalStatisticsDTO.startTime},'%Y-%m-%d')
+            </if>
+            <if test="depositAndWithdrawalStatisticsDTO.endTime != null and depositAndWithdrawalStatisticsDTO.endTime !=''">
+                AND STR_TO_DATE(cfwi.entrust_time,'%Y-%m-%d') &lt;= STR_TO_DATE(#{depositAndWithdrawalStatisticsDTO.endTime},'%Y-%m-%d')
+            </if>
+            AND cfwi.actual_amount IS NOT NULL
+            AND cfwi.STATUS IN(21,31) -- 状态 10审批中 11拒绝 12取消、 20出账中、 21 出账成功、22 出账失败、 30 汇款中 、31 汇款成功、32 汇款失败 、40 退款中、41 退款成功、 42 退款失败
+        </where>
+    </select>
+
+    <select id="selectDepositTotalAmount" resultType="java.util.Map">
+        -- 入金成功总金额统计 --
+        SELECT
+            sdf.currency,
+            SUM(sdf.deposit_money) / 10000                                            as totalAmount
+        FROM sec_deposit_funds as sdf
+        WHERE sdf.deposit_money IS NOT NULL
+          AND sdf.state = 3 -- 状态 0已提交 1已受理 2已退回 3已完成 4已取消
+        GROUP BY sdf.currency;
+    </select>
+
+    <select id="selectWithdrawalTotalAmount" resultType="java.util.Map">
+        -- 出金成功总金额统计 --
+        SELECT
+            cfwi.ccy as currency,
+            SUM(cfwi.actual_amount) / 10000 as totalAmount
+        FROM client_fund_withdraw_info as cfwi
+        WHERE cfwi.ccy IS NOT NULL AND cfwi.`status` IN(21,31)  -- 10审批中 11拒绝 12取消、 20出账中、 21 出账成功、22 出账失败、 30 汇款中 、31 汇款成功、 32 汇款失败 、40 退款中、41 退款成功、 42 退款失败
+        GROUP BY cfwi.ccy;
+    </select>
+
+    <select id="countDepositApply" resultType="java.lang.Long">
+        -- 手工入金申请笔数统计 --
+        SELECT
+            COUNT(*)                                            as depositCount
+        FROM sec_deposit_funds as sdf
+        WHERE sdf.deposit_money IS NOT NULL
+          AND sdf.state IN(0,1); -- 状态 0已提交 1已受理 2已退回 3已完成 4已取消
+    </select>
+
+    <select id="countWithdrawalApply" resultType="java.lang.Long">
+        -- 出金申请笔数统计 --
+        SELECT
+            COUNT(*) FROM client_fund_withdraw_info as cfwi
+        WHERE cfwi.status IN(10,20,30,40) -- 状态 10审批中 11拒绝 12取消、 20出账中、 21 出账成功、22 出账失败、 30 汇款中 、31 汇款成功、 32 汇款失败 、40 退款中、41 退款成功、 42 退款失败
+    </select>
+</mapper>

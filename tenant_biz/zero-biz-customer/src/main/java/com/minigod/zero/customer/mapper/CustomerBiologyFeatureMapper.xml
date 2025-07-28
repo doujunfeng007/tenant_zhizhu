@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerBiologyFeatureMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerBiologyFeature">
+            <id property="token" column="token" jdbcType="VARCHAR"/>
+            <result property="id" column="id" jdbcType="BIGINT"/>
+            <result property="custId" column="cust_id" jdbcType="INTEGER"/>
+            <result property="deviceCode" column="device_code" jdbcType="VARCHAR"/>
+            <result property="bioCode" column="bio_code" jdbcType="VARCHAR"/>
+            <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+            <result property="createDept" column="create_dept" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        token,id,cust_id,
+        device_code,bio_code,
+        create_user,create_dept,create_time,
+        update_user,update_time,status,
+        is_deleted
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_biology_feature
+        where  token = #{token,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from customer_biology_feature
+        where  token = #{token,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" keyColumn="token" keyProperty="token" parameterType="com.minigod.zero.customer.entity.CustomerBiologyFeature" useGeneratedKeys="true">
+        insert into customer_biology_feature
+        ( token,id,cust_id
+        ,device_code,bio_code
+        ,create_user,create_dept,create_time
+        ,update_user,update_time,status
+        ,is_deleted)
+        values (#{token,jdbcType=VARCHAR},#{id,jdbcType=BIGINT},#{custId,jdbcType=INTEGER}
+        ,#{deviceCode,jdbcType=VARCHAR},#{bioCode,jdbcType=VARCHAR}
+        ,#{createUser,jdbcType=BIGINT},#{createDept,jdbcType=BIGINT},#{createTime,jdbcType=TIMESTAMP}
+        ,#{updateUser,jdbcType=BIGINT},#{updateTime,jdbcType=TIMESTAMP},#{status,jdbcType=TINYINT}
+        ,#{isDeleted,jdbcType=TINYINT})
+    </insert>
+    <insert id="insertSelective" keyColumn="token" keyProperty="token" parameterType="com.minigod.zero.customer.entity.CustomerBiologyFeature" useGeneratedKeys="true">
+        insert into customer_biology_feature
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="token != null">token,</if>
+                <if test="id != null">id,</if>
+                <if test="custId != null">cust_id,</if>
+                <if test="deviceCode != null">device_code,</if>
+                <if test="bioCode != null">bio_code,</if>
+
+                <if test="createUser != null">create_user,</if>
+                <if test="createDept != null">create_dept,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateUser != null">update_user,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="status != null">status,</if>
+                <if test="isDeleted != null">is_deleted,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="token != null">#{token,jdbcType=VARCHAR},</if>
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="custId != null">#{custId,jdbcType=INTEGER},</if>
+                <if test="deviceCode != null">#{deviceCode,jdbcType=VARCHAR},</if>
+                <if test="bioCode != null">#{bioCode,jdbcType=VARCHAR},</if>
+
+                <if test="createUser != null">#{createUser,jdbcType=BIGINT},</if>
+                <if test="createDept != null">#{createDept,jdbcType=BIGINT},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateUser != null">#{updateUser,jdbcType=BIGINT},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="status != null">#{status,jdbcType=TINYINT},</if>
+                <if test="isDeleted != null">#{isDeleted,jdbcType=TINYINT},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.CustomerBiologyFeature">
+        update customer_biology_feature
+        <set>
+                <if test="id != null">
+                    id = #{id,jdbcType=BIGINT},
+                </if>
+                <if test="custId != null">
+                    cust_id = #{custId,jdbcType=INTEGER},
+                </if>
+                <if test="deviceCode != null">
+                    device_code = #{deviceCode,jdbcType=VARCHAR},
+                </if>
+                <if test="bioCode != null">
+                    bio_code = #{bioCode,jdbcType=VARCHAR},
+                </if>
+
+                <if test="createUser != null">
+                    create_user = #{createUser,jdbcType=BIGINT},
+                </if>
+                <if test="createDept != null">
+                    create_dept = #{createDept,jdbcType=BIGINT},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateUser != null">
+                    update_user = #{updateUser,jdbcType=BIGINT},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=TINYINT},
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted,jdbcType=TINYINT},
+                </if>
+        </set>
+        where   token = #{token,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.CustomerBiologyFeature">
+        update customer_biology_feature
+        set
+            id =  #{id,jdbcType=BIGINT},
+            cust_id =  #{custId,jdbcType=INTEGER},
+            device_code =  #{deviceCode,jdbcType=VARCHAR},
+            bio_code =  #{bioCode,jdbcType=VARCHAR},
+
+            create_user =  #{createUser,jdbcType=BIGINT},
+            create_dept =  #{createDept,jdbcType=BIGINT},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_user =  #{updateUser,jdbcType=BIGINT},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            status =  #{status,jdbcType=TINYINT},
+            is_deleted =  #{isDeleted,jdbcType=TINYINT}
+        where   token = #{token,jdbcType=VARCHAR}
+    </update>
+
+    <update id="deleteByToken" parameterType="java.lang.String">
+        update customer_biology_feature set is_deleted = 1 ,update_time =now() where token = #{token}
+    </update>
+
+    <select id="selectByToken" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from customer_biology_feature where token = #{token} and is_deleted = 0
+    </select>
+
+    <select id="selectByCustIdAndDeviceCode" parameterType="java.lang.Object" resultMap="BaseResultMap">
+        select * from customer_biology_feature where cust_id = #{custId}
+                                                 and is_deleted = 0 and device_code = #{deviceCode}
+    </select>
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.TExchRateHisMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.TExchRateHisEntity">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="orgid" column="orgId" jdbcType="INTEGER"/>
+            <result property="srccurrency" column="srcCurrency" jdbcType="VARCHAR"/>
+            <result property="dstcurrency" column="dstCurrency" jdbcType="VARCHAR"/>
+            <result property="rate" column="rate" jdbcType="DECIMAL"/>
+            <result property="dataupdtime" column="dataUpdTime" jdbcType="TIMESTAMP"/>
+            <result property="recordupdtime" column="recordUpdTime" jdbcType="TIMESTAMP"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,orgId,srcCurrency,
+        dstCurrency,rate,dataUpdTime,
+        recordUpdTime,createTime
+    </sql>
+    <select id="selRateByDate" resultType="java.math.BigDecimal">
+
+        SELECT rate
+        FROM t_exch_rate_his
+        WHERE srcCurrency=#{currency} AND dstCurrency = 'HKD' AND createTime <![CDATA[ <= ]]>#{endDate}
+        order by createTime DESC
+        LIMIT 1
+
+    </select>
+</mapper>

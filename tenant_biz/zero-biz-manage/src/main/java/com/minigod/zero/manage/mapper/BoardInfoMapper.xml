@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.BoardInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="boardInfoResultMap" type="com.minigod.zero.manage.entity.BoardInfoEntity">
+        <result column="id" property="id"/>
+        <result column="position_code" property="positionCode"/>
+        <result column="language_type" property="languageType"/>
+        <result column="board_type" property="boardType"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="priority" property="priority"/>
+        <result column="status" property="status"/>
+        <result column="content" property="content"/>
+        <result column="link" property="link"/>
+        <result column="pc_link" property="pcLink"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="update_user" property="updateUser"/>
+    </resultMap>
+
+    <sql id="Base_Where_Condition">
+        is_deleted = 0
+        <if test="boardInfo.id != null">
+            and id = #{boardInfo.id}
+        </if>
+        <if test="boardInfo.content != null and boardInfo.content != ''">
+            and content like concat(concat('%', #{boardInfo.content}),'%')
+        </if>
+        <if test="boardInfo.startTime != null ">
+            and start_time <![CDATA[ >= ]]> #{boardInfo.startTime}
+        </if>
+        <if test="boardInfo.endTime != null ">
+            and end_time <![CDATA[ <= ]]> #{boardInfo.endTime}
+        </if>
+        <if test="null != boardInfo.tenantId and boardInfo.tenantId !='' ">
+            and tenant_id = #{boardInfo.tenantId}
+        </if>
+    </sql>
+
+    <select id="selectBoardInfoPage" resultType="com.minigod.zero.manage.vo.BoardInfoVO">
+        select *
+        from oms_board_info
+        <where>
+            <include refid="Base_Where_Condition"/>
+        </where>
+        order by create_time desc
+    </select>
+
+
+</mapper>

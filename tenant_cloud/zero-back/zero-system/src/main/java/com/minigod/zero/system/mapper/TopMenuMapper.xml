@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.system.mapper.TopMenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="topMenuResultMap" type="com.minigod.zero.system.entity.TopMenu">
+        <result column="id" property="id"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="code" property="code"/>
+        <result column="name" property="name"/>
+        <result column="source" property="source"/>
+        <result column="sort" property="sort"/>
+    </resultMap>
+
+
+    <select id="selectByMenuId" parameterType="java.lang.Long" resultMap="topMenuResultMap">
+        select
+               tm.*
+        from zero_top_menu as tm
+        left  join zero_top_menu_setting as tms on tms.top_menu_id = tm.id
+        where tms.menu_id = #{menuId} order by tm.create_time desc limit 1
+    </select>
+
+    <select id="selectByMenuIdList" parameterType="java.util.List" resultType="com.minigod.zero.system.entity.TopMenuSetting">
+        select
+            tms.*
+        from zero_top_menu_setting as tms
+        where  tms.menu_id in
+        <foreach collection="menuIdList" separator="," index="index" item="item" open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getUserTopMenu" resultMap="topMenuResultMap" parameterType="java.lang.Object">
+        SELECT DISTINCT
+            ztm.id AS id,
+            ztm.status AS status,
+            ztm.code AS code,
+            ztm.name AS name,
+            ztm.source AS source,
+            ztm.sort AS sort
+        FROM
+        zero_role_menu AS zrm
+        LEFT JOIN
+        zero_top_menu_setting AS tms ON tms.menu_id = zrm.menu_id
+        LEFT JOIN
+        zero_top_menu AS ztm ON tms.top_menu_id = ztm.id
+        WHERE
+        zrm.role_id IN
+        <foreach collection="roleIds" separator="," item="item" open="(" close=")">
+            #{item}
+        </foreach>
+        AND ztm.tenant_id = #{tenantId}
+        AND ztm.is_deleted = 0
+        ORDER BY
+        ztm.sort
+    </select>
+</mapper>

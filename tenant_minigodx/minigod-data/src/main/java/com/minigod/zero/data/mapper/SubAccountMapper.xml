@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.SubAccountMapper">
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.SubAccount">
+        <id column="subAccountId" jdbcType="VARCHAR" property="subAccountId"/>
+        <result column="accountId" jdbcType="VARCHAR" property="accountId"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="subAccountType" jdbcType="VARCHAR" property="subAccountType"/>
+        <result column="createDate" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="feeRoleId" jdbcType="INTEGER" property="feeRoleId"/>
+        <result column="feeRateBeginDate" jdbcType="TIMESTAMP" property="feeRateBeginDate"/>
+        <result column="feeRateEndDate" jdbcType="TIMESTAMP" property="feeRateEndDate"/>
+    </resultMap>
+
+    <!-- 所有列 -->
+    <sql id="Base_Column_List">
+        subAccountId, accountId, status, subAccountType, createDate,
+        feeRoleId, feeRateBeginDate, feeRateEndDate
+    </sql>
+
+    <!-- 根据主键查询 -->
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_sub_account
+        where subAccountId = #{subAccountId,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 根据主账户ID查询 -->
+    <select id="selectByAccountId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_sub_account
+        where accountId = #{accountId,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 根据条件查询 -->
+    <select id="selectByCondition" parameterType="com.minigod.zero.data.entity.SubAccount" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_sub_account
+        <where>
+            <if test="accountId != null">
+                and accountId = #{accountId,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null">
+                and status = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="subAccountType != null">
+                and subAccountType = #{subAccountType,jdbcType=VARCHAR}
+            </if>
+            <if test="feeRoleId != null">
+                and feeRoleId = #{feeRoleId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据主键删除 -->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from t_sub_account
+        where subAccountId = #{subAccountId,jdbcType=VARCHAR}
+    </delete>
+
+    <!-- 插入完整记录 -->
+    <insert id="insert" parameterType="com.minigod.zero.data.entity.SubAccount">
+        insert into t_sub_account (
+            subAccountId, accountId, status,
+            subAccountType, createDate, feeRoleId,
+            feeRateBeginDate, feeRateEndDate
+        )
+        values (
+                   #{subAccountId,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+                   #{subAccountType,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{feeRoleId,jdbcType=INTEGER},
+                   #{feeRateBeginDate,jdbcType=TIMESTAMP}, #{feeRateEndDate,jdbcType=TIMESTAMP}
+               )
+    </insert>
+
+    <!-- 选择性插入 -->
+    <insert id="insertSelective" parameterType="com.minigod.zero.data.entity.SubAccount">
+        insert into t_sub_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="subAccountId != null">subAccountId,</if>
+            <if test="accountId != null">accountId,</if>
+            <if test="status != null">status,</if>
+            <if test="subAccountType != null">subAccountType,</if>
+            <if test="createDate != null">createDate,</if>
+            <if test="feeRoleId != null">feeRoleId,</if>
+            <if test="feeRateBeginDate != null">feeRateBeginDate,</if>
+            <if test="feeRateEndDate != null">feeRateEndDate,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="subAccountId != null">#{subAccountId,jdbcType=VARCHAR},</if>
+            <if test="accountId != null">#{accountId,jdbcType=VARCHAR},</if>
+            <if test="status != null">#{status,jdbcType=VARCHAR},</if>
+            <if test="subAccountType != null">#{subAccountType,jdbcType=VARCHAR},</if>
+            <if test="createDate != null">#{createDate,jdbcType=TIMESTAMP},</if>
+            <if test="feeRoleId != null">#{feeRoleId,jdbcType=INTEGER},</if>
+            <if test="feeRateBeginDate != null">#{feeRateBeginDate,jdbcType=TIMESTAMP},</if>
+            <if test="feeRateEndDate != null">#{feeRateEndDate,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+    <!-- 根据主键选择性更新 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.SubAccount">
+        update t_sub_account
+        <set>
+            <if test="accountId != null">accountId = #{accountId,jdbcType=VARCHAR},</if>
+            <if test="status != null">status = #{status,jdbcType=VARCHAR},</if>
+            <if test="subAccountType != null">subAccountType = #{subAccountType,jdbcType=VARCHAR},</if>
+            <if test="createDate != null">createDate = #{createDate,jdbcType=TIMESTAMP},</if>
+            <if test="feeRoleId != null">feeRoleId = #{feeRoleId,jdbcType=INTEGER},</if>
+            <if test="feeRateBeginDate != null">feeRateBeginDate = #{feeRateBeginDate,jdbcType=TIMESTAMP},</if>
+            <if test="feeRateEndDate != null">feeRateEndDate = #{feeRateEndDate,jdbcType=TIMESTAMP},</if>
+        </set>
+        where subAccountId = #{subAccountId,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 根据主键更新全部字段 -->
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.SubAccount">
+        update t_sub_account
+        set accountId = #{accountId,jdbcType=VARCHAR},
+            status = #{status,jdbcType=VARCHAR},
+            subAccountType = #{subAccountType,jdbcType=VARCHAR},
+            createDate = #{createDate,jdbcType=TIMESTAMP},
+            feeRoleId = #{feeRoleId,jdbcType=INTEGER},
+            feeRateBeginDate = #{feeRateBeginDate,jdbcType=TIMESTAMP},
+            feeRateEndDate = #{feeRateEndDate,jdbcType=TIMESTAMP}
+        where subAccountId = #{subAccountId,jdbcType=VARCHAR}
+    </update>
+</mapper>

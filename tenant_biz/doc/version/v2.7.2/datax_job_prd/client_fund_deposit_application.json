@@ -1,0 +1,108 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "mysqlreader",
+          "parameter": {
+            "username": "BGiv1Nj/RkA62kCvYRpURw==",
+            "password": "jJ1jarzC1lh43N/bEGp/Fw==",
+            "column": [
+              "`id`",
+              "`application_id`",
+              "`application_title`",
+              "`current_node`",
+              "`last_approval_user`",
+              "`last_approval_time`",
+              "`approval_opinion`",
+              "`start_time`",
+              "`remark`",
+              "`application_status`",
+              "`assign_drafter`",
+              "`flow_path`",
+              "`fire_aid`",
+              "`instance_id`",
+              "`definition_id`",
+              "`process_instance_id`",
+              "`task_id`",
+              "`deploy_id`",
+              "`tenant_id`",
+              "`create_dept`",
+              "`status`",
+              "`create_user`",
+              "`update_user`",
+              "`create_time`",
+              "`update_time`",
+              "`is_deleted`"
+            ],
+            "splitPk": "",
+            "where": "create_time >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY) OR update_time >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY )",
+            "connection": [
+              {
+                "table": [
+                  "client_fund_deposit_application"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://10.10.1.20:13049/zero_bpmn?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "username": "x23iAGFtBmYzhTgDDjvFPg==",
+            "password": "sTO8zolMP4HE+FE4/Q/juOlJhAfkZyhMvpevvHYrEc8=",
+            "column": [
+              "`id`",
+              "`application_id`",
+              "`application_title`",
+              "`current_node`",
+              "`last_approval_user`",
+              "`last_approval_time`",
+              "`approval_opinion`",
+              "`start_time`",
+              "`remark`",
+              "`application_status`",
+              "`assign_drafter`",
+              "`flow_path`",
+              "`fire_aid`",
+              "`instance_id`",
+              "`definition_id`",
+              "`process_instance_id`",
+              "`task_id`",
+              "`deploy_id`",
+              "`tenant_id`",
+              "`create_dept`",
+              "`status`",
+              "`create_user`",
+              "`update_user`",
+              "`create_time`",
+              "`update_time`",
+              "`is_deleted`"
+            ],
+            "writeMode": "update",
+            "connection": [
+              {
+                "table": [
+                  "client_fund_deposit_application"
+                ],
+                "jdbcUrl": "jdbc:mysql://10.10.1.20:13049/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

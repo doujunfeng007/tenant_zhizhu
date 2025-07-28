@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.ClientFundRefundApplicationMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.ClientFundRefundApplication">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+            <result property="applicationTitle" column="application_title" jdbcType="VARCHAR"/>
+            <result property="withdrawApplicationId" column="withdraw_application_id" jdbcType="VARCHAR"/>
+            <result property="clientId" column="client_id" jdbcType="VARCHAR"/>
+            <result property="fundAccount" column="fund_account" jdbcType="VARCHAR"/>
+            <result property="ccy" column="ccy" jdbcType="VARCHAR"/>
+            <result property="refundAmount" column="refund_amount" jdbcType="DECIMAL"/>
+            <result property="refundBankFee" column="refund_bank_fee" jdbcType="DECIMAL"/>
+            <result property="netRefundAmount" column="net_refund_amount" jdbcType="DECIMAL"/>
+            <result property="refundType" column="refund_type" jdbcType="TINYINT"/>
+            <result property="gtBusinessStep" column="gt_business_step" jdbcType="INTEGER"/>
+            <result property="gtDealStatus" column="gt_deal_status" jdbcType="TINYINT"/>
+            <result property="gtDealDate" column="gt_deal_date" jdbcType="TIMESTAMP"/>
+            <result property="gtRtCode" column="gt_rt_code" jdbcType="VARCHAR"/>
+            <result property="gtMsg" column="gt_msg" jdbcType="VARCHAR"/>
+            <result property="refundReason" column="refund_reason" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="currentNode" column="current_node" jdbcType="VARCHAR"/>
+            <result property="lastApprovalUser" column="last_approval_user" jdbcType="VARCHAR"/>
+            <result property="approvalOpinion" column="approval_opinion" jdbcType="VARCHAR"/>
+            <result property="approvalTime" column="approval_time" jdbcType="TIMESTAMP"/>
+            <result property="callbackStatus" column="callback_status" jdbcType="SMALLINT"/>
+            <result property="applicationStatus" column="application_status" jdbcType="SMALLINT"/>
+            <result property="isBack" column="is_back" jdbcType="TINYINT"/>
+            <result property="assignDrafter" column="assign_drafter" jdbcType="VARCHAR"/>
+            <result property="flowPath" column="flow_path" jdbcType="VARCHAR"/>
+            <result property="fireAid" column="fire_aid" jdbcType="TINYINT"/>
+            <result property="instanceId" column="instance_id" jdbcType="VARCHAR"/>
+            <result property="definitionId" column="definition_id" jdbcType="VARCHAR"/>
+            <result property="processInstanceId" column="process_instance_id" jdbcType="VARCHAR"/>
+            <result property="taskId" column="task_id" jdbcType="VARCHAR"/>
+            <result property="deployId" column="deploy_id" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
+            <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,application_id,application_title,
+        withdraw_application_id,client_id,fund_account,
+        ccy,refund_amount,refund_bank_fee,
+        net_refund_amount,refund_type,gt_business_step,
+        gt_deal_status,gt_deal_date,gt_rt_code,
+        gt_msg,refund_reason,status,
+        current_node,last_approval_user,approval_opinion,
+        approval_time,callback_status,application_status,
+        is_back,assign_drafter,flow_path,
+        fire_aid,instance_id,definition_id,
+        process_instance_id,task_id,deploy_id,
+        create_time,create_user,update_time,
+        update_user,tenant_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from client_fund_refund_application
+        where  id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from client_fund_refund_application
+        where  id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.ClientFundRefundApplication" useGeneratedKeys="true">
+        insert into client_fund_refund_application
+        ( id,application_id,application_title
+        ,withdraw_application_id,client_id,fund_account
+        ,ccy,refund_amount,refund_bank_fee
+        ,net_refund_amount,refund_type,gt_business_step
+        ,gt_deal_status,gt_deal_date,gt_rt_code
+        ,gt_msg,refund_reason,status
+        ,current_node,last_approval_user,approval_opinion
+        ,approval_time,callback_status,application_status
+        ,is_back,assign_drafter,flow_path
+        ,fire_aid,instance_id,definition_id
+        ,process_instance_id,task_id,deploy_id
+        ,create_time,create_user,update_time
+        ,update_user,tenant_id)
+        values (#{id,jdbcType=BIGINT},#{applicationId,jdbcType=VARCHAR},#{applicationTitle,jdbcType=VARCHAR}
+        ,#{withdrawApplicationId,jdbcType=VARCHAR},#{clientId,jdbcType=VARCHAR},#{fundAccount,jdbcType=VARCHAR}
+        ,#{ccy,jdbcType=VARCHAR},#{refundAmount,jdbcType=DECIMAL},#{refundBankFee,jdbcType=DECIMAL}
+        ,#{netRefundAmount,jdbcType=DECIMAL},#{refundType,jdbcType=TINYINT},#{gtBusinessStep,jdbcType=INTEGER}
+        ,#{gtDealStatus,jdbcType=TINYINT},#{gtDealDate,jdbcType=TIMESTAMP},#{gtRtCode,jdbcType=VARCHAR}
+        ,#{gtMsg,jdbcType=VARCHAR},#{refundReason,jdbcType=VARCHAR},#{status,jdbcType=TINYINT}
+        ,#{currentNode,jdbcType=VARCHAR},#{lastApprovalUser,jdbcType=VARCHAR},#{approvalOpinion,jdbcType=VARCHAR}
+        ,#{approvalTime,jdbcType=TIMESTAMP},#{callbackStatus,jdbcType=SMALLINT},#{applicationStatus,jdbcType=SMALLINT}
+        ,#{isBack,jdbcType=TINYINT},#{assignDrafter,jdbcType=VARCHAR},#{flowPath,jdbcType=VARCHAR}
+        ,#{fireAid,jdbcType=TINYINT},#{instanceId,jdbcType=VARCHAR},#{definitionId,jdbcType=VARCHAR}
+        ,#{processInstanceId,jdbcType=VARCHAR},#{taskId,jdbcType=VARCHAR},#{deployId,jdbcType=VARCHAR}
+        ,#{createTime,jdbcType=TIMESTAMP},#{createUser,jdbcType=BIGINT},#{updateTime,jdbcType=TIMESTAMP}
+        ,#{updateUser,jdbcType=BIGINT},#{tenantId,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.ClientFundRefundApplication" useGeneratedKeys="true">
+        insert into client_fund_refund_application
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="applicationId != null">application_id,</if>
+                <if test="applicationTitle != null">application_title,</if>
+                <if test="withdrawApplicationId != null">withdraw_application_id,</if>
+                <if test="clientId != null">client_id,</if>
+                <if test="fundAccount != null">fund_account,</if>
+                <if test="ccy != null">ccy,</if>
+                <if test="refundAmount != null">refund_amount,</if>
+                <if test="refundBankFee != null">refund_bank_fee,</if>
+                <if test="netRefundAmount != null">net_refund_amount,</if>
+                <if test="refundType != null">refund_type,</if>
+                <if test="gtBusinessStep != null">gt_business_step,</if>
+                <if test="gtDealStatus != null">gt_deal_status,</if>
+                <if test="gtDealDate != null">gt_deal_date,</if>
+                <if test="gtRtCode != null">gt_rt_code,</if>
+                <if test="gtMsg != null">gt_msg,</if>
+                <if test="refundReason != null">refund_reason,</if>
+                <if test="status != null">status,</if>
+                <if test="currentNode != null">current_node,</if>
+                <if test="lastApprovalUser != null">last_approval_user,</if>
+                <if test="approvalOpinion != null">approval_opinion,</if>
+                <if test="approvalTime != null">approval_time,</if>
+                <if test="callbackStatus != null">callback_status,</if>
+                <if test="applicationStatus != null">application_status,</if>
+                <if test="isBack != null">is_back,</if>
+                <if test="assignDrafter != null">assign_drafter,</if>
+                <if test="flowPath != null">flow_path,</if>
+                <if test="fireAid != null">fire_aid,</if>
+                <if test="instanceId != null">instance_id,</if>
+                <if test="definitionId != null">definition_id,</if>
+                <if test="processInstanceId != null">process_instance_id,</if>
+                <if test="taskId != null">task_id,</if>
+                <if test="deployId != null">deploy_id,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="createUser != null">create_user,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="updateUser != null">update_user,</if>
+                <if test="tenantId != null">tenant_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="applicationId != null">#{applicationId,jdbcType=VARCHAR},</if>
+                <if test="applicationTitle != null">#{applicationTitle,jdbcType=VARCHAR},</if>
+                <if test="withdrawApplicationId != null">#{withdrawApplicationId,jdbcType=VARCHAR},</if>
+                <if test="clientId != null">#{clientId,jdbcType=VARCHAR},</if>
+                <if test="fundAccount != null">#{fundAccount,jdbcType=VARCHAR},</if>
+                <if test="ccy != null">#{ccy,jdbcType=VARCHAR},</if>
+                <if test="refundAmount != null">#{refundAmount,jdbcType=DECIMAL},</if>
+                <if test="refundBankFee != null">#{refundBankFee,jdbcType=DECIMAL},</if>
+                <if test="netRefundAmount != null">#{netRefundAmount,jdbcType=DECIMAL},</if>
+                <if test="refundType != null">#{refundType,jdbcType=TINYINT},</if>
+                <if test="gtBusinessStep != null">#{gtBusinessStep,jdbcType=INTEGER},</if>
+                <if test="gtDealStatus != null">#{gtDealStatus,jdbcType=TINYINT},</if>
+                <if test="gtDealDate != null">#{gtDealDate,jdbcType=TIMESTAMP},</if>
+                <if test="gtRtCode != null">#{gtRtCode,jdbcType=VARCHAR},</if>
+                <if test="gtMsg != null">#{gtMsg,jdbcType=VARCHAR},</if>
+                <if test="refundReason != null">#{refundReason,jdbcType=VARCHAR},</if>
+                <if test="status != null">#{status,jdbcType=TINYINT},</if>
+                <if test="currentNode != null">#{currentNode,jdbcType=VARCHAR},</if>
+                <if test="lastApprovalUser != null">#{lastApprovalUser,jdbcType=VARCHAR},</if>
+                <if test="approvalOpinion != null">#{approvalOpinion,jdbcType=VARCHAR},</if>
+                <if test="approvalTime != null">#{approvalTime,jdbcType=TIMESTAMP},</if>
+                <if test="callbackStatus != null">#{callbackStatus,jdbcType=SMALLINT},</if>
+                <if test="applicationStatus != null">#{applicationStatus,jdbcType=SMALLINT},</if>
+                <if test="isBack != null">#{isBack,jdbcType=TINYINT},</if>
+                <if test="assignDrafter != null">#{assignDrafter,jdbcType=VARCHAR},</if>
+                <if test="flowPath != null">#{flowPath,jdbcType=VARCHAR},</if>
+                <if test="fireAid != null">#{fireAid,jdbcType=TINYINT},</if>
+                <if test="instanceId != null">#{instanceId,jdbcType=VARCHAR},</if>
+                <if test="definitionId != null">#{definitionId,jdbcType=VARCHAR},</if>
+                <if test="processInstanceId != null">#{processInstanceId,jdbcType=VARCHAR},</if>
+                <if test="taskId != null">#{taskId,jdbcType=VARCHAR},</if>
+                <if test="deployId != null">#{deployId,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="createUser != null">#{createUser,jdbcType=BIGINT},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateUser != null">#{updateUser,jdbcType=BIGINT},</if>
+                <if test="tenantId != null">#{tenantId,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.ClientFundRefundApplication">
+        update client_fund_refund_application
+        <set>
+                <if test="applicationId != null">
+                    application_id = #{applicationId,jdbcType=VARCHAR},
+                </if>
+                <if test="applicationTitle != null">
+                    application_title = #{applicationTitle,jdbcType=VARCHAR},
+                </if>
+                <if test="withdrawApplicationId != null">
+                    withdraw_application_id = #{withdrawApplicationId,jdbcType=VARCHAR},
+                </if>
+                <if test="clientId != null">
+                    client_id = #{clientId,jdbcType=VARCHAR},
+                </if>
+                <if test="fundAccount != null">
+                    fund_account = #{fundAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="ccy != null">
+                    ccy = #{ccy,jdbcType=VARCHAR},
+                </if>
+                <if test="refundAmount != null">
+                    refund_amount = #{refundAmount,jdbcType=DECIMAL},
+                </if>
+                <if test="refundBankFee != null">
+                    refund_bank_fee = #{refundBankFee,jdbcType=DECIMAL},
+                </if>
+                <if test="netRefundAmount != null">
+                    net_refund_amount = #{netRefundAmount,jdbcType=DECIMAL},
+                </if>
+                <if test="refundType != null">
+                    refund_type = #{refundType,jdbcType=TINYINT},
+                </if>
+                <if test="gtBusinessStep != null">
+                    gt_business_step = #{gtBusinessStep,jdbcType=INTEGER},
+                </if>
+                <if test="gtDealStatus != null">
+                    gt_deal_status = #{gtDealStatus,jdbcType=TINYINT},
+                </if>
+                <if test="gtDealDate != null">
+                    gt_deal_date = #{gtDealDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="gtRtCode != null">
+                    gt_rt_code = #{gtRtCode,jdbcType=VARCHAR},
+                </if>
+                <if test="gtMsg != null">
+                    gt_msg = #{gtMsg,jdbcType=VARCHAR},
+                </if>
+                <if test="refundReason != null">
+                    refund_reason = #{refundReason,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=TINYINT},
+                </if>
+                <if test="currentNode != null">
+                    current_node = #{currentNode,jdbcType=VARCHAR},
+                </if>
+                <if test="lastApprovalUser != null">
+                    last_approval_user = #{lastApprovalUser,jdbcType=VARCHAR},
+                </if>
+                <if test="approvalOpinion != null">
+                    approval_opinion = #{approvalOpinion,jdbcType=VARCHAR},
+                </if>
+                <if test="approvalTime != null">
+                    approval_time = #{approvalTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="callbackStatus != null">
+                    callback_status = #{callbackStatus,jdbcType=SMALLINT},
+                </if>
+                <if test="applicationStatus != null">
+                    application_status = #{applicationStatus,jdbcType=SMALLINT},
+                </if>
+                <if test="isBack != null">
+                    is_back = #{isBack,jdbcType=TINYINT},
+                </if>
+                <if test="assignDrafter != null">
+                    assign_drafter = #{assignDrafter,jdbcType=VARCHAR},
+                </if>
+                <if test="flowPath != null">
+                    flow_path = #{flowPath,jdbcType=VARCHAR},
+                </if>
+                <if test="fireAid != null">
+                    fire_aid = #{fireAid,jdbcType=TINYINT},
+                </if>
+                <if test="instanceId != null">
+                    instance_id = #{instanceId,jdbcType=VARCHAR},
+                </if>
+                <if test="definitionId != null">
+                    definition_id = #{definitionId,jdbcType=VARCHAR},
+                </if>
+                <if test="processInstanceId != null">
+                    process_instance_id = #{processInstanceId,jdbcType=VARCHAR},
+                </if>
+                <if test="taskId != null">
+                    task_id = #{taskId,jdbcType=VARCHAR},
+                </if>
+                <if test="deployId != null">
+                    deploy_id = #{deployId,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="createUser != null">
+                    create_user = #{createUser,jdbcType=BIGINT},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateUser != null">
+                    update_user = #{updateUser,jdbcType=BIGINT},
+                </if>
+                <if test="tenantId != null">
+                    tenant_id = #{tenantId,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.ClientFundRefundApplication">
+        update client_fund_refund_application
+        set
+            application_id =  #{applicationId,jdbcType=VARCHAR},
+            application_title =  #{applicationTitle,jdbcType=VARCHAR},
+            withdraw_application_id =  #{withdrawApplicationId,jdbcType=VARCHAR},
+            client_id =  #{clientId,jdbcType=VARCHAR},
+            fund_account =  #{fundAccount,jdbcType=VARCHAR},
+            ccy =  #{ccy,jdbcType=VARCHAR},
+            refund_amount =  #{refundAmount,jdbcType=DECIMAL},
+            refund_bank_fee =  #{refundBankFee,jdbcType=DECIMAL},
+            net_refund_amount =  #{netRefundAmount,jdbcType=DECIMAL},
+            refund_type =  #{refundType,jdbcType=TINYINT},
+            gt_business_step =  #{gtBusinessStep,jdbcType=INTEGER},
+            gt_deal_status =  #{gtDealStatus,jdbcType=TINYINT},
+            gt_deal_date =  #{gtDealDate,jdbcType=TIMESTAMP},
+            gt_rt_code =  #{gtRtCode,jdbcType=VARCHAR},
+            gt_msg =  #{gtMsg,jdbcType=VARCHAR},
+            refund_reason =  #{refundReason,jdbcType=VARCHAR},
+            status =  #{status,jdbcType=TINYINT},
+            current_node =  #{currentNode,jdbcType=VARCHAR},
+            last_approval_user =  #{lastApprovalUser,jdbcType=VARCHAR},
+            approval_opinion =  #{approvalOpinion,jdbcType=VARCHAR},
+            approval_time =  #{approvalTime,jdbcType=TIMESTAMP},
+            callback_status =  #{callbackStatus,jdbcType=SMALLINT},
+            application_status =  #{applicationStatus,jdbcType=SMALLINT},
+            is_back =  #{isBack,jdbcType=TINYINT},
+            assign_drafter =  #{assignDrafter,jdbcType=VARCHAR},
+            flow_path =  #{flowPath,jdbcType=VARCHAR},
+            fire_aid =  #{fireAid,jdbcType=TINYINT},
+            instance_id =  #{instanceId,jdbcType=VARCHAR},
+            definition_id =  #{definitionId,jdbcType=VARCHAR},
+            process_instance_id =  #{processInstanceId,jdbcType=VARCHAR},
+            task_id =  #{taskId,jdbcType=VARCHAR},
+            deploy_id =  #{deployId,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            create_user =  #{createUser,jdbcType=BIGINT},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            update_user =  #{updateUser,jdbcType=BIGINT},
+            tenant_id =  #{tenantId,jdbcType=VARCHAR}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

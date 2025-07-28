@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpm.mapper.BpmOtherBankInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="bpmOtherBankInfoResultMap" type="com.minigod.zero.bpm.entity.BpmOtherBankInfoEntity">
+        <result column="id" property="id"/>
+        <result column="bank_name" property="bankName"/>
+        <result column="bank_name_en" property="bankNameEn"/>
+        <result column="swift_code" property="swiftCode"/>
+        <result column="remark" property="remark"/>
+        <result column="bank_id" property="bankId"/>
+        <result column="is_amount" property="isAmount"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="registration_place" property="registrationPlace"/>
+        <result column="is_hot" property="isHot"/>
+        <result column="bank_type" property="bankType"/>
+    </resultMap>
+
+    <resultMap id="bankListMap" type="com.minigod.zero.bpm.vo.BankInfoVO">
+        <result column="name" property="name"/>
+        <collection property="items" javaType="java.util.ArrayList" ofType="com.minigod.zero.bpm.entity.BpmOtherBankInfoEntity">
+            <result property="id" column="id"/>
+            <result property="bankName" column="bank_name"/>
+            <result property="bankNameEn" column="bank_name_en"/>
+            <result property="swiftCode" column="swift_code"/>
+            <result property="remark" column="remark"/>
+            <result property="bankId" column="bank_id"/>
+            <result property="isAmount" column="is_amount"/>
+            <result property="createTime" column="create_time"/>
+            <result property="createUser" column="create_user"/>
+            <result property="updateTime" column="update_time"/>
+            <result property="updateUser" column="update_user"/>
+            <result property="registrationPlace" column="registration_place"/>
+            <result property="bankType" column="bank_type"/>
+            <result property="isHot" column="is_hot"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+		bank_name,
+		bank_name_en,
+		swift_code,
+		remark,
+		bank_id,
+		is_amount,
+		create_time,
+		create_user,
+		update_time,
+		update_user,
+        registration_place
+    </sql>
+
+    <select id="selectBpmOtherBankInfoPage" resultMap="bpmOtherBankInfoResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bpm_other_bank_info
+    </select>
+
+    <select id="selectBankInfo" resultMap="bankListMap">
+        select
+        <include refid="Base_Column_List"/>,
+        fristPinyin(bank_name) `name`
+        from bpm_other_bank_info
+        where 1=1
+        <if test="bankName!=null and bankName!=''">
+            and bank_name like concat("%",#{bankName},"%")
+        </if>
+        <if test="bankType!=null">
+            and bank_type = #{bankType}
+        </if>
+        order by `name`
+    </select>
+</mapper>

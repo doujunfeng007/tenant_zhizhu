@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpm.mapper.AcctOpenInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="acctOpenInfoResultMap" type="com.minigod.zero.bpm.entity.AcctOpenInfoEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="inviter" property="inviter"/>
+        <result column="json_info" property="jsonInfo"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="push_recved" property="pushRecved"/>
+        <result column="return_code" property="returnCode"/>
+        <result column="open_account_accept_id" property="openAccountAcceptId"/>
+        <result column="open_status" property="openStatus"/>
+        <result column="open_date" property="openDate"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="is_reward" property="isReward"/>
+        <result column="is_send_activity_reward" property="isSendActivityReward"/>
+        <result column="is_send_business_activity_reward" property="isSendBusinessActivityReward"/>
+        <result column="is_send_flop_activity_reward" property="isSendFlopActivityReward"/>
+        <result column="err_cnt" property="errCnt"/>
+        <result column="is_send" property="isSend"/>
+        <result column="open_account_access_way" property="openAccountAccessWay"/>
+        <result column="email" property="email"/>
+        <result column="id_no" property="idNo"/>
+        <result column="open_result" property="openResult"/>
+        <result column="is_apply" property="isApply"/>
+        <result column="act_id" property="actId"/>
+        <result column="open_type" property="openType"/>
+        <result column="pin_no" property="pinNo"/>
+        <result column="open_account_pdf_url" property="openAccountPdfUrl"/>
+        <result column="ca_push_recved" property="caPushRecved"/>
+        <result column="ca_verify_status" property="caVerifyStatus"/>
+        <result column="ca_verify_msg" property="caVerifyMsg"/>
+        <result column="ca_verify_cnt" property="caVerifyCnt"/>
+        <result column="ca_verify_file_hash" property="caVerifyFileHash"/>
+        <result column="up_email" property="upEmail"/>
+        <result column="ca_verify_file_url" property="caVerifyFileUrl"/>
+        <result column="ca_verify_file_id" property="caVerifyFileId"/>
+        <result column="bcan" property="bcan"/>
+        <result column="jump_code" property="jumpCode"/>
+    </resultMap>
+
+
+    <select id="selectAcctOpenInfoPage" resultMap="acctOpenInfoResultMap">
+        select * from acct_open_info where is_deleted = 0
+    </select>
+
+
+</mapper>

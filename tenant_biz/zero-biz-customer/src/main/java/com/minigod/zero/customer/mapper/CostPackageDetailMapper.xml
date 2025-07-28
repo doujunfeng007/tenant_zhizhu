@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CostPackageDetailMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CostPackageDetail">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <id property="packageId" column="package_id" jdbcType="INTEGER"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="itemId" column="item_id" jdbcType="INTEGER"/>
+            <result property="itemName" column="item_name" jdbcType="VARCHAR"/>
+            <result property="chargeType" column="charge_type" jdbcType="INTEGER"/>
+            <result property="rate" column="rate" jdbcType="DECIMAL"/>
+            <result property="maxCharge" column="max_charge" jdbcType="DECIMAL"/>
+            <result property="minCharge" column="min_charge" jdbcType="DECIMAL"/>
+            <result property="roundingType" column="rounding_type" jdbcType="INTEGER"/>
+            <result property="decimalPlaces" column="decimal_places" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="createrId" column="creater_id" jdbcType="BIGINT"/>
+            <result property="createrName" column="creater_name" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="updaterId" column="updater_id" jdbcType="BIGINT"/>
+            <result property="updaterName" column="updater_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,currency,item_id,
+        item_name,charge_type,rate,
+        max_charge,min_charge,rounding_type,
+        decimal_places,status,create_time,
+        creater_id,creater_name,update_time,
+        updater_id,updater_name,package_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from cost_package_detail
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from cost_package_detail
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CostPackageDetail" useGeneratedKeys="true">
+        insert into cost_package_detail
+        ( id,currency,item_id
+        ,item_name,charge_type,rate
+        ,max_charge,min_charge,rounding_type
+        ,decimal_places,status,create_time
+        ,creater_id,creater_name,update_time
+        ,updater_id,updater_name,package_id)
+        values (#{id,jdbcType=INTEGER},#{currency,jdbcType=VARCHAR},#{itemId,jdbcType=INTEGER}
+        ,#{itemName,jdbcType=VARCHAR},#{chargeType,jdbcType=INTEGER},#{rate,jdbcType=DECIMAL}
+        ,#{maxCharge,jdbcType=DECIMAL},#{minCharge,jdbcType=DECIMAL},#{roundingType,jdbcType=INTEGER}
+        ,#{decimalPlaces,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP}
+        ,#{createrId,jdbcType=BIGINT},#{createrName,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP}
+        ,#{updaterId,jdbcType=BIGINT},#{updaterName,jdbcType=VARCHAR},#{packageId})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CostPackageDetail" useGeneratedKeys="true">
+        insert into cost_package_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="currency != null">currency,</if>
+                <if test="itemId != null">item_id,</if>
+                <if test="itemName != null">item_name,</if>
+                <if test="chargeType != null">charge_type,</if>
+                <if test="rate != null">rate,</if>
+                <if test="maxCharge != null">max_charge,</if>
+                <if test="minCharge != null">min_charge,</if>
+                <if test="roundingType != null">rounding_type,</if>
+                <if test="decimalPlaces != null">decimal_places,</if>
+                <if test="status != null">status,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="createrId != null">creater_id,</if>
+                <if test="createrName != null">creater_name,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="updaterId != null">updater_id,</if>
+                <if test="updaterName != null">updater_name,</if>
+                <if test="packageId != null">
+                    package_id ,
+                </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="currency != null">#{currency,jdbcType=VARCHAR},</if>
+                <if test="itemId != null">#{itemId,jdbcType=INTEGER},</if>
+                <if test="itemName != null">#{itemName,jdbcType=VARCHAR},</if>
+                <if test="chargeType != null">#{chargeType,jdbcType=INTEGER},</if>
+                <if test="rate != null">#{rate,jdbcType=DECIMAL},</if>
+                <if test="maxCharge != null">#{maxCharge,jdbcType=DECIMAL},</if>
+                <if test="minCharge != null">#{minCharge,jdbcType=DECIMAL},</if>
+                <if test="roundingType != null">#{roundingType,jdbcType=INTEGER},</if>
+                <if test="decimalPlaces != null">#{decimalPlaces,jdbcType=INTEGER},</if>
+                <if test="status != null">#{status,jdbcType=INTEGER},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="createrId != null">#{createrId,jdbcType=BIGINT},</if>
+                <if test="createrName != null">#{createrName,jdbcType=VARCHAR},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="updaterId != null">#{updaterId,jdbcType=BIGINT},</if>
+                <if test="updaterName != null">#{updaterName,jdbcType=VARCHAR},</if>
+                <if test="packageId != null">
+                    #{packageId} ,
+                </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.CostPackageDetail">
+        update cost_package_detail
+        <set>
+                <if test="currency != null">
+                    currency = #{currency,jdbcType=VARCHAR},
+                </if>
+                <if test="itemId != null">
+                    item_id = #{itemId,jdbcType=INTEGER},
+                </if>
+                <if test="itemName != null">
+                    item_name = #{itemName,jdbcType=VARCHAR},
+                </if>
+                <if test="chargeType != null">
+                    charge_type = #{chargeType,jdbcType=INTEGER},
+                </if>
+                <if test="rate != null">
+                    rate = #{rate,jdbcType=DECIMAL},
+                </if>
+                <if test="maxCharge != null">
+                    max_charge = #{maxCharge,jdbcType=DECIMAL},
+                </if>
+                <if test="minCharge != null">
+                    min_charge = #{minCharge,jdbcType=DECIMAL},
+                </if>
+                <if test="roundingType != null">
+                    rounding_type = #{roundingType,jdbcType=INTEGER},
+                </if>
+                <if test="decimalPlaces != null">
+                    decimal_places = #{decimalPlaces,jdbcType=INTEGER},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=INTEGER},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="createrId != null">
+                    creater_id = #{createrId,jdbcType=BIGINT},
+                </if>
+                <if test="createrName != null">
+                    creater_name = #{createrName,jdbcType=VARCHAR},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updaterId != null">
+                    updater_id = #{updaterId,jdbcType=BIGINT},
+                </if>
+                <if test="updaterName != null">
+                    updater_name = #{updaterName,jdbcType=VARCHAR},
+                </if>
+                <if test="packageId != null">
+                    package_id = #{packageId} ,
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.CostPackageDetail">
+        update cost_package_detail
+        set
+            currency =  #{currency,jdbcType=VARCHAR},
+            item_id =  #{itemId,jdbcType=INTEGER},
+            item_name =  #{itemName,jdbcType=VARCHAR},
+            charge_type =  #{chargeType,jdbcType=INTEGER},
+            rate =  #{rate,jdbcType=DECIMAL},
+            max_charge =  #{maxCharge,jdbcType=DECIMAL},
+            min_charge =  #{minCharge,jdbcType=DECIMAL},
+            rounding_type =  #{roundingType,jdbcType=INTEGER},
+            decimal_places =  #{decimalPlaces,jdbcType=INTEGER},
+            status =  #{status,jdbcType=INTEGER},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            creater_id =  #{createrId,jdbcType=BIGINT},
+            creater_name =  #{createrName,jdbcType=VARCHAR},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            updater_id =  #{updaterId,jdbcType=BIGINT},
+            updater_name =  #{updaterName,jdbcType=VARCHAR},
+            package_id = #{packageId} ,
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByPackageId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List" />
+        from cost_package_detail
+        where  package_id = #{packageId}
+    </select>
+</mapper>

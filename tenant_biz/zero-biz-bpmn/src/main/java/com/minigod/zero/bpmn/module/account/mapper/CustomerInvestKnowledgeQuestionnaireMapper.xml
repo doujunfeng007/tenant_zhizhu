@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.CustomerInvestKnowledgeQuestionnaireMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.account.entity.CustomerInvestKnowledgeQuestionnaire">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+            <result property="custId" column="cust_id" jdbcType="BIGINT"/>
+            <result property="optionData" column="option_data" jdbcType="VARCHAR"/>
+            <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+            <result property="createDept" column="create_dept" jdbcType="BIGINT"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,application_id,cust_id,
+        option_data,tenant_id,create_time,
+        create_user,update_time,update_user,
+        is_deleted,create_dept,status
+    </sql>
+</mapper>

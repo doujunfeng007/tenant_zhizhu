@@ -1,0 +1,1170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.CustomerBasicInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.CustomerBasicInfoEntity">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+            <result property="openAccountType" column="open_account_type" jdbcType="INTEGER"/>
+            <result property="openAccountAccessWay" column="open_account_access_way" jdbcType="INTEGER"/>
+            <result property="fundAccountType" column="fund_account_type" jdbcType="INTEGER"/>
+            <result property="sourceChannelId" column="source_channel_id" jdbcType="VARCHAR"/>
+            <result property="inviterId" column="inviter_id" jdbcType="VARCHAR"/>
+            <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+            <result property="familyName" column="family_name" jdbcType="VARCHAR"/>
+            <result property="givenName" column="given_name" jdbcType="VARCHAR"/>
+            <result property="clientNameSpell" column="client_name_spell" jdbcType="VARCHAR"/>
+            <result property="idKind" column="id_kind" jdbcType="INTEGER"/>
+            <result property="isPassIdentityAuthentication" column="is_pass_identity_authentication" jdbcType="INTEGER"/>
+            <result property="bankCurrency" column="bank_currency" jdbcType="INTEGER"/>
+            <result property="bankType" column="bank_type" jdbcType="INTEGER"/>
+            <result property="bankId" column="bank_id" jdbcType="VARCHAR"/>
+            <result property="bankNo" column="bank_no" jdbcType="VARCHAR"/>
+            <result property="bankAccountName" column="bank_account_name" jdbcType="VARCHAR"/>
+            <result property="otherBankName" column="other_bank_name" jdbcType="VARCHAR"/>
+            <result property="nationality" column="nationality" jdbcType="VARCHAR"/>
+            <result property="contactRepublicName" column="contact_republic_name" jdbcType="VARCHAR"/>
+            <result property="contactProvinceName" column="contact_province_name" jdbcType="VARCHAR"/>
+            <result property="contactCityName" column="contact_city_name" jdbcType="VARCHAR"/>
+            <result property="contactCountyName" column="contact_county_name" jdbcType="VARCHAR"/>
+            <result property="contactDetailAddress" column="contact_detail_address" jdbcType="VARCHAR"/>
+            <result property="familyAddress" column="family_address" jdbcType="VARCHAR"/>
+            <result property="contactAddress" column="contact_address" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="professionCode" column="profession_code" jdbcType="INTEGER"/>
+            <result property="companyName" column="company_name" jdbcType="VARCHAR"/>
+            <result property="companyAddress" column="company_address" jdbcType="VARCHAR"/>
+            <result property="companyPhoneNumber" column="company_phone_number" jdbcType="VARCHAR"/>
+            <result property="jobPosition" column="job_position" jdbcType="VARCHAR"/>
+            <result property="capitalSource" column="capital_source" jdbcType="VARCHAR"/>
+            <result property="annualIncome" column="annual_income" jdbcType="INTEGER"/>
+            <result property="annualIncomeOther" column="annual_income_other" jdbcType="VARCHAR"/>
+            <result property="financingInstitutionWorkExperienceType" column="financing_institution_work_experience_type" jdbcType="INTEGER"/>
+            <result property="financingInstitutionWorkExperienceTypeOther" column="financing_institution_work_experience_type_other" jdbcType="VARCHAR"/>
+            <result property="isTradedDerivativeProducts" column="is_traded_derivative_products" jdbcType="INTEGER"/>
+            <result property="isOpenUsaStockMarket" column="is_open_usa_stock_market" jdbcType="INTEGER"/>
+            <result property="isOpenHkStockMarket" column="is_open_hk_stock_market" jdbcType="INTEGER"/>
+            <result property="isAmlSuspicious" column="is_aml_suspicious" jdbcType="INTEGER"/>
+            <result property="accountLevel" column="account_level" jdbcType="INTEGER"/>
+            <result property="initialAccountPassword" column="initial_account_password" jdbcType="VARCHAR"/>
+            <result property="openAccountTime" column="open_account_time" jdbcType="TIMESTAMP"/>
+            <result property="applicationTime" column="application_time" jdbcType="TIMESTAMP"/>
+            <result property="signingOrganization" column="signing_organization" jdbcType="VARCHAR"/>
+            <result property="addressType" column="address_type" jdbcType="INTEGER"/>
+            <result property="caSignHashCode" column="ca_sign_hash_code" jdbcType="VARCHAR"/>
+            <result property="nation" column="nation" jdbcType="VARCHAR"/>
+            <result property="recordStatus" column="record_status" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="northTrade" column="north_trade" jdbcType="INTEGER"/>
+            <result property="fatca" column="fatca" jdbcType="INTEGER"/>
+            <result property="acceptRisk" column="accept_risk" jdbcType="INTEGER"/>
+            <result property="otherNationality" column="other_nationality" jdbcType="VARCHAR"/>
+            <result property="companyRepublicName" column="company_republic_name" jdbcType="VARCHAR"/>
+            <result property="companyProvinceName" column="company_province_name" jdbcType="VARCHAR"/>
+            <result property="companyCityName" column="company_city_name" jdbcType="VARCHAR"/>
+            <result property="companyCountyName" column="company_county_name" jdbcType="VARCHAR"/>
+            <result property="companyDetailAddress" column="company_detail_address" jdbcType="VARCHAR"/>
+            <result property="familyRepublicName" column="family_republic_name" jdbcType="VARCHAR"/>
+            <result property="familyProvinceName" column="family_province_name" jdbcType="VARCHAR"/>
+            <result property="familyCityName" column="family_city_name" jdbcType="VARCHAR"/>
+            <result property="familyCountyName" column="family_county_name" jdbcType="VARCHAR"/>
+            <result property="familyDetailAddress" column="family_detail_address" jdbcType="VARCHAR"/>
+            <result property="otherFamilyRepublic" column="other_family_republic" jdbcType="VARCHAR"/>
+            <result property="otherCompanyRepublic" column="other_company_republic" jdbcType="VARCHAR"/>
+            <result property="otherContactRepublic" column="other_contact_republic" jdbcType="VARCHAR"/>
+            <result property="theusTaxNumber" column="theUS_tax_number" jdbcType="VARCHAR"/>
+            <result property="givenNameSpell" column="given_name_spell" jdbcType="VARCHAR"/>
+            <result property="familyNameSpell" column="family_name_spell" jdbcType="VARCHAR"/>
+            <result property="lan" column="lan" jdbcType="INTEGER"/>
+            <result property="accountType" column="account_type" jdbcType="INTEGER"/>
+            <result property="familyPhone" column="family_phone" jdbcType="VARCHAR"/>
+            <result property="educationLevel" column="education_level" jdbcType="INTEGER"/>
+            <result property="workingSeniority" column="working_seniority" jdbcType="INTEGER"/>
+            <result property="otherProfession" column="other_profession" jdbcType="VARCHAR"/>
+            <result property="isBankrupted" column="is_bankrupted" jdbcType="INTEGER"/>
+            <result property="statementReceiveMode" column="statement_receive_mode" jdbcType="INTEGER"/>
+            <result property="tradeOtherProductsFrequency" column="trade_other_products_frequency" jdbcType="INTEGER"/>
+            <result property="contactPhone" column="contact_phone" jdbcType="VARCHAR"/>
+            <result property="stockTradeAccount" column="stock_trade_account" jdbcType="VARCHAR"/>
+            <result property="investmentHorizon" column="investment_horizon" jdbcType="INTEGER"/>
+            <result property="creditQuota" column="credit_quota" jdbcType="VARCHAR"/>
+            <result property="creditRatio" column="credit_ratio" jdbcType="VARCHAR"/>
+            <result property="capitalSourceOther" column="capital_source_other" jdbcType="VARCHAR"/>
+            <result property="placeOfBirth" column="place_of_birth" jdbcType="VARCHAR"/>
+            <result property="permanentAddress" column="permanent_address" jdbcType="VARCHAR"/>
+            <result property="permanentRepublicName" column="permanent_republic_name" jdbcType="VARCHAR"/>
+            <result property="otherPermanentRepublic" column="other_permanent_republic" jdbcType="VARCHAR"/>
+            <result property="ongoingCapitalSource" column="ongoing_capital_source" jdbcType="VARCHAR"/>
+            <result property="expectedCapitalSource" column="expected_capital_source" jdbcType="VARCHAR"/>
+            <result property="ongoingCapitalSourceOther" column="ongoing_capital_source_other" jdbcType="VARCHAR"/>
+            <result property="expectedCapitalSourceOther" column="expected_capital_source_other" jdbcType="VARCHAR"/>
+            <result property="tradeFrequency" column="trade_frequency" jdbcType="INTEGER"/>
+            <result property="tradeFrequencyOther" column="trade_frequency_other" jdbcType="VARCHAR"/>
+            <result property="isAcceptRisksAssociated" column="is_accept_risks_associated" jdbcType="INTEGER"/>
+            <result property="bankAddress" column="bank_address" jdbcType="VARCHAR"/>
+            <result property="isCompanyAccount" column="is_company_account" jdbcType="INTEGER"/>
+            <result property="companyClientId" column="company_client_id" jdbcType="VARCHAR"/>
+            <result property="taxResident" column="tax_resident" jdbcType="VARCHAR"/>
+            <result property="bcan" column="bcan" jdbcType="INTEGER"/>
+            <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+            <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+            <result property="againstDataPromotion" column="against_data_promotion" jdbcType="TINYINT"/>
+            <result property="againstDataPromotionToCompany" column="against_data_promotion_to_company" jdbcType="TINYINT"/>
+            <result property="formerName" column="former_name" jdbcType="VARCHAR"/>
+            <result property="appellation" column="appellation" jdbcType="INTEGER"/>
+            <result property="maritalStatus" column="marital_status" jdbcType="INTEGER"/>
+            <result property="companyEmail" column="company_email" jdbcType="VARCHAR"/>
+            <result property="companyFacsimile" column="company_facsimile" jdbcType="VARCHAR"/>
+            <result property="companyBusinessNature" column="company_business_nature" jdbcType="INTEGER"/>
+            <result property="netAsset" column="net_asset" jdbcType="INTEGER"/>
+            <result property="netAssetOther" column="net_asset_other" jdbcType="VARCHAR"/>
+            <result property="tradeAmount" column="trade_amount" jdbcType="INTEGER"/>
+            <result property="tradeAmountOther" column="trade_amount_other" jdbcType="VARCHAR"/>
+            <result property="aeCode" column="ae_code" jdbcType="VARCHAR"/>
+            <result property="permanentCityName" column="permanent_city_name" jdbcType="VARCHAR"/>
+            <result property="permanentCountyName" column="permanent_county_name" jdbcType="VARCHAR"/>
+            <result property="permanentDetailAddress" column="permanent_detail_address" jdbcType="VARCHAR"/>
+            <result property="permanentProvinceName" column="permanent_province_name" jdbcType="VARCHAR"/>
+            <result property="idCardCityName" column="id_card_city_name" jdbcType="VARCHAR"/>
+            <result property="idCardCountyName" column="id_card_county_name" jdbcType="VARCHAR"/>
+            <result property="idCardProvinceName" column="id_card_province_name" jdbcType="VARCHAR"/>
+            <result property="idCardDetailAddress" column="id_card_detail_address" jdbcType="VARCHAR"/>
+            <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+            <result property="createDept" column="create_dept" jdbcType="BIGINT"/>
+            <result property="jobPositionOther" column="job_position_other" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="companyBusinessNatureOther" column="company_business_nature_other" jdbcType="VARCHAR"/>
+            <result property="phoneNumber" column="phone_number" jdbcType="VARCHAR"/>
+            <result property="phoneArea" column="phone_area" jdbcType="VARCHAR"/>
+            <result property="custId" column="cust_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,application_id,open_account_type,
+        open_account_access_way,fund_account_type,source_channel_id,
+        inviter_id,client_name,family_name,
+        given_name,client_name_spell,id_kind,
+        is_pass_identity_authentication,bank_currency,bank_type,
+        bank_id,bank_no,bank_account_name,
+        other_bank_name,nationality,contact_republic_name,
+        contact_province_name,contact_city_name,contact_county_name,
+        contact_detail_address,family_address,contact_address,
+        email,profession_code,company_name,
+        company_address,company_phone_number,job_position,
+        capital_source,annual_income,annual_income_other,
+        financing_institution_work_experience_type,financing_institution_work_experience_type_other,is_traded_derivative_products,
+        is_open_usa_stock_market,is_open_hk_stock_market,is_aml_suspicious,
+        account_level,initial_account_password,open_account_time,
+        application_time,signing_organization,address_type,
+        ca_sign_hash_code,nation,record_status,
+        create_time,update_time,north_trade,
+        fatca,accept_risk,other_nationality,
+        company_republic_name,company_province_name,company_city_name,
+        company_county_name,company_detail_address,family_republic_name,
+        family_province_name,family_city_name,family_county_name,
+        family_detail_address,other_family_republic,other_company_republic,
+        other_contact_republic,theUS_tax_number,given_name_spell,
+        family_name_spell,lan,account_type,
+        family_phone,education_level,working_seniority,
+        other_profession,is_bankrupted,statement_receive_mode,
+        trade_other_products_frequency,contact_phone,stock_trade_account,
+        investment_horizon,credit_quota,credit_ratio,
+        capital_source_other,place_of_birth,permanent_address,
+        permanent_republic_name,other_permanent_republic,ongoing_capital_source,
+        expected_capital_source,ongoing_capital_source_other,expected_capital_source_other,
+        trade_frequency,trade_frequency_other,is_accept_risks_associated,
+        bank_address,is_company_account,company_client_id,
+        tax_resident,bcan,create_user,
+        update_user,is_deleted,against_data_promotion,
+        against_data_promotion_to_company,former_name,appellation,
+        marital_status,company_email,company_facsimile,
+        company_business_nature,net_asset,net_asset_other,
+        trade_amount,trade_amount_other,ae_code,
+        permanent_city_name,permanent_county_name,permanent_detail_address,
+        permanent_province_name,id_card_city_name,id_card_county_name,
+        id_card_province_name,id_card_detail_address,tenant_id,
+        create_dept,job_position_other,status,
+        company_business_nature_other,phone_number,phone_area,
+        cust_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_basic_info
+        where  id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from customer_basic_info
+        where  id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.CustomerBasicInfoEntity" useGeneratedKeys="true">
+        insert into customer_basic_info
+        ( id,application_id,open_account_type
+        ,open_account_access_way,fund_account_type,source_channel_id
+        ,inviter_id,client_name,family_name
+        ,given_name,client_name_spell,id_kind
+        ,is_pass_identity_authentication,bank_currency,bank_type
+        ,bank_id,bank_no,bank_account_name
+        ,other_bank_name,nationality,contact_republic_name
+        ,contact_province_name,contact_city_name,contact_county_name
+        ,contact_detail_address,family_address,contact_address
+        ,email,profession_code,company_name
+        ,company_address,company_phone_number,job_position
+        ,capital_source,annual_income,annual_income_other
+        ,financing_institution_work_experience_type,financing_institution_work_experience_type_other,is_traded_derivative_products
+        ,is_open_usa_stock_market,is_open_hk_stock_market,is_aml_suspicious
+        ,account_level,initial_account_password,open_account_time
+        ,application_time,signing_organization,address_type
+        ,ca_sign_hash_code,nation,record_status
+        ,create_time,update_time,north_trade
+        ,fatca,accept_risk,other_nationality
+        ,company_republic_name,company_province_name,company_city_name
+        ,company_county_name,company_detail_address,family_republic_name
+        ,family_province_name,family_city_name,family_county_name
+        ,family_detail_address,other_family_republic,other_company_republic
+        ,other_contact_republic,theUS_tax_number,given_name_spell
+        ,family_name_spell,lan,account_type
+        ,family_phone,education_level,working_seniority
+        ,other_profession,is_bankrupted,statement_receive_mode
+        ,trade_other_products_frequency,contact_phone,stock_trade_account
+        ,investment_horizon,credit_quota,credit_ratio
+        ,capital_source_other,place_of_birth,permanent_address
+        ,permanent_republic_name,other_permanent_republic,ongoing_capital_source
+        ,expected_capital_source,ongoing_capital_source_other,expected_capital_source_other
+        ,trade_frequency,trade_frequency_other,is_accept_risks_associated
+        ,bank_address,is_company_account,company_client_id
+        ,tax_resident,bcan,create_user
+        ,update_user,is_deleted,against_data_promotion
+        ,against_data_promotion_to_company,former_name,appellation
+        ,marital_status,company_email,company_facsimile
+        ,company_business_nature,net_asset,net_asset_other
+        ,trade_amount,trade_amount_other,ae_code
+        ,permanent_city_name,permanent_county_name,permanent_detail_address
+        ,permanent_province_name,id_card_city_name,id_card_county_name
+        ,id_card_province_name,id_card_detail_address,tenant_id
+        ,create_dept,job_position_other,status
+        ,company_business_nature_other,phone_number,phone_area
+        ,cust_id)
+        values (#{id,jdbcType=BIGINT},#{applicationId,jdbcType=VARCHAR},#{openAccountType,jdbcType=INTEGER}
+        ,#{openAccountAccessWay,jdbcType=INTEGER},#{fundAccountType,jdbcType=INTEGER},#{sourceChannelId,jdbcType=VARCHAR}
+        ,#{inviterId,jdbcType=VARCHAR},#{clientName,jdbcType=VARCHAR},#{familyName,jdbcType=VARCHAR}
+        ,#{givenName,jdbcType=VARCHAR},#{clientNameSpell,jdbcType=VARCHAR},#{idKind,jdbcType=INTEGER}
+        ,#{isPassIdentityAuthentication,jdbcType=INTEGER},#{bankCurrency,jdbcType=INTEGER},#{bankType,jdbcType=INTEGER}
+        ,#{bankId,jdbcType=VARCHAR},#{bankNo,jdbcType=VARCHAR},#{bankAccountName,jdbcType=VARCHAR}
+        ,#{otherBankName,jdbcType=VARCHAR},#{nationality,jdbcType=VARCHAR},#{contactRepublicName,jdbcType=VARCHAR}
+        ,#{contactProvinceName,jdbcType=VARCHAR},#{contactCityName,jdbcType=VARCHAR},#{contactCountyName,jdbcType=VARCHAR}
+        ,#{contactDetailAddress,jdbcType=VARCHAR},#{familyAddress,jdbcType=VARCHAR},#{contactAddress,jdbcType=VARCHAR}
+        ,#{email,jdbcType=VARCHAR},#{professionCode,jdbcType=INTEGER},#{companyName,jdbcType=VARCHAR}
+        ,#{companyAddress,jdbcType=VARCHAR},#{companyPhoneNumber,jdbcType=VARCHAR},#{jobPosition,jdbcType=VARCHAR}
+        ,#{capitalSource,jdbcType=VARCHAR},#{annualIncome,jdbcType=INTEGER},#{annualIncomeOther,jdbcType=VARCHAR}
+        ,#{financingInstitutionWorkExperienceType,jdbcType=INTEGER},#{financingInstitutionWorkExperienceTypeOther,jdbcType=VARCHAR},#{isTradedDerivativeProducts,jdbcType=INTEGER}
+        ,#{isOpenUsaStockMarket,jdbcType=INTEGER},#{isOpenHkStockMarket,jdbcType=INTEGER},#{isAmlSuspicious,jdbcType=INTEGER}
+        ,#{accountLevel,jdbcType=INTEGER},#{initialAccountPassword,jdbcType=VARCHAR},#{openAccountTime,jdbcType=TIMESTAMP}
+        ,#{applicationTime,jdbcType=TIMESTAMP},#{signingOrganization,jdbcType=VARCHAR},#{addressType,jdbcType=INTEGER}
+        ,#{caSignHashCode,jdbcType=VARCHAR},#{nation,jdbcType=VARCHAR},#{recordStatus,jdbcType=INTEGER}
+        ,#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{northTrade,jdbcType=INTEGER}
+        ,#{fatca,jdbcType=INTEGER},#{acceptRisk,jdbcType=INTEGER},#{otherNationality,jdbcType=VARCHAR}
+        ,#{companyRepublicName,jdbcType=VARCHAR},#{companyProvinceName,jdbcType=VARCHAR},#{companyCityName,jdbcType=VARCHAR}
+        ,#{companyCountyName,jdbcType=VARCHAR},#{companyDetailAddress,jdbcType=VARCHAR},#{familyRepublicName,jdbcType=VARCHAR}
+        ,#{familyProvinceName,jdbcType=VARCHAR},#{familyCityName,jdbcType=VARCHAR},#{familyCountyName,jdbcType=VARCHAR}
+        ,#{familyDetailAddress,jdbcType=VARCHAR},#{otherFamilyRepublic,jdbcType=VARCHAR},#{otherCompanyRepublic,jdbcType=VARCHAR}
+        ,#{otherContactRepublic,jdbcType=VARCHAR},#{theusTaxNumber,jdbcType=VARCHAR},#{givenNameSpell,jdbcType=VARCHAR}
+        ,#{familyNameSpell,jdbcType=VARCHAR},#{lan,jdbcType=INTEGER},#{accountType,jdbcType=INTEGER}
+        ,#{familyPhone,jdbcType=VARCHAR},#{educationLevel,jdbcType=INTEGER},#{workingSeniority,jdbcType=INTEGER}
+        ,#{otherProfession,jdbcType=VARCHAR},#{isBankrupted,jdbcType=INTEGER},#{statementReceiveMode,jdbcType=INTEGER}
+        ,#{tradeOtherProductsFrequency,jdbcType=INTEGER},#{contactPhone,jdbcType=VARCHAR},#{stockTradeAccount,jdbcType=VARCHAR}
+        ,#{investmentHorizon,jdbcType=INTEGER},#{creditQuota,jdbcType=VARCHAR},#{creditRatio,jdbcType=VARCHAR}
+        ,#{capitalSourceOther,jdbcType=VARCHAR},#{placeOfBirth,jdbcType=VARCHAR},#{permanentAddress,jdbcType=VARCHAR}
+        ,#{permanentRepublicName,jdbcType=VARCHAR},#{otherPermanentRepublic,jdbcType=VARCHAR},#{ongoingCapitalSource,jdbcType=VARCHAR}
+        ,#{expectedCapitalSource,jdbcType=VARCHAR},#{ongoingCapitalSourceOther,jdbcType=VARCHAR},#{expectedCapitalSourceOther,jdbcType=VARCHAR}
+        ,#{tradeFrequency,jdbcType=INTEGER},#{tradeFrequencyOther,jdbcType=VARCHAR},#{isAcceptRisksAssociated,jdbcType=INTEGER}
+        ,#{bankAddress,jdbcType=VARCHAR},#{isCompanyAccount,jdbcType=INTEGER},#{companyClientId,jdbcType=VARCHAR}
+        ,#{taxResident,jdbcType=VARCHAR},#{bcan,jdbcType=INTEGER},#{createUser,jdbcType=BIGINT}
+        ,#{updateUser,jdbcType=BIGINT},#{isDeleted,jdbcType=INTEGER},#{againstDataPromotion,jdbcType=TINYINT}
+        ,#{againstDataPromotionToCompany,jdbcType=TINYINT},#{formerName,jdbcType=VARCHAR},#{appellation,jdbcType=INTEGER}
+        ,#{maritalStatus,jdbcType=INTEGER},#{companyEmail,jdbcType=VARCHAR},#{companyFacsimile,jdbcType=VARCHAR}
+        ,#{companyBusinessNature,jdbcType=INTEGER},#{netAsset,jdbcType=INTEGER},#{netAssetOther,jdbcType=VARCHAR}
+        ,#{tradeAmount,jdbcType=INTEGER},#{tradeAmountOther,jdbcType=VARCHAR},#{aeCode,jdbcType=VARCHAR}
+        ,#{permanentCityName,jdbcType=VARCHAR},#{permanentCountyName,jdbcType=VARCHAR},#{permanentDetailAddress,jdbcType=VARCHAR}
+        ,#{permanentProvinceName,jdbcType=VARCHAR},#{idCardCityName,jdbcType=VARCHAR},#{idCardCountyName,jdbcType=VARCHAR}
+        ,#{idCardProvinceName,jdbcType=VARCHAR},#{idCardDetailAddress,jdbcType=VARCHAR},#{tenantId,jdbcType=VARCHAR}
+        ,#{createDept,jdbcType=BIGINT},#{jobPositionOther,jdbcType=VARCHAR},#{status,jdbcType=INTEGER}
+        ,#{companyBusinessNatureOther,jdbcType=VARCHAR},#{phoneNumber,jdbcType=VARCHAR},#{phoneArea,jdbcType=VARCHAR}
+        ,#{custId,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.CustomerBasicInfoEntity" useGeneratedKeys="true">
+        insert into customer_basic_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="applicationId != null">application_id,</if>
+                <if test="openAccountType != null">open_account_type,</if>
+                <if test="openAccountAccessWay != null">open_account_access_way,</if>
+                <if test="fundAccountType != null">fund_account_type,</if>
+                <if test="sourceChannelId != null">source_channel_id,</if>
+                <if test="inviterId != null">inviter_id,</if>
+                <if test="clientName != null">client_name,</if>
+                <if test="familyName != null">family_name,</if>
+                <if test="givenName != null">given_name,</if>
+                <if test="clientNameSpell != null">client_name_spell,</if>
+                <if test="idKind != null">id_kind,</if>
+                <if test="isPassIdentityAuthentication != null">is_pass_identity_authentication,</if>
+                <if test="bankCurrency != null">bank_currency,</if>
+                <if test="bankType != null">bank_type,</if>
+                <if test="bankId != null">bank_id,</if>
+                <if test="bankNo != null">bank_no,</if>
+                <if test="bankAccountName != null">bank_account_name,</if>
+                <if test="otherBankName != null">other_bank_name,</if>
+                <if test="nationality != null">nationality,</if>
+                <if test="contactRepublicName != null">contact_republic_name,</if>
+                <if test="contactProvinceName != null">contact_province_name,</if>
+                <if test="contactCityName != null">contact_city_name,</if>
+                <if test="contactCountyName != null">contact_county_name,</if>
+                <if test="contactDetailAddress != null">contact_detail_address,</if>
+                <if test="familyAddress != null">family_address,</if>
+                <if test="contactAddress != null">contact_address,</if>
+                <if test="email != null">email,</if>
+                <if test="professionCode != null">profession_code,</if>
+                <if test="companyName != null">company_name,</if>
+                <if test="companyAddress != null">company_address,</if>
+                <if test="companyPhoneNumber != null">company_phone_number,</if>
+                <if test="jobPosition != null">job_position,</if>
+                <if test="capitalSource != null">capital_source,</if>
+                <if test="annualIncome != null">annual_income,</if>
+                <if test="annualIncomeOther != null">annual_income_other,</if>
+                <if test="financingInstitutionWorkExperienceType != null">financing_institution_work_experience_type,</if>
+                <if test="financingInstitutionWorkExperienceTypeOther != null">financing_institution_work_experience_type_other,</if>
+                <if test="isTradedDerivativeProducts != null">is_traded_derivative_products,</if>
+                <if test="isOpenUsaStockMarket != null">is_open_usa_stock_market,</if>
+                <if test="isOpenHkStockMarket != null">is_open_hk_stock_market,</if>
+                <if test="isAmlSuspicious != null">is_aml_suspicious,</if>
+                <if test="accountLevel != null">account_level,</if>
+                <if test="initialAccountPassword != null">initial_account_password,</if>
+                <if test="openAccountTime != null">open_account_time,</if>
+                <if test="applicationTime != null">application_time,</if>
+                <if test="signingOrganization != null">signing_organization,</if>
+                <if test="addressType != null">address_type,</if>
+                <if test="caSignHashCode != null">ca_sign_hash_code,</if>
+                <if test="nation != null">nation,</if>
+                <if test="recordStatus != null">record_status,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="northTrade != null">north_trade,</if>
+                <if test="fatca != null">fatca,</if>
+                <if test="acceptRisk != null">accept_risk,</if>
+                <if test="otherNationality != null">other_nationality,</if>
+                <if test="companyRepublicName != null">company_republic_name,</if>
+                <if test="companyProvinceName != null">company_province_name,</if>
+                <if test="companyCityName != null">company_city_name,</if>
+                <if test="companyCountyName != null">company_county_name,</if>
+                <if test="companyDetailAddress != null">company_detail_address,</if>
+                <if test="familyRepublicName != null">family_republic_name,</if>
+                <if test="familyProvinceName != null">family_province_name,</if>
+                <if test="familyCityName != null">family_city_name,</if>
+                <if test="familyCountyName != null">family_county_name,</if>
+                <if test="familyDetailAddress != null">family_detail_address,</if>
+                <if test="otherFamilyRepublic != null">other_family_republic,</if>
+                <if test="otherCompanyRepublic != null">other_company_republic,</if>
+                <if test="otherContactRepublic != null">other_contact_republic,</if>
+                <if test="theusTaxNumber != null">theUS_tax_number,</if>
+                <if test="givenNameSpell != null">given_name_spell,</if>
+                <if test="familyNameSpell != null">family_name_spell,</if>
+                <if test="lan != null">lan,</if>
+                <if test="accountType != null">account_type,</if>
+                <if test="familyPhone != null">family_phone,</if>
+                <if test="educationLevel != null">education_level,</if>
+                <if test="workingSeniority != null">working_seniority,</if>
+                <if test="otherProfession != null">other_profession,</if>
+                <if test="isBankrupted != null">is_bankrupted,</if>
+                <if test="statementReceiveMode != null">statement_receive_mode,</if>
+                <if test="tradeOtherProductsFrequency != null">trade_other_products_frequency,</if>
+                <if test="contactPhone != null">contact_phone,</if>
+                <if test="stockTradeAccount != null">stock_trade_account,</if>
+                <if test="investmentHorizon != null">investment_horizon,</if>
+                <if test="creditQuota != null">credit_quota,</if>
+                <if test="creditRatio != null">credit_ratio,</if>
+                <if test="capitalSourceOther != null">capital_source_other,</if>
+                <if test="placeOfBirth != null">place_of_birth,</if>
+                <if test="permanentAddress != null">permanent_address,</if>
+                <if test="permanentRepublicName != null">permanent_republic_name,</if>
+                <if test="otherPermanentRepublic != null">other_permanent_republic,</if>
+                <if test="ongoingCapitalSource != null">ongoing_capital_source,</if>
+                <if test="expectedCapitalSource != null">expected_capital_source,</if>
+                <if test="ongoingCapitalSourceOther != null">ongoing_capital_source_other,</if>
+                <if test="expectedCapitalSourceOther != null">expected_capital_source_other,</if>
+                <if test="tradeFrequency != null">trade_frequency,</if>
+                <if test="tradeFrequencyOther != null">trade_frequency_other,</if>
+                <if test="isAcceptRisksAssociated != null">is_accept_risks_associated,</if>
+                <if test="bankAddress != null">bank_address,</if>
+                <if test="isCompanyAccount != null">is_company_account,</if>
+                <if test="companyClientId != null">company_client_id,</if>
+                <if test="taxResident != null">tax_resident,</if>
+                <if test="bcan != null">bcan,</if>
+                <if test="createUser != null">create_user,</if>
+                <if test="updateUser != null">update_user,</if>
+                <if test="isDeleted != null">is_deleted,</if>
+                <if test="againstDataPromotion != null">against_data_promotion,</if>
+                <if test="againstDataPromotionToCompany != null">against_data_promotion_to_company,</if>
+                <if test="formerName != null">former_name,</if>
+                <if test="appellation != null">appellation,</if>
+                <if test="maritalStatus != null">marital_status,</if>
+                <if test="companyEmail != null">company_email,</if>
+                <if test="companyFacsimile != null">company_facsimile,</if>
+                <if test="companyBusinessNature != null">company_business_nature,</if>
+                <if test="netAsset != null">net_asset,</if>
+                <if test="netAssetOther != null">net_asset_other,</if>
+                <if test="tradeAmount != null">trade_amount,</if>
+                <if test="tradeAmountOther != null">trade_amount_other,</if>
+                <if test="aeCode != null">ae_code,</if>
+                <if test="permanentCityName != null">permanent_city_name,</if>
+                <if test="permanentCountyName != null">permanent_county_name,</if>
+                <if test="permanentDetailAddress != null">permanent_detail_address,</if>
+                <if test="permanentProvinceName != null">permanent_province_name,</if>
+                <if test="idCardCityName != null">id_card_city_name,</if>
+                <if test="idCardCountyName != null">id_card_county_name,</if>
+                <if test="idCardProvinceName != null">id_card_province_name,</if>
+                <if test="idCardDetailAddress != null">id_card_detail_address,</if>
+                <if test="tenantId != null">tenant_id,</if>
+                <if test="createDept != null">create_dept,</if>
+                <if test="jobPositionOther != null">job_position_other,</if>
+                <if test="status != null">status,</if>
+                <if test="companyBusinessNatureOther != null">company_business_nature_other,</if>
+                <if test="phoneNumber != null">phone_number,</if>
+                <if test="phoneArea != null">phone_area,</if>
+                <if test="custId != null">cust_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="applicationId != null">#{applicationId,jdbcType=VARCHAR},</if>
+                <if test="openAccountType != null">#{openAccountType,jdbcType=INTEGER},</if>
+                <if test="openAccountAccessWay != null">#{openAccountAccessWay,jdbcType=INTEGER},</if>
+                <if test="fundAccountType != null">#{fundAccountType,jdbcType=INTEGER},</if>
+                <if test="sourceChannelId != null">#{sourceChannelId,jdbcType=VARCHAR},</if>
+                <if test="inviterId != null">#{inviterId,jdbcType=VARCHAR},</if>
+                <if test="clientName != null">#{clientName,jdbcType=VARCHAR},</if>
+                <if test="familyName != null">#{familyName,jdbcType=VARCHAR},</if>
+                <if test="givenName != null">#{givenName,jdbcType=VARCHAR},</if>
+                <if test="clientNameSpell != null">#{clientNameSpell,jdbcType=VARCHAR},</if>
+                <if test="idKind != null">#{idKind,jdbcType=INTEGER},</if>
+                <if test="isPassIdentityAuthentication != null">#{isPassIdentityAuthentication,jdbcType=INTEGER},</if>
+                <if test="bankCurrency != null">#{bankCurrency,jdbcType=INTEGER},</if>
+                <if test="bankType != null">#{bankType,jdbcType=INTEGER},</if>
+                <if test="bankId != null">#{bankId,jdbcType=VARCHAR},</if>
+                <if test="bankNo != null">#{bankNo,jdbcType=VARCHAR},</if>
+                <if test="bankAccountName != null">#{bankAccountName,jdbcType=VARCHAR},</if>
+                <if test="otherBankName != null">#{otherBankName,jdbcType=VARCHAR},</if>
+                <if test="nationality != null">#{nationality,jdbcType=VARCHAR},</if>
+                <if test="contactRepublicName != null">#{contactRepublicName,jdbcType=VARCHAR},</if>
+                <if test="contactProvinceName != null">#{contactProvinceName,jdbcType=VARCHAR},</if>
+                <if test="contactCityName != null">#{contactCityName,jdbcType=VARCHAR},</if>
+                <if test="contactCountyName != null">#{contactCountyName,jdbcType=VARCHAR},</if>
+                <if test="contactDetailAddress != null">#{contactDetailAddress,jdbcType=VARCHAR},</if>
+                <if test="familyAddress != null">#{familyAddress,jdbcType=VARCHAR},</if>
+                <if test="contactAddress != null">#{contactAddress,jdbcType=VARCHAR},</if>
+                <if test="email != null">#{email,jdbcType=VARCHAR},</if>
+                <if test="professionCode != null">#{professionCode,jdbcType=INTEGER},</if>
+                <if test="companyName != null">#{companyName,jdbcType=VARCHAR},</if>
+                <if test="companyAddress != null">#{companyAddress,jdbcType=VARCHAR},</if>
+                <if test="companyPhoneNumber != null">#{companyPhoneNumber,jdbcType=VARCHAR},</if>
+                <if test="jobPosition != null">#{jobPosition,jdbcType=VARCHAR},</if>
+                <if test="capitalSource != null">#{capitalSource,jdbcType=VARCHAR},</if>
+                <if test="annualIncome != null">#{annualIncome,jdbcType=INTEGER},</if>
+                <if test="annualIncomeOther != null">#{annualIncomeOther,jdbcType=VARCHAR},</if>
+                <if test="financingInstitutionWorkExperienceType != null">#{financingInstitutionWorkExperienceType,jdbcType=INTEGER},</if>
+                <if test="financingInstitutionWorkExperienceTypeOther != null">#{financingInstitutionWorkExperienceTypeOther,jdbcType=VARCHAR},</if>
+                <if test="isTradedDerivativeProducts != null">#{isTradedDerivativeProducts,jdbcType=INTEGER},</if>
+                <if test="isOpenUsaStockMarket != null">#{isOpenUsaStockMarket,jdbcType=INTEGER},</if>
+                <if test="isOpenHkStockMarket != null">#{isOpenHkStockMarket,jdbcType=INTEGER},</if>
+                <if test="isAmlSuspicious != null">#{isAmlSuspicious,jdbcType=INTEGER},</if>
+                <if test="accountLevel != null">#{accountLevel,jdbcType=INTEGER},</if>
+                <if test="initialAccountPassword != null">#{initialAccountPassword,jdbcType=VARCHAR},</if>
+                <if test="openAccountTime != null">#{openAccountTime,jdbcType=TIMESTAMP},</if>
+                <if test="applicationTime != null">#{applicationTime,jdbcType=TIMESTAMP},</if>
+                <if test="signingOrganization != null">#{signingOrganization,jdbcType=VARCHAR},</if>
+                <if test="addressType != null">#{addressType,jdbcType=INTEGER},</if>
+                <if test="caSignHashCode != null">#{caSignHashCode,jdbcType=VARCHAR},</if>
+                <if test="nation != null">#{nation,jdbcType=VARCHAR},</if>
+                <if test="recordStatus != null">#{recordStatus,jdbcType=INTEGER},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="northTrade != null">#{northTrade,jdbcType=INTEGER},</if>
+                <if test="fatca != null">#{fatca,jdbcType=INTEGER},</if>
+                <if test="acceptRisk != null">#{acceptRisk,jdbcType=INTEGER},</if>
+                <if test="otherNationality != null">#{otherNationality,jdbcType=VARCHAR},</if>
+                <if test="companyRepublicName != null">#{companyRepublicName,jdbcType=VARCHAR},</if>
+                <if test="companyProvinceName != null">#{companyProvinceName,jdbcType=VARCHAR},</if>
+                <if test="companyCityName != null">#{companyCityName,jdbcType=VARCHAR},</if>
+                <if test="companyCountyName != null">#{companyCountyName,jdbcType=VARCHAR},</if>
+                <if test="companyDetailAddress != null">#{companyDetailAddress,jdbcType=VARCHAR},</if>
+                <if test="familyRepublicName != null">#{familyRepublicName,jdbcType=VARCHAR},</if>
+                <if test="familyProvinceName != null">#{familyProvinceName,jdbcType=VARCHAR},</if>
+                <if test="familyCityName != null">#{familyCityName,jdbcType=VARCHAR},</if>
+                <if test="familyCountyName != null">#{familyCountyName,jdbcType=VARCHAR},</if>
+                <if test="familyDetailAddress != null">#{familyDetailAddress,jdbcType=VARCHAR},</if>
+                <if test="otherFamilyRepublic != null">#{otherFamilyRepublic,jdbcType=VARCHAR},</if>
+                <if test="otherCompanyRepublic != null">#{otherCompanyRepublic,jdbcType=VARCHAR},</if>
+                <if test="otherContactRepublic != null">#{otherContactRepublic,jdbcType=VARCHAR},</if>
+                <if test="theusTaxNumber != null">#{theusTaxNumber,jdbcType=VARCHAR},</if>
+                <if test="givenNameSpell != null">#{givenNameSpell,jdbcType=VARCHAR},</if>
+                <if test="familyNameSpell != null">#{familyNameSpell,jdbcType=VARCHAR},</if>
+                <if test="lan != null">#{lan,jdbcType=INTEGER},</if>
+                <if test="accountType != null">#{accountType,jdbcType=INTEGER},</if>
+                <if test="familyPhone != null">#{familyPhone,jdbcType=VARCHAR},</if>
+                <if test="educationLevel != null">#{educationLevel,jdbcType=INTEGER},</if>
+                <if test="workingSeniority != null">#{workingSeniority,jdbcType=INTEGER},</if>
+                <if test="otherProfession != null">#{otherProfession,jdbcType=VARCHAR},</if>
+                <if test="isBankrupted != null">#{isBankrupted,jdbcType=INTEGER},</if>
+                <if test="statementReceiveMode != null">#{statementReceiveMode,jdbcType=INTEGER},</if>
+                <if test="tradeOtherProductsFrequency != null">#{tradeOtherProductsFrequency,jdbcType=INTEGER},</if>
+                <if test="contactPhone != null">#{contactPhone,jdbcType=VARCHAR},</if>
+                <if test="stockTradeAccount != null">#{stockTradeAccount,jdbcType=VARCHAR},</if>
+                <if test="investmentHorizon != null">#{investmentHorizon,jdbcType=INTEGER},</if>
+                <if test="creditQuota != null">#{creditQuota,jdbcType=VARCHAR},</if>
+                <if test="creditRatio != null">#{creditRatio,jdbcType=VARCHAR},</if>
+                <if test="capitalSourceOther != null">#{capitalSourceOther,jdbcType=VARCHAR},</if>
+                <if test="placeOfBirth != null">#{placeOfBirth,jdbcType=VARCHAR},</if>
+                <if test="permanentAddress != null">#{permanentAddress,jdbcType=VARCHAR},</if>
+                <if test="permanentRepublicName != null">#{permanentRepublicName,jdbcType=VARCHAR},</if>
+                <if test="otherPermanentRepublic != null">#{otherPermanentRepublic,jdbcType=VARCHAR},</if>
+                <if test="ongoingCapitalSource != null">#{ongoingCapitalSource,jdbcType=VARCHAR},</if>
+                <if test="expectedCapitalSource != null">#{expectedCapitalSource,jdbcType=VARCHAR},</if>
+                <if test="ongoingCapitalSourceOther != null">#{ongoingCapitalSourceOther,jdbcType=VARCHAR},</if>
+                <if test="expectedCapitalSourceOther != null">#{expectedCapitalSourceOther,jdbcType=VARCHAR},</if>
+                <if test="tradeFrequency != null">#{tradeFrequency,jdbcType=INTEGER},</if>
+                <if test="tradeFrequencyOther != null">#{tradeFrequencyOther,jdbcType=VARCHAR},</if>
+                <if test="isAcceptRisksAssociated != null">#{isAcceptRisksAssociated,jdbcType=INTEGER},</if>
+                <if test="bankAddress != null">#{bankAddress,jdbcType=VARCHAR},</if>
+                <if test="isCompanyAccount != null">#{isCompanyAccount,jdbcType=INTEGER},</if>
+                <if test="companyClientId != null">#{companyClientId,jdbcType=VARCHAR},</if>
+                <if test="taxResident != null">#{taxResident,jdbcType=VARCHAR},</if>
+                <if test="bcan != null">#{bcan,jdbcType=INTEGER},</if>
+                <if test="createUser != null">#{createUser,jdbcType=BIGINT},</if>
+                <if test="updateUser != null">#{updateUser,jdbcType=BIGINT},</if>
+                <if test="isDeleted != null">#{isDeleted,jdbcType=INTEGER},</if>
+                <if test="againstDataPromotion != null">#{againstDataPromotion,jdbcType=TINYINT},</if>
+                <if test="againstDataPromotionToCompany != null">#{againstDataPromotionToCompany,jdbcType=TINYINT},</if>
+                <if test="formerName != null">#{formerName,jdbcType=VARCHAR},</if>
+                <if test="appellation != null">#{appellation,jdbcType=INTEGER},</if>
+                <if test="maritalStatus != null">#{maritalStatus,jdbcType=INTEGER},</if>
+                <if test="companyEmail != null">#{companyEmail,jdbcType=VARCHAR},</if>
+                <if test="companyFacsimile != null">#{companyFacsimile,jdbcType=VARCHAR},</if>
+                <if test="companyBusinessNature != null">#{companyBusinessNature,jdbcType=INTEGER},</if>
+                <if test="netAsset != null">#{netAsset,jdbcType=INTEGER},</if>
+                <if test="netAssetOther != null">#{netAssetOther,jdbcType=VARCHAR},</if>
+                <if test="tradeAmount != null">#{tradeAmount,jdbcType=INTEGER},</if>
+                <if test="tradeAmountOther != null">#{tradeAmountOther,jdbcType=VARCHAR},</if>
+                <if test="aeCode != null">#{aeCode,jdbcType=VARCHAR},</if>
+                <if test="permanentCityName != null">#{permanentCityName,jdbcType=VARCHAR},</if>
+                <if test="permanentCountyName != null">#{permanentCountyName,jdbcType=VARCHAR},</if>
+                <if test="permanentDetailAddress != null">#{permanentDetailAddress,jdbcType=VARCHAR},</if>
+                <if test="permanentProvinceName != null">#{permanentProvinceName,jdbcType=VARCHAR},</if>
+                <if test="idCardCityName != null">#{idCardCityName,jdbcType=VARCHAR},</if>
+                <if test="idCardCountyName != null">#{idCardCountyName,jdbcType=VARCHAR},</if>
+                <if test="idCardProvinceName != null">#{idCardProvinceName,jdbcType=VARCHAR},</if>
+                <if test="idCardDetailAddress != null">#{idCardDetailAddress,jdbcType=VARCHAR},</if>
+                <if test="tenantId != null">#{tenantId,jdbcType=VARCHAR},</if>
+                <if test="createDept != null">#{createDept,jdbcType=BIGINT},</if>
+                <if test="jobPositionOther != null">#{jobPositionOther,jdbcType=VARCHAR},</if>
+                <if test="status != null">#{status,jdbcType=INTEGER},</if>
+                <if test="companyBusinessNatureOther != null">#{companyBusinessNatureOther,jdbcType=VARCHAR},</if>
+                <if test="phoneNumber != null">#{phoneNumber,jdbcType=VARCHAR},</if>
+                <if test="phoneArea != null">#{phoneArea,jdbcType=VARCHAR},</if>
+                <if test="custId != null">#{custId,jdbcType=BIGINT},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.CustomerBasicInfoEntity">
+        update customer_basic_info
+        <set>
+                <if test="applicationId != null">
+                    application_id = #{applicationId,jdbcType=VARCHAR},
+                </if>
+                <if test="openAccountType != null">
+                    open_account_type = #{openAccountType,jdbcType=INTEGER},
+                </if>
+                <if test="openAccountAccessWay != null">
+                    open_account_access_way = #{openAccountAccessWay,jdbcType=INTEGER},
+                </if>
+                <if test="fundAccountType != null">
+                    fund_account_type = #{fundAccountType,jdbcType=INTEGER},
+                </if>
+                <if test="sourceChannelId != null">
+                    source_channel_id = #{sourceChannelId,jdbcType=VARCHAR},
+                </if>
+                <if test="inviterId != null">
+                    inviter_id = #{inviterId,jdbcType=VARCHAR},
+                </if>
+                <if test="clientName != null">
+                    client_name = #{clientName,jdbcType=VARCHAR},
+                </if>
+                <if test="familyName != null">
+                    family_name = #{familyName,jdbcType=VARCHAR},
+                </if>
+                <if test="givenName != null">
+                    given_name = #{givenName,jdbcType=VARCHAR},
+                </if>
+                <if test="clientNameSpell != null">
+                    client_name_spell = #{clientNameSpell,jdbcType=VARCHAR},
+                </if>
+                <if test="idKind != null">
+                    id_kind = #{idKind,jdbcType=INTEGER},
+                </if>
+                <if test="isPassIdentityAuthentication != null">
+                    is_pass_identity_authentication = #{isPassIdentityAuthentication,jdbcType=INTEGER},
+                </if>
+                <if test="bankCurrency != null">
+                    bank_currency = #{bankCurrency,jdbcType=INTEGER},
+                </if>
+                <if test="bankType != null">
+                    bank_type = #{bankType,jdbcType=INTEGER},
+                </if>
+                <if test="bankId != null">
+                    bank_id = #{bankId,jdbcType=VARCHAR},
+                </if>
+                <if test="bankNo != null">
+                    bank_no = #{bankNo,jdbcType=VARCHAR},
+                </if>
+                <if test="bankAccountName != null">
+                    bank_account_name = #{bankAccountName,jdbcType=VARCHAR},
+                </if>
+                <if test="otherBankName != null">
+                    other_bank_name = #{otherBankName,jdbcType=VARCHAR},
+                </if>
+                <if test="nationality != null">
+                    nationality = #{nationality,jdbcType=VARCHAR},
+                </if>
+                <if test="contactRepublicName != null">
+                    contact_republic_name = #{contactRepublicName,jdbcType=VARCHAR},
+                </if>
+                <if test="contactProvinceName != null">
+                    contact_province_name = #{contactProvinceName,jdbcType=VARCHAR},
+                </if>
+                <if test="contactCityName != null">
+                    contact_city_name = #{contactCityName,jdbcType=VARCHAR},
+                </if>
+                <if test="contactCountyName != null">
+                    contact_county_name = #{contactCountyName,jdbcType=VARCHAR},
+                </if>
+                <if test="contactDetailAddress != null">
+                    contact_detail_address = #{contactDetailAddress,jdbcType=VARCHAR},
+                </if>
+                <if test="familyAddress != null">
+                    family_address = #{familyAddress,jdbcType=VARCHAR},
+                </if>
+                <if test="contactAddress != null">
+                    contact_address = #{contactAddress,jdbcType=VARCHAR},
+                </if>
+                <if test="email != null">
+                    email = #{email,jdbcType=VARCHAR},
+                </if>
+                <if test="professionCode != null">
+                    profession_code = #{professionCode,jdbcType=INTEGER},
+                </if>
+                <if test="companyName != null">
+                    company_name = #{companyName,jdbcType=VARCHAR},
+                </if>
+                <if test="companyAddress != null">
+                    company_address = #{companyAddress,jdbcType=VARCHAR},
+                </if>
+                <if test="companyPhoneNumber != null">
+                    company_phone_number = #{companyPhoneNumber,jdbcType=VARCHAR},
+                </if>
+                <if test="jobPosition != null">
+                    job_position = #{jobPosition,jdbcType=VARCHAR},
+                </if>
+                <if test="capitalSource != null">
+                    capital_source = #{capitalSource,jdbcType=VARCHAR},
+                </if>
+                <if test="annualIncome != null">
+                    annual_income = #{annualIncome,jdbcType=INTEGER},
+                </if>
+                <if test="annualIncomeOther != null">
+                    annual_income_other = #{annualIncomeOther,jdbcType=VARCHAR},
+                </if>
+                <if test="financingInstitutionWorkExperienceType != null">
+                    financing_institution_work_experience_type = #{financingInstitutionWorkExperienceType,jdbcType=INTEGER},
+                </if>
+                <if test="financingInstitutionWorkExperienceTypeOther != null">
+                    financing_institution_work_experience_type_other = #{financingInstitutionWorkExperienceTypeOther,jdbcType=VARCHAR},
+                </if>
+                <if test="isTradedDerivativeProducts != null">
+                    is_traded_derivative_products = #{isTradedDerivativeProducts,jdbcType=INTEGER},
+                </if>
+                <if test="isOpenUsaStockMarket != null">
+                    is_open_usa_stock_market = #{isOpenUsaStockMarket,jdbcType=INTEGER},
+                </if>
+                <if test="isOpenHkStockMarket != null">
+                    is_open_hk_stock_market = #{isOpenHkStockMarket,jdbcType=INTEGER},
+                </if>
+                <if test="isAmlSuspicious != null">
+                    is_aml_suspicious = #{isAmlSuspicious,jdbcType=INTEGER},
+                </if>
+                <if test="accountLevel != null">
+                    account_level = #{accountLevel,jdbcType=INTEGER},
+                </if>
+                <if test="initialAccountPassword != null">
+                    initial_account_password = #{initialAccountPassword,jdbcType=VARCHAR},
+                </if>
+                <if test="openAccountTime != null">
+                    open_account_time = #{openAccountTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="applicationTime != null">
+                    application_time = #{applicationTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="signingOrganization != null">
+                    signing_organization = #{signingOrganization,jdbcType=VARCHAR},
+                </if>
+                <if test="addressType != null">
+                    address_type = #{addressType,jdbcType=INTEGER},
+                </if>
+                <if test="caSignHashCode != null">
+                    ca_sign_hash_code = #{caSignHashCode,jdbcType=VARCHAR},
+                </if>
+                <if test="nation != null">
+                    nation = #{nation,jdbcType=VARCHAR},
+                </if>
+                <if test="recordStatus != null">
+                    record_status = #{recordStatus,jdbcType=INTEGER},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="northTrade != null">
+                    north_trade = #{northTrade,jdbcType=INTEGER},
+                </if>
+                <if test="fatca != null">
+                    fatca = #{fatca,jdbcType=INTEGER},
+                </if>
+                <if test="acceptRisk != null">
+                    accept_risk = #{acceptRisk,jdbcType=INTEGER},
+                </if>
+                <if test="otherNationality != null">
+                    other_nationality = #{otherNationality,jdbcType=VARCHAR},
+                </if>
+                <if test="companyRepublicName != null">
+                    company_republic_name = #{companyRepublicName,jdbcType=VARCHAR},
+                </if>
+                <if test="companyProvinceName != null">
+                    company_province_name = #{companyProvinceName,jdbcType=VARCHAR},
+                </if>
+                <if test="companyCityName != null">
+                    company_city_name = #{companyCityName,jdbcType=VARCHAR},
+                </if>
+                <if test="companyCountyName != null">
+                    company_county_name = #{companyCountyName,jdbcType=VARCHAR},
+                </if>
+                <if test="companyDetailAddress != null">
+                    company_detail_address = #{companyDetailAddress,jdbcType=VARCHAR},
+                </if>
+                <if test="familyRepublicName != null">
+                    family_republic_name = #{familyRepublicName,jdbcType=VARCHAR},
+                </if>
+                <if test="familyProvinceName != null">
+                    family_province_name = #{familyProvinceName,jdbcType=VARCHAR},
+                </if>
+                <if test="familyCityName != null">
+                    family_city_name = #{familyCityName,jdbcType=VARCHAR},
+                </if>
+                <if test="familyCountyName != null">
+                    family_county_name = #{familyCountyName,jdbcType=VARCHAR},
+                </if>
+                <if test="familyDetailAddress != null">
+                    family_detail_address = #{familyDetailAddress,jdbcType=VARCHAR},
+                </if>
+                <if test="otherFamilyRepublic != null">
+                    other_family_republic = #{otherFamilyRepublic,jdbcType=VARCHAR},
+                </if>
+                <if test="otherCompanyRepublic != null">
+                    other_company_republic = #{otherCompanyRepublic,jdbcType=VARCHAR},
+                </if>
+                <if test="otherContactRepublic != null">
+                    other_contact_republic = #{otherContactRepublic,jdbcType=VARCHAR},
+                </if>
+                <if test="theusTaxNumber != null">
+                    theUS_tax_number = #{theusTaxNumber,jdbcType=VARCHAR},
+                </if>
+                <if test="givenNameSpell != null">
+                    given_name_spell = #{givenNameSpell,jdbcType=VARCHAR},
+                </if>
+                <if test="familyNameSpell != null">
+                    family_name_spell = #{familyNameSpell,jdbcType=VARCHAR},
+                </if>
+                <if test="lan != null">
+                    lan = #{lan,jdbcType=INTEGER},
+                </if>
+                <if test="accountType != null">
+                    account_type = #{accountType,jdbcType=INTEGER},
+                </if>
+                <if test="familyPhone != null">
+                    family_phone = #{familyPhone,jdbcType=VARCHAR},
+                </if>
+                <if test="educationLevel != null">
+                    education_level = #{educationLevel,jdbcType=INTEGER},
+                </if>
+                <if test="workingSeniority != null">
+                    working_seniority = #{workingSeniority,jdbcType=INTEGER},
+                </if>
+                <if test="otherProfession != null">
+                    other_profession = #{otherProfession,jdbcType=VARCHAR},
+                </if>
+                <if test="isBankrupted != null">
+                    is_bankrupted = #{isBankrupted,jdbcType=INTEGER},
+                </if>
+                <if test="statementReceiveMode != null">
+                    statement_receive_mode = #{statementReceiveMode,jdbcType=INTEGER},
+                </if>
+                <if test="tradeOtherProductsFrequency != null">
+                    trade_other_products_frequency = #{tradeOtherProductsFrequency,jdbcType=INTEGER},
+                </if>
+                <if test="contactPhone != null">
+                    contact_phone = #{contactPhone,jdbcType=VARCHAR},
+                </if>
+                <if test="stockTradeAccount != null">
+                    stock_trade_account = #{stockTradeAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="investmentHorizon != null">
+                    investment_horizon = #{investmentHorizon,jdbcType=INTEGER},
+                </if>
+                <if test="creditQuota != null">
+                    credit_quota = #{creditQuota,jdbcType=VARCHAR},
+                </if>
+                <if test="creditRatio != null">
+                    credit_ratio = #{creditRatio,jdbcType=VARCHAR},
+                </if>
+                <if test="capitalSourceOther != null">
+                    capital_source_other = #{capitalSourceOther,jdbcType=VARCHAR},
+                </if>
+                <if test="placeOfBirth != null">
+                    place_of_birth = #{placeOfBirth,jdbcType=VARCHAR},
+                </if>
+                <if test="permanentAddress != null">
+                    permanent_address = #{permanentAddress,jdbcType=VARCHAR},
+                </if>
+                <if test="permanentRepublicName != null">
+                    permanent_republic_name = #{permanentRepublicName,jdbcType=VARCHAR},
+                </if>
+                <if test="otherPermanentRepublic != null">
+                    other_permanent_republic = #{otherPermanentRepublic,jdbcType=VARCHAR},
+                </if>
+                <if test="ongoingCapitalSource != null">
+                    ongoing_capital_source = #{ongoingCapitalSource,jdbcType=VARCHAR},
+                </if>
+                <if test="expectedCapitalSource != null">
+                    expected_capital_source = #{expectedCapitalSource,jdbcType=VARCHAR},
+                </if>
+                <if test="ongoingCapitalSourceOther != null">
+                    ongoing_capital_source_other = #{ongoingCapitalSourceOther,jdbcType=VARCHAR},
+                </if>
+                <if test="expectedCapitalSourceOther != null">
+                    expected_capital_source_other = #{expectedCapitalSourceOther,jdbcType=VARCHAR},
+                </if>
+                <if test="tradeFrequency != null">
+                    trade_frequency = #{tradeFrequency,jdbcType=INTEGER},
+                </if>
+                <if test="tradeFrequencyOther != null">
+                    trade_frequency_other = #{tradeFrequencyOther,jdbcType=VARCHAR},
+                </if>
+                <if test="isAcceptRisksAssociated != null">
+                    is_accept_risks_associated = #{isAcceptRisksAssociated,jdbcType=INTEGER},
+                </if>
+                <if test="bankAddress != null">
+                    bank_address = #{bankAddress,jdbcType=VARCHAR},
+                </if>
+                <if test="isCompanyAccount != null">
+                    is_company_account = #{isCompanyAccount,jdbcType=INTEGER},
+                </if>
+                <if test="companyClientId != null">
+                    company_client_id = #{companyClientId,jdbcType=VARCHAR},
+                </if>
+                <if test="taxResident != null">
+                    tax_resident = #{taxResident,jdbcType=VARCHAR},
+                </if>
+                <if test="bcan != null">
+                    bcan = #{bcan,jdbcType=INTEGER},
+                </if>
+                <if test="createUser != null">
+                    create_user = #{createUser,jdbcType=BIGINT},
+                </if>
+                <if test="updateUser != null">
+                    update_user = #{updateUser,jdbcType=BIGINT},
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted,jdbcType=INTEGER},
+                </if>
+                <if test="againstDataPromotion != null">
+                    against_data_promotion = #{againstDataPromotion,jdbcType=TINYINT},
+                </if>
+                <if test="againstDataPromotionToCompany != null">
+                    against_data_promotion_to_company = #{againstDataPromotionToCompany,jdbcType=TINYINT},
+                </if>
+                <if test="formerName != null">
+                    former_name = #{formerName,jdbcType=VARCHAR},
+                </if>
+                <if test="appellation != null">
+                    appellation = #{appellation,jdbcType=INTEGER},
+                </if>
+                <if test="maritalStatus != null">
+                    marital_status = #{maritalStatus,jdbcType=INTEGER},
+                </if>
+                <if test="companyEmail != null">
+                    company_email = #{companyEmail,jdbcType=VARCHAR},
+                </if>
+                <if test="companyFacsimile != null">
+                    company_facsimile = #{companyFacsimile,jdbcType=VARCHAR},
+                </if>
+                <if test="companyBusinessNature != null">
+                    company_business_nature = #{companyBusinessNature,jdbcType=INTEGER},
+                </if>
+                <if test="netAsset != null">
+                    net_asset = #{netAsset,jdbcType=INTEGER},
+                </if>
+                <if test="netAssetOther != null">
+                    net_asset_other = #{netAssetOther,jdbcType=VARCHAR},
+                </if>
+                <if test="tradeAmount != null">
+                    trade_amount = #{tradeAmount,jdbcType=INTEGER},
+                </if>
+                <if test="tradeAmountOther != null">
+                    trade_amount_other = #{tradeAmountOther,jdbcType=VARCHAR},
+                </if>
+                <if test="aeCode != null">
+                    ae_code = #{aeCode,jdbcType=VARCHAR},
+                </if>
+                <if test="permanentCityName != null">
+                    permanent_city_name = #{permanentCityName,jdbcType=VARCHAR},
+                </if>
+                <if test="permanentCountyName != null">
+                    permanent_county_name = #{permanentCountyName,jdbcType=VARCHAR},
+                </if>
+                <if test="permanentDetailAddress != null">
+                    permanent_detail_address = #{permanentDetailAddress,jdbcType=VARCHAR},
+                </if>
+                <if test="permanentProvinceName != null">
+                    permanent_province_name = #{permanentProvinceName,jdbcType=VARCHAR},
+                </if>
+                <if test="idCardCityName != null">
+                    id_card_city_name = #{idCardCityName,jdbcType=VARCHAR},
+                </if>
+                <if test="idCardCountyName != null">
+                    id_card_county_name = #{idCardCountyName,jdbcType=VARCHAR},
+                </if>
+                <if test="idCardProvinceName != null">
+                    id_card_province_name = #{idCardProvinceName,jdbcType=VARCHAR},
+                </if>
+                <if test="idCardDetailAddress != null">
+                    id_card_detail_address = #{idCardDetailAddress,jdbcType=VARCHAR},
+                </if>
+                <if test="tenantId != null">
+                    tenant_id = #{tenantId,jdbcType=VARCHAR},
+                </if>
+                <if test="createDept != null">
+                    create_dept = #{createDept,jdbcType=BIGINT},
+                </if>
+                <if test="jobPositionOther != null">
+                    job_position_other = #{jobPositionOther,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=INTEGER},
+                </if>
+                <if test="companyBusinessNatureOther != null">
+                    company_business_nature_other = #{companyBusinessNatureOther,jdbcType=VARCHAR},
+                </if>
+                <if test="phoneNumber != null">
+                    phone_number = #{phoneNumber,jdbcType=VARCHAR},
+                </if>
+                <if test="phoneArea != null">
+                    phone_area = #{phoneArea,jdbcType=VARCHAR},
+                </if>
+                <if test="custId != null">
+                    cust_id = #{custId,jdbcType=BIGINT},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.CustomerBasicInfoEntity">
+        update customer_basic_info
+        set
+            application_id =  #{applicationId,jdbcType=VARCHAR},
+            open_account_type =  #{openAccountType,jdbcType=INTEGER},
+            open_account_access_way =  #{openAccountAccessWay,jdbcType=INTEGER},
+            fund_account_type =  #{fundAccountType,jdbcType=INTEGER},
+            source_channel_id =  #{sourceChannelId,jdbcType=VARCHAR},
+            inviter_id =  #{inviterId,jdbcType=VARCHAR},
+            client_name =  #{clientName,jdbcType=VARCHAR},
+            family_name =  #{familyName,jdbcType=VARCHAR},
+            given_name =  #{givenName,jdbcType=VARCHAR},
+            client_name_spell =  #{clientNameSpell,jdbcType=VARCHAR},
+            id_kind =  #{idKind,jdbcType=INTEGER},
+            is_pass_identity_authentication =  #{isPassIdentityAuthentication,jdbcType=INTEGER},
+            bank_currency =  #{bankCurrency,jdbcType=INTEGER},
+            bank_type =  #{bankType,jdbcType=INTEGER},
+            bank_id =  #{bankId,jdbcType=VARCHAR},
+            bank_no =  #{bankNo,jdbcType=VARCHAR},
+            bank_account_name =  #{bankAccountName,jdbcType=VARCHAR},
+            other_bank_name =  #{otherBankName,jdbcType=VARCHAR},
+            nationality =  #{nationality,jdbcType=VARCHAR},
+            contact_republic_name =  #{contactRepublicName,jdbcType=VARCHAR},
+            contact_province_name =  #{contactProvinceName,jdbcType=VARCHAR},
+            contact_city_name =  #{contactCityName,jdbcType=VARCHAR},
+            contact_county_name =  #{contactCountyName,jdbcType=VARCHAR},
+            contact_detail_address =  #{contactDetailAddress,jdbcType=VARCHAR},
+            family_address =  #{familyAddress,jdbcType=VARCHAR},
+            contact_address =  #{contactAddress,jdbcType=VARCHAR},
+            email =  #{email,jdbcType=VARCHAR},
+            profession_code =  #{professionCode,jdbcType=INTEGER},
+            company_name =  #{companyName,jdbcType=VARCHAR},
+            company_address =  #{companyAddress,jdbcType=VARCHAR},
+            company_phone_number =  #{companyPhoneNumber,jdbcType=VARCHAR},
+            job_position =  #{jobPosition,jdbcType=VARCHAR},
+            capital_source =  #{capitalSource,jdbcType=VARCHAR},
+            annual_income =  #{annualIncome,jdbcType=INTEGER},
+            annual_income_other =  #{annualIncomeOther,jdbcType=VARCHAR},
+            financing_institution_work_experience_type =  #{financingInstitutionWorkExperienceType,jdbcType=INTEGER},
+            financing_institution_work_experience_type_other =  #{financingInstitutionWorkExperienceTypeOther,jdbcType=VARCHAR},
+            is_traded_derivative_products =  #{isTradedDerivativeProducts,jdbcType=INTEGER},
+            is_open_usa_stock_market =  #{isOpenUsaStockMarket,jdbcType=INTEGER},
+            is_open_hk_stock_market =  #{isOpenHkStockMarket,jdbcType=INTEGER},
+            is_aml_suspicious =  #{isAmlSuspicious,jdbcType=INTEGER},
+            account_level =  #{accountLevel,jdbcType=INTEGER},
+            initial_account_password =  #{initialAccountPassword,jdbcType=VARCHAR},
+            open_account_time =  #{openAccountTime,jdbcType=TIMESTAMP},
+            application_time =  #{applicationTime,jdbcType=TIMESTAMP},
+            signing_organization =  #{signingOrganization,jdbcType=VARCHAR},
+            address_type =  #{addressType,jdbcType=INTEGER},
+            ca_sign_hash_code =  #{caSignHashCode,jdbcType=VARCHAR},
+            nation =  #{nation,jdbcType=VARCHAR},
+            record_status =  #{recordStatus,jdbcType=INTEGER},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            north_trade =  #{northTrade,jdbcType=INTEGER},
+            fatca =  #{fatca,jdbcType=INTEGER},
+            accept_risk =  #{acceptRisk,jdbcType=INTEGER},
+            other_nationality =  #{otherNationality,jdbcType=VARCHAR},
+            company_republic_name =  #{companyRepublicName,jdbcType=VARCHAR},
+            company_province_name =  #{companyProvinceName,jdbcType=VARCHAR},
+            company_city_name =  #{companyCityName,jdbcType=VARCHAR},
+            company_county_name =  #{companyCountyName,jdbcType=VARCHAR},
+            company_detail_address =  #{companyDetailAddress,jdbcType=VARCHAR},
+            family_republic_name =  #{familyRepublicName,jdbcType=VARCHAR},
+            family_province_name =  #{familyProvinceName,jdbcType=VARCHAR},
+            family_city_name =  #{familyCityName,jdbcType=VARCHAR},
+            family_county_name =  #{familyCountyName,jdbcType=VARCHAR},
+            family_detail_address =  #{familyDetailAddress,jdbcType=VARCHAR},
+            other_family_republic =  #{otherFamilyRepublic,jdbcType=VARCHAR},
+            other_company_republic =  #{otherCompanyRepublic,jdbcType=VARCHAR},
+            other_contact_republic =  #{otherContactRepublic,jdbcType=VARCHAR},
+            theUS_tax_number =  #{theusTaxNumber,jdbcType=VARCHAR},
+            given_name_spell =  #{givenNameSpell,jdbcType=VARCHAR},
+            family_name_spell =  #{familyNameSpell,jdbcType=VARCHAR},
+            lan =  #{lan,jdbcType=INTEGER},
+            account_type =  #{accountType,jdbcType=INTEGER},
+            family_phone =  #{familyPhone,jdbcType=VARCHAR},
+            education_level =  #{educationLevel,jdbcType=INTEGER},
+            working_seniority =  #{workingSeniority,jdbcType=INTEGER},
+            other_profession =  #{otherProfession,jdbcType=VARCHAR},
+            is_bankrupted =  #{isBankrupted,jdbcType=INTEGER},
+            statement_receive_mode =  #{statementReceiveMode,jdbcType=INTEGER},
+            trade_other_products_frequency =  #{tradeOtherProductsFrequency,jdbcType=INTEGER},
+            contact_phone =  #{contactPhone,jdbcType=VARCHAR},
+            stock_trade_account =  #{stockTradeAccount,jdbcType=VARCHAR},
+            investment_horizon =  #{investmentHorizon,jdbcType=INTEGER},
+            credit_quota =  #{creditQuota,jdbcType=VARCHAR},
+            credit_ratio =  #{creditRatio,jdbcType=VARCHAR},
+            capital_source_other =  #{capitalSourceOther,jdbcType=VARCHAR},
+            place_of_birth =  #{placeOfBirth,jdbcType=VARCHAR},
+            permanent_address =  #{permanentAddress,jdbcType=VARCHAR},
+            permanent_republic_name =  #{permanentRepublicName,jdbcType=VARCHAR},
+            other_permanent_republic =  #{otherPermanentRepublic,jdbcType=VARCHAR},
+            ongoing_capital_source =  #{ongoingCapitalSource,jdbcType=VARCHAR},
+            expected_capital_source =  #{expectedCapitalSource,jdbcType=VARCHAR},
+            ongoing_capital_source_other =  #{ongoingCapitalSourceOther,jdbcType=VARCHAR},
+            expected_capital_source_other =  #{expectedCapitalSourceOther,jdbcType=VARCHAR},
+            trade_frequency =  #{tradeFrequency,jdbcType=INTEGER},
+            trade_frequency_other =  #{tradeFrequencyOther,jdbcType=VARCHAR},
+            is_accept_risks_associated =  #{isAcceptRisksAssociated,jdbcType=INTEGER},
+            bank_address =  #{bankAddress,jdbcType=VARCHAR},
+            is_company_account =  #{isCompanyAccount,jdbcType=INTEGER},
+            company_client_id =  #{companyClientId,jdbcType=VARCHAR},
+            tax_resident =  #{taxResident,jdbcType=VARCHAR},
+            bcan =  #{bcan,jdbcType=INTEGER},
+            create_user =  #{createUser,jdbcType=BIGINT},
+            update_user =  #{updateUser,jdbcType=BIGINT},
+            is_deleted =  #{isDeleted,jdbcType=INTEGER},
+            against_data_promotion =  #{againstDataPromotion,jdbcType=TINYINT},
+            against_data_promotion_to_company =  #{againstDataPromotionToCompany,jdbcType=TINYINT},
+            former_name =  #{formerName,jdbcType=VARCHAR},
+            appellation =  #{appellation,jdbcType=INTEGER},
+            marital_status =  #{maritalStatus,jdbcType=INTEGER},
+            company_email =  #{companyEmail,jdbcType=VARCHAR},
+            company_facsimile =  #{companyFacsimile,jdbcType=VARCHAR},
+            company_business_nature =  #{companyBusinessNature,jdbcType=INTEGER},
+            net_asset =  #{netAsset,jdbcType=INTEGER},
+            net_asset_other =  #{netAssetOther,jdbcType=VARCHAR},
+            trade_amount =  #{tradeAmount,jdbcType=INTEGER},
+            trade_amount_other =  #{tradeAmountOther,jdbcType=VARCHAR},
+            ae_code =  #{aeCode,jdbcType=VARCHAR},
+            permanent_city_name =  #{permanentCityName,jdbcType=VARCHAR},
+            permanent_county_name =  #{permanentCountyName,jdbcType=VARCHAR},
+            permanent_detail_address =  #{permanentDetailAddress,jdbcType=VARCHAR},
+            permanent_province_name =  #{permanentProvinceName,jdbcType=VARCHAR},
+            id_card_city_name =  #{idCardCityName,jdbcType=VARCHAR},
+            id_card_county_name =  #{idCardCountyName,jdbcType=VARCHAR},
+            id_card_province_name =  #{idCardProvinceName,jdbcType=VARCHAR},
+            id_card_detail_address =  #{idCardDetailAddress,jdbcType=VARCHAR},
+            tenant_id =  #{tenantId,jdbcType=VARCHAR},
+            create_dept =  #{createDept,jdbcType=BIGINT},
+            job_position_other =  #{jobPositionOther,jdbcType=VARCHAR},
+            status =  #{status,jdbcType=INTEGER},
+            company_business_nature_other =  #{companyBusinessNatureOther,jdbcType=VARCHAR},
+            phone_number =  #{phoneNumber,jdbcType=VARCHAR},
+            phone_area =  #{phoneArea,jdbcType=VARCHAR},
+            cust_id =  #{custId,jdbcType=BIGINT}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="statisticsByIdKind" resultType="com.minigod.zero.data.vo.CustomerBasicInfoIdKindCountVO">
+        WITH total_count AS (
+            SELECT COUNT(*) AS total
+            FROM customer_basic_info
+            WHERE is_deleted = 0
+        )
+        SELECT
+            CASE
+                WHEN id_kind IN (1, 2) THEN id_kind
+                ELSE 3
+                END AS id_kind,
+            CASE
+                WHEN id_kind = 1 THEN '香港'
+                WHEN id_kind = 2 THEN '大陆'
+                ELSE '其它'
+                END AS idKindName,
+            COUNT(*) AS count,
+        ROUND(COUNT(*) * 100.0 / total_count.total, 2) AS ratio
+            FROM
+                customer_basic_info, total_count
+            WHERE
+                is_deleted = 0
+            GROUP BY
+                CASE
+                WHEN id_kind IN (1, 2) THEN id_kind
+                ELSE 3
+            END,
+        CASE
+            WHEN id_kind = 1 THEN '香港'
+            WHEN id_kind = 2 THEN '大陆'
+            ELSE '其它'
+            END
+        ORDER BY id_kind ASC
+    </select>
+
+    <select id="selectByCustId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from customer_basic_info where cust_id = #{custId}
+    </select>
+</mapper>

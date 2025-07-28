@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerHldTradingTransactionEntityMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerHldTradingTransaction">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="nomineetransid" column="nomineeTransId" jdbcType="INTEGER"/>
+            <result property="orderid" column="orderId" jdbcType="INTEGER"/>
+            <result property="subaccountid" column="subAccountId" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="INTEGER"/>
+            <result property="mode" column="mode" jdbcType="INTEGER"/>
+            <result property="fundcode" column="fundCode" jdbcType="VARCHAR"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="amount" column="amount" jdbcType="DECIMAL"/>
+            <result property="quantity" column="quantity" jdbcType="DECIMAL"/>
+            <result property="price" column="price" jdbcType="DECIMAL"/>
+            <result property="transactiondate" column="transactionDate" jdbcType="TIMESTAMP"/>
+            <result property="confirmeddate" column="confirmedDate" jdbcType="TIMESTAMP"/>
+            <result property="expectedsettleddate" column="expectedSettledDate" jdbcType="TIMESTAMP"/>
+            <result property="settleddate" column="settledDate" jdbcType="TIMESTAMP"/>
+            <result property="effectivesettleddate" column="effectiveSettledDate" jdbcType="TIMESTAMP"/>
+            <result property="settledamount" column="settledAmount" jdbcType="DECIMAL"/>
+            <result property="fee" column="fee" jdbcType="DECIMAL"/>
+            <result property="source" column="source" jdbcType="VARCHAR"/>
+            <result property="location" column="location" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,nomineeTransId,orderId,
+        subAccountId,type,mode,
+        fundCode,currency,amount,
+        quantity,price,transactionDate,
+        confirmedDate,expectedSettledDate,settledDate,
+        effectiveSettledDate,settledAmount,fee,
+        source,location,remark,
+        status,createTime,updateTime
+    </sql>
+</mapper>

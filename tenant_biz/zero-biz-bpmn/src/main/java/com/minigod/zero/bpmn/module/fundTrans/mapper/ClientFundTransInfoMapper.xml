@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.fundTrans.mapper.ClientFundTransInfoMapper">
+  <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.fundTrans.domain.ClientFundTransInfo">
+    <!--@mbg.generated-->
+    <!--@Table client_fund_trans_info-->
+    <id column="id" property="id" />
+    <result column="application_id" property="applicationId" />
+    <result column="tenant_id" property="tenantId" />
+    <result column="user_id" property="userId" />
+    <result column="client_id" property="clientId" />
+    <result column="client_name" property="clientName" />
+    <result column="client_name_spell" property="clientNameSpell" />
+    <result column="deposit_account" property="depositAccount" />
+    <result column="withdraw_account" property="withdrawAccount" />
+    <result column="amount" property="amount" />
+    <result column="deposit_amount" property="depositAmount" />
+    <result column="withdraw_amount" property="withdrawAmount" />
+    <result column="deposit_business_type" property="depositBusinessType" />
+    <result column="withdraw_business_type" property="withdrawBusinessType" />
+    <result column="fee" property="fee" />
+    <result column="status" property="status" />
+    <result column="remark" property="remark" />
+    <result column="currency" property="currency" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="fail_reason" property="failReason" />
+  </resultMap>
+
+    <resultMap id="BaseResultMapVo" type="com.minigod.zero.bpmn.module.fundTrans.domain.vo.ClientFundTransInfoVO" extends="BaseResultMap">
+
+    </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, application_id, tenant_id, user_id, client_id, client_name, client_name_spell,
+    deposit_account,deposit_business_type, withdraw_account,withdraw_business_type, amount, deposit_amount, withdraw_amount, fee,
+    `status`, remark, currency, create_time, update_time, fail_reason
+  </sql>
+
+    <select id="queryInfoPage" resultMap="BaseResultMapVo">
+        select *
+        from client_fund_trans_info
+        <where>
+            <if test="bo.currency != null and bo.currency != ''">
+                and currency = #{bo.currency}
+            </if>
+            <if test="bo.withdrawBusinessType != null and bo.withdrawBusinessType != ''">
+                and withdraw_business_type = #{bo.withdrawBusinessType}
+            </if>
+            <if test="bo.depositBusinessType != null and bo.depositBusinessType != ''">
+                and deposit_business_type = #{bo.depositBusinessType}
+            </if>
+            <if test="bo.userId != null">
+                and user_id = #{bo.userId}
+            </if>
+            <choose>
+                <when test="bo.status == 0">
+                    and status = #{bo.status}
+                </when>
+                <when test="bo.status == 1">
+                    and status = 4
+                </when>
+                <when test="bo.status == 2">
+                    and status = 99
+                </when>
+            </choose>
+        </where>
+    </select>
+</mapper>

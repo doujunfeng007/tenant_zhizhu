@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.minigod.zero.manage.mapper.UserChannelInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.minigod.zero.manage.entity.UserChannelInfoEntity">
+        <id column="id" property="id"/>
+        <result column="channel_id" property="channelId"/>
+        <result column="channel_name" property="channelName"/>
+        <result column="company_name" property="companyName"/>
+        <result column="access_point" property="accessPoint"/>
+        <result column="divers_mode" property="diversMode"/>
+        <result column="regis_user_size" property="regisUserSize"/>
+        <result column="rmk" property="rmk"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, channel_id, channel_name, company_name, access_point, divers_mode,
+        regis_user_size, rmk, create_time, update_time, create_user, update_user,
+        is_deleted, tenant_id, create_dept, status
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user_channel_info
+        WHERE is_deleted = 0
+        <if test="channelName != null and channelName != ''">
+            AND channel_name LIKE CONCAT('%', #{channelName}, '%')
+        </if>
+        <if test="diversMode != null and diversMode != ''">
+            AND divers_mode = #{diversMode}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 根据渠道ID查询 -->
+    <select id="getByChannelId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user_channel_info
+        WHERE is_deleted = 0
+        AND channel_id = #{channelId}
+        LIMIT 1
+    </select>
+
+    <!-- 查询有效的渠道列表 -->
+    <select id="queryValidChannels" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user_channel_info
+        WHERE is_deleted = 0
+        AND status = 0
+        <if test="accessPoint != null and accessPoint != ''">
+            AND access_point = #{accessPoint}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 更新渠道状态 -->
+    <update id="updateStatus">
+        UPDATE user_channel_info
+        SET status = #{status},
+            update_time = NOW()
+        WHERE channel_id = #{channelId}
+          AND is_deleted = 0
+    </update>
+
+</mapper>

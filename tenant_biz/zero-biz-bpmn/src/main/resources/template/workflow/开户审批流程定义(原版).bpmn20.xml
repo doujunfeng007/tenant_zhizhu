@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL"
+        xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+        xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+        xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+        xmlns:flowable="http://flowable.org/bpmn"
+        id="diagram_OPEN_ACCOUNT"
+        targetNamespace="http://flowable.org/bpmn"
+        xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+    <bpmn2:process id="OPEN_ACCOUNT" name="开户流程业务" isExecutable="true" flowable:versionTag="v2.0.0">
+        <bpmn2:startEvent id="Event_094aa7x" name="提交">
+            <bpmn2:extensionElements>
+                <flowable:executionListener
+                        class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseExecution" event="start"/>
+            </bpmn2:extensionElements>
+            <bpmn2:outgoing>Flow_00slt6y</bpmn2:outgoing>
+        </bpmn2:startEvent>
+        <bpmn2:userTask id="node0" name="初审" default="Flow_0f1gygz" flowable:dataType="ROLES"
+                        flowable:candidateGroups="administrator" flowable:text="超级管理员">
+            <bpmn2:extensionElements>
+                <flowable:executionListener
+                        class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseExecution" event="start"/>
+                <flowable:taskListener class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseTask"
+                                       event="create" id="task2"/>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_0erf2jj</bpmn2:incoming>
+            <bpmn2:incoming>Flow_1l0xvzr</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_0f1gygz</bpmn2:outgoing>
+            <bpmn2:outgoing>Flow_1fblncp</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:userTask id="node1" name="复审" flowable:dataType="ROLES" flowable:candidateGroups="administrator"
+                        flowable:text="超级管理员">
+            <bpmn2:extensionElements>
+                <flowable:executionListener
+                        class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseExecution" event="start"/>
+                <flowable:taskListener class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseTask"
+                                       event="create" id="task3"/>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_0f1gygz</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_1px4tig</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:sequenceFlow id="Flow_0f1gygz" sourceRef="node0" targetRef="node1"/>
+        <bpmn2:userTask id="node4" name="终审" flowable:dataType="INITIATOR" flowable:assignee="${initiator}"
+                        flowable:text="流程发起人">
+            <bpmn2:extensionElements>
+                <flowable:executionListener
+                        class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseExecution" event="start"/>
+                <flowable:taskListener class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseTask"
+                                       event="create" id="task4"/>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_1px4tig</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_173v583</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:sequenceFlow id="Flow_173v583" name="审核成功" sourceRef="node4" targetRef="Gateway_1w60o9r"/>
+        <bpmn2:sequenceFlow id="Flow_04pod69" name="大陆开户" sourceRef="node5" targetRef="node6"/>
+        <bpmn2:exclusiveGateway id="Gateway_1w60o9r" name="开户类型">
+            <bpmn2:incoming>Flow_173v583</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_0arzebx</bpmn2:outgoing>
+            <bpmn2:outgoing>Flow_0cs7cn7</bpmn2:outgoing>
+        </bpmn2:exclusiveGateway>
+        <bpmn2:sequenceFlow id="Flow_0arzebx" sourceRef="Gateway_1w60o9r" targetRef="node5">
+            <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${variables:get(idKind) == "1"}
+            </bpmn2:conditionExpression>
+        </bpmn2:sequenceFlow>
+        <bpmn2:sequenceFlow id="Flow_0cs7cn7" name="香港证件/护照开户" sourceRef="Gateway_1w60o9r" targetRef="node6">
+            <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${variables:get(idKind) != "1"}
+            </bpmn2:conditionExpression>
+        </bpmn2:sequenceFlow>
+        <bpmn2:userTask id="node5" name="CA认证" flowable:dataType="INITIATOR" flowable:assignee="${initiator}"
+                        flowable:text="流程发起人">
+            <bpmn2:extensionElements>
+                <flowable:executionListener
+                        class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseExecution" event="start"/>
+                <flowable:taskListener class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseTask"
+                                       event="create" id="task6"/>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_0arzebx</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_04pod69</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:userTask id="node6" name="开户" flowable:dataType="INITIATOR" flowable:assignee="${initiator}"
+                        flowable:text="流程发起人">
+            <bpmn2:extensionElements>
+                <flowable:executionListener
+                        class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseExecution" event="start"/>
+                <flowable:taskListener class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseTask"
+                                       event="create" id="task7"/>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_0cs7cn7</bpmn2:incoming>
+            <bpmn2:incoming>Flow_04pod69</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_0g18tag</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:userTask id="node7" name="归档" flowable:dataType="INITIATOR" flowable:assignee="${initiator}"
+                        flowable:text="流程发起人">
+            <bpmn2:extensionElements>
+                <flowable:executionListener
+                        class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseExecution" event="start"/>
+                <flowable:taskListener class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseTask"
+                                       event="create" id="task8"/>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_0g18tag</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_0sn4fpn</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:sequenceFlow id="Flow_0g18tag" sourceRef="node6" targetRef="node7"/>
+        <bpmn2:sequenceFlow id="Flow_0sn4fpn" sourceRef="node7" targetRef="Event_0e1hbtf"/>
+        <bpmn2:endEvent id="Event_0e1hbtf" name="结束">
+            <bpmn2:extensionElements>
+                <flowable:executionListener
+                        class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseExecution" event="start"/>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_0sn4fpn</bpmn2:incoming>
+        </bpmn2:endEvent>
+        <bpmn2:userTask id="node3" name="入金审核" flowable:dataType="ROLES" flowable:candidateGroups="administrator"
+                        flowable:text="超级管理员">
+            <bpmn2:extensionElements>
+                <flowable:executionListener
+                        class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseExecution" event="start"/>
+                <flowable:taskListener class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseTask"
+                                       event="create" id="task1"/>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_1ny6uuq</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_1l0xvzr</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:sequenceFlow id="Flow_1fblncp" name="退回" sourceRef="node0" targetRef="callback">
+            <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${variables:get(isBack) == "1"}
+            </bpmn2:conditionExpression>
+        </bpmn2:sequenceFlow>
+        <bpmn2:userTask id="callback" name="退回" flowable:dataType="ROLES" flowable:candidateGroups="administrator"
+                        flowable:text="超级管理员">
+            <bpmn2:extensionElements>
+                <flowable:executionListener
+                        class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseExecution" event="start"/>
+                <flowable:taskListener class="com.minigod.zero.flow.flowable.flowable.listener.common.BaseTask"
+                                       event="create" id="task9"/>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_1fblncp</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_0y6qtxt</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:sequenceFlow id="Flow_1px4tig" sourceRef="node1" targetRef="node4"/>
+        <bpmn2:exclusiveGateway id="Gateway_1fcbxag">
+            <bpmn2:incoming>Flow_00slt6y</bpmn2:incoming>
+            <bpmn2:incoming>Flow_0y6qtxt</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_0erf2jj</bpmn2:outgoing>
+            <bpmn2:outgoing>Flow_1ny6uuq</bpmn2:outgoing>
+        </bpmn2:exclusiveGateway>
+        <bpmn2:sequenceFlow id="Flow_00slt6y" sourceRef="Event_094aa7x" targetRef="Gateway_1fcbxag"/>
+        <bpmn2:sequenceFlow id="Flow_0erf2jj" name="大陆卡" sourceRef="Gateway_1fcbxag" targetRef="node0">
+            <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${variables:get(idKind) == "1"}
+            </bpmn2:conditionExpression>
+        </bpmn2:sequenceFlow>
+        <bpmn2:sequenceFlow id="Flow_1ny6uuq" name="非大陆卡" sourceRef="Gateway_1fcbxag" targetRef="node3">
+            <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${variables:get(idKind) != "1"}
+            </bpmn2:conditionExpression>
+        </bpmn2:sequenceFlow>
+        <bpmn2:sequenceFlow id="Flow_1l0xvzr" sourceRef="node3" targetRef="node0"/>
+        <bpmn2:sequenceFlow id="Flow_0y6qtxt" name="重新提交" sourceRef="callback" targetRef="Gateway_1fcbxag"/>
+    </bpmn2:process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+        <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="OPEN_ACCOUNT">
+            <bpmndi:BPMNEdge id="Flow_0y6qtxt_di" bpmnElement="Flow_0y6qtxt">
+                <di:waypoint x="210" y="60"/>
+                <di:waypoint x="60" y="60"/>
+                <di:waypoint x="60" y="245"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="113" y="42" width="44" height="14"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1l0xvzr_di" bpmnElement="Flow_1l0xvzr">
+                <di:waypoint x="110" y="410"/>
+                <di:waypoint x="260" y="410"/>
+                <di:waypoint x="260" y="310"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1ny6uuq_di" bpmnElement="Flow_1ny6uuq">
+                <di:waypoint x="60" y="295"/>
+                <di:waypoint x="60" y="370"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="53" y="330" width="44" height="14"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0erf2jj_di" bpmnElement="Flow_0erf2jj">
+                <di:waypoint x="85" y="270"/>
+                <di:waypoint x="210" y="270"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="131" y="252" width="33" height="14"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_00slt6y_di" bpmnElement="Flow_00slt6y">
+                <di:waypoint x="-92" y="270"/>
+                <di:waypoint x="35" y="270"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1px4tig_di" bpmnElement="Flow_1px4tig">
+                <di:waypoint x="580" y="270"/>
+                <di:waypoint x="700" y="270"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1fblncp_di" bpmnElement="Flow_1fblncp">
+                <di:waypoint x="260" y="230"/>
+                <di:waypoint x="260" y="100"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="259" y="175" width="22" height="14"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0sn4fpn_di" bpmnElement="Flow_0sn4fpn">
+                <di:waypoint x="1620" y="120"/>
+                <di:waypoint x="1702" y="120"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0g18tag_di" bpmnElement="Flow_0g18tag">
+                <di:waypoint x="1420" y="120"/>
+                <di:waypoint x="1520" y="120"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0cs7cn7_di" bpmnElement="Flow_0cs7cn7">
+                <di:waypoint x="1050" y="245"/>
+                <di:waypoint x="1050" y="120"/>
+                <di:waypoint x="1320" y="120"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="1119" y="126" width="81" height="27"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0arzebx_di" bpmnElement="Flow_0arzebx">
+                <di:waypoint x="1075" y="270"/>
+                <di:waypoint x="1160" y="270"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_04pod69_di" bpmnElement="Flow_04pod69">
+                <di:waypoint x="1260" y="270"/>
+                <di:waypoint x="1370" y="270"/>
+                <di:waypoint x="1370" y="160"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="1098" y="253" width="44" height="14"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_173v583_di" bpmnElement="Flow_173v583">
+                <di:waypoint x="800" y="270"/>
+                <di:waypoint x="1025" y="270"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="854" y="252" width="44" height="14"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0f1gygz_di" bpmnElement="Flow_0f1gygz">
+                <di:waypoint x="310" y="270"/>
+                <di:waypoint x="480" y="270"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="Event_094aa7x_di" bpmnElement="Event_094aa7x">
+                <dc:Bounds x="-128" y="252" width="36" height="36"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="-121" y="228" width="22" height="14"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="node0_di" bpmnElement="node0">
+                <dc:Bounds x="210" y="230" width="100" height="80"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="node1_di" bpmnElement="node1">
+                <dc:Bounds x="480" y="230" width="100" height="80"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="node4_di" bpmnElement="node4">
+                <dc:Bounds x="700" y="230" width="100" height="80"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Gateway_1syosk1_di" bpmnElement="Gateway_1w60o9r" isMarkerVisible="true">
+                <dc:Bounds x="1025" y="245" width="50" height="50"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="1028" y="302" width="44" height="14"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="node5_di" bpmnElement="node5">
+                <dc:Bounds x="1160" y="230" width="100" height="80"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="node6_di" bpmnElement="node6">
+                <dc:Bounds x="1320" y="80" width="100" height="80"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="node7_di" bpmnElement="node7">
+                <dc:Bounds x="1520" y="80" width="100" height="80"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_0e1hbtf_di" bpmnElement="Event_0e1hbtf">
+                <dc:Bounds x="1702" y="102" width="36" height="36"/>
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="1709" y="145" width="22" height="14"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="node3_di" bpmnElement="node3">
+                <dc:Bounds x="10" y="370" width="100" height="80"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_05o9bos_di" bpmnElement="callback">
+                <dc:Bounds x="210" y="20" width="100" height="80"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Gateway_1fcbxag_di" bpmnElement="Gateway_1fcbxag" isMarkerVisible="true">
+                <dc:Bounds x="35" y="245" width="50" height="50"/>
+            </bpmndi:BPMNShape>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

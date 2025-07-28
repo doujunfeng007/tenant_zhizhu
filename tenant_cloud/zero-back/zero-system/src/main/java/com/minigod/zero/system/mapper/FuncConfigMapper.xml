@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.system.mapper.FuncConfigMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="funcConfigResultMap" type="com.minigod.zero.system.entity.FuncConfig">
+        <id column="id" property="id"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="func_code" property="funcCode"/>
+        <result column="func_name" property="funcName"/>
+        <result column="is_select" property="isSelect"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+
+    <select id="selectFuncConfigPage"
+            resultType="com.minigod.zero.system.vo.FuncConfigVO">
+        select *
+        from zero_func_config
+        where is_deleted = 0
+    </select>
+
+    <select id="getByTenantId" resultMap="funcConfigResultMap">
+        select id, parent_id, func_code, func_name, is_select, tenant_id, is_deleted
+        from zero_func_config
+        where is_deleted = 0 and tenant_id = #{tenantId}
+    </select>
+</mapper>

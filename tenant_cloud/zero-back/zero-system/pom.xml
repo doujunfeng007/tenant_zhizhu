@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>zero-back</artifactId>
+        <groupId>com.minigod.zero</groupId>
+        <version>3.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>zero-system</artifactId>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.minigod.zero</groupId>
+            <artifactId>zero-starter-excel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.minigod.zero</groupId>
+            <artifactId>zero-starter-swagger</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.minigod.zero</groupId>
+            <artifactId>zero-system-api</artifactId>
+            <version>${zero.project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.minigod.zero</groupId>
+            <artifactId>zero-user-api</artifactId>
+            <version>${zero.project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <configuration>
+                    <username>${docker.username}</username>
+                    <password>${docker.password}</password>
+                    <repository>${docker.registry.url}/${docker.namespace}/${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                    <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+                    <buildArgs>
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
+</project>

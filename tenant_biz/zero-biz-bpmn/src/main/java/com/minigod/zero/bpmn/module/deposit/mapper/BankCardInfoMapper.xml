@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.deposit.mapper.BankCardInfoMapper">
+    <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.deposit.vo.BankCardInfoVO">
+        <!--@mbg.generated-->
+        <!--@Table client_bank_card_info-->
+        <id column="i_id" property="id"/>
+        <result column="i_client_id" property="clientId"/>
+        <result column="i_bank_type" property="bankType"/>
+        <result column="i_bank_name" property="bankName"/>
+        <result column="i_bank_no" property="bankNo"/>
+        <result column="i_bank_account" property="bankAccount"/>
+        <result column="i_register_time" property="registerTime"/>
+        <result column="i_untied_time" property="untiedTime"/>
+        <result column="i_status" property="status"/>
+        <result column="i_create_user" property="createUser"/>
+        <result column="i_update_user" property="updateUser"/>
+        <result column="i_create_time" property="createTime"/>
+        <result column="i_update_time" property="updateTime"/>
+        <result column="i_bank_code" property="bankCode"/>
+        <result column="i_com_fund" property="comFund"/>
+        <result column="i_edda_fund" property="eddaFund"/>
+        <result column="i_bind_source" property="bindSource"/>
+        <result column="i_bank_account_category" property="bankAccountCategory"/>
+        <result column="i_auth_sign" property="authSign"/>
+        <result column="i_tenant_id" property="tenantId"/>
+        <result column="i_swift_code" property="swiftCode"/>
+        <result column="i_bank_id" property="bankId"/>
+        <result column="i_receive_region" property="receiveRegion"/>
+        <result column="i_user_id" property="userId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        i.id                    i_id,
+        i.client_id             i_client_id,
+        i.bank_type             i_bank_type,
+        i.bank_name             i_bank_name,
+        i.bank_no               i_bank_no,
+        i.bank_account          i_bank_account,
+        i.register_time         i_register_time,
+        i.untied_time           i_untied_time,
+        i.status                i_status,
+        i.create_user           i_create_user,
+        i.update_user           i_update_user,
+        i.create_time           i_create_time,
+        i.update_time           i_update_time,
+        i.bank_code             i_bank_code,
+        i.com_fund              i_com_fund,
+        i.edda_fund             i_edda_fund,
+        i.bind_source           i_bind_source,
+        i.bank_account_category i_bank_account_category,
+        i.auth_sign             i_auth_sign,
+        i.tenant_id             i_tenant_id,
+        i.swift_code            i_swift_code,
+        i.bank_id               i_bank_id,
+        i.receive_region        i_receive_region,
+        i.user_id               i_user_id
+    </sql>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into client_bank_card_info
+        (client_id,
+         bank_type,
+         bank_name,
+         bank_no,
+         bank_account,
+         register_time,
+         untied_time,
+         `status`,
+         create_user,
+         update_user,
+         create_time,
+         update_time,
+         bank_code,
+         com_fund,
+         edda_fund,
+         bind_source,
+         bank_account_category,
+         auth_sign,
+         tenant_id,
+         swift_code,
+         bank_id,
+         receive_region,
+         user_id)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.clientId},
+             #{item.bankType},
+             #{item.bankName},
+             #{item.bankNo},
+             #{item.bankAccount},
+             #{item.registerTime},
+             #{item.untiedTime},
+             #{item.status},
+             #{item.createUser},
+             #{item.updateUser},
+             #{item.createTime},
+             #{item.updateTime},
+             #{item.bankCode},
+             #{item.comFund},
+             #{item.eddaFund},
+             #{item.bindSource},
+             #{item.bankAccountCategory},
+             #{item.authSign},
+             #{item.tenantId},
+             #{item.swiftCode},
+             #{item.bankId},
+             #{item.receiveRegion},
+             #{item.userId})
+        </foreach>
+    </insert>
+
+
+    <select id="selectCustomerBankCard" parameterType="java.lang.Object" resultType="com.minigod.zero.bpmn.module.deposit.vo.BankCardVO">
+        select
+            bank_id  as bankId,
+            bank_name as bankName,
+            bank_code as bankCode,
+            bank_no as  bankAccount,
+            bank_account as bankAccountName,
+            user_id  as custId
+        from client_bank_card_info where bank_id = #{bankId} and bank_code = #{bankCode} and user_id = #{custId}
+    </select>
+</mapper>

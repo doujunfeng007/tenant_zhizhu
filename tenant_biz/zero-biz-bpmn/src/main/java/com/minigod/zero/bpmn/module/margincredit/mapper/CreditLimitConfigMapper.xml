@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.margincredit.mapper.CreditLimitConfigMapper">
+  <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.margincredit.entity.CreditLimitConfigEntity">
+    <!--@mbg.generated-->
+    <!--@Table credit_limit_config-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="lower_limit" jdbcType="DECIMAL" property="lowerLimit" />
+    <result column="uper_limit" jdbcType="DECIMAL" property="uperLimit" />
+    <result column="increase_rate" jdbcType="DECIMAL" property="increaseRate" />
+    <result column="derating_rate" jdbcType="DECIMAL" property="deratingRate" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    <result column="create_dept" jdbcType="BIGINT" property="createDept" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_deleted" jdbcType="INTEGER" property="isDeleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, lower_limit, uper_limit, increase_rate, derating_rate, create_user, update_user,
+    create_dept, create_time, update_time, `status`, is_deleted
+  </sql>
+</mapper>

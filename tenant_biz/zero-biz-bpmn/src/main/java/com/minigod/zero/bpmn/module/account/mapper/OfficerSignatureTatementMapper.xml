@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.OfficerSignatureTatementMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="officer_signature_tatementResultMap" type="com.minigod.zero.bpmn.module.account.entity.OfficerSignatureTatementEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="meet_customer_years" property="meetCustomerYears"/>
+        <result column="introduce_model" property="introduceModel"/>
+        <result column="referees_account" property="refereesAccount"/>
+        <result column="introduce_model_other" property="introduceModelOther"/>
+    </resultMap>
+    <resultMap id="officer_signature_tatementResultMapVo" type="com.minigod.zero.bpmn.module.account.vo.OfficerSignatureTatementVO" extends="officer_signature_tatementResultMap">
+    </resultMap>
+    <select id="queryByApplicationId" resultMap="officer_signature_tatementResultMapVo">
+        select * from account_officer_signature_tatement where application_id = #{applicationId} order by update_time desc limit 1
+    </select>
+</mapper>

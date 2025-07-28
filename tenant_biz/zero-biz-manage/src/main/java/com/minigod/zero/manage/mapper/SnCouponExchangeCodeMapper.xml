@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.minigod.zero.manage.mapper.SnCouponExchangeCodeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.minigod.zero.manage.entity.SnCouponExchangeCodeEntity">
+        <id column="id" property="id"/>
+        <result column="manage_id" property="manageId"/>
+        <result column="code" property="code"/>
+        <result column="serial_num" property="serialNum"/>
+        <result column="use_uid" property="useUid"/>
+        <result column="first_deposit_fund" property="firstDepositFund"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="use_status" property="useStatus"/>
+        <result column="use_date" property="useDate"/>
+        <result column="record_date" property="recordDate"/>
+        <result column="record_status" property="recordStatus"/>
+        <result column="amount" property="amount"/>
+        <result column="reward_id" property="rewardId"/>
+        <result column="expired_time" property="expiredTime"/>
+        <result column="opr_name" property="oprName"/>
+        <result column="up_version" property="upVersion"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, manage_id, code, serial_num, use_uid, first_deposit_fund, phone_number,
+        use_status, use_date, record_date, record_status, amount, reward_id,
+        expired_time, opr_name, up_version, create_time, update_time,
+        create_user, update_user, is_deleted, tenant_id, create_dept, status
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_coupon_exchange_code
+        WHERE is_deleted = 0
+        <if test="manageId != null">
+            AND manage_id = #{manageId}
+        </if>
+        <if test="code != null and code != ''">
+            AND code = #{code}
+        </if>
+        <if test="useStatus != null">
+            AND use_status = #{useStatus}
+        </if>
+        <if test="recordStatus != null">
+            AND record_status = #{recordStatus}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 分页查询兑换码 -->
+    <select id="findExchangeCodePage" resultType="com.minigod.zero.manage.vo.ExchangeCodeRespVO">
+        SELECT
+        cde.`code` AS 'exchangeCode',
+        cde.serial_num,
+        manage.expired_time AS 'manageExpiredTime',
+        manage.card_name,
+        manage.card_type,
+        cde.manage_id,
+        manage.channel_id,
+        manage.use_type,
+        manage.amount,
+        cde.use_uid,
+        cde.phone_number,
+        cde.record_status,
+        cde.expired_time,
+        cde.record_date,
+        cde.use_date,
+        cde.amount AS 'addAmount',
+        cde.id AS 'exchangeCodeId',
+        cde.use_status,
+        usr_clt.account_open_time AS 'openDate',
+        usr_clt.first_deposit_time AS 'depositDate' FROM sn_coupon_exchange_code as cde
+        LEFT JOIN sn_coupon_manage AS manage
+        ON cde.manage_id=manage.id
+        LEFT JOIN sn_activity_user as usr
+        ON cde.use_uid=usr.user_id
+        LEFT JOIN sn_activity_user_collect AS usr_clt
+        ON cde.use_uid=usr_clt.user_id
+        <where>
+            <if test="exchangeCodeReqVo.startDate != null">
+                AND cde.create_time &gt;= #{exchangeCodeReqVo.startDate}
+            </if>
+            <if test="exchangeCodeReqVo.endDate != null">
+                AND cde.create_time &lt;= #{exchangeCodeReqVo.endDate}
+            </if>
+            <if test="exchangeCodeReqVo.oprName != null">
+                AND manage.opr_name = #{exchangeCodeReqVo.oprName}
+            </if>
+            <if test="exchangeCodeReqVo.recordStatus != -1">
+                AND cde.record_status = #{exchangeCodeReqVo.recordStatus}
+            </if>
+            <if test="exchangeCodeReqVo.useStatus > -1 and exchangeCodeReqVo.useStatus != 2 ">
+                AND cde.use_status = #{exchangeCodeReqVo.useStatus}
+            </if>
+            <if test="exchangeCodeReqVo.useStatus > -1 and exchangeCodeReqVo.useStatus == 2 ">
+                AND cde.expired_time &lt; NOW()
+            </if>
+            <if test="exchangeCodeReqVo.manageId != null ">
+                AND cde.manage_id = #{exchangeCodeReqVo.manageId}
+            </if>
+            <if test="exchangeCodeReqVo.phoneNumber != null">
+                AND cde.phone_number = #{exchangeCodeReqVo.phoneNumber}
+            </if>
+            <if test="exchangeCodeReqVo.useUid != null">
+                AND cde.use_uid = #{exchangeCodeReqVo.userId}
+            </if>
+            <if test="exchangeCodeReqVo.exchangeCode != null">
+                AND cde.`code` = #{exchangeCodeReqVo.exchangeCode}
+            </if>
+            <if test="exchangeCodeReqVo.serialNum != null">
+                AND cde.serial_num = #{exchangeCodeReqVo.serialNum}
+            </if>
+            <if test="exchangeCodeReqVo.openStatus > -1 and exchangeCodeReqVo.openStatus == 1">
+                AND usr_clt.account_open_status = 1
+            </if>
+            <if test="exchangeCodeReqVo.openStatus > -1 and exchangeCodeReqVo.openStatus != 1">
+                AND usr_clt.account_open_status = 0
+            </if>
+            <if test="exchangeCodeReqVo.depositStatus > -1 and exchangeCodeReqVo.depositStatus == 1">
+                AND usr_clt.first_deposit_amount &gt; 0
+            </if>
+            <if test="exchangeCodeReqVo.openStatus > -1 and exchangeCodeReqVo.openStatus != 1">
+                AND (usr_clt.first_deposit_amount = 0 OR usr_clt.first_deposit_amount IS NULL)
+            </if>
+        </where>
+        ORDER BY cde.id DESC;
+
+    </select>
+
+    <!-- 根据激活码查询 -->
+    <select id="getByCode" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_coupon_exchange_code
+        WHERE is_deleted = 0
+        AND code = #{code}
+        LIMIT 1
+    </select>
+
+    <!-- 查询用户的兑换记录 -->
+    <select id="queryUserExchanges" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_coupon_exchange_code
+        WHERE is_deleted = 0
+        AND use_uid = #{useUid}
+        <if test="manageId != null">
+            AND manage_id = #{manageId}
+        </if>
+        ORDER BY record_date DESC
+    </select>
+
+    <!-- 查询兑换码列表 -->
+    <select id="findExchangeCodeList" resultType="com.minigod.zero.manage.vo.ExchangeCodeRespVO">
+        SELECT
+        cde.`code` AS 'exchangeCode',
+        cde.serial_num,
+        manage.card_name,
+        manage.card_type,
+        cde.manage_id,
+        manage.channel_id,
+        manage.use_type,
+        manage.amount,
+        cde.use_uid,
+        cde.phone_number,
+        cde.record_status,
+        cde.expired_time,
+        cde.record_date,
+        cde.use_date,
+        cde.amount AS 'addAmount',
+        cde.id AS 'exchangeCodeId',
+        cde.use_status
+        LEFT JOIN sn_coupon_manage AS manage
+        ON cde.manage_id=manage.id
+        <where>
+            <if test="exchangeCodeReqVo.startDate != null">
+                AND cde.create_time &gt;= #{exchangeCodeReqVo.startDate}
+            </if>
+            <if test="exchangeCodeReqVo.endDate != null">
+                AND cde.create_time &lt;= #{exchangeCodeReqVo.endDate}
+            </if>
+            <if test="exchangeCodeReqVo.oprName != null">
+                AND manage.opr_name = #{exchangeCodeReqVo.oprName}
+            </if>
+            <if test="exchangeCodeReqVo.recordStatus != -1">
+                AND cde.record_status = #{exchangeCodeReqVo.recordStatus}
+            </if>
+            <if test="exchangeCodeReqVo.useStatus > -1 and exchangeCodeReqVo.useStatus != 2 ">
+                AND cde.use_status = #{exchangeCodeReqVo.useStatus}
+            </if>
+            <if test="exchangeCodeReqVo.manageId != null ">
+                AND cde.manage_id = #{exchangeCodeReqVo.manageId}
+            </if>
+            <if test="exchangeCodeReqVo.phoneNumber != null">
+                AND cde.phone_number = #{exchangeCodeReqVo.phoneNumber}
+            </if>
+            <if test="exchangeCodeReqVo.useUid != null">
+                AND cde.use_uid = #{exchangeCodeReqVo.userId}
+            </if>
+            <if test="exchangeCodeReqVo.exchangeCode != null">
+                AND cde.`code` = #{exchangeCodeReqVo.exchangeCode}
+            </if>
+        </where>
+        ORDER BY cde.id DESC;
+    </select>
+
+    <!-- 更新兑换码状态 -->
+    <update id="updateStatus">
+        UPDATE sn_coupon_exchange_code
+        SET use_status = #{useStatus},
+            record_status = #{recordStatus},
+            up_version = up_version + 1,
+            update_time = NOW()
+        WHERE id = #{id}
+          AND is_deleted = 0
+          AND up_version = #{oldVersion}
+    </update>
+
+</mapper>

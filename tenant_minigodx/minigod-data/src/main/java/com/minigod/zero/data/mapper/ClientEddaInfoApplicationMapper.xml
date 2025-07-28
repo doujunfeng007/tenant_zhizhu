@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.ClientEddaInfoApplicationMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.ClientEddaInfoApplication">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+            <result property="clientId" column="client_id" jdbcType="VARCHAR"/>
+            <result property="fundAccount" column="fund_account" jdbcType="VARCHAR"/>
+            <result property="eName" column="e_name" jdbcType="VARCHAR"/>
+            <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+            <result property="idType" column="id_type" jdbcType="VARCHAR"/>
+            <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+            <result property="idCode" column="id_code" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="bankType" column="bank_type" jdbcType="INTEGER"/>
+            <result property="bankName" column="bank_name" jdbcType="VARCHAR"/>
+            <result property="bankCode" column="bank_code" jdbcType="VARCHAR"/>
+            <result property="bankId" column="bank_id" jdbcType="VARCHAR"/>
+            <result property="depositAccount" column="deposit_account" jdbcType="VARCHAR"/>
+            <result property="depositAccountName" column="deposit_account_name" jdbcType="VARCHAR"/>
+            <result property="depositAccountType" column="deposit_account_type" jdbcType="INTEGER"/>
+            <result property="bankIdKind" column="bank_id_kind" jdbcType="INTEGER"/>
+            <result property="bankIdNo" column="bank_id_no" jdbcType="VARCHAR"/>
+            <result property="benefitBank" column="benefit_bank" jdbcType="VARCHAR"/>
+            <result property="benefitBankCode" column="benefit_bank_code" jdbcType="VARCHAR"/>
+            <result property="benefitNo" column="benefit_no" jdbcType="VARCHAR"/>
+            <result property="benefitAccount" column="benefit_account" jdbcType="VARCHAR"/>
+            <result property="dataState" column="data_state" jdbcType="INTEGER"/>
+            <result property="eddaState" column="edda_state" jdbcType="INTEGER"/>
+            <result property="msgId" column="msg_id" jdbcType="VARCHAR"/>
+            <result property="ddaRef" column="dda_ref" jdbcType="VARCHAR"/>
+            <result property="reqTime" column="req_time" jdbcType="TIMESTAMP"/>
+            <result property="txnRefId" column="txn_ref_id" jdbcType="VARCHAR"/>
+            <result property="mandateId" column="mandate_id" jdbcType="VARCHAR"/>
+            <result property="amtCcy" column="amt_ccy" jdbcType="VARCHAR"/>
+            <result property="rejCorde" column="rej_corde" jdbcType="VARCHAR"/>
+            <result property="rejDescription" column="rej_description" jdbcType="VARCHAR"/>
+            <result property="effDate" column="eff_date" jdbcType="DATE"/>
+            <result property="expDate" column="exp_date" jdbcType="DATE"/>
+            <result property="maxAmt" column="max_amt" jdbcType="DECIMAL"/>
+            <result property="deleteTime" column="delete_time" jdbcType="TIMESTAMP"/>
+            <result property="deleteUser" column="delete_user" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+            <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+            <result property="deleTime" column="dele_time" jdbcType="TIMESTAMP"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="birthday" column="birthday" jdbcType="VARCHAR"/>
+            <result property="bankIdKindStatus" column="bank_id_kind_status" jdbcType="INTEGER"/>
+            <result property="applicationTime" column="application_time" jdbcType="TIMESTAMP"/>
+            <result property="appIcon" column="app_icon" jdbcType="VARCHAR"/>
+            <result property="secDepositBankId" column="sec_deposit_bank_id" jdbcType="BIGINT"/>
+            <result property="bankIdQuick" column="bank_id_quick" jdbcType="VARCHAR"/>
+            <result property="chargeMoney" column="charge_money" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,application_id,client_id,
+        fund_account,e_name,c_name,
+        id_type,mobile,id_code,
+        email,bank_type,bank_name,
+        bank_code,bank_id,deposit_account,
+        deposit_account_name,deposit_account_type,bank_id_kind,
+        bank_id_no,benefit_bank,benefit_bank_code,
+        benefit_no,benefit_account,data_state,
+        edda_state,msg_id,dda_ref,
+        req_time,txn_ref_id,mandate_id,
+        amt_ccy,rej_corde,rej_description,
+        eff_date,exp_date,max_amt,
+        delete_time,delete_user,remark,
+        create_user,update_user,dele_time,
+        create_time,update_time,birthday,
+        bank_id_kind_status,application_time,app_icon,
+        sec_deposit_bank_id,bank_id_quick,charge_money
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from client_edda_info_application
+        where  id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from client_edda_info_application
+        where  id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.ClientEddaInfoApplication" useGeneratedKeys="true">
+        insert into client_edda_info_application
+        ( id,application_id,client_id
+        ,fund_account,e_name,c_name
+        ,id_type,mobile,id_code
+        ,email,bank_type,bank_name
+        ,bank_code,bank_id,deposit_account
+        ,deposit_account_name,deposit_account_type,bank_id_kind
+        ,bank_id_no,benefit_bank,benefit_bank_code
+        ,benefit_no,benefit_account,data_state
+        ,edda_state,msg_id,dda_ref
+        ,req_time,txn_ref_id,mandate_id
+        ,amt_ccy,rej_corde,rej_description
+        ,eff_date,exp_date,max_amt
+        ,delete_time,delete_user,remark
+        ,create_user,update_user,dele_time
+        ,create_time,update_time,birthday
+        ,bank_id_kind_status,application_time,app_icon
+        ,sec_deposit_bank_id,bank_id_quick,charge_money
+        )
+        values (#{id,jdbcType=BIGINT},#{applicationId,jdbcType=VARCHAR},#{clientId,jdbcType=VARCHAR}
+        ,#{fundAccount,jdbcType=VARCHAR},#{eName,jdbcType=VARCHAR},#{cName,jdbcType=VARCHAR}
+        ,#{idType,jdbcType=VARCHAR},#{mobile,jdbcType=VARCHAR},#{idCode,jdbcType=VARCHAR}
+        ,#{email,jdbcType=VARCHAR},#{bankType,jdbcType=INTEGER},#{bankName,jdbcType=VARCHAR}
+        ,#{bankCode,jdbcType=VARCHAR},#{bankId,jdbcType=VARCHAR},#{depositAccount,jdbcType=VARCHAR}
+        ,#{depositAccountName,jdbcType=VARCHAR},#{depositAccountType,jdbcType=INTEGER},#{bankIdKind,jdbcType=INTEGER}
+        ,#{bankIdNo,jdbcType=VARCHAR},#{benefitBank,jdbcType=VARCHAR},#{benefitBankCode,jdbcType=VARCHAR}
+        ,#{benefitNo,jdbcType=VARCHAR},#{benefitAccount,jdbcType=VARCHAR},#{dataState,jdbcType=INTEGER}
+        ,#{eddaState,jdbcType=INTEGER},#{msgId,jdbcType=VARCHAR},#{ddaRef,jdbcType=VARCHAR}
+        ,#{reqTime,jdbcType=TIMESTAMP},#{txnRefId,jdbcType=VARCHAR},#{mandateId,jdbcType=VARCHAR}
+        ,#{amtCcy,jdbcType=VARCHAR},#{rejCorde,jdbcType=VARCHAR},#{rejDescription,jdbcType=VARCHAR}
+        ,#{effDate,jdbcType=DATE},#{expDate,jdbcType=DATE},#{maxAmt,jdbcType=DECIMAL}
+        ,#{deleteTime,jdbcType=TIMESTAMP},#{deleteUser,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR}
+        ,#{createUser,jdbcType=VARCHAR},#{updateUser,jdbcType=VARCHAR},#{deleTime,jdbcType=TIMESTAMP}
+        ,#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{birthday,jdbcType=VARCHAR}
+        ,#{bankIdKindStatus,jdbcType=INTEGER},#{applicationTime,jdbcType=TIMESTAMP},#{appIcon,jdbcType=VARCHAR}
+        ,#{secDepositBankId,jdbcType=BIGINT},#{bankIdQuick,jdbcType=VARCHAR},#{chargeMoney,jdbcType=DECIMAL}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.ClientEddaInfoApplication" useGeneratedKeys="true">
+        insert into client_edda_info_application
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="applicationId != null">application_id,</if>
+                <if test="clientId != null">client_id,</if>
+                <if test="fundAccount != null">fund_account,</if>
+                <if test="eName != null">e_name,</if>
+                <if test="cName != null">c_name,</if>
+                <if test="idType != null">id_type,</if>
+                <if test="mobile != null">mobile,</if>
+                <if test="idCode != null">id_code,</if>
+                <if test="email != null">email,</if>
+                <if test="bankType != null">bank_type,</if>
+                <if test="bankName != null">bank_name,</if>
+                <if test="bankCode != null">bank_code,</if>
+                <if test="bankId != null">bank_id,</if>
+                <if test="depositAccount != null">deposit_account,</if>
+                <if test="depositAccountName != null">deposit_account_name,</if>
+                <if test="depositAccountType != null">deposit_account_type,</if>
+                <if test="bankIdKind != null">bank_id_kind,</if>
+                <if test="bankIdNo != null">bank_id_no,</if>
+                <if test="benefitBank != null">benefit_bank,</if>
+                <if test="benefitBankCode != null">benefit_bank_code,</if>
+                <if test="benefitNo != null">benefit_no,</if>
+                <if test="benefitAccount != null">benefit_account,</if>
+                <if test="dataState != null">data_state,</if>
+                <if test="eddaState != null">edda_state,</if>
+                <if test="msgId != null">msg_id,</if>
+                <if test="ddaRef != null">dda_ref,</if>
+                <if test="reqTime != null">req_time,</if>
+                <if test="txnRefId != null">txn_ref_id,</if>
+                <if test="mandateId != null">mandate_id,</if>
+                <if test="amtCcy != null">amt_ccy,</if>
+                <if test="rejCorde != null">rej_corde,</if>
+                <if test="rejDescription != null">rej_description,</if>
+                <if test="effDate != null">eff_date,</if>
+                <if test="expDate != null">exp_date,</if>
+                <if test="maxAmt != null">max_amt,</if>
+                <if test="deleteTime != null">delete_time,</if>
+                <if test="deleteUser != null">delete_user,</if>
+                <if test="remark != null">remark,</if>
+                <if test="createUser != null">create_user,</if>
+                <if test="updateUser != null">update_user,</if>
+                <if test="deleTime != null">dele_time,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="birthday != null">birthday,</if>
+                <if test="bankIdKindStatus != null">bank_id_kind_status,</if>
+                <if test="applicationTime != null">application_time,</if>
+                <if test="appIcon != null">app_icon,</if>
+                <if test="secDepositBankId != null">sec_deposit_bank_id,</if>
+                <if test="bankIdQuick != null">bank_id_quick,</if>
+                <if test="chargeMoney != null">charge_money,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="applicationId != null">#{applicationId,jdbcType=VARCHAR},</if>
+                <if test="clientId != null">#{clientId,jdbcType=VARCHAR},</if>
+                <if test="fundAccount != null">#{fundAccount,jdbcType=VARCHAR},</if>
+                <if test="eName != null">#{eName,jdbcType=VARCHAR},</if>
+                <if test="cName != null">#{cName,jdbcType=VARCHAR},</if>
+                <if test="idType != null">#{idType,jdbcType=VARCHAR},</if>
+                <if test="mobile != null">#{mobile,jdbcType=VARCHAR},</if>
+                <if test="idCode != null">#{idCode,jdbcType=VARCHAR},</if>
+                <if test="email != null">#{email,jdbcType=VARCHAR},</if>
+                <if test="bankType != null">#{bankType,jdbcType=INTEGER},</if>
+                <if test="bankName != null">#{bankName,jdbcType=VARCHAR},</if>
+                <if test="bankCode != null">#{bankCode,jdbcType=VARCHAR},</if>
+                <if test="bankId != null">#{bankId,jdbcType=VARCHAR},</if>
+                <if test="depositAccount != null">#{depositAccount,jdbcType=VARCHAR},</if>
+                <if test="depositAccountName != null">#{depositAccountName,jdbcType=VARCHAR},</if>
+                <if test="depositAccountType != null">#{depositAccountType,jdbcType=INTEGER},</if>
+                <if test="bankIdKind != null">#{bankIdKind,jdbcType=INTEGER},</if>
+                <if test="bankIdNo != null">#{bankIdNo,jdbcType=VARCHAR},</if>
+                <if test="benefitBank != null">#{benefitBank,jdbcType=VARCHAR},</if>
+                <if test="benefitBankCode != null">#{benefitBankCode,jdbcType=VARCHAR},</if>
+                <if test="benefitNo != null">#{benefitNo,jdbcType=VARCHAR},</if>
+                <if test="benefitAccount != null">#{benefitAccount,jdbcType=VARCHAR},</if>
+                <if test="dataState != null">#{dataState,jdbcType=INTEGER},</if>
+                <if test="eddaState != null">#{eddaState,jdbcType=INTEGER},</if>
+                <if test="msgId != null">#{msgId,jdbcType=VARCHAR},</if>
+                <if test="ddaRef != null">#{ddaRef,jdbcType=VARCHAR},</if>
+                <if test="reqTime != null">#{reqTime,jdbcType=TIMESTAMP},</if>
+                <if test="txnRefId != null">#{txnRefId,jdbcType=VARCHAR},</if>
+                <if test="mandateId != null">#{mandateId,jdbcType=VARCHAR},</if>
+                <if test="amtCcy != null">#{amtCcy,jdbcType=VARCHAR},</if>
+                <if test="rejCorde != null">#{rejCorde,jdbcType=VARCHAR},</if>
+                <if test="rejDescription != null">#{rejDescription,jdbcType=VARCHAR},</if>
+                <if test="effDate != null">#{effDate,jdbcType=DATE},</if>
+                <if test="expDate != null">#{expDate,jdbcType=DATE},</if>
+                <if test="maxAmt != null">#{maxAmt,jdbcType=DECIMAL},</if>
+                <if test="deleteTime != null">#{deleteTime,jdbcType=TIMESTAMP},</if>
+                <if test="deleteUser != null">#{deleteUser,jdbcType=VARCHAR},</if>
+                <if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
+                <if test="createUser != null">#{createUser,jdbcType=VARCHAR},</if>
+                <if test="updateUser != null">#{updateUser,jdbcType=VARCHAR},</if>
+                <if test="deleTime != null">#{deleTime,jdbcType=TIMESTAMP},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="birthday != null">#{birthday,jdbcType=VARCHAR},</if>
+                <if test="bankIdKindStatus != null">#{bankIdKindStatus,jdbcType=INTEGER},</if>
+                <if test="applicationTime != null">#{applicationTime,jdbcType=TIMESTAMP},</if>
+                <if test="appIcon != null">#{appIcon,jdbcType=VARCHAR},</if>
+                <if test="secDepositBankId != null">#{secDepositBankId,jdbcType=BIGINT},</if>
+                <if test="bankIdQuick != null">#{bankIdQuick,jdbcType=VARCHAR},</if>
+                <if test="chargeMoney != null">#{chargeMoney,jdbcType=DECIMAL},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.ClientEddaInfoApplication">
+        update client_edda_info_application
+        <set>
+                <if test="applicationId != null">
+                    application_id = #{applicationId,jdbcType=VARCHAR},
+                </if>
+                <if test="clientId != null">
+                    client_id = #{clientId,jdbcType=VARCHAR},
+                </if>
+                <if test="fundAccount != null">
+                    fund_account = #{fundAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="eName != null">
+                    e_name = #{eName,jdbcType=VARCHAR},
+                </if>
+                <if test="cName != null">
+                    c_name = #{cName,jdbcType=VARCHAR},
+                </if>
+                <if test="idType != null">
+                    id_type = #{idType,jdbcType=VARCHAR},
+                </if>
+                <if test="mobile != null">
+                    mobile = #{mobile,jdbcType=VARCHAR},
+                </if>
+                <if test="idCode != null">
+                    id_code = #{idCode,jdbcType=VARCHAR},
+                </if>
+                <if test="email != null">
+                    email = #{email,jdbcType=VARCHAR},
+                </if>
+                <if test="bankType != null">
+                    bank_type = #{bankType,jdbcType=INTEGER},
+                </if>
+                <if test="bankName != null">
+                    bank_name = #{bankName,jdbcType=VARCHAR},
+                </if>
+                <if test="bankCode != null">
+                    bank_code = #{bankCode,jdbcType=VARCHAR},
+                </if>
+                <if test="bankId != null">
+                    bank_id = #{bankId,jdbcType=VARCHAR},
+                </if>
+                <if test="depositAccount != null">
+                    deposit_account = #{depositAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="depositAccountName != null">
+                    deposit_account_name = #{depositAccountName,jdbcType=VARCHAR},
+                </if>
+                <if test="depositAccountType != null">
+                    deposit_account_type = #{depositAccountType,jdbcType=INTEGER},
+                </if>
+                <if test="bankIdKind != null">
+                    bank_id_kind = #{bankIdKind,jdbcType=INTEGER},
+                </if>
+                <if test="bankIdNo != null">
+                    bank_id_no = #{bankIdNo,jdbcType=VARCHAR},
+                </if>
+                <if test="benefitBank != null">
+                    benefit_bank = #{benefitBank,jdbcType=VARCHAR},
+                </if>
+                <if test="benefitBankCode != null">
+                    benefit_bank_code = #{benefitBankCode,jdbcType=VARCHAR},
+                </if>
+                <if test="benefitNo != null">
+                    benefit_no = #{benefitNo,jdbcType=VARCHAR},
+                </if>
+                <if test="benefitAccount != null">
+                    benefit_account = #{benefitAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="dataState != null">
+                    data_state = #{dataState,jdbcType=INTEGER},
+                </if>
+                <if test="eddaState != null">
+                    edda_state = #{eddaState,jdbcType=INTEGER},
+                </if>
+                <if test="msgId != null">
+                    msg_id = #{msgId,jdbcType=VARCHAR},
+                </if>
+                <if test="ddaRef != null">
+                    dda_ref = #{ddaRef,jdbcType=VARCHAR},
+                </if>
+                <if test="reqTime != null">
+                    req_time = #{reqTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="txnRefId != null">
+                    txn_ref_id = #{txnRefId,jdbcType=VARCHAR},
+                </if>
+                <if test="mandateId != null">
+                    mandate_id = #{mandateId,jdbcType=VARCHAR},
+                </if>
+                <if test="amtCcy != null">
+                    amt_ccy = #{amtCcy,jdbcType=VARCHAR},
+                </if>
+                <if test="rejCorde != null">
+                    rej_corde = #{rejCorde,jdbcType=VARCHAR},
+                </if>
+                <if test="rejDescription != null">
+                    rej_description = #{rejDescription,jdbcType=VARCHAR},
+                </if>
+                <if test="effDate != null">
+                    eff_date = #{effDate,jdbcType=DATE},
+                </if>
+                <if test="expDate != null">
+                    exp_date = #{expDate,jdbcType=DATE},
+                </if>
+                <if test="maxAmt != null">
+                    max_amt = #{maxAmt,jdbcType=DECIMAL},
+                </if>
+                <if test="deleteTime != null">
+                    delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="deleteUser != null">
+                    delete_user = #{deleteUser,jdbcType=VARCHAR},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark,jdbcType=VARCHAR},
+                </if>
+                <if test="createUser != null">
+                    create_user = #{createUser,jdbcType=VARCHAR},
+                </if>
+                <if test="updateUser != null">
+                    update_user = #{updateUser,jdbcType=VARCHAR},
+                </if>
+                <if test="deleTime != null">
+                    dele_time = #{deleTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="birthday != null">
+                    birthday = #{birthday,jdbcType=VARCHAR},
+                </if>
+                <if test="bankIdKindStatus != null">
+                    bank_id_kind_status = #{bankIdKindStatus,jdbcType=INTEGER},
+                </if>
+                <if test="applicationTime != null">
+                    application_time = #{applicationTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="appIcon != null">
+                    app_icon = #{appIcon,jdbcType=VARCHAR},
+                </if>
+                <if test="secDepositBankId != null">
+                    sec_deposit_bank_id = #{secDepositBankId,jdbcType=BIGINT},
+                </if>
+                <if test="bankIdQuick != null">
+                    bank_id_quick = #{bankIdQuick,jdbcType=VARCHAR},
+                </if>
+                <if test="chargeMoney != null">
+                    charge_money = #{chargeMoney,jdbcType=DECIMAL},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.ClientEddaInfoApplication">
+        update client_edda_info_application
+        set
+            application_id =  #{applicationId,jdbcType=VARCHAR},
+            client_id =  #{clientId,jdbcType=VARCHAR},
+            fund_account =  #{fundAccount,jdbcType=VARCHAR},
+            e_name =  #{eName,jdbcType=VARCHAR},
+            c_name =  #{cName,jdbcType=VARCHAR},
+            id_type =  #{idType,jdbcType=VARCHAR},
+            mobile =  #{mobile,jdbcType=VARCHAR},
+            id_code =  #{idCode,jdbcType=VARCHAR},
+            email =  #{email,jdbcType=VARCHAR},
+            bank_type =  #{bankType,jdbcType=INTEGER},
+            bank_name =  #{bankName,jdbcType=VARCHAR},
+            bank_code =  #{bankCode,jdbcType=VARCHAR},
+            bank_id =  #{bankId,jdbcType=VARCHAR},
+            deposit_account =  #{depositAccount,jdbcType=VARCHAR},
+            deposit_account_name =  #{depositAccountName,jdbcType=VARCHAR},
+            deposit_account_type =  #{depositAccountType,jdbcType=INTEGER},
+            bank_id_kind =  #{bankIdKind,jdbcType=INTEGER},
+            bank_id_no =  #{bankIdNo,jdbcType=VARCHAR},
+            benefit_bank =  #{benefitBank,jdbcType=VARCHAR},
+            benefit_bank_code =  #{benefitBankCode,jdbcType=VARCHAR},
+            benefit_no =  #{benefitNo,jdbcType=VARCHAR},
+            benefit_account =  #{benefitAccount,jdbcType=VARCHAR},
+            data_state =  #{dataState,jdbcType=INTEGER},
+            edda_state =  #{eddaState,jdbcType=INTEGER},
+            msg_id =  #{msgId,jdbcType=VARCHAR},
+            dda_ref =  #{ddaRef,jdbcType=VARCHAR},
+            req_time =  #{reqTime,jdbcType=TIMESTAMP},
+            txn_ref_id =  #{txnRefId,jdbcType=VARCHAR},
+            mandate_id =  #{mandateId,jdbcType=VARCHAR},
+            amt_ccy =  #{amtCcy,jdbcType=VARCHAR},
+            rej_corde =  #{rejCorde,jdbcType=VARCHAR},
+            rej_description =  #{rejDescription,jdbcType=VARCHAR},
+            eff_date =  #{effDate,jdbcType=DATE},
+            exp_date =  #{expDate,jdbcType=DATE},
+            max_amt =  #{maxAmt,jdbcType=DECIMAL},
+            delete_time =  #{deleteTime,jdbcType=TIMESTAMP},
+            delete_user =  #{deleteUser,jdbcType=VARCHAR},
+            remark =  #{remark,jdbcType=VARCHAR},
+            create_user =  #{createUser,jdbcType=VARCHAR},
+            update_user =  #{updateUser,jdbcType=VARCHAR},
+            dele_time =  #{deleTime,jdbcType=TIMESTAMP},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            birthday =  #{birthday,jdbcType=VARCHAR},
+            bank_id_kind_status =  #{bankIdKindStatus,jdbcType=INTEGER},
+            application_time =  #{applicationTime,jdbcType=TIMESTAMP},
+            app_icon =  #{appIcon,jdbcType=VARCHAR},
+            sec_deposit_bank_id =  #{secDepositBankId,jdbcType=BIGINT},
+            bank_id_quick =  #{bankIdQuick,jdbcType=VARCHAR},
+            charge_money =  #{chargeMoney,jdbcType=DECIMAL}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

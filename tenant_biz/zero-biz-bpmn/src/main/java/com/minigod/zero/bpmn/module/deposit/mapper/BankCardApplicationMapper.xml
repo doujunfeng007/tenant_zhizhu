@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.deposit.mapper.BankCardApplicationMapper">
+    <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.deposit.entity.BankCardApplication">
+        <!--@mbg.generated-->
+        <!--@Table client_bank_card_application-->
+        <id column="a_id" property="id"/>
+        <result column="a_application_id" property="applicationId"/>
+        <result column="a_application_title" property="applicationTitle"/>
+        <result column="a_current_node" property="currentNode"/>
+        <result column="a_last_approval_user" property="lastApprovalUser"/>
+        <result column="a_last_approval_time" property="lastApprovalTime"/>
+        <result column="a_approval_opinion" property="approvalOpinion"/>
+        <result column="a_start_time" property="startTime"/>
+        <result column="a_remark" property="remark"/>
+        <result column="a_application_status" property="applicationStatus"/>
+        <result column="a_assign_drafter" property="assignDrafter"/>
+        <result column="a_flow_path" property="flowPath"/>
+        <result column="a_fire_aid" property="fireAid"/>
+        <result column="a_instance_id" property="instanceId"/>
+        <result column="a_definition_id" property="definitionId"/>
+        <result column="a_process_instance_id" property="processInstanceId"/>
+        <result column="a_task_id" property="taskId"/>
+        <result column="a_deploy_id" property="deployId"/>
+        <result column="a_tenant_id" property="tenantId"/>
+        <result column="a_create_dept" property="createDept"/>
+        <result column="a_status" property="status"/>
+        <result column="a_create_user" property="createUser"/>
+        <result column="a_update_user" property="updateUser"/>
+        <result column="a_create_time" property="createTime"/>
+        <result column="a_update_time" property="updateTime"/>
+        <result column="a_is_deleted" property="isDeleted"/>
+    </resultMap>
+    <resultMap id="BaseResultMapVo" type="com.minigod.zero.bpmn.module.deposit.vo.BankCardApplicationVO"
+               extends="BaseResultMap">
+        <association property="reviewInfo" javaType="com.minigod.zero.bpmn.module.deposit.vo.BankCardReviewInfoVO"
+                     resultMap="com.minigod.zero.bpmn.module.deposit.mapper.BankCardReviewInfoMapper.BaseResultMap"/>
+        <association property="beforeInfo" javaType="com.minigod.zero.bpmn.module.deposit.vo.BankCardInfoVO"
+                     resultMap="com.minigod.zero.bpmn.module.deposit.mapper.BankCardInfoMapper.BaseResultMap"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        a.id                  a_id,
+        a.application_id      a_application_id,
+        a.application_title   a_application_title,
+        a.current_node        a_current_node,
+        a.last_approval_user  a_last_approval_user,
+        a.last_approval_time  a_last_approval_time,
+        a.approval_opinion    a_approval_opinion,
+        a.start_time          a_start_time,
+        a.remark              a_remark,
+        a.application_status  a_application_status,
+        a.assign_drafter      a_assign_drafter,
+        a.flow_path           a_flow_path,
+        a.fire_aid            a_fire_aid,
+        a.instance_id         a_instance_id,
+        a.definition_id       a_definition_id,
+        a.process_instance_id a_process_instance_id,
+        a.task_id             a_task_id,
+        a.deploy_id           a_deploy_id,
+        a.tenant_id           a_tenant_id,
+        a.create_dept         a_create_dept,
+        a.status              a_status,
+        a.create_user         a_create_user,
+        a.update_user         a_update_user,
+        a.create_time         a_create_time,
+        a.update_time         a_update_time,
+        a.is_deleted          a_is_deleted
+    </sql>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into client_bank_card_application
+        (application_id,
+         application_title,
+         current_node,
+         last_approval_user,
+         last_approval_time,
+         approval_opinion,
+         start_time,
+         remark,
+         application_status,
+         assign_drafter,
+         flow_path,
+         fire_aid,
+         instance_id,
+         definition_id,
+         process_instance_id,
+         task_id,
+         deploy_id,
+         tenant_id,
+         create_dept,
+         `status`,
+         create_user,
+         update_user,
+         create_time,
+         update_time,
+         is_deleted
+        )
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.applicationId},
+             #{item.applicationTitle},
+             #{item.currentNode},
+             #{item.lastApprovalUser},
+             #{item.lastApprovalTime},
+             #{item.approvalOpinion},
+             #{item.startTime},
+             #{item.remark},
+             #{item.applicationStatus},
+             #{item.assignDrafter},
+             #{item.flowPath},
+             #{item.fireAid},
+             #{item.instanceId},
+             #{item.definitionId},
+             #{item.processInstanceId},
+             #{item.taskId},
+             #{item.deployId},
+             #{item.tenantId},
+             #{item.createDept},
+             #{item.status},
+             #{item.createUser},
+             #{item.updateUser},
+             #{item.createTime},
+             #{item.updateTime},
+             #{item.isDeleted})
+        </foreach>
+    </insert>
+
+    <select id="queryApplicationId" resultMap="BaseResultMapVo">
+        select
+        <include refid="Base_Column_List"/>,
+        <include refid="com.minigod.zero.bpmn.module.deposit.mapper.BankCardReviewInfoMapper.Base_Column_List"/>,
+        <include refid="com.minigod.zero.bpmn.module.deposit.mapper.BankCardInfoMapper.Base_Column_List"/>
+        from client_bank_card_application a
+        left join client_bank_card_review_info ri on ri.application_id = a.application_id
+        left join client_bank_card_info i on ri.bank_card_id = i.id
+        where a.application_id = #{applicationId}
+    </select>
+    <select id="selectBankCardApplicationPage" resultMap="BaseResultMapVo">
+        select
+        <include refid="Base_Column_List"/>,
+        <include refid="com.minigod.zero.bpmn.module.deposit.mapper.BankCardReviewInfoMapper.Base_Column_List"/>,
+        <include refid="com.minigod.zero.bpmn.module.deposit.mapper.BankCardInfoMapper.Base_Column_List"/>
+        from client_bank_card_application a
+                 left join client_bank_card_review_info ri on ri.application_id = a.application_id
+                 left join client_bank_card_info i on ri.bank_card_id = i.id
+        <where>
+            <if test="bo.userId != null">
+                and ri.user_id = #{bo.userId}
+            </if>
+            <if test="bo.clientId != null and bo.clientId != ''">
+                and ri.client_id like concat('%', concat(#{bo.clientId}, '%'))
+            </if>
+            <if test="bo.bankType != null">
+                and i.bank_type = #{bo.bankType}
+            </if>
+            <if test="bo.bankAccountCategory != null">
+                and ri.bank_account_category = #{bo.bankAccountCategory}
+            </if>
+            <if test="bo.applicationStatus != null">
+                and a.application_status = #{bo.applicationStatus}
+            </if>
+            <if test="bo.applicationType != null">
+                and ri.application_type = #{bo.applicationType}
+            </if>
+            <if test="bo.applicationId != null and bo.applicationId != ''">
+                and a.application_id like concat('%', concat(#{bo.applicationId}, '%'))
+            </if>
+            <if test="bo.tenantId != null and bo.tenantId != '' and bo.tenantId != '000000'">
+                and a.tenant_id = #{bo.tenantId}
+            </if>
+            <if test="bo.status != null">
+                and a.status = #{bo.status}
+            </if>
+            <if test="bo.applicationStatusList != null and bo.applicationStatusList.size() != 0">
+                and a.application_status in  (
+                <foreach collection="bo.applicationStatusList" item="applicationStatus" separator=",">
+                    #{applicationStatus}
+                </foreach>
+                )
+            </if>
+        </where>
+        order by a.create_time desc, a.last_approval_time desc
+    </select>
+    <select id="queryListByNode" resultType="com.minigod.zero.bpmn.module.deposit.entity.BankCardApplication">
+        select * from client_bank_card_application where current_node = #{node}
+    </select>
+</mapper>

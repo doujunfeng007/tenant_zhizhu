@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.system.mapper.DictBizMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="dictResultMap" type="com.minigod.zero.system.entity.DictBiz">
+        <id column="id" property="id"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="code" property="code"/>
+        <result column="dict_key" property="dictKey"/>
+        <result column="dict_value" property="dictValue"/>
+        <result column="sort" property="sort"/>
+        <result column="remark" property="remark"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="dict_key_hk" property="dictKeyHk"/>
+        <result column="dict_value_hk" property="dictValueHk"/>
+        <result column="dict_key_en" property="dictKeyEn"/>
+        <result column="dict_value_en" property="dictValueEn"/>
+    </resultMap>
+
+    <resultMap id="treeNodeResultMap" type="com.minigod.zero.core.tool.node.TreeNode">
+        <id column="id" property="id"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="title" property="title"/>
+        <result column="value" property="value"/>
+        <result column="key" property="key"/>
+    </resultMap>
+
+    <select id="getValue" resultType="java.lang.String" parameterType="java.lang.String">
+        select
+            IFNULL(
+                case when #{language} is null or #{language} = 'zh-CN' THEN  dict_value
+                when #{language} = 'en-US' THEN  dict_value_en
+                when #{language} = 'zh-HK' THEN  dict_value_hk END
+            ,dict_value) AS dict_value
+        from zero_dict_biz
+        where code = #{code} and dict_key = #{dictKey} and is_deleted = 0
+    </select>
+    <select id="getLabel" resultType="java.lang.String"  parameterType="java.lang.String">
+        select
+            IFNULL(
+                 case when #{language} is null or #{language} = 'zh-CN' THEN  dict_key
+                 when #{language} = 'en-US' THEN  dict_key_en
+                 when #{language} = 'zh-HK' THEN  dict_key_hk END,
+             dict_key) AS dict_key
+        from zero_dict_biz where code = #{code} and dict_value = #{dictLabel} and is_deleted = 0
+    </select>
+
+    <select id="getList" resultMap="dictResultMap"  parameterType="java.lang.String">
+        select
+                id,
+                tenant_id,
+                parent_id,
+                code,
+                <if test="language == null or language == '' or language == 'zh-CN'">
+                    dict_key,
+                    dict_value,
+                </if>
+                <if test="language == 'en-US'">
+                    IFNULL(dict_key_en,dict_key) as dict_key,
+                    IFNULL(dict_value_en,dict_value) as dict_value,
+                </if>
+                <if test="language == 'zh-HK'">
+                    IFNULL(dict_key_hk,dict_key) as dict_key,
+                    IFNULL(dict_value_hk,dict_value) as dict_value,
+                </if>
+               sort,
+               remark
+        from zero_dict_biz
+        where code = #{param1} and parent_id > 0 and is_sealed = 0 and is_deleted = 0
+    </select>
+
+    <select id="tree" resultMap="treeNodeResultMap"  parameterType="java.lang.String">
+        select
+            id,
+            parent_id,
+            IFNULL(case when #{language} is null or #{language} = 'zh-CN' THEN  dict_value
+                 when #{language} = 'en-US' THEN  dict_value_en
+                 when #{language} = 'zh-HK' THEN  dict_value_hk END,dict_value)  as title,
+            id as "value",
+            id as "key"
+        from zero_dict_biz where is_deleted = 0
+    </select>
+
+    <select id="parentTree" resultMap="treeNodeResultMap"  parameterType="java.lang.String">
+        select
+            id,
+            parent_id,
+            IFNULL(case when #{language} is null or #{language} = 'zh-CN' THEN  dict_value
+             when #{language} = 'en-US' THEN  dict_value_en
+             when #{language} = 'zh-HK' THEN  dict_value_hk END,dict_value) as title,
+            id as "value",
+            id as "key"
+        from zero_dict_biz where is_deleted = 0 and parent_id = 0
+    </select>
+    <select id="getAll" resultMap="dictResultMap"  parameterType="java.lang.String">
+        select * from zero_dict_biz where is_deleted = 0
+    </select>
+
+    <select id="getListByTenantId" resultMap="dictResultMap"  parameterType="java.lang.String">
+        select
+            id,
+            tenant_id,
+            parent_id,
+            code,
+            <if test="language == null or language == '' or language == 'zh-CN'">
+                dict_key,
+                dict_value,
+            </if>
+            <if test="language == 'en-US'">
+                IFNULL(dict_key_en,dict_key) as dict_key,
+                IFNULL(dict_value_en,dict_value) as dict_value,
+            </if>
+            <if test="language == 'zh-HK'">
+                IFNULL(dict_key_hk,dict_key) as dict_key,
+                IFNULL(dict_value_hk,dict_value) as dict_value,
+            </if>
+            sort,
+            remark
+        from zero_dict_biz
+        where code = #{code} and parent_id > 0 and is_sealed = 0 and is_deleted = 0 and tenant_id = #{tenantId}
+    </select>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        insert  into zero_dict_biz(
+            id,
+            tenant_id,
+            parent_id,
+            code,
+            dict_key,
+            dict_value,
+            sort,
+            remark,
+            is_deleted,
+            dict_key_hk,
+            dict_value_hk,
+            dict_key_en,
+            dict_value_en
+        )VALUES
+        <foreach collection="dictList" item="item" index="index" separator=",">
+            (
+                #{item.id},
+                #{item.tenantId},
+                #{item.parentId},
+                #{item.code},
+                #{item.dictKey},
+                #{item.dictValue},
+                #{item.sort},
+                #{item.remark},
+                #{item.isDeleted},
+                #{item.dictKeyHk},
+                #{item.dictValueHk},
+                #{item.dictKeyEn},
+                #{item.dictValueEn}
+            )
+        </foreach>
+
+    </insert>
+</mapper>

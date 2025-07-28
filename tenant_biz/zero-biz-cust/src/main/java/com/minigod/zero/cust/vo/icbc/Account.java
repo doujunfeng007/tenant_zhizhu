@@ -1,0 +1,53 @@
+package com.minigod.zero.cust.vo.icbc;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * @author:yanghu.luo
+ * @create: 2023-03-07 18:05
+ * @Description: 账户信息
+ */
+@Data
+public class Account implements Serializable {
+	private static final long serialVersionUID = 1L;
+	/**
+	 * acctid 主键
+	 */
+	@ApiModelProperty(value = "主键")
+	private Long acctId;
+
+	/**
+	 * sAcctName 证券账户号码
+	 */
+	@ApiModelProperty(value = "证券账户号码")
+	private String acctName;
+
+	/**
+	 * 账号类型：1-个人 2-联名 3-公司
+	 */
+	@ApiModelProperty(value = "账号类型：1-个人 2-联名 3-公司")
+	private Integer acctType;
+
+	/**
+	 * 账户状态[0-正常 1-冻结 2-挂失 3-销户 D-休眠 E-不合格 F-锁定]
+	 */
+	@ApiModelProperty(value = "账户状态：0-正常 1-冻结 2-挂失 3-销户 D-休眠 E-不合格 F-锁定")
+	private String status;
+
+	/**
+	 * 是否当前选中：0-否 1-是
+	 */
+	@ApiModelProperty(value = "是否当前选中：0-否 1-是")
+	private Integer isCurrent;
+
+	/**
+	 * 账户绑定列表
+	 */
+	@ApiModelProperty(value = "账户绑定列表")
+	private List<SubAccounts> subAccounts;
+
+}

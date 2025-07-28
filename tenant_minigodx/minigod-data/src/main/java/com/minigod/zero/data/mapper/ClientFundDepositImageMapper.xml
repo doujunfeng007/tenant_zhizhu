@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.ClientFundDepositImageMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.ClientFundDepositImage">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+            <result property="imageType" column="image_type" jdbcType="INTEGER"/>
+            <result property="fileName" column="file_name" jdbcType="VARCHAR"/>
+            <result property="fileStorageName" column="file_storage_name" jdbcType="VARCHAR"/>
+            <result property="extName" column="ext_name" jdbcType="VARCHAR"/>
+            <result property="storagePath" column="storage_path" jdbcType="VARCHAR"/>
+            <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+            <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,application_id,image_type,
+        file_name,file_storage_name,ext_name,
+        storage_path,create_user,update_user,
+        create_time,update_time,remark,
+        tenant_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from client_fund_deposit_image
+        where  id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from client_fund_deposit_image
+        where  id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.ClientFundDepositImage" useGeneratedKeys="true">
+        insert into client_fund_deposit_image
+        ( id,application_id,image_type
+        ,file_name,file_storage_name,ext_name
+        ,storage_path,create_user,update_user
+        ,create_time,update_time,remark
+        ,tenant_id)
+        values (#{id,jdbcType=BIGINT},#{applicationId,jdbcType=VARCHAR},#{imageType,jdbcType=INTEGER}
+        ,#{fileName,jdbcType=VARCHAR},#{fileStorageName,jdbcType=VARCHAR},#{extName,jdbcType=VARCHAR}
+        ,#{storagePath,jdbcType=VARCHAR},#{createUser,jdbcType=VARCHAR},#{updateUser,jdbcType=VARCHAR}
+        ,#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{remark,jdbcType=VARCHAR}
+        ,#{tenantId,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.ClientFundDepositImage" useGeneratedKeys="true">
+        insert into client_fund_deposit_image
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="applicationId != null">application_id,</if>
+                <if test="imageType != null">image_type,</if>
+                <if test="fileName != null">file_name,</if>
+                <if test="fileStorageName != null">file_storage_name,</if>
+                <if test="extName != null">ext_name,</if>
+                <if test="storagePath != null">storage_path,</if>
+                <if test="createUser != null">create_user,</if>
+                <if test="updateUser != null">update_user,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="remark != null">remark,</if>
+                <if test="tenantId != null">tenant_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="applicationId != null">#{applicationId,jdbcType=VARCHAR},</if>
+                <if test="imageType != null">#{imageType,jdbcType=INTEGER},</if>
+                <if test="fileName != null">#{fileName,jdbcType=VARCHAR},</if>
+                <if test="fileStorageName != null">#{fileStorageName,jdbcType=VARCHAR},</if>
+                <if test="extName != null">#{extName,jdbcType=VARCHAR},</if>
+                <if test="storagePath != null">#{storagePath,jdbcType=VARCHAR},</if>
+                <if test="createUser != null">#{createUser,jdbcType=VARCHAR},</if>
+                <if test="updateUser != null">#{updateUser,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
+                <if test="tenantId != null">#{tenantId,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.ClientFundDepositImage">
+        update client_fund_deposit_image
+        <set>
+                <if test="applicationId != null">
+                    application_id = #{applicationId,jdbcType=VARCHAR},
+                </if>
+                <if test="imageType != null">
+                    image_type = #{imageType,jdbcType=INTEGER},
+                </if>
+                <if test="fileName != null">
+                    file_name = #{fileName,jdbcType=VARCHAR},
+                </if>
+                <if test="fileStorageName != null">
+                    file_storage_name = #{fileStorageName,jdbcType=VARCHAR},
+                </if>
+                <if test="extName != null">
+                    ext_name = #{extName,jdbcType=VARCHAR},
+                </if>
+                <if test="storagePath != null">
+                    storage_path = #{storagePath,jdbcType=VARCHAR},
+                </if>
+                <if test="createUser != null">
+                    create_user = #{createUser,jdbcType=VARCHAR},
+                </if>
+                <if test="updateUser != null">
+                    update_user = #{updateUser,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark,jdbcType=VARCHAR},
+                </if>
+                <if test="tenantId != null">
+                    tenant_id = #{tenantId,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.ClientFundDepositImage">
+        update client_fund_deposit_image
+        set
+            application_id =  #{applicationId,jdbcType=VARCHAR},
+            image_type =  #{imageType,jdbcType=INTEGER},
+            file_name =  #{fileName,jdbcType=VARCHAR},
+            file_storage_name =  #{fileStorageName,jdbcType=VARCHAR},
+            ext_name =  #{extName,jdbcType=VARCHAR},
+            storage_path =  #{storagePath,jdbcType=VARCHAR},
+            create_user =  #{createUser,jdbcType=VARCHAR},
+            update_user =  #{updateUser,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            remark =  #{remark,jdbcType=VARCHAR},
+            tenant_id =  #{tenantId,jdbcType=VARCHAR}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

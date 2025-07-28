@@ -1,0 +1,11 @@
+执行地址:	203.86.122.229
+执行库：	ifund_account
+执行时间：	2.4 上线前
+-- *********************************************************ifund_account 库】******************************************************************
+
+## 执行前先备份account_business_flow和financing_account_amount_flows表
+
+alter table financing_account_amount_flows add business_type int null comment '1.可用存入，2.可用扣除，3.可用转冻结，4.冻结扣除，5.冻结转可用';
+alter table financing_account_amount_flows add account_business_flow_id int null comment '业务id';
+alter table account_business_flow  drop column flow_id;
+alter table account_business_flow drop column operation_type;

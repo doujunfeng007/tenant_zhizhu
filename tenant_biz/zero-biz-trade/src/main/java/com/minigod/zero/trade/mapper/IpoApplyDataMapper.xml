@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.trade.mapper.IpoApplyDataMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="ipoApplyDataResultMap" type="com.minigod.zero.trade.entity.IpoApplyDataEntity">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="asset_id" property="assetId"/>
+        <result column="quantity_apply" property="quantityApply"/>
+        <result column="apply_amount" property="applyAmount"/>
+        <result column="deposit_rate" property="depositRate"/>
+        <result column="handling_charge" property="handlingCharge"/>
+        <result column="finance_interest" property="financeInterest"/>
+        <result column="apply_date" property="applyDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="result_date" property="resultDate"/>
+        <result column="listing_date" property="listingDate"/>
+        <result column="type" property="type"/>
+        <result column="apply_status" property="applyStatus"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="reward_id" property="rewardId"/>
+        <result column="queue_id" property="queueId"/>
+    </resultMap>
+
+
+    <select id="selectIpoApplyDataPage" resultMap="ipoApplyDataResultMap">
+        select * from ipo_apply_data where is_deleted = 0
+    </select>
+
+    <update id="updateCancelIpoApplyData" >
+        UPDATE ipo_apply_data SET apply_status = '6', update_time = now() WHERE trade_account = #{clientId} AND asset_id = #{assetId} AND apply_status = '0'
+    </update>
+</mapper>

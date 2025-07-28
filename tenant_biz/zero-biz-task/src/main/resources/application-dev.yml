@@ -1,0 +1,29 @@
+#服务器端口
+server:
+  port: 8000
+
+#数据源配置
+spring:
+  datasource:
+    dynamic:
+      primary: default
+      datasource:
+        default:
+          url: ${zero.datasource.dev.url}
+          username: ${zero.datasource.dev.username}
+          password: ${zero.datasource.dev.password}
+        cust:
+          url: ${zero.datasource.cust.dev.url}
+          username: ${zero.datasource.cust.dev.username}
+          password: ${zero.datasource.cust.dev.password}
+
+xxl:
+  job:
+    accessToken: default_token
+    admin:
+      addresses: https://job-dev.xxx.cn/xxljob-admin
+    executor:
+      appName: biz-jobs
+      port: 19018
+      logPath: /data/logs/biz-jobs
+      logRetentionDays: 30

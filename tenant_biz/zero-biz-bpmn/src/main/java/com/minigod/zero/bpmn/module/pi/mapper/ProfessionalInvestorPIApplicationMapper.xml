@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.pi.mapper.ProfessionalInvestorPIApplicationMapper">
+    <resultMap id="professionalInvestorPIApplicationResultMap"
+               type="com.minigod.zero.bpmn.module.pi.entity.ProfessionalInvestorPIApplicationEntity">
+        <id column="a_id" property="id"/>
+        <result column="a_application_id" property="applicationId"/>
+        <result column="a_application_title" property="applicationTitle"/>
+        <result column="a_current_node" property="currentNode"/>
+        <result column="a_last_approval_user" property="lastApprovalUser"/>
+        <result column="a_last_approval_time" property="lastApprovalTime"/>
+        <result column="a_approval_opinion" property="approvalOpinion"/>
+        <result column="a_start_time" property="startTime"/>
+        <result column="a_remark" property="remark"/>
+        <result column="a_application_status" property="applicationStatus"/>
+        <result column="a_assign_drafter" property="assignDrafter"/>
+        <result column="a_flow_path" property="flowPath"/>
+        <result column="a_fire_aid" property="fireAid"/>
+        <result column="a_instance_id" property="instanceId"/>
+        <result column="a_definition_id" property="definitionId"/>
+        <result column="a_process_instance_id" property="processInstanceId"/>
+        <result column="a_task_id" property="taskId"/>
+        <result column="a_deploy_id" property="deployId"/>
+        <result column="a_tenant_id" property="tenantId"/>
+        <result column="a_create_dept" property="createDept"/>
+        <result column="a_status" property="status"/>
+        <result column="a_create_user" property="createUser"/>
+        <result column="a_update_user" property="updateUser"/>
+        <result column="a_create_time" property="createTime"/>
+        <result column="a_update_time" property="updateTime"/>
+        <result column="a_is_deleted" property="isDeleted"/>
+        <!--<result column="a_application_type" property="applicationType"/>-->
+    </resultMap>
+    <sql id="Base_Column_List">
+        a.id AS a_id,
+        a.application_id AS a_application_id,
+        a.application_title AS a_application_title,
+        a.current_node AS a_current_node,
+        a.last_approval_user AS a_last_approval_user,
+        a.last_approval_time AS a_last_approval_time,
+        a.approval_opinion AS a_approval_opinion,
+        a.start_time AS a_start_time,
+        a.remark AS a_remark,
+        a.application_status AS a_application_status,
+        a.assign_drafter AS a_assign_drafter,
+        a.flow_path AS a_flow_path,
+        a.fire_aid AS a_fire_aid,
+        a.instance_id AS a_instance_id,
+        a.definition_id AS a_definition_id,
+        a.process_instance_id AS a_process_instance_id,
+        a.task_id AS a_task_id,
+        a.deploy_id AS a_deploy_id,
+        a.tenant_id AS a_tenant_id,
+        a.create_dept AS a_create_dept,
+        a.status AS a_status,
+        a.create_user AS a_create_user,
+        a.update_user AS a_update_user,
+        a.create_time AS a_create_time,
+        a.update_time AS a_update_time,
+        a.is_deleted AS a_is_deleted
+
+    </sql>
+    <resultMap id="professionalInvestorPIApplicationResultMapVO"
+               type="com.minigod.zero.bpmn.module.pi.vo.ProfessionalInvestorPIApplicationVO"
+               extends="professionalInvestorPIApplicationResultMap">
+        <association property="info" javaType="com.minigod.zero.bpmn.module.pi.vo.ProfessionalInvestorPIInfoVO"
+                     resultMap="com.minigod.zero.bpmn.module.pi.mapper.ProfessionalInvestorPIInfoMapper.professionalInvestorFIInfoVO">
+        </association>
+        <collection property="imagesList"
+                    ofType="com.minigod.zero.bpmn.module.pi.vo.ProfessionalInvestorPIVoucherImageVO"
+                    resultMap="com.minigod.zero.bpmn.module.pi.mapper.ProfessionalInvestorPIVoucherImageMapper.professionalInvestorPIVoucherImageMapVo">
+        </collection>
+    </resultMap>
+    <select id="selectProfessionalInvestorPIApplicationPage" resultMap="professionalInvestorPIApplicationResultMapVO">
+        select<include refid="Base_Column_List"/>,
+        <include refid="com.minigod.zero.bpmn.module.pi.mapper.ProfessionalInvestorPIInfoMapper.Base_Column_List"/>,
+        <include
+            refid="com.minigod.zero.bpmn.module.pi.mapper.ProfessionalInvestorPIVoucherImageMapper.Base_Column_List"/>
+        from professional_investor_pi_application a
+        left join professional_investor_pi_info info on a.application_id = info.application_id
+        left join professional_investor_pi_voucher_image img on a.application_id = img.application_id
+        <where>
+            <if test="query.status != null">
+                and a.status = #{query.status}
+            </if>
+            <if test="query.applicationStatusList!=null and query.applicationStatusList.size() > 0">
+                and a.application_status in (
+                <foreach collection="query.applicationStatusList" item="applicationStatus" separator=",">
+                    #{applicationStatus}
+                </foreach>
+                )
+            </if>
+            <if test="query.applicationStatus != null">
+                and a.application_status = #{query.applicationStatus}
+            </if>
+            <if test="query.clientId != null and query.clientId != ''">
+                and info.client_id = #{query.clientId}
+            </if>
+            <if test="query.clientAccount != null and query.clientAccount != ''">
+                and info.client_account = #{query.clientAccount}
+            </if>
+            <if test="query.clientName != null and query.clientName != ''">
+                and info.client_name = #{query.clientName}
+            </if>
+            <if test="query.clientEngName != null and query.clientEngName != ''">
+                and info.client_eng_name like concat('%', concat(#{query.clientEngName}, '%'))
+            </if>
+            <if test="query.securitiesPhoneArea != null and query.securitiesPhoneArea != ''">
+                and info.securities_phone_area = #{query.securitiesPhoneArea}
+            </if>
+            <if test="query.securitiesPhoneNumber != null and query.securitiesPhoneNumber != ''">
+                and info.securities_phone_number = #{query.securitiesPhoneNumber}
+            </if>
+            <if test="query.beginApplyDate != null and query.beginApplyDate != ''">
+                and info.apply_date >= #{query.beginApplyDate}
+            </if>
+            <if test="query.endApplyDate != null and query.endApplyDate != ''">
+                and info.apply_date <![CDATA[ <= ]]>#{query.endApplyDate}
+            </if>
+            <if test="query.beginRecognitionDate != null and query.beginRecognitionDate != ''">
+                and info.recognition_date >= #{query.beginRecognitionDate}
+            </if>
+            <if test="query.endRecognitionDate != null and query.endRecognitionDate != ''">
+                and info.recognition_date <![CDATA[ <= ]]>#{query.endRecognitionDate}
+            </if>
+            <if test="query.beginExpirationDate != null and query.beginExpirationDate != ''">
+                and info.expiration_date >= #{query.beginExpirationDate}
+            </if>
+            <if test="query.endExpirationDate != null and query.endExpirationDate != ''">
+                and info.expiration_date <![CDATA[ <= ]]>#{query.endExpirationDate}
+            </if>
+            <if test="query.beginRevocationDate != null and query.beginRevocationDate != ''">
+                and info.revocation_date >= #{query.beginRevocationDate}
+            </if>
+            <if test="query.endRevocationDate != null and query.endRevocationDate != ''">
+                and info.revocation_date <![CDATA[ <= ]]>#{query.endRevocationDate}
+            </if>
+            <if test="query.tenantId != null and query.tenantId != ''">
+                and a.tenant_id = #{query.tenantId}
+            </if>
+            and a.is_deleted = 0
+            and a.instance_id is not null
+        </where>
+        group by a.application_id
+        order by a.start_time desc
+    </select>
+    <select id="queryByApplicationId" parameterType="java.lang.String" resultMap="professionalInvestorPIApplicationResultMap" >
+        select
+        <include refid="Base_Column_List"/>
+        from professional_investor_pi_application as a
+        where a.application_id = #{applicationId}
+          and a.is_deleted = 0
+    </select>
+    <update id="addAssignDrafter">
+        update professional_investor_pi_application
+        set assign_drafter     = #{param1},
+            last_approval_time = now()
+        where application_id = #{param2} and is_deleted = 0
+    </update>
+    <update id="clearAssignDrafter">
+        update professional_investor_pi_application
+        set assign_drafter     = NULL,
+            last_approval_time = now()
+        where application_id = #{param1} and is_deleted = 0
+    </update>
+</mapper>

@@ -1,0 +1,19 @@
+#数据源配置
+spring:
+  datasource:
+    url: ${zero.datasource.job.prd.url}
+    username: ${zero.datasource.job.prd.username}
+    password: ${zero.datasource.job.prd.password}
+
+    ### datasource-pool
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 10
+      maximum-pool-size: 30
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: HikariCP
+      max-lifetime: 900000
+      connection-timeout: 10000
+      connection-test-query: SELECT 1
+      validation-timeout: 1000

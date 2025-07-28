@@ -1,0 +1,140 @@
+package com.minigod.zero.bpmn.module.feign.dto;
+
+import lombok.Data;
+
+import java.util.Date;
+
+/**
+ * @Author：jim(liaoguangjie)
+ * @Date：2024/5/10 15:30
+ * @description：
+ */
+@Data
+public class CustomerInfoDTO {
+
+	/**
+	 * 租户id
+	 */
+	private Long tenantId;
+
+	/**
+	 * 客户昵称
+	 */
+	private String nickName;
+
+	/**
+	 * 客户签名
+	 */
+	private String signature;
+
+	/**
+	 * 客户性别(0男，1女)
+	 */
+	private Integer gender;
+
+	/**
+	 * 客户图像
+	 */
+	private String custIcon;
+
+	/**
+	 * 推荐渠道
+	 */
+	private String custChannel;
+
+	/**
+	 * 客户密码
+	 */
+	private String password;
+
+	/**
+	 * 推荐人ID,邀请该客户的客户ID
+	 */
+	private Long invCustId;
+
+	/**
+	 * 客户类型：0-游客 1-普通个户 2-认证投顾 3-官方账号 4-公司授权人 5-存量ESOP客户
+	 */
+	private Integer custType;
+
+	/**
+	 * 乐观锁版本号
+	 */
+	private Integer lockVersion;
+
+	/**
+	 * 手机号
+	 */
+	private String cellPhone;
+
+	/**
+	 * 国际区号
+	 */
+	private String areaCode;
+
+	/**
+	 * 注册来源：1-web 2-ios 3-aos 4-pc 5-h5
+	 */
+	private Integer regSourceType;
+
+	/**
+	 * 注册渠道：0=未知 1=互联网 2=线下开户 3-公司授权 4-ESOP开户
+	 */
+	private Integer regChannel;
+
+	/**
+	 * 注册邮箱
+	 */
+	private String cellEmail;
+
+	/**
+	 * 创建人
+	 */
+	private Long createUser;
+
+	/**
+	 * 创建时间
+	 */
+	private Date createTime;
+
+	/**
+	 * 修改人
+	 */
+	private Long updateUser;
+
+	/**
+	 * 修改时间
+	 */
+	private Date updateTime;
+
+	/**
+	 * 客户状态 0-停用,1-正常,2-锁定,3-注销
+	 */
+	private Integer status;
+
+	/**
+	 * 注销时间
+	 */
+	private Date cancelTime;
+
+	/**
+	 * 关联客户ID
+	 */
+	private Long bindCust;
+
+	/**
+	 * 是否已删除：1-已删除
+	 */
+	private Integer isDeleted;
+
+	/**
+	 *
+	 */
+	private Long createDept;
+
+	/**
+	 * 用户pi等级
+	 * 1-Common 2-Important 3-VIP 4-PI 5-Capital]
+	 */
+	private Integer piLevel;
+}

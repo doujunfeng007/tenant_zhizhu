@@ -1,0 +1,208 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "mysqlreader",
+          "parameter": {
+            "username": "BGiv1Nj/RkA62kCvYRpURw==",
+            "password": "jJ1jarzC1lh43N/bEGp/Fw==",
+            "column": [
+              "`id`",
+              "`application_id`",
+              "`client_id`",
+              "`fund_account`",
+              "`entrust_time`",
+              "`id_kind`",
+              "`id_node`",
+              "`client_name`",
+              "`client_name_spell`",
+              "`bank_acct_type`",
+              "`sex`",
+              "`mobile`",
+              "`transfer_type`",
+              "`ccy`",
+              "`withdraw_amount`",
+              "`frozen_balance`",
+              "`drawable_balance`",
+              "`deduct_way`",
+              "`charge_fee`",
+              "`actual_amount`",
+              "`refunded_amount`",
+              "`refunded_date`",
+              "`init_date`",
+              "`frozen_ref_id`",
+              "`old_charge_fee`",
+              "`free_fee_flag`",
+              "`recv_account_type`",
+              "`recv_bank_code`",
+              "`recv_bank_id`",
+              "`recv_bank_name`",
+              "`recv_bank_acct`",
+              "`recv_bank_type`",
+              "`recv_bank_acct_name`",
+              "`recv_swift_code`",
+              "`recv_contact_address`",
+              "`recv_bank_branch_name`",
+              "`recv_bank_branch_code`",
+              "`third_recv_flag`",
+              "`third_recv_real`",
+              "`third_recv_reason`",
+              "`pay_way`",
+              "`pay_type`",
+              "`pay_bank_code`",
+              "`pay_bank_name`",
+              "`pay_account_name`",
+              "`pay_bank_acct`",
+              "`pay_bank_id`",
+              "`bank_state`",
+              "`bank_ref_id`",
+              "`bank_rt_code`",
+              "`bank_rt_msg`",
+              "`remittance_id`",
+              "`callback_status`",
+              "`gt_business_step`",
+              "`gt_deal_status`",
+              "`gt_deal_date`",
+              "`gt_rt_code`",
+              "`gt_rt_msg`",
+              "`export_status`",
+              "`export_date`",
+              "`print_status`",
+              "`print_date`",
+              "`apply_source`",
+              "`cust_remark`",
+              "`remark`",
+              "`create_time`",
+              "`create_user`",
+              "`update_time`",
+              "`update_user`",
+              "`bank_reference`",
+              "`tenant_id`",
+              "`create_dept`",
+              "`status`",
+              "`is_deleted`",
+              "`user_id`",
+              "`remittance_voucher`"
+            ],
+            "splitPk": "",
+            "where": "create_time >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY) OR update_time >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY )",
+            "connection": [
+              {
+                "table": [
+                  "client_fund_withdraw_info"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://10.10.1.20:13049/zero_bpmn?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "username": "x23iAGFtBmYzhTgDDjvFPg==",
+            "password": "sTO8zolMP4HE+FE4/Q/juOlJhAfkZyhMvpevvHYrEc8=",
+            "column": [
+              "`id`",
+              "`application_id`",
+              "`client_id`",
+              "`fund_account`",
+              "`entrust_time`",
+              "`id_kind`",
+              "`id_node`",
+              "`client_name`",
+              "`client_name_spell`",
+              "`bank_acct_type`",
+              "`sex`",
+              "`mobile`",
+              "`transfer_type`",
+              "`ccy`",
+              "`withdraw_amount`",
+              "`frozen_balance`",
+              "`drawable_balance`",
+              "`deduct_way`",
+              "`charge_fee`",
+              "`actual_amount`",
+              "`refunded_amount`",
+              "`refunded_date`",
+              "`init_date`",
+              "`frozen_ref_id`",
+              "`old_charge_fee`",
+              "`free_fee_flag`",
+              "`recv_account_type`",
+              "`recv_bank_code`",
+              "`recv_bank_id`",
+              "`recv_bank_name`",
+              "`recv_bank_acct`",
+              "`recv_bank_type`",
+              "`recv_bank_acct_name`",
+              "`recv_swift_code`",
+              "`recv_contact_address`",
+              "`recv_bank_branch_name`",
+              "`recv_bank_branch_code`",
+              "`third_recv_flag`",
+              "`third_recv_real`",
+              "`third_recv_reason`",
+              "`pay_way`",
+              "`pay_type`",
+              "`pay_bank_code`",
+              "`pay_bank_name`",
+              "`pay_account_name`",
+              "`pay_bank_acct`",
+              "`pay_bank_id`",
+              "`bank_state`",
+              "`bank_ref_id`",
+              "`bank_rt_code`",
+              "`bank_rt_msg`",
+              "`remittance_id`",
+              "`callback_status`",
+              "`gt_business_step`",
+              "`gt_deal_status`",
+              "`gt_deal_date`",
+              "`gt_rt_code`",
+              "`gt_rt_msg`",
+              "`export_status`",
+              "`export_date`",
+              "`print_status`",
+              "`print_date`",
+              "`apply_source`",
+              "`cust_remark`",
+              "`remark`",
+              "`create_time`",
+              "`create_user`",
+              "`update_time`",
+              "`update_user`",
+              "`bank_reference`",
+              "`tenant_id`",
+              "`create_dept`",
+              "`status`",
+              "`is_deleted`",
+              "`user_id`",
+              "`remittance_voucher`"
+            ],
+            "writeMode": "update",
+            "connection": [
+              {
+                "table": [
+                  "client_fund_withdraw_info"
+                ],
+                "jdbcUrl": "jdbc:mysql://10.10.1.20:13049/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

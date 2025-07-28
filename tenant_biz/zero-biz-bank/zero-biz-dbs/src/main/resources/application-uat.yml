@@ -1,0 +1,39 @@
+#数据源配置
+spring:
+  datasource:
+    url: ${zero.datasource.dbs.sit.url}
+    username: ${zero.datasource.dbs.sit.username}
+    password: ${zero.datasource.dbs.sit.password}
+
+
+bank:
+  dbs:
+    enabled: true
+    url: 'https://enterprise-api.dbs.com/'
+    hostName: testcld-enterprise-api.dbs.com
+    orgId: HKNBAA
+    pubKey: DBSSG_EN_PUBLIC.asc
+    secKey: HLD_PRIVATE_TEST_0617.asc
+    KeyId: aab40366-adc3-40e8-9ebd-c172477f45ed
+    privayeKeyPassword: ifund-dbs-2024
+    connection-timeout: 20000
+    tenantId: '000000'
+    callbackUrl: 'http://127.0.0.1:8000/proxy'
+    #callbackUrl: 'http://cloud-api.ifund.live:31075/api/zero-biz-bpmn/proxy'
+
+
+  #流水icc接口 密钥配置
+  icc:
+    enabled: true
+    url: 'https://testcld-enterprise-api.dbs.com/'
+    hostName: testcld-enterprise-api.dbs.com
+    orgId: HKNBAA
+    pubKey: dbs-api-dbs-public.gpg
+    secKey: dbs-api-ifund-private.gpg
+    KeyId: aab40366-adc3-40e8-9ebd-c172477f45ed
+    privayeKeyPassword: iDFBuSnd_888
+    connection-timeout: 20000
+    tenantId: '000000'
+    callbackUrl: 'http://127.0.0.1:8000/proxy'
+    #callbackUrl: 'http://cloud-api.ifund.live:31075/api/zero-biz-bpmn/proxy'
+

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://org.apache.axis2/xsd"
+                  xmlns:ns="http://webservice.g3sb.afe.com" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://webservice.g3sb.afe.com">
+    <wsdl:documentation>
+        Please Type your service description here
+    </wsdl:documentation>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified"
+                   targetNamespace="http://webservice.g3sb.afe.com">
+            <xs:element name="run">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="inputXmlString" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="runResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="queryParameters">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="companyID" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="userID" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="userPassword" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="queryParametersResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="queryParametersRequest">
+        <wsdl:part name="parameters" element="ns:queryParameters"/>
+    </wsdl:message>
+    <wsdl:message name="queryParametersResponse">
+        <wsdl:part name="parameters" element="ns:queryParametersResponse"/>
+    </wsdl:message>
+    <wsdl:message name="runRequest">
+        <wsdl:part name="parameters" element="ns:run"/>
+    </wsdl:message>
+    <wsdl:message name="runResponse">
+        <wsdl:part name="parameters" element="ns:runResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="CreateAccountPortType">
+        <wsdl:operation name="queryParameters">
+            <wsdl:input message="ns:queryParametersRequest" wsaw:Action="urn:queryParameters"/>
+            <wsdl:output message="ns:queryParametersResponse" wsaw:Action="urn:queryParametersResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="run">
+            <wsdl:input message="ns:runRequest" wsaw:Action="urn:run"/>
+            <wsdl:output message="ns:runResponse" wsaw:Action="urn:runResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CreateAccountSoap11Binding" type="ns:CreateAccountPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="queryParameters">
+            <soap:operation soapAction="urn:queryParameters" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="run">
+            <soap:operation soapAction="urn:run" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="CreateAccountSoap12Binding" type="ns:CreateAccountPortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="queryParameters">
+            <soap12:operation soapAction="urn:queryParameters" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="run">
+            <soap12:operation soapAction="urn:run" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="CreateAccountHttpBinding" type="ns:CreateAccountPortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="queryParameters">
+            <http:operation location="queryParameters"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="run">
+            <http:operation location="run"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="CreateAccount">
+        <wsdl:port name="CreateAccountHttpSoap11Endpoint" binding="ns:CreateAccountSoap11Binding">
+            <soap:address
+                location="http://localhost:8080/g3sb_webservice/services/CreateAccount.CreateAccountHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="CreateAccountHttpSoap12Endpoint" binding="ns:CreateAccountSoap12Binding">
+            <soap12:address
+                location="http://localhost:8080/g3sb_webservice/services/CreateAccount.CreateAccountHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="CreateAccountHttpEndpoint" binding="ns:CreateAccountHttpBinding">
+            <http:address
+                location="http://localhost:8080/g3sb_webservice/services/CreateAccount.CreateAccountHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,13 @@
+minigod:
+    tenant:
+        ffmpeg:
+            path:  '/zero/biz-bpmn/ffmpeg/ffmpeg'
+            crf: 23
+            videoCodec: 'libx264'
+            preset: 'medium'
+            resolution: '1280x720'
+            frameRate: 30
+            bitRate: 1000
+            bufSize: '4000k'
+            maxBitrate: '2000k'
+            audioBitrate: '128k'

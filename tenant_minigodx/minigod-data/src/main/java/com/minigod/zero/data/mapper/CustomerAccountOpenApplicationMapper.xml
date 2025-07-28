@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.CustomerAccountOpenApplicationMapper">
+
+    <select id="countCustomerAccountOpenApply" resultType="java.util.Map">
+        -- 统计线上和线下开户的待审批笔数 1.H5线上 3.后台线下
+        SELECT open_access_way AS access_way, COALESCE(openAccountApplyCount, 0) as openAccountApplyCount
+        FROM (
+                 SELECT '线上' as open_access_way
+                 UNION ALL
+                 SELECT '线下'
+                 UNION ALL
+                 SELECT '其它'
+             ) t
+            LEFT JOIN (
+            SELECT
+                CASE
+                    WHEN caoi.open_account_access_way = 1 THEN '线上'
+                    WHEN caoi.open_account_access_way = 3 THEN '线下'
+                    ELSE '其它'
+                    END AS access_way,
+                COUNT(*) AS openAccountApplyCount
+            FROM customer_account_open_application AS caoa
+                     LEFT JOIN customer_account_open_info AS caoi
+                               ON caoa.application_id = caoi.application_id
+            WHERE caoa.application_status IN (1, 2, 3, 9)
+            GROUP BY CASE
+                         WHEN caoi.open_account_access_way = 1 THEN '线上'
+                         WHEN caoi.open_account_access_way = 3 THEN '线下'
+                         ELSE '其它'
+                         END
+        ) stats ON t.open_access_way = stats.access_way
+    </select>
+</mapper>

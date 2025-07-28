@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.OrganizationBasicInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.OrganizationBasicInfo">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <id property="custId" column="cust_id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+            <result property="registrationAddress" column="registration_address" jdbcType="VARCHAR"/>
+            <result property="registrationCertificate" column="registration_certificate" jdbcType="VARCHAR"/>
+            <result property="businessRegistrationCertificate" column="business_registration_certificate" jdbcType="VARCHAR"/>
+            <result property="businessNature" column="business_nature" jdbcType="VARCHAR"/>
+            <result property="fundingSource" column="funding_source" jdbcType="VARCHAR"/>
+            <result property="contacts" column="contacts" jdbcType="VARCHAR"/>
+            <result property="contactsMobile" column="contacts_mobile" jdbcType="VARCHAR"/>
+            <result property="contactsEmail" column="contacts_email" jdbcType="VARCHAR"/>
+            <result property="target" column="target" jdbcType="VARCHAR"/>
+            <result property="bankName" column="bank_name" jdbcType="VARCHAR"/>
+            <result property="swiftCode" column="swift_code" jdbcType="VARCHAR"/>
+            <result property="accountName" column="account_name" jdbcType="VARCHAR"/>
+            <result property="bankAccountNumber" column="bank_account_number" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+            <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,address,
+        registration_address,registration_certificate,business_registration_certificate,
+        business_nature,funding_source,contacts,
+        contacts_mobile,contacts_email,target,
+        bank_name,swift_code,account_name,
+        bank_account_number,create_time,update_time,
+        status,is_deleted,cust_id,tenant_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from organization_basic_info
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from organization_basic_info
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.OrganizationBasicInfo" useGeneratedKeys="true">
+        insert into organization_basic_info
+        ( id,name,address
+        ,registration_address,registration_certificate,business_registration_certificate
+        ,business_nature,funding_source,contacts
+        ,contacts_mobile,contacts_email,target
+        ,bank_name,swift_code,account_name
+        ,bank_account_number,create_time,update_time
+        ,status,is_deleted,cust_id,tenant_id)
+        values (#{id,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR}
+        ,#{registrationAddress,jdbcType=VARCHAR},#{registrationCertificate,jdbcType=VARCHAR},#{businessRegistrationCertificate,jdbcType=VARCHAR}
+        ,#{businessNature,jdbcType=VARCHAR},#{fundingSource,jdbcType=VARCHAR},#{contacts,jdbcType=VARCHAR}
+        ,#{contactsMobile,jdbcType=VARCHAR},#{contactsEmail,jdbcType=VARCHAR},#{target,jdbcType=VARCHAR}
+        ,#{bankName,jdbcType=VARCHAR},#{swiftCode,jdbcType=VARCHAR},#{accountName,jdbcType=VARCHAR}
+        ,#{bankAccountNumber,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP}
+        ,#{status,jdbcType=INTEGER},#{isDeleted,jdbcType=INTEGER},#{custId},#{tenantId})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.OrganizationBasicInfo" useGeneratedKeys="true">
+        insert into organization_basic_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="name != null">name,</if>
+                <if test="address != null">address,</if>
+                <if test="registrationAddress != null">registration_address,</if>
+                <if test="registrationCertificate != null">registration_certificate,</if>
+                <if test="businessRegistrationCertificate != null">business_registration_certificate,</if>
+                <if test="businessNature != null">business_nature,</if>
+                <if test="fundingSource != null">funding_source,</if>
+                <if test="contacts != null">contacts,</if>
+                <if test="contactsMobile != null">contacts_mobile,</if>
+                <if test="contactsEmail != null">contacts_email,</if>
+                <if test="target != null">target,</if>
+                <if test="bankName != null">bank_name,</if>
+                <if test="swiftCode != null">swift_code,</if>
+                <if test="accountName != null">account_name,</if>
+                <if test="bankAccountNumber != null">bank_account_number,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="status != null">status,</if>
+                <if test="isDeleted != null">is_deleted,</if>
+                <if test="custId != null">cust_id,</if>
+                <if test="tenantId != null">tenant_id,</if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+                <if test="address != null">#{address,jdbcType=VARCHAR},</if>
+                <if test="registrationAddress != null">#{registrationAddress,jdbcType=VARCHAR},</if>
+                <if test="registrationCertificate != null">#{registrationCertificate,jdbcType=VARCHAR},</if>
+                <if test="businessRegistrationCertificate != null">#{businessRegistrationCertificate,jdbcType=VARCHAR},</if>
+                <if test="businessNature != null">#{businessNature,jdbcType=VARCHAR},</if>
+                <if test="fundingSource != null">#{fundingSource,jdbcType=VARCHAR},</if>
+                <if test="contacts != null">#{contacts,jdbcType=VARCHAR},</if>
+                <if test="contactsMobile != null">#{contactsMobile,jdbcType=VARCHAR},</if>
+                <if test="contactsEmail != null">#{contactsEmail,jdbcType=VARCHAR},</if>
+                <if test="target != null">#{target,jdbcType=VARCHAR},</if>
+                <if test="bankName != null">#{bankName,jdbcType=VARCHAR},</if>
+                <if test="swiftCode != null">#{swiftCode,jdbcType=VARCHAR},</if>
+                <if test="accountName != null">#{accountName,jdbcType=VARCHAR},</if>
+                <if test="bankAccountNumber != null">#{bankAccountNumber,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="status != null">#{status,jdbcType=INTEGER},</if>
+                <if test="isDeleted != null">#{isDeleted,jdbcType=INTEGER},</if>
+                <if test="custId != null">#{custId},</if>
+                <if test="tenantId != null">#{tenantId},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.OrganizationBasicInfo">
+        update organization_basic_info
+        <set>
+                <if test="name != null">
+                    name = #{name,jdbcType=VARCHAR},
+                </if>
+                <if test="address != null">
+                    address = #{address,jdbcType=VARCHAR},
+                </if>
+                <if test="registrationAddress != null">
+                    registration_address = #{registrationAddress,jdbcType=VARCHAR},
+                </if>
+                <if test="registrationCertificate != null">
+                    registration_certificate = #{registrationCertificate,jdbcType=VARCHAR},
+                </if>
+                <if test="businessRegistrationCertificate != null">
+                    business_registration_certificate = #{businessRegistrationCertificate,jdbcType=VARCHAR},
+                </if>
+                <if test="businessNature != null">
+                    business_nature = #{businessNature,jdbcType=VARCHAR},
+                </if>
+                <if test="fundingSource != null">
+                    funding_source = #{fundingSource,jdbcType=VARCHAR},
+                </if>
+                <if test="contacts != null">
+                    contacts = #{contacts,jdbcType=VARCHAR},
+                </if>
+                <if test="contactsMobile != null">
+                    contacts_mobile = #{contactsMobile,jdbcType=VARCHAR},
+                </if>
+                <if test="contactsEmail != null">
+                    contacts_email = #{contactsEmail,jdbcType=VARCHAR},
+                </if>
+                <if test="target != null">
+                    target = #{target,jdbcType=VARCHAR},
+                </if>
+                <if test="bankName != null">
+                    bank_name = #{bankName,jdbcType=VARCHAR},
+                </if>
+                <if test="swiftCode != null">
+                    swift_code = #{swiftCode,jdbcType=VARCHAR},
+                </if>
+                <if test="accountName != null">
+                    account_name = #{accountName,jdbcType=VARCHAR},
+                </if>
+                <if test="bankAccountNumber != null">
+                    bank_account_number = #{bankAccountNumber,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=INTEGER},
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted,jdbcType=INTEGER},
+                </if>
+                <if test="custId != null">
+                    cust_id = #{custId},
+                </if>
+                <if test="tenantId != null">
+                    tenant_id = #{tenantId},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.OrganizationBasicInfo">
+        update organization_basic_info
+        set
+            name =  #{name,jdbcType=VARCHAR},
+            address =  #{address,jdbcType=VARCHAR},
+            registration_address =  #{registrationAddress,jdbcType=VARCHAR},
+            registration_certificate =  #{registrationCertificate,jdbcType=VARCHAR},
+            business_registration_certificate =  #{businessRegistrationCertificate,jdbcType=VARCHAR},
+            business_nature =  #{businessNature,jdbcType=VARCHAR},
+            funding_source =  #{fundingSource,jdbcType=VARCHAR},
+            contacts =  #{contacts,jdbcType=VARCHAR},
+            contacts_mobile =  #{contactsMobile,jdbcType=VARCHAR},
+            contacts_email =  #{contactsEmail,jdbcType=VARCHAR},
+            target =  #{target,jdbcType=VARCHAR},
+            bank_name =  #{bankName,jdbcType=VARCHAR},
+            swift_code =  #{swiftCode,jdbcType=VARCHAR},
+            account_name =  #{accountName,jdbcType=VARCHAR},
+            bank_account_number =  #{bankAccountNumber,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            status =  #{status,jdbcType=INTEGER},
+            is_deleted =  #{isDeleted,jdbcType=INTEGER},
+            cust_id = #{custId},
+            tenant_id = #{tenantId}
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="selectByCustId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select * from organization_basic_info where cust_id = #{custId}
+    </select>
+</mapper>

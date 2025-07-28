@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpm.mapper.CashDepositAccountBankMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="cashDepositAccountBankResultMap" type="com.minigod.zero.bpm.entity.CashDepositAccountBankEntity">
+        <result column="id" property="id"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="client_name" property="clientName"/>
+        <result column="client_name_en" property="clientNameEn"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="open_account_type" property="openAccountType"/>
+        <result column="open_bank_type" property="openBankType"/>
+        <result column="bank_type" property="bankType"/>
+        <result column="bank_name" property="bankName"/>
+        <result column="bank_account_name" property="bankAccountName"/>
+        <result column="bank_account" property="bankAccount"/>
+        <result column="reg_time" property="regTime"/>
+        <result column="reg_cancel_time" property="regCancelTime"/>
+        <result column="reg_status" property="regStatus"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+
+    <select id="selectCashDepositAccountBankPage" resultMap="cashDepositAccountBankResultMap">
+        select * from cash_deposit_account_bank where is_deleted = 0
+    </select>
+
+    <select id="findDepositBankInfoByTradeAccount" resultType="com.minigod.zero.bpm.vo.response.DepositAccountBankResp">
+        select distinct(bank_name), bank_account, bank_account_name, bank_type
+        from cash_deposit_account_bank
+        where trade_account = #{tradeAccount} and reg_status = 1
+        <if test="bankType != null and bankType == 0">
+            order by create_time desc
+        </if>
+        <if test="bankType == null or bankType != 0">
+            and bank_type = #{bankType} order by reg_time desc limit 0,#{bankCount}
+        </if>
+    </select>
+</mapper>

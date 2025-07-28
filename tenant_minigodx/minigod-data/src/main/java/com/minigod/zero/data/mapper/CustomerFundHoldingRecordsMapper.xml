@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.CustomerFundHoldingRecordsMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.CustomerFundHoldingRecords">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="holdingId" column="holding_id" jdbcType="VARCHAR"/>
+            <result property="subAccountId" column="sub_account_id" jdbcType="VARCHAR"/>
+            <result property="fundCode" column="fund_code" jdbcType="VARCHAR"/>
+            <result property="fundName" column="fund_name" jdbcType="VARCHAR"/>
+            <result property="totalQuantity" column="total_quantity" jdbcType="DECIMAL"/>
+            <result property="availableQuantity" column="available_quantity" jdbcType="DECIMAL"/>
+            <result property="frozenQuantity" column="frozen_quantity" jdbcType="DECIMAL"/>
+            <result property="transitedQuantity" column="transited_quantity" jdbcType="DECIMAL"/>
+            <result property="withdrawQuantity" column="withdraw_quantity" jdbcType="DECIMAL"/>
+            <result property="averageCost" column="average_cost" jdbcType="DECIMAL"/>
+            <result property="dilutedCost" column="diluted_cost" jdbcType="DECIMAL"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="totalFee" column="total_fee" jdbcType="DECIMAL"/>
+            <result property="realizedGainLoss" column="realized_gain_loss" jdbcType="DECIMAL"/>
+            <result property="createTime" column="create_time" jdbcType="DATE"/>
+            <result property="updateTime" column="update_time" jdbcType="DATE"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+            <result property="totalGainLoss" column="total_gain_loss" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,holding_id,sub_account_id,
+        fund_code,fund_name,total_quantity,
+        available_quantity,frozen_quantity,transited_quantity,
+        withdraw_quantity,average_cost,diluted_cost,
+        currency,total_fee,realized_gain_loss,
+        create_time,update_time,is_deleted,
+        total_gain_loss
+    </sql>
+</mapper>

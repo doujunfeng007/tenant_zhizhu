@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerGoldDepositRecordsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="goldDepositRecordsResultMap" type="com.minigod.zero.customer.entity.CustomerGoldDepositRecordsEntity">
+        <result column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="cust_id" property="custId"/>
+        <result column="account_id" property="accountId"/>
+        <result column="transaction_account" property="transactionAccount"/>
+        <result column="account_type" property="accountType"/>
+        <result column="fund_account" property="fundAccount"/>
+        <result column="swift_code" property="swiftCode"/>
+        <result column="deposit_type" property="depositType"/>
+        <result column="remittance_type" property="remittanceType"/>
+        <result column="remittance_bank_name" property="remittanceBankName"/>
+        <result column="remittance_account" property="remittanceAccount"/>
+        <result column="remittance_account_name" property="remittanceAccountName"/>
+        <result column="remittance_bank_code" property="remittanceBankCode"/>
+        <result column="remittance_bank_id" property="remittanceBankId"/>
+        <result column="receiving_bank_name" property="receivingBankName"/>
+        <result column="receiving_bank_code" property="receivingBankCode"/>
+        <result column="receiving_account" property="receivingAccount"/>
+        <result column="receiving_account_name" property="receivingAccountName"/>
+        <result column="receiving_address" property="receivingAddress"/>
+        <result column="deposit_balance" property="depositBalance"/>
+        <result column="application_time" property="applicationTime"/>
+        <result column="money_type" property="moneyType"/>
+        <result column="hs_bank_id" property="hsBankId"/>
+        <result column="hs_bank_account" property="hsBankAccount"/>
+        <result column="hs_deal_status" property="hsDealStatus"/>
+        <result column="entry_time" property="entryTime"/>
+        <result column="retry_count" property="retryCount"/>
+        <result column="first_dep_flag" property="firstDepFlag"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="receiving_amount" property="receivingAmount"/>
+    </resultMap>
+
+
+    <select id="selectCustomerGoldDepositRecordsPage" resultMap="goldDepositRecordsResultMap">
+        select * from customer_gold_deposit_records where is_deleted = 0
+    </select>
+
+
+</mapper>

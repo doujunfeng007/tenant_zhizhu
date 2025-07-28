@@ -1,0 +1,7 @@
+
+#报表配置
+report:
+  enabled: true
+  database:
+    provider:
+      prefix: zero-

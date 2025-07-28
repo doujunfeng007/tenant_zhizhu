@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.AccountAssetSummaryReportMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.AccountAssetSummaryReport">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="accountId" column="account_id" jdbcType="VARCHAR"/>
+            <result property="customerName" column="customer_name" jdbcType="VARCHAR"/>
+            <result property="settlementTime" column="settlement_time" jdbcType="TIMESTAMP"/>
+            <result property="accountType" column="account_type" jdbcType="VARCHAR"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="lastDayBalance" column="last_day_balance" jdbcType="DECIMAL"/>
+            <result property="sameDaySettlement" column="same_day_settlement" jdbcType="DECIMAL"/>
+            <result property="sameDayBalance" column="same_day_balance" jdbcType="DECIMAL"/>
+            <result property="sameDayMarketValue" column="same_day_market_value" jdbcType="DECIMAL"/>
+            <result property="depositBalance" column="deposit_balance" jdbcType="DECIMAL"/>
+            <result property="withdrawalBalance" column="withdrawal_balance" jdbcType="DECIMAL"/>
+            <result property="settlement" column="settlement" jdbcType="DECIMAL"/>
+            <result property="netTransactionValue" column="net_transaction_value" jdbcType="DECIMAL"/>
+            <result property="netSurplus" column="net_surplus" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,account_id,customer_name,
+        settlement_time,account_type,currency,
+        last_day_balance,same_day_settlement,same_day_balance,
+        same_day_market_value,deposit_balance,withdrawal_balance,
+        settlement,net_transaction_value,net_surplus
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from account_asset_summary_report
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from account_asset_summary_report
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.AccountAssetSummaryReport" useGeneratedKeys="true">
+        insert into account_asset_summary_report
+        ( id,account_id,customer_name
+        ,settlement_time,account_type,currency
+        ,last_day_balance,same_day_settlement,same_day_balance
+        ,same_day_market_value,deposit_balance,withdrawal_balance
+        ,settlement,net_transaction_value,net_surplus
+        )
+        values (#{id,jdbcType=INTEGER},#{accountId,jdbcType=VARCHAR},#{customerName,jdbcType=VARCHAR}
+        ,#{settlementTime,jdbcType=TIMESTAMP},#{accountType,jdbcType=VARCHAR},#{currency,jdbcType=VARCHAR}
+        ,#{lastDayBalance,jdbcType=DECIMAL},#{sameDaySettlement,jdbcType=DECIMAL},#{sameDayBalance,jdbcType=DECIMAL}
+        ,#{sameDayMarketValue,jdbcType=DECIMAL},#{depositBalance,jdbcType=DECIMAL},#{withdrawalBalance,jdbcType=DECIMAL}
+        ,#{settlement,jdbcType=DECIMAL},#{netTransactionValue,jdbcType=DECIMAL},#{netSurplus,jdbcType=DECIMAL}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.AccountAssetSummaryReport" useGeneratedKeys="true">
+        insert into account_asset_summary_report
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="accountId != null">account_id,</if>
+                <if test="customerName != null">customer_name,</if>
+                <if test="settlementTime != null">settlement_time,</if>
+                <if test="accountType != null">account_type,</if>
+                <if test="currency != null">currency,</if>
+                <if test="lastDayBalance != null">last_day_balance,</if>
+                <if test="sameDaySettlement != null">same_day_settlement,</if>
+                <if test="sameDayBalance != null">same_day_balance,</if>
+                <if test="sameDayMarketValue != null">same_day_market_value,</if>
+                <if test="depositBalance != null">deposit_balance,</if>
+                <if test="withdrawalBalance != null">withdrawal_balance,</if>
+                <if test="settlement != null">settlement,</if>
+                <if test="netTransactionValue != null">net_transaction_value,</if>
+                <if test="netSurplus != null">net_surplus,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="accountId != null">#{accountId,jdbcType=VARCHAR},</if>
+                <if test="customerName != null">#{customerName,jdbcType=VARCHAR},</if>
+                <if test="settlementTime != null">#{settlementTime,jdbcType=TIMESTAMP},</if>
+                <if test="accountType != null">#{accountType,jdbcType=VARCHAR},</if>
+                <if test="currency != null">#{currency,jdbcType=VARCHAR},</if>
+                <if test="lastDayBalance != null">#{lastDayBalance,jdbcType=DECIMAL},</if>
+                <if test="sameDaySettlement != null">#{sameDaySettlement,jdbcType=DECIMAL},</if>
+                <if test="sameDayBalance != null">#{sameDayBalance,jdbcType=DECIMAL},</if>
+                <if test="sameDayMarketValue != null">#{sameDayMarketValue,jdbcType=DECIMAL},</if>
+                <if test="depositBalance != null">#{depositBalance,jdbcType=DECIMAL},</if>
+                <if test="withdrawalBalance != null">#{withdrawalBalance,jdbcType=DECIMAL},</if>
+                <if test="settlement != null">#{settlement,jdbcType=DECIMAL},</if>
+                <if test="netTransactionValue != null">#{netTransactionValue,jdbcType=DECIMAL},</if>
+                <if test="netSurplus != null">#{netSurplus,jdbcType=DECIMAL},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.AccountAssetSummaryReport">
+        update account_asset_summary_report
+        <set>
+                <if test="accountId != null">
+                    account_id = #{accountId,jdbcType=VARCHAR},
+                </if>
+                <if test="customerName != null">
+                    customer_name = #{customerName,jdbcType=VARCHAR},
+                </if>
+                <if test="settlementTime != null">
+                    settlement_time = #{settlementTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="accountType != null">
+                    account_type = #{accountType,jdbcType=VARCHAR},
+                </if>
+                <if test="currency != null">
+                    currency = #{currency,jdbcType=VARCHAR},
+                </if>
+                <if test="lastDayBalance != null">
+                    last_day_balance = #{lastDayBalance,jdbcType=DECIMAL},
+                </if>
+                <if test="sameDaySettlement != null">
+                    same_day_settlement = #{sameDaySettlement,jdbcType=DECIMAL},
+                </if>
+                <if test="sameDayBalance != null">
+                    same_day_balance = #{sameDayBalance,jdbcType=DECIMAL},
+                </if>
+                <if test="sameDayMarketValue != null">
+                    same_day_market_value = #{sameDayMarketValue,jdbcType=DECIMAL},
+                </if>
+                <if test="depositBalance != null">
+                    deposit_balance = #{depositBalance,jdbcType=DECIMAL},
+                </if>
+                <if test="withdrawalBalance != null">
+                    withdrawal_balance = #{withdrawalBalance,jdbcType=DECIMAL},
+                </if>
+                <if test="settlement != null">
+                    settlement = #{settlement,jdbcType=DECIMAL},
+                </if>
+                <if test="netTransactionValue != null">
+                    net_transaction_value = #{netTransactionValue,jdbcType=DECIMAL},
+                </if>
+                <if test="netSurplus != null">
+                    net_surplus = #{netSurplus,jdbcType=DECIMAL},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.AccountAssetSummaryReport">
+        update account_asset_summary_report
+        set
+            account_id =  #{accountId,jdbcType=VARCHAR},
+            customer_name =  #{customerName,jdbcType=VARCHAR},
+            settlement_time =  #{settlementTime,jdbcType=TIMESTAMP},
+            account_type =  #{accountType,jdbcType=VARCHAR},
+            currency =  #{currency,jdbcType=VARCHAR},
+            last_day_balance =  #{lastDayBalance,jdbcType=DECIMAL},
+            same_day_settlement =  #{sameDaySettlement,jdbcType=DECIMAL},
+            same_day_balance =  #{sameDayBalance,jdbcType=DECIMAL},
+            same_day_market_value =  #{sameDayMarketValue,jdbcType=DECIMAL},
+            deposit_balance =  #{depositBalance,jdbcType=DECIMAL},
+            withdrawal_balance =  #{withdrawalBalance,jdbcType=DECIMAL},
+            settlement =  #{settlement,jdbcType=DECIMAL},
+            net_transaction_value =  #{netTransactionValue,jdbcType=DECIMAL},
+            net_surplus =  #{netSurplus,jdbcType=DECIMAL}
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getMaxFlingDate" resultType="String">
+        SELECT max(settlement_time) from account_asset_summary_report
+    </select>
+    <select id="getMinFlingDate" resultType="String">
+        SELECT min(settlement_time) from account_asset_summary_report
+    </select>
+
+    <insert id="batchInsertOrUpdate" parameterType="java.util.List">
+        INSERT INTO account_asset_summary_report (
+        account_id, customer_name, currency, settlement_time,
+        same_day_balance, last_day_balance, settlement,
+        deposit_balance, withdrawal_balance,account_type
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.accountId}, #{item.customerName}, #{item.currency}, #{item.settlementTime},
+            #{item.sameDayBalance}, #{item.lastDayBalance}, #{item.settlement},
+            #{item.depositBalance}, #{item.withdrawalBalance},#{item.accountType}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        same_day_balance = VALUES(same_day_balance),
+        last_day_balance = VALUES(last_day_balance),
+        settlement = VALUES(settlement),
+        deposit_balance = VALUES(deposit_balance),
+        withdrawal_balance = VALUES(withdrawal_balance)
+    </insert>
+
+    <select id="queryPage" resultMap="BaseResultMap" parameterType="com.minigod.zero.data.dto.AccountAssetSummaryReportDTO" >
+        select * from account_asset_summary_report
+        <where>
+            <if test="reportDTO.startTime != null and reportDTO.startTime != null">
+                and settlement_time &gt;= #{reportDTO.startTime}
+            </if>
+            <if test="reportDTO.endTime != null and reportDTO.endTime != null">
+                and settlement_time &lt;= #{reportDTO.endTime}
+            </if>
+            <if test="reportDTO.accountId != null and reportDTO.accountId != ''">
+                and account_id = #{reportDTO.accountId}
+            </if>
+            <if test="reportDTO.currency != null and reportDTO.currency != ''">
+                and currency =#{reportDTO.currency}
+            </if>
+            <if test="reportDTO.idList != null and reportDTO.idList.size > 0">
+                and  id in
+                <foreach item="id" index="index" collection="reportDTO.idList" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+        group by settlement_time,account_id,currency
+        order by settlement_time desc
+    </select>
+
+    <resultMap id="summaryMap" type="com.minigod.zero.data.vo.SummaryVO">
+        <result column="currency" property="currency" jdbcType="VARCHAR" />
+        <result column="last_day_balance" property="lastDayBalance" jdbcType="DECIMAL" />
+        <result column="deposit_balance" property="depositBalance" jdbcType="DECIMAL" />
+        <result column="withdrawal_balance" property="withdrawalBalance" jdbcType="DECIMAL" />
+        <result column="settlement" property="settlement" jdbcType="DECIMAL" />
+    </resultMap>
+
+    <select id="selectCustomerFundDetailsSummary" parameterType="com.minigod.zero.data.dto.AccountAssetSummaryReportDTO" resultMap="summaryMap">
+        select
+            currency as currency,
+            sum(last_day_balance) as last_day_balance,
+            sum(deposit_balance) as deposit_balance,
+            sum(withdrawal_balance) as withdrawal_balance,
+            sum(settlement) as settlement
+        from account_asset_summary_report
+        <where>
+            <if test="reportDTO.startTime != null and reportDTO.startTime != null">
+                and settlement_time &gt;= #{reportDTO.startTime}
+            </if>
+            <if test="reportDTO.endTime != null and reportDTO.endTime != null">
+                and settlement_time &lt;= #{reportDTO.endTime}
+            </if>
+            <if test="reportDTO.accountId != null and reportDTO.accountId != ''">
+                and account_id = #{reportDTO.accountId}
+            </if>
+            <if test="reportDTO.currency != null and reportDTO.currency != ''">
+                and currency = #{reportDTO.currency}
+            </if>
+            <if test="reportDTO.idList != null">
+                and  id in
+                <foreach item="id" index="index" collection="reportDTO.idList" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+        GROUP BY currency
+    </select>
+
+</mapper>

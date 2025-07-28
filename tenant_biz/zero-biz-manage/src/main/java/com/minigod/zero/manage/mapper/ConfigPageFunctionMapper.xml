@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.ConfigPageFunctionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="ConfigPageFunctionResultMap" type="com.minigod.zero.manage.entity.ConfigPageFunctionEntity">
+        <result column="id" property="id"/>
+        <result column="function_code" property="functionCode"/>
+        <result column="function_type" property="functionType"/>
+        <result column="function_name" property="functionName"/>
+        <result column="function_right" property="functionRight"/>
+        <result column="grade" property="grade"/>
+        <result column="remark" property="remark"/>
+        <result column="ip_filter" property="ipFilter"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+
+    <select id="selectConfigPageFunctionPage" resultType="com.minigod.zero.manage.vo.ConfigPageFunctionVO">
+        select * from oms_config_page_func where is_deleted = 0
+    </select>
+
+    <update id="updateSort" >
+        update oms_config_page_func set grade = (select max(grade) +1) where id = #{id}
+    </update>
+
+</mapper>

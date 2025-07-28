@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.deposit.mapper.FundDepositInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="fundDepositInfoResultMap" type="com.minigod.zero.bpmn.module.deposit.entity.FundDepositInfoEntity">
+        <id     column="info_id" property="id" />
+        <result column="info_application_id" property="applicationId" />
+        <result column="info_tenant_id" property="tenantId" />
+        <result column="info_biz_id" property="bizId" />
+        <result column="info_user_id" property="userId" />
+        <result column="info_client_id" property="clientId" />
+        <result column="info_fund_account" property="fundAccount" />
+        <result column="info_swift_code" property="swiftCode" />
+        <result column="info_bank_type" property="bankType" />
+        <result column="info_remittance_type" property="remittanceType" />
+        <result column="info_remittance_bank_name" property="remittanceBankName" />
+        <result column="info_remittance_account" property="remittanceAccount" />
+        <result column="info_remittance_account_name" property="remittanceAccountName" />
+        <result column="info_remittance_bank_code" property="remittanceBankCode" />
+        <result column="info_remittance_bank_id" property="remittanceBankId" />
+        <result column="info_receiving_bank_name" property="receivingBankName" />
+        <result column="info_receiving_bank_code" property="receivingBankCode" />
+        <result column="info_receiving_account" property="receivingAccount" />
+        <result column="info_receiving_account_name" property="receivingAccountName" />
+        <result column="info_receiving_address" property="receivingAddress" />
+        <result column="info_deposit_balance" property="depositBalance" />
+        <result column="info_application_time" property="applicationTime" />
+        <result column="info_money_type" property="moneyType" />
+        <result column="info_hs_bank_id" property="hsBankId" />
+        <result column="info_hs_bank_account" property="hsBankAccount" />
+        <result column="info_hs_deal_status" property="hsDealStatus" />
+        <result column="info_entry_time" property="entryTime" />
+        <result column="info_retry_count" property="retryCount" />
+        <result column="info_first_dep_flag" property="firstDepFlag" />
+        <result column="info_create_time" property="createTime" />
+        <result column="info_update_time" property="updateTime" />
+        <result column="info_receiving_amount" property="receivingAmount" />
+    </resultMap>
+    <resultMap id="fundDepositInfoResultMapVo" type="com.minigod.zero.bpmn.module.deposit.vo.FundDepositInfoVO" extends="fundDepositInfoResultMap">
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        info.id info_id,
+        info.application_id info_application_id,
+        info.tenant_id info_tenant_id,
+        info.biz_id info_biz_id,
+        info.user_id info_user_id,
+        info.client_id info_client_id,
+        info.fund_account info_fund_account,
+        info.swift_code info_swift_code,
+        info.bank_type info_bank_type,
+        info.remittance_type info_remittance_type,
+        info.remittance_bank_name info_remittance_bank_name,
+        info.remittance_account info_remittance_account,
+        info.remittance_account_name info_remittance_account_name,
+        info.remittance_bank_code info_remittance_bank_code,
+        info.remittance_bank_id info_remittance_bank_id,
+        info.receiving_bank_name info_receiving_bank_name,
+        info.receiving_bank_code info_receiving_bank_code,
+        info.receiving_account info_receiving_account,
+        info.receiving_account_name info_receiving_account_name,
+        info.receiving_address info_receiving_address,
+        info.deposit_balance info_deposit_balance,
+        info.application_time info_application_time,
+        info.money_type info_money_type,
+        info.hs_bank_id info_hs_bank_id,
+        info.hs_bank_account info_hs_bank_account,
+        info.hs_deal_status info_hs_deal_status,
+        info.entry_time info_entry_time,
+        info.retry_count info_retry_count,
+        info.first_dep_flag info_first_dep_flag,
+        info.create_time info_create_time,
+        info.update_time info_update_time,
+        info.receiving_amount info_receiving_amount
+    </sql>
+
+
+    <select id="selectFundDepositInfoPage" resultMap="fundDepositInfoResultMap">
+        select * from client_fund_deposit_info
+    </select>
+    <select id="queryByApplicationId" resultType="com.minigod.zero.bpmn.module.deposit.vo.FundDepositInfoVO">
+        select * from client_fund_deposit_info where application_id = #{applicationId} order by application_time desc limit 1
+    </select>
+
+</mapper>

@@ -1,0 +1,43 @@
+#数据源配置
+spring:
+  datasource:
+    url: ${zero.datasource.bpmn.dev.url}
+    username: ${zero.datasource.bpmn.dev.username}
+    password: ${zero.datasource.bpmn.dev.password}
+
+
+bank:
+  dbs:
+    enabled: true
+    url: 'https://testcld-enterprise-api.dbs.com/'
+    hostName: testcld-enterprise-api.dbs.com
+    orgId: HKNBAA
+    pubKey: D:\project\ifund_project\zero-biz\zero-biz-bank\zero-biz-dbs\src\main\resources\pgp\DBSSG_EN_PUBLIC.asc
+    secKey: D:\project\ifund_project\zero-biz\zero-biz-bank\zero-biz-dbs\src\main\resources\pgp\HLD_PRIVATE_TEST_0617.asc
+
+    #pubKey: D:\project\ifund_project\zero-biz\zero-biz-bank\zero-biz-dbs\src\main\resources\pgp\dbs-api-dbs-public.gpg
+    #secKey: D:\project\ifund_project\zero-biz\zero-biz-bank\zero-biz-dbs\src\main\resources\pgp\dbs-api-ifund-private.gpg
+
+    KeyId: aab40366-adc3-40e8-9ebd-c172477f45ed
+    #privayeKeyPassword: iDFBuSnd_888
+    privayeKeyPassword: ifund-dbs-2024
+    connection-timeout: 20000
+    tenantId: '000000'
+    callbackUrl: 'http://127.0.0.1:8000/proxy'
+    #callbackUrl: 'http://cloud-api.ifund.live:31075/api/zero-biz-bpmn/proxy'
+
+
+  #流水icc接口 密钥配置
+  icc:
+    enabled: true
+    url: 'https://testcld-enterprise-api.dbs.com/'
+    hostName: testcld-enterprise-api.dbs.com
+    orgId: HKNBAA
+    pubKey: D:\project\ifund_project\zero-biz\zero-biz-bank\zero-biz-dbs\src\main\resources\pgp\dbs-api-dbs-public.gpg
+    secKey: D:\project\ifund_project\zero-biz\zero-biz-bank\zero-biz-dbs\src\main\resources\pgp\dbs-api-ifund-private.gpg
+    KeyId: aab40366-adc3-40e8-9ebd-c172477f45ed
+    privayeKeyPassword: iDFBuSnd_888
+    connection-timeout: 20000
+    tenantId: '000000'
+    callbackUrl: 'http://127.0.0.1:8000/proxy'
+    #callbackUrl: 'http://cloud-api.ifund.live:31075/api/zero-biz-bpmn/proxy'

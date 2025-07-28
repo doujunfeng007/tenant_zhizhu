@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.AccountMapper">
+    <!-- 基础结果映射 -->
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.Account">
+        <!-- 主键映射 -->
+        <id property="accountId" column="accountId" jdbcType="VARCHAR"/>
+        <!-- 普通字段映射 -->
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="busiType" column="busiType" jdbcType="INTEGER"/>
+        <!-- ... other fields mapping ... -->
+    </resultMap>
+
+    <!-- 通用字段列表 -->
+    <sql id="Base_Column_List">
+        accountId
+        , type, busiType, email, taxCountry, taxModifyDate, taxNumber, residentialAddress,
+        countryOfResidence, phone, extAccountId, extAccountType, aeCode, aeName, status, company,
+        employedCompany, position, jobStatus, correspondenceAddress, preferredCommunication,
+        annualIncome, netAsset, investmentObjective, education, piFlag, marginStatus, sourceOfIncome,
+        sourceOfIncomeRemark, accountHolderName, bankAccountNumber, riskScore, riskLevel,
+        riskCapability, phoneCountry, idType, idNumber, issueCountry, idExpiryDate, nationality,
+        countryOfBirth, gender, birthday, custId, chineseName, firstName, lastName, riskUpdateTime,
+        tradePermission, closedTime, createTime, updateTime
+    </sql>
+
+    <!-- 根据主键查询账户信息 -->
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_account
+        where accountId = #{accountId,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 插入完整的账户信息-->
+    <insert id="insert" parameterType="com.minigod.zero.data.entity.Account">
+        INSERT INTO t_account
+        (accountId, type, busiType, email, taxCountry, taxModifyDate, taxNumber, residentialAddress,
+         countryOfResidence, phone, extAccountId, extAccountType, aeCode, aeName, status, company,
+         employedCompany, position, jobStatus, correspondenceAddress, preferredCommunication,
+         annualIncome, netAsset, investmentObjective, education, piFlag, marginStatus, sourceOfIncome,
+         sourceOfIncomeRemark, accountHolderName, bankAccountNumber, riskScore, riskLevel,
+         riskCapability, phoneCountry, idType, idNumber, issueCountry, idExpiryDate, nationality,
+         countryOfBirth, gender, birthday, custId, chineseName, firstName, lastName, riskUpdateTime,
+         tradePermission, closedTime, createTime, updateTime)
+        VALUES (#{accountId,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{busiType,jdbcType=INTEGER},
+                #{email,jdbcType=VARCHAR},
+                #{taxCountry,jdbcType=VARCHAR}, #{taxModifyDate,jdbcType=DATE}, #{taxNumber,jdbcType=VARCHAR},
+                #{residentialAddress,jdbcType=VARCHAR}, #{countryOfResidence,jdbcType=VARCHAR},
+                #{phone,jdbcType=VARCHAR},
+                #{extAccountId,jdbcType=VARCHAR}, #{extAccountType,jdbcType=INTEGER}, #{aeCode,jdbcType=VARCHAR},
+                #{aeName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR},
+                #{employedCompany,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{jobStatus,jdbcType=INTEGER},
+                #{correspondenceAddress,jdbcType=VARCHAR}, #{preferredCommunication,jdbcType=VARCHAR},
+                #{annualIncome,jdbcType=DECIMAL}, #{netAsset,jdbcType=DECIMAL}, #{investmentObjective,jdbcType=VARCHAR},
+                #{education,jdbcType=VARCHAR}, #{piFlag,jdbcType=BOOLEAN}, #{marginStatus,jdbcType=INTEGER},
+                #{sourceOfIncome,jdbcType=VARCHAR}, #{sourceOfIncomeRemark,jdbcType=VARCHAR},
+                #{accountHolderName,jdbcType=VARCHAR}, #{bankAccountNumber,jdbcType=VARCHAR},
+                #{riskScore,jdbcType=INTEGER}, #{riskLevel,jdbcType=INTEGER}, #{riskCapability,jdbcType=VARCHAR},
+                #{phoneCountry,jdbcType=VARCHAR}, #{idType,jdbcType=VARCHAR}, #{idNumber,jdbcType=VARCHAR},
+                #{issueCountry,jdbcType=VARCHAR}, #{idExpiryDate,jdbcType=DATE}, #{nationality,jdbcType=VARCHAR},
+                #{countryOfBirth,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE},
+                #{custId,jdbcType=BIGINT}, #{chineseName,jdbcType=VARCHAR}, #{firstName,jdbcType=VARCHAR},
+                #{lastName,jdbcType=VARCHAR}, #{riskUpdateTime,jdbcType=TIMESTAMP},
+                #{tradePermission,jdbcType=VARCHAR}, #{closedTime,jdbcType=TIMESTAMP},
+                #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <!-- 择性插入账户信息（只插入非null字段） -->
+    <insert id="insertSelective" parameterType="com.minigod.zero.data.entity.Account">
+        INSERT INTO t_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="accountId != null">accountId,</if>
+            <if test="type != null">type,</if>
+            <if test="busiType != null">busiType,</if>
+            <if test="email != null">email,</if>
+            <if test="taxCountry != null">taxCountry,</if>
+            <if test="taxModifyDate != null">taxModifyDate,</if>
+            <if test="taxNumber != null">taxNumber,</if>
+            <if test="residentialAddress != null">residentialAddress,</if>
+            <if test="countryOfResidence != null">countryOfResidence,</if>
+            <if test="phone != null">phone,</if>
+            <if test="extAccountId != null">extAccountId,</if>
+            <if test="extAccountType != null">extAccountType,</if>
+            <if test="aeCode != null">aeCode,</if>
+            <if test="aeName != null">aeName,</if>
+            <if test="status != null">status,</if>
+            <if test="company != null">company,</if>
+            <if test="employedCompany != null">employedCompany,</if>
+            <if test="position != null">position,</if>
+            <if test="jobStatus != null">jobStatus,</if>
+            <if test="correspondenceAddress != null">correspondenceAddress,</if>
+            <if test="preferredCommunication != null">preferredCommunication,</if>
+            <if test="annualIncome != null">annualIncome,</if>
+            <if test="netAsset != null">netAsset,</if>
+            <if test="investmentObjective != null">investmentObjective,</if>
+            <if test="education != null">education,</if>
+            <if test="piFlag != null">piFlag,</if>
+            <if test="marginStatus != null">marginStatus,</if>
+            <if test="sourceOfIncome != null">sourceOfIncome,</if>
+            <if test="sourceOfIncomeRemark != null">sourceOfIncomeRemark,</if>
+            <if test="accountHolderName != null">accountHolderName,</if>
+            <if test="bankAccountNumber != null">bankAccountNumber,</if>
+            <if test="riskScore != null">riskScore,</if>
+            <if test="riskLevel != null">riskLevel,</if>
+            <if test="riskCapability != null">riskCapability,</if>
+            <if test="phoneCountry != null">phoneCountry,</if>
+            <if test="idType != null">idType,</if>
+            <if test="idNumber != null">idNumber,</if>
+            <if test="issueCountry != null">issueCountry,</if>
+            <if test="idExpiryDate != null">idExpiryDate,</if>
+            <if test="nationality != null">nationality,</if>
+            <if test="countryOfBirth != null">countryOfBirth,</if>
+            <if test="gender != null">gender,</if>
+            <if test="birthday != null">birthday,</if>
+            <if test="custId != null">custId,</if>
+            <if test="chineseName != null">chineseName,</if>
+            <if test="firstName != null">firstName,</if>
+            <if test="lastName != null">lastName,</if>
+            <if test="riskUpdateTime != null">riskUpdateTime,</if>
+            <if test="tradePermission != null">tradePermission,</if>
+            <if test="closedTime != null">closedTime,</if>
+            <if test="createTime != null">createTime,</if>
+            <if test="updateTime != null">updateTime,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="accountId != null">#{accountId,jdbcType=VARCHAR},</if>
+            <if test="type != null">#{type,jdbcType=INTEGER},</if>
+            <if test="busiType != null">#{busiType,jdbcType=INTEGER},</if>
+            <if test="email != null">#{email,jdbcType=VARCHAR},</if>
+            <if test="taxCountry != null">#{taxCountry,jdbcType=VARCHAR},</if>
+            <if test="taxModifyDate != null">#{taxModifyDate,jdbcType=DATE},</if>
+            <if test="taxNumber != null">#{taxNumber,jdbcType=VARCHAR},</if>
+            <if test="residentialAddress != null">#{residentialAddress,jdbcType=VARCHAR},</if>
+            <if test="countryOfResidence != null">#{countryOfResidence,jdbcType=VARCHAR},</if>
+            <if test="phone != null">#{phone,jdbcType=VARCHAR},</if>
+            <if test="extAccountId != null">#{extAccountId,jdbcType=VARCHAR},</if>
+            <if test="extAccountType != null">#{extAccountType,jdbcType=INTEGER},</if>
+            <if test="aeCode != null">#{aeCode,jdbcType=VARCHAR},</if>
+            <if test="aeName != null">#{aeName,jdbcType=VARCHAR},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="company != null">#{company,jdbcType=VARCHAR},</if>
+            <if test="employedCompany != null">#{employedCompany,jdbcType=VARCHAR},</if>
+            <if test="position != null">#{position,jdbcType=VARCHAR},</if>
+            <if test="jobStatus != null">#{jobStatus,jdbcType=INTEGER},</if>
+            <if test="correspondenceAddress != null">#{correspondenceAddress,jdbcType=VARCHAR},</if>
+            <if test="preferredCommunication != null">#{preferredCommunication,jdbcType=VARCHAR},</if>
+            <if test="annualIncome != null">#{annualIncome,jdbcType=DECIMAL},</if>
+            <if test="netAsset != null">#{netAsset,jdbcType=DECIMAL},</if>
+            <if test="investmentObjective != null">#{investmentObjective,jdbcType=VARCHAR},</if>
+            <if test="education != null">#{education,jdbcType=VARCHAR},</if>
+            <if test="piFlag != null">#{piFlag,jdbcType=BOOLEAN},</if>
+            <if test="marginStatus != null">#{marginStatus,jdbcType=INTEGER},</if>
+            <if test="sourceOfIncome != null">#{sourceOfIncome,jdbcType=VARCHAR},</if>
+            <if test="sourceOfIncomeRemark != null">#{sourceOfIncomeRemark,jdbcType=VARCHAR},</if>
+            <if test="accountHolderName != null">#{accountHolderName,jdbcType=VARCHAR},</if>
+            <if test="bankAccountNumber != null">#{bankAccountNumber,jdbcType=VARCHAR},</if>
+            <if test="riskScore != null">#{riskScore,jdbcType=INTEGER},</if>
+            <if test="riskLevel != null">#{riskLevel,jdbcType=INTEGER},</if>
+            <if test="riskCapability != null">#{riskCapability,jdbcType=VARCHAR},</if>
+            <if test="phoneCountry != null">#{phoneCountry,jdbcType=VARCHAR},</if>
+            <if test="idType != null">#{idType,jdbcType=VARCHAR},</if>
+            <if test="idNumber != null">#{idNumber,jdbcType=VARCHAR},</if>
+            <if test="issueCountry != null">#{issueCountry,jdbcType=VARCHAR},</if>
+            <if test="idExpiryDate != null">#{idExpiryDate,jdbcType=DATE},</if>
+            <if test="nationality != null">#{nationality,jdbcType=VARCHAR},</if>
+            <if test="countryOfBirth != null">#{countryOfBirth,jdbcType=VARCHAR},</if>
+            <if test="gender != null">#{gender,jdbcType=VARCHAR},</if>
+            <if test="birthday != null">#{birthday,jdbcType=DATE},</if>
+            <if test="custId != null">#{custId,jdbcType=BIGINT},</if>
+            <if test="chineseName != null">#{chineseName,jdbcType=VARCHAR},</if>
+            <if test="firstName != null">#{firstName,jdbcType=VARCHAR},</if>
+            <if test="lastName != null">#{lastName,jdbcType=VARCHAR},</if>
+            <if test="riskUpdateTime != null">#{riskUpdateTime,jdbcType=TIMESTAMP},</if>
+            <if test="tradePermission != null">#{tradePermission,jdbcType=VARCHAR},</if>
+            <if test="closedTime != null">#{closedTime,jdbcType=TIMESTAMP},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <!-- 根据主键选择性更新账户信息（只更新非null字段） -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.Account">
+        UPDATE t_account
+        <set>
+            <if test="type != null">type = #{type,jdbcType=INTEGER},</if>
+            <if test="busiType != null">busiType = #{busiType,jdbcType=INTEGER},</if>
+            <if test="email != null">email = #{email,jdbcType=VARCHAR},</if>
+            <if test="taxCountry != null">taxCountry = #{taxCountry,jdbcType=VARCHAR},</if>
+            <if test="taxModifyDate != null">taxModifyDate = #{taxModifyDate,jdbcType=DATE},</if>
+            <if test="taxNumber != null">taxNumber = #{taxNumber,jdbcType=VARCHAR},</if>
+            <if test="residentialAddress != null">residentialAddress = #{residentialAddress,jdbcType=VARCHAR},</if>
+            <if test="countryOfResidence != null">countryOfResidence = #{countryOfResidence,jdbcType=VARCHAR},</if>
+            <if test="phone != null">phone = #{phone,jdbcType=VARCHAR},</if>
+            <if test="extAccountId != null">extAccountId = #{extAccountId,jdbcType=VARCHAR},</if>
+            <if test="extAccountType != null">extAccountType = #{extAccountType,jdbcType=INTEGER},</if>
+            <if test="aeCode != null">aeCode = #{aeCode,jdbcType=VARCHAR},</if>
+            <if test="aeName != null">aeName = #{aeName,jdbcType=VARCHAR},</if>
+            <if test="status != null">status = #{status,jdbcType=INTEGER},</if>
+            <if test="company != null">company = #{company,jdbcType=VARCHAR},</if>
+            <if test="employedCompany != null">employedCompany = #{employedCompany,jdbcType=VARCHAR},</if>
+            <if test="position != null">position = #{position,jdbcType=VARCHAR},</if>
+            <if test="jobStatus != null">jobStatus = #{jobStatus,jdbcType=INTEGER},</if>
+            <if test="correspondenceAddress != null">correspondenceAddress =
+                #{correspondenceAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="preferredCommunication != null">preferredCommunication =
+                #{preferredCommunication,jdbcType=VARCHAR},
+            </if>
+            <if test="annualIncome != null">annualIncome = #{annualIncome,jdbcType=DECIMAL},</if>
+            <if test="netAsset != null">netAsset = #{netAsset,jdbcType=DECIMAL},</if>
+            <if test="investmentObjective != null">investmentObjective = #{investmentObjective,jdbcType=VARCHAR},</if>
+            <if test="education != null">education = #{education,jdbcType=VARCHAR},</if>
+            <if test="piFlag != null">piFlag = #{piFlag,jdbcType=BOOLEAN},</if>
+            <if test="marginStatus != null">marginStatus = #{marginStatus,jdbcType=INTEGER},</if>
+            <if test="sourceOfIncome != null">sourceOfIncome = #{sourceOfIncome,jdbcType=VARCHAR},</if>
+            <if test="sourceOfIncomeRemark != null">sourceOfIncomeRemark = #{sourceOfIncomeRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="accountHolderName != null">accountHolderName = #{accountHolderName,jdbcType=VARCHAR},</if>
+            <if test="bankAccountNumber != null">bankAccountNumber = #{bankAccountNumber,jdbcType=VARCHAR},</if>
+            <if test="riskScore != null">riskScore = #{riskScore,jdbcType=INTEGER},</if>
+            <if test="riskLevel != null">riskLevel = #{riskLevel,jdbcType=INTEGER},</if>
+            <if test="riskCapability != null">riskCapability = #{riskCapability,jdbcType=VARCHAR},</if>
+            <if test="phoneCountry != null">phoneCountry = #{phoneCountry,jdbcType=VARCHAR},</if>
+            <if test="idType != null">idType = #{idType,jdbcType=VARCHAR},</if>
+            <if test="idNumber != null">idNumber = #{idNumber,jdbcType=VARCHAR},</if>
+            <if test="issueCountry != null">issueCountry = #{issueCountry,jdbcType=VARCHAR},</if>
+            <if test="idExpiryDate != null">idExpiryDate = #{idExpiryDate,jdbcType=DATE},</if>
+            <if test="nationality != null">nationality = #{nationality,jdbcType=VARCHAR},</if>
+            <if test="countryOfBirth != null">countryOfBirth = #{countryOfBirth,jdbcType=VARCHAR},</if>
+            <if test="gender != null">gender = #{gender,jdbcType=VARCHAR},</if>
+            <if test="birthday != null">birthday = #{birthday,jdbcType=DATE},</if>
+            <if test="custId != null">custId = #{custId,jdbcType=BIGINT},</if>
+            <if test="chineseName != null">chineseName = #{chineseName,jdbcType=VARCHAR},</if>
+            <if test="firstName != null">firstName = #{firstName,jdbcType=VARCHAR},</if>
+            <if test="lastName != null">lastName = #{lastName,jdbcType=VARCHAR},</if>
+            <if test="riskUpdateTime != null">riskUpdateTime = #{riskUpdateTime,jdbcType=TIMESTAMP},</if>
+            <if test="tradePermission != null">tradePermission = #{tradePermission,jdbcType=VARCHAR},</if>
+            <if test="closedTime != null">closedTime = #{closedTime,jdbcType=TIMESTAMP},</if>
+            <if test="createTime != null">createTime = #{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">updateTime = #{updateTime,jdbcType=TIMESTAMP},</if>
+        </set>
+        WHERE accountId = #{accountId,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 根据主键更新账户全部信息 -->
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.Account">
+        UPDATE t_account
+        SET type                   = #{type,jdbcType=INTEGER},
+            busiType               = #{busiType,jdbcType=INTEGER},
+            email                  = #{email,jdbcType=VARCHAR},
+            taxCountry             = #{taxCountry,jdbcType=VARCHAR},
+            taxModifyDate          = #{taxModifyDate,jdbcType=DATE},
+            taxNumber              = #{taxNumber,jdbcType=VARCHAR},
+            residentialAddress     = #{residentialAddress,jdbcType=VARCHAR},
+            countryOfResidence     = #{countryOfResidence,jdbcType=VARCHAR},
+            phone                  = #{phone,jdbcType=VARCHAR},
+            extAccountId           = #{extAccountId,jdbcType=VARCHAR},
+            extAccountType         = #{extAccountType,jdbcType=INTEGER},
+            aeCode                 = #{aeCode,jdbcType=VARCHAR},
+            aeName                 = #{aeName,jdbcType=VARCHAR},
+            status                 = #{status,jdbcType=INTEGER},
+            company                = #{company,jdbcType=VARCHAR},
+            employedCompany        = #{employedCompany,jdbcType=VARCHAR},
+            position               = #{position,jdbcType=VARCHAR},
+            jobStatus              = #{jobStatus,jdbcType=INTEGER},
+            correspondenceAddress  = #{correspondenceAddress,jdbcType=VARCHAR},
+            preferredCommunication = #{preferredCommunication,jdbcType=VARCHAR},
+            annualIncome           = #{annualIncome,jdbcType=DECIMAL},
+            netAsset               = #{netAsset,jdbcType=DECIMAL},
+            investmentObjective    = #{investmentObjective,jdbcType=VARCHAR},
+            education              = #{education,jdbcType=VARCHAR},
+            piFlag                 = #{piFlag,jdbcType=BOOLEAN},
+            marginStatus           = #{marginStatus,jdbcType=INTEGER},
+            sourceOfIncome         = #{sourceOfIncome,jdbcType=VARCHAR},
+            sourceOfIncomeRemark   = #{sourceOfIncomeRemark,jdbcType=VARCHAR},
+            accountHolderName      = #{accountHolderName,jdbcType=VARCHAR},
+            bankAccountNumber      = #{bankAccountNumber,jdbcType=VARCHAR},
+            riskScore              = #{riskScore,jdbcType=INTEGER},
+            riskLevel              = #{riskLevel,jdbcType=INTEGER},
+            riskCapability         = #{riskCapability,jdbcType=VARCHAR},
+            phoneCountry           = #{phoneCountry,jdbcType=VARCHAR},
+            idType                 = #{idType,jdbcType=VARCHAR},
+            idNumber               = #{idNumber,jdbcType=VARCHAR},
+            issueCountry           = #{issueCountry,jdbcType=VARCHAR},
+            idExpiryDate           = #{idExpiryDate,jdbcType=DATE},
+            nationality            = #{nationality,jdbcType=VARCHAR},
+            countryOfBirth         = #{countryOfBirth,jdbcType=VARCHAR},
+            gender                 = #{gender,jdbcType=VARCHAR},
+            birthday               = #{birthday,jdbcType=DATE},
+            custId                 = #{custId,jdbcType=BIGINT},
+            chineseName            = #{chineseName,jdbcType=VARCHAR},
+            firstName              = #{firstName,jdbcType=VARCHAR},
+            lastName               = #{lastName,jdbcType=VARCHAR},
+            riskUpdateTime         = #{riskUpdateTime,jdbcType=TIMESTAMP},
+            tradePermission        = #{tradePermission,jdbcType=VARCHAR},
+            closedTime             = #{closedTime,jdbcType=TIMESTAMP},
+            createTime             = #{createTime,jdbcType=TIMESTAMP},
+            updateTime             = #{updateTime,jdbcType=TIMESTAMP}
+        WHERE accountId = #{accountId,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 根据条件查询账户列表 -->
+    <select id="selectByCondition" parameterType="com.minigod.zero.data.entity.Account"
+            resultType="com.minigod.zero.data.entity.Account">
+        SELECT * FROM t_account
+        <where>
+            <if test="accountId != null">accountId = #{accountId,jdbcType=VARCHAR}</if>
+        </where>
+    </select>
+
+    <!-- 根据主键删除账户信息 -->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        DELETE
+        FROM t_account
+        WHERE accountId = #{accountId,jdbcType=VARCHAR}
+    </delete>
+</mapper>

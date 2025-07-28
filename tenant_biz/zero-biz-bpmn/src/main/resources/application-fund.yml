@@ -1,0 +1,43 @@
+#服务器端口
+server:
+  port: 8013
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+#数据源配置
+spring:
+  datasource:
+    url: ${zero.datasource.bpmn.sit.url}
+    username: ${zero.datasource.bpmn.sit.username}
+    password: ${zero.datasource.bpmn.sit.password}
+ca:
+  sz:
+    enable: true
+    url: https://apitest.szca.com:19005
+    certificateUrl: http://apitest.szca.com:19053
+    clientId: test_zyf
+    clientKey: test_zyf_key
+  gd:
+    enable: true
+    qsUrl: http://81.71.19.162:8081
+    pdfUrl: http://81.71.19.162:8082
+    appId: zz0705
+    secretKey: rDD4LEhcbfVm6Kt4BXv2HKXWkzaY55/5M66Hk0PmE2ECPMfa8PA+nQDsAiHP70i1VNdDvSmMZ41IMfvlb92QOA==
+    signature:
+      coordinate: 1,100,100
+
+path:
+  defaultAccountPlacePath: /Users/chenyu/data/apps/report/plate/
+  bankProofPlacePath: /Users/chenyu/data/apps/report/plate/bank/
+
+dbs:
+  gateway:
+    tenant:
+      '000000':
+        url: 'http://127.0.0.1:8085/bank/proxy/api'
+      '000001':
+        url: 'http://127.0.0.1:8085/bank/proxy/api'
+      '000002':
+        url: 'http://127.0.0.1:8085/bank/proxy/api'

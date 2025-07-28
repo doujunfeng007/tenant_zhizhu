@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.flow.workflow.mapper.WfCopyMapper">
+
+    <resultMap type="com.minigod.zero.flow.workflow.domain.WfCopy" id="WfCopyResult">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="processId" column="process_id"/>
+        <result property="processName" column="process_name"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="taskId" column="taskId"/>
+        <result property="userId" column="user_id"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDeleted" column="is_delete"/>
+    </resultMap>
+
+    <insert id="insertBatch">
+    </insert>
+
+    <select id="selectVoPage" resultType="com.minigod.zero.flow.workflow.domain.vo.WfCopyVo">
+        select * from wf_copy
+    </select>
+
+    <select id="selectVoById" resultType="com.minigod.zero.flow.workflow.domain.vo.WfCopyVo">
+        select * from wf_copy where id = #{copyId}
+    </select>
+
+    <select id="selectVoList" resultType="com.minigod.zero.flow.workflow.domain.vo.WfCopyVo">
+        select * from wf_copy
+    </select>
+</mapper>

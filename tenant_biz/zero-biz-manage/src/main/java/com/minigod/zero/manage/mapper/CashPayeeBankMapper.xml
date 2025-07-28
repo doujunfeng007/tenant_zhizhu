@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.CashPayeeBankMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="cashPayeeBankResultMap" type="com.minigod.zero.manage.entity.CashPayeeBankEntity">
+        <result column="id" property="id"/>
+        <result column="bank_name" property="bankName"/>
+        <result column="bank_name_hant" property="bankNameHant"/>
+        <result column="bank_name_en" property="bankNameEn"/>
+        <result column="bank_id" property="bankId"/>
+        <result column="bank_type" property="bankType"/>
+        <result column="swift_code" property="swiftCode"/>
+        <result column="address" property="address"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="enable" property="enable"/>
+        <result column="bank_code" property="bankCode"/>
+        <result column="icon" property="icon"/>
+        <result column="bank_id_quick" property="bankIdQuick"/>
+    </resultMap>
+
+
+    <select id="selectCashPayeeBankPage" resultMap="cashPayeeBankResultMap">
+        select *
+        from cash_payee_bank
+        where is_deleted = 0
+    </select>
+
+    <select id="getPayeeBankList" resultType="java.util.Map">
+        SELECT pb.id,
+               pb.bank_name     AS bankName,
+               pbd.account_type AS accountType,
+               pbd.bank_account AS bankAccount,
+               pbd.id           AS detailId
+        FROM cash_payee_bank pb
+                 LEFT JOIN cash_payee_bank_detail pbd ON pb.id = pbd.payee_bank_id
+        WHERE pb.ENABLE = 1
+          AND pb.bank_type = 1
+          AND pbd.ENABLE = 1
+          AND pb.is_deleted = 0
+          AND pbd.is_deleted = 0
+          AND pbd.support_type = #{supportType}
+          and pbd.currency = #{currency}
+    </select>
+
+    <select id="getPaymentBankList" resultType="java.util.Map">
+        SELECT pb.id,
+               pb.bank_name     AS bankName,
+               pbd.account_type AS accountType,
+               pbd.bank_account AS bankAccount,
+               pbd.id           AS detailId
+        FROM cash_payee_bank pb
+                 LEFT JOIN cash_payee_bank_detail pbd ON pb.id = pbd.payee_bank_id
+        WHERE pb.ENABLE = 1
+          AND pb.bank_type = 2
+          AND pbd.ENABLE = 1
+          AND pb.is_deleted = 0
+          AND pbd.is_deleted = 0
+          AND pbd.support_type = #{supportType}
+          and pbd.currency = #{currency}
+    </select>
+
+    <select id="getDepositBank" parameterType="java.lang.Object" resultType="com.minigod.zero.manage.vo.DepositBankVO">
+        select
+        cdb.id as depositId,
+        <if test="language == null or language == '' or language == 'zh-CN'">
+            cdb.remit_bank_name as bankName,
+        </if>
+        <if test="language == 'en-US'">
+            IFNULL(cdb.remit_bank_name_en, cdb.remit_bank_name) as bankName,
+        </if>
+        <if test="language == 'zh-HK'">
+            IFNULL(cdb.remit_bank_name_hant,cdb.remit_bank_name) as bankName,
+        </if>
+        /*cdb.remit_bank_name as bankName,*/
+        cdb.remit_bank_name_en as bankEnName,
+        cdb.bank_id_quick as bankId,
+        cdb.remit_bank_code as bankCode,
+        cdb.swift_code as swiftCode,
+        cdb.app_icon as appIcon,
+        cdb.pc_icon as pcIcon,
+        cpd.id as payeeBankId,
+        cpd.charge_money as commission,
+        cpd.max_amt as quota,
+        cpd.id as payeeBankDetailId,
+        cdb.bank_type as bankType
+        from cash_support_currency_bank as cscb
+        left join cash_deposit_bank cdb on cscb.deposit_id = cdb.id
+        left join cash_payee_bank_detail as cpd on cpd.id = cscb.payee_bank_detail_id
+        where cscb.currency = #{currency} and cscb.support_type =#{supportType}
+        <if test="bankType != null">
+            and cdb.bank_type = #{bankType}
+        </if>
+        and cscb.is_default = 1
+        order by cdb.sort desc
+    </select>
+
+
+    <select id="getDepositBankByDepositId" parameterType="java.lang.Object"
+            resultType="com.minigod.zero.manage.vo.DepositBankVO">
+        select cdb.id                 as depositId,
+               cdb.remit_bank_name    as bankName,
+               cdb.remit_bank_name_hant as bankHantName,
+               cdb.remit_bank_name_en as bankEnName,
+               cdb.bank_id_quick      as bankId,
+               cdb.remit_bank_code    as bankCode,
+               cdb.swift_code         as swiftCode,
+               cdb.app_icon           as appIcon,
+               cdb.pc_icon            as pcIcon,
+               cdb.bank_type          as bankType
+        from cash_deposit_bank as cdb
+        where cdb.id = #{depositId}
+    </select>
+
+    <select id="getDepositBankByPayeeBankDetailId" parameterType="java.lang.Object"
+            resultType="com.minigod.zero.manage.vo.DepositBankVO">
+        select cdb.id                 as depositId,
+               cdb.remit_bank_name    as bankName,
+               cdb.remit_bank_name_en as bankEnName,
+               cdb.bank_id_quick      as bankId,
+               cdb.remit_bank_code    as bankCode,
+               cdb.swift_code         as swiftCode,
+               cdb.app_icon           as appIcon,
+               cdb.pc_icon            as pcIcon,
+               cpd.id                 as payeeBankId,
+               cpd.charge_money       as commission,
+               cpd.max_amt            as quota,
+               cpd.id                 as payeeBankDetailId,
+               cdb.bank_type          as bankType
+        from cash_support_currency_bank as cscb
+                 left join cash_deposit_bank cdb on cscb.deposit_id = cdb.id
+                 left join cash_payee_bank_detail as cpd on cpd.id = cscb.payee_bank_detail_id
+        where cscb.currency = #{currency}
+          and cscb.support_type = #{supportType}
+          and cpd.id = #{payeeBankDetailId}
+        order by cdb.sort desc
+    </select>
+
+
+</mapper>

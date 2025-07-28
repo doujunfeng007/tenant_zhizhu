@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerIpAddressMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerIpAddress">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="ip" column="ip" jdbcType="VARCHAR"/>
+            <result property="realIp" column="real_ip" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+            <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
+            <result property="countryCnName" column="country_cn_name" jdbcType="VARCHAR"/>
+            <result property="countryCode" column="country_code" jdbcType="VARCHAR"/>
+            <result property="regionCnName" column="region_cn_name" jdbcType="VARCHAR"/>
+            <result property="regionCode" column="region_code" jdbcType="VARCHAR"/>
+            <result property="regionId" column="region_id" jdbcType="VARCHAR"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="createDept" column="create_dept" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,ip,real_ip,
+        create_time,update_time,create_user,
+        update_user,country_cn_name,country_code,
+        region_cn_name,region_code,region_id,
+        is_deleted,status,create_dept
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_ip_address
+        where  id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from customer_ip_address
+        where  id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerIpAddress" useGeneratedKeys="true">
+        insert into customer_ip_address
+        ( id,ip,real_ip
+        ,create_time,update_time,create_user
+        ,update_user,country_cn_name,country_code
+        ,region_cn_name,region_code,region_id
+        ,is_deleted,status,create_dept
+        )
+        values (#{id,jdbcType=BIGINT},#{ip,jdbcType=VARCHAR},#{realIp,jdbcType=VARCHAR}
+        ,#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{createUser,jdbcType=BIGINT}
+        ,#{updateUser,jdbcType=BIGINT},#{countryCnName,jdbcType=VARCHAR},#{countryCode,jdbcType=VARCHAR}
+        ,#{regionCnName,jdbcType=VARCHAR},#{regionCode,jdbcType=VARCHAR},#{regionId,jdbcType=VARCHAR}
+        ,#{isDeleted,jdbcType=TINYINT},#{status,jdbcType=TINYINT},#{createDept,jdbcType=BIGINT}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerIpAddress" useGeneratedKeys="true">
+        insert into customer_ip_address
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="ip != null">ip,</if>
+                <if test="realIp != null">real_ip,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="createUser != null">create_user,</if>
+                <if test="updateUser != null">update_user,</if>
+                <if test="countryCnName != null">country_cn_name,</if>
+                <if test="countryCode != null">country_code,</if>
+                <if test="regionCnName != null">region_cn_name,</if>
+                <if test="regionCode != null">region_code,</if>
+                <if test="regionId != null">region_id,</if>
+                <if test="isDeleted != null">is_deleted,</if>
+                <if test="status != null">status,</if>
+                <if test="createDept != null">create_dept,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="ip != null">#{ip,jdbcType=VARCHAR},</if>
+                <if test="realIp != null">#{realIp,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="createUser != null">#{createUser,jdbcType=BIGINT},</if>
+                <if test="updateUser != null">#{updateUser,jdbcType=BIGINT},</if>
+                <if test="countryCnName != null">#{countryCnName,jdbcType=VARCHAR},</if>
+                <if test="countryCode != null">#{countryCode,jdbcType=VARCHAR},</if>
+                <if test="regionCnName != null">#{regionCnName,jdbcType=VARCHAR},</if>
+                <if test="regionCode != null">#{regionCode,jdbcType=VARCHAR},</if>
+                <if test="regionId != null">#{regionId,jdbcType=VARCHAR},</if>
+                <if test="isDeleted != null">#{isDeleted,jdbcType=TINYINT},</if>
+                <if test="status != null">#{status,jdbcType=TINYINT},</if>
+                <if test="createDept != null">#{createDept,jdbcType=BIGINT},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.CustomerIpAddress">
+        update customer_ip_address
+        <set>
+                <if test="ip != null">
+                    ip = #{ip,jdbcType=VARCHAR},
+                </if>
+                <if test="realIp != null">
+                    real_ip = #{realIp,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="createUser != null">
+                    create_user = #{createUser,jdbcType=BIGINT},
+                </if>
+                <if test="updateUser != null">
+                    update_user = #{updateUser,jdbcType=BIGINT},
+                </if>
+                <if test="countryCnName != null">
+                    country_cn_name = #{countryCnName,jdbcType=VARCHAR},
+                </if>
+                <if test="countryCode != null">
+                    country_code = #{countryCode,jdbcType=VARCHAR},
+                </if>
+                <if test="regionCnName != null">
+                    region_cn_name = #{regionCnName,jdbcType=VARCHAR},
+                </if>
+                <if test="regionCode != null">
+                    region_code = #{regionCode,jdbcType=VARCHAR},
+                </if>
+                <if test="regionId != null">
+                    region_id = #{regionId,jdbcType=VARCHAR},
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted,jdbcType=TINYINT},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=TINYINT},
+                </if>
+                <if test="createDept != null">
+                    create_dept = #{createDept,jdbcType=BIGINT},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.CustomerIpAddress">
+        update customer_ip_address
+        set
+            ip =  #{ip,jdbcType=VARCHAR},
+            real_ip =  #{realIp,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            create_user =  #{createUser,jdbcType=BIGINT},
+            update_user =  #{updateUser,jdbcType=BIGINT},
+            country_cn_name =  #{countryCnName,jdbcType=VARCHAR},
+            country_code =  #{countryCode,jdbcType=VARCHAR},
+            region_cn_name =  #{regionCnName,jdbcType=VARCHAR},
+            region_code =  #{regionCode,jdbcType=VARCHAR},
+            region_id =  #{regionId,jdbcType=VARCHAR},
+            is_deleted =  #{isDeleted,jdbcType=TINYINT},
+            status =  #{status,jdbcType=TINYINT},
+            create_dept =  #{createDept,jdbcType=BIGINT}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

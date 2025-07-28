@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.flow.mapper.FlowMapper">
+    <resultMap id="FlowTableResult" type="com.minigod.zero.flow.core.entity.FlowTable">
+        <result column="application_id" property="applicationId"/>
+        <result column="application_status" property="applicationStatus"/>
+        <result column="current_node" property="currentNode"/>
+        <result column="flow_path" property="flowPath"/>
+        <result column="task_id" property="taskId"/>
+        <result column="process_instance_id" property="processInstanceId"/>
+        <result column="definition_id" property="definitionId"/>
+        <result column="instance_id" property="instanceId"/>
+    </resultMap>
+    <update id="updateUserApplicationId">
+        UPDATE
+        ${tableName}
+        <set>
+            assign_drafter = NULL,
+            <if test="deployId!=null and deployId!=''">
+                deploy_id = #{deployId},
+            </if>
+            <if test="currentNode!=null and currentNode!=''">
+                current_node = #{currentNode},
+            </if>
+            <if test="flowPath!=null and flowPath!=''">
+                flow_path = #{flowPath},
+            </if>
+            <if test="applicationStatus!=null and applicationStatus!=''">
+                application_status = #{applicationStatus},
+            </if>
+            <if test="taskId!=null and taskId!=''">
+                task_id = #{taskId},
+            </if>
+            <if test="processInstanceId!=null and processInstanceId!=''">
+                process_instance_id = #{processInstanceId},
+            </if>
+            <if test="definitionId!=null and definitionId!=''">
+                definition_id = #{definitionId},
+            </if>
+            <if test="instanceId!=null and instanceId!=''">
+                instance_id = #{instanceId}
+            </if>
+        </set>
+        <where>
+            <if test="applicationId!=null and applicationId!=''">
+                and application_id = #{applicationId}
+            </if>
+        </where>
+    </update>
+    <update id="updateAssign">
+        UPDATE
+        ${tableName}
+        <set>
+            assign_drafter = #{assignDrafter}
+        </set>
+        <where>
+            <if test="applicationId!=null and applicationId!=''">
+                and application_id = #{applicationId}
+            </if>
+        </where>
+    </update>
+    <select id="selectByApplicationId" resultMap="FlowTableResult">
+        select application_id,
+               application_status,
+               current_node,
+               flow_path,
+               task_id,
+               process_instance_id,
+               definition_id,
+               instance_id
+        from ${tableName}
+        where application_id = #{applicationId}
+    </select>
+</mapper>

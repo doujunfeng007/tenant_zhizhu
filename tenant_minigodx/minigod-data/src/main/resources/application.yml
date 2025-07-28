@@ -1,0 +1,33 @@
+
+spring:
+  profiles:
+    active: dev
+  #datasource:
+  #  dynamic:
+  #    primary: master
+  #    datasource:
+  #      master:
+  #        druid:
+  #          #独立校验配置
+  #          validation-query: select 1
+  #          #启用sql日志拦截器
+  #          proxy-filters: sqlLogInterceptor
+  #          #oracle校验
+  #          #validation-query: select 1 from dual
+  #        #url: jdbc:mysql://127.0.0.1:13049/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true
+  #        #username: stonesunlineab
+  #        #password: wZMDPIr&MUUFIQypW!vbwjlD%g6BZEhU0X*JQcEd
+  #        url: jdbc:mysql://10.10.1.20:13049/zero_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true
+  #        username: stonesunlineab
+  #        password: wZMDPIr&MUUFIQypW!vbwjlD%g6BZEhU0X*JQcEd
+  #      slave:
+  #        druid:
+  #          #独立校验配置
+  #          validation-query: select 1
+  #          #启用sql日志拦截器
+  #          proxy-filters: sqlLogInterceptor
+  #          #oracle校验
+  #          #validation-query: select 1 from dual
+  #        url: jdbc:mysql://10.10.1.20:43436/ifund_account?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true
+  #        username: root
+  #        password: UZh)F01phE#232fp

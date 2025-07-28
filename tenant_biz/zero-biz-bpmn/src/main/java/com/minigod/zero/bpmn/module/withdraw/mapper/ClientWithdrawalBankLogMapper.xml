@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.withdraw.mapper.ClientWithdrawalBankLogMapper">
+
+    <resultMap type="com.minigod.zero.bpmn.module.withdraw.entity.ClientWithdrawalBankLog" id="ClientWithdrawalBankLogResult">
+                <result property="id" column="id"/>
+                <result property="oprcode" column="oprcode"/>
+                <result property="oprtime" column="oprtime"/>
+                <result property="oprtype" column="oprtype"/>
+                <result property="channel" column="channel"/>
+                <result property="fileName" column="file_name"/>
+                <result property="remark" column="remark"/>
+                <result property="createTime" column="create_time"/>
+                <result property="createUser" column="create_user"/>
+                <result property="updateTime" column="update_time"/>
+                <result property="updateUser" column="update_user"/>
+<result property="isDeleted" column="is_deleted"/>
+ <result property="createDept" column="create_dept"/>
+ <result property="status" column="status"/>
+    </resultMap>
+
+
+    <sql id="selectClientWithdrawalBankLogVo">
+        select id, oprcode, oprtime, oprtype, channel, file_name, remark, create_time, create_user, update_time, update_user from client_withdrawal_bank_log
+    </sql>
+
+    <select id="selectClientWithdrawalBankLogList" parameterType="ClientWithdrawalBankLog" resultMap="ClientWithdrawalBankLogResult">
+        <include refid="selectClientWithdrawalBankLogVo"/>
+        <where>
+                        <if test="oprcode != null  and oprcode != ''"> and oprcode = #{oprcode}</if>
+                        <if test="oprtime != null "> and oprtime = #{oprtime}</if>
+                        <if test="oprtype != null  and oprtype != ''"> and oprtype = #{oprtype}</if>
+                        <if test="channel != null  and channel != ''"> and channel = #{channel}</if>
+                        <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectClientWithdrawalBankLogByid" parameterType="Long" resultMap="ClientWithdrawalBankLogResult">
+            <include refid="selectClientWithdrawalBankLogVo"/>
+            where id = #{id}
+    </select>
+
+    <insert id="insertClientWithdrawalBankLog" parameterType="ClientWithdrawalBankLog" useGeneratedKeys="true" keyProperty="id">
+        insert into client_withdrawal_bank_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="oprcode != null and oprcode != ''">oprcode,</if>
+                    <if test="oprtime != null">oprtime,</if>
+                    <if test="oprtype != null and oprtype != ''">oprtype,</if>
+                    <if test="channel != null and channel != ''">channel,</if>
+                    <if test="fileName != null and fileName != ''">file_name,</if>
+                    <if test="remark != null and remark != ''">remark,</if>
+                    <if test="createTime != null">create_time,</if>
+                    <if test="createUser != null">create_user,</if>
+                    <if test="updateTime != null">update_time,</if>
+                    <if test="updateUser != null">update_user,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="oprcode != null and oprcode != ''">#{oprcode},</if>
+                    <if test="oprtime != null">#{oprtime},</if>
+                    <if test="oprtype != null and oprtype != ''">#{oprtype},</if>
+                    <if test="channel != null and channel != ''">#{channel},</if>
+                    <if test="fileName != null and fileName != ''">#{fileName},</if>
+                    <if test="remark != null and remark != ''">#{remark},</if>
+                    <if test="createTime != null">#{createTime},</if>
+                    <if test="createUser != null">#{createUser},</if>
+                    <if test="updateTime != null">#{updateTime},</if>
+                    <if test="updateUser != null">#{updateUser},</if>
+        </trim>
+    </insert>
+
+    <update id="updateClientWithdrawalBankLog" parameterType="ClientWithdrawalBankLog">
+        update client_withdrawal_bank_log
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="oprcode != null and oprcode != ''">oprcode = #{oprcode},</if>
+                    <if test="oprtime != null">oprtime = #{oprtime},</if>
+                    <if test="oprtype != null and oprtype != ''">oprtype = #{oprtype},</if>
+                    <if test="channel != null and channel != ''">channel = #{channel},</if>
+                    <if test="fileName != null and fileName != ''">file_name = #{fileName},</if>
+                    <if test="remark != null and remark != ''">remark = #{remark},</if>
+                    <if test="createTime != null">create_time = #{createTime},</if>
+                    <if test="createUser != null">create_user = #{createUser},</if>
+                    <if test="updateTime != null">update_time = #{updateTime},</if>
+                    <if test="updateUser != null">update_user = #{updateUser},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteClientWithdrawalBankLogByid" parameterType="Long">
+        delete from client_withdrawal_bank_log where id = #{id}
+    </delete>
+
+    <delete id="deleteClientWithdrawalBankLogByids" parameterType="String">
+        delete from client_withdrawal_bank_log where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+</mapper>

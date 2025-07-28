@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.exchange.mapper.CustomerCurrencyExchangeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.exchange.entity.CustomerCurrencyExchangeInfo">
+    <!--@mbg.generated-->
+    <!--@Table customer_currency_exchange_info-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="cust_id" jdbcType="BIGINT" property="custId" />
+    <result column="application_id" jdbcType="VARCHAR" property="applicationId" />
+    <result column="fund_account" jdbcType="VARCHAR" property="fundAccount" />
+    <result column="fund_account_type" jdbcType="VARCHAR" property="fundAccountType" />
+    <result column="currency_out" jdbcType="INTEGER" property="currencyOut" />
+    <result column="currency_in" jdbcType="INTEGER" property="currencyIn" />
+    <result column="amount_out" jdbcType="DECIMAL" property="amountOut" />
+    <result column="amount_in" jdbcType="DECIMAL" property="amountIn" />
+    <result column="actual_amount_out" jdbcType="DECIMAL" property="actualAmountOut" />
+    <result column="actual_amount_in" jdbcType="DECIMAL" property="actualAmountIn" />
+    <result column="available_balance" jdbcType="DECIMAL" property="availableBalance" />
+    <result column="exchange_rate" jdbcType="DECIMAL" property="exchangeRate" />
+    <result column="actual_exchange_rate" jdbcType="DECIMAL" property="actualExchangeRate" />
+    <result column="exchange_direction" jdbcType="INTEGER" property="exchangeDirection" />
+    <result column="exchange_type" jdbcType="INTEGER" property="exchangeType" />
+    <result column="processing_status" jdbcType="INTEGER" property="processingStatus" />
+    <result column="init_date" jdbcType="INTEGER" property="initDate" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    <result column="create_dept" jdbcType="BIGINT" property="createDept" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_deleted" jdbcType="INTEGER" property="isDeleted" />
+    <result column="tenant_id" jdbcType="VARCHAR" property="tenantId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, cust_id, application_id, fund_account, fund_account_type, currency_out, currency_in,
+    amount_out, amount_in, actual_amount_out, actual_amount_in, exchange_rate, actual_exchange_rate,
+    exchange_direction, exchange_type, processing_status, init_date, create_user, update_user,
+    create_dept, create_time, update_time, `status`, is_deleted, tenant_id,available_balance
+  </sql>
+</mapper>

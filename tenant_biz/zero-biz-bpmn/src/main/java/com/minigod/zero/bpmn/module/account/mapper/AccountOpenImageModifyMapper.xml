@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountOpenImageModifyMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.account.entity.AccountOpenImageModifyEntity">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="applyId" column="apply_id" jdbcType="BIGINT"/>
+            <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+            <result property="fileName" column="file_name" jdbcType="VARCHAR"/>
+            <result property="fileStorageName" column="file_storage_name" jdbcType="VARCHAR"/>
+            <result property="extName" column="ext_name" jdbcType="VARCHAR"/>
+            <result property="imageLocation" column="image_location" jdbcType="INTEGER"/>
+            <result property="imageLocationType" column="image_location_type" jdbcType="INTEGER"/>
+            <result property="storagePath" column="storage_path" jdbcType="VARCHAR"/>
+            <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+            <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+            <result property="createDept" column="create_dept" jdbcType="BIGINT"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,apply_id,application_id,
+        file_name,file_storage_name,ext_name,
+        image_location,image_location_type,storage_path,
+        create_user,update_user,create_time,
+        update_time,remark,tenant_id,
+        create_dept,status,is_deleted
+    </sql>
+</mapper>

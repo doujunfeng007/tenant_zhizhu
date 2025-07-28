@@ -1,0 +1,19 @@
+#数据源配置
+spring:
+  datasource:
+    url: ${zero.datasource.dev.url}
+    username: ${zero.datasource.dev.username}
+    password: ${zero.datasource.dev.password}
+  mvc:
+    async:
+      requestTimeout: 20000
+
+#第三方登陆
+social:
+  enabled: true
+  domain: http://127.0.0.1:1888
+zero:
+  oauth:
+    tenantId: '000001'
+    saasApp: MDAwMDAxLDIsc2Fhcy1hcHA6YTIyNWE4ZjA1YTNiNGJmZi05MThlYTYzZWFhMDJhNDRl
+    saasPc: MDAwMDAxLDMsc2Fhcy1wYzoyYzMyY2IzMTA0NWE0N2FkODRkYjFhMTI0MjA1NDg3Ng==

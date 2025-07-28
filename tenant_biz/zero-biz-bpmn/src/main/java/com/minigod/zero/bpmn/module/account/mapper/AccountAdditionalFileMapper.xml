@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountAdditionalFileMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_additional_fileResultMap"
+               type="com.minigod.zero.bpmn.module.account.entity.AccountAdditionalFileEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="additional_id" property="additionalId"/>
+        <result column="file_name" property="fileName"/>
+        <result column="file_type" property="fileType"/>
+        <result column="file_storage_name" property="fileStorageName"/>
+        <result column="file_ext_name" property="fileExtName"/>
+        <result column="file_path" property="filePath"/>
+        <result column="type" property="type"/>
+    </resultMap>
+    <resultMap id="account_additional_fileResultMapVo"
+               type="com.minigod.zero.bpmn.module.account.vo.AccountAdditionalFileVO"
+               extends="account_additional_fileResultMap">
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+    <select id="queryListByApplicationId" resultMap="account_additional_fileResultMapVo">
+        select f.*,d.remark from
+        open_account_additional_file
+        f
+        left join
+        open_account_additional_detail
+        d
+        on f.additional_id = d.additional_id
+        <where>
+            <if test="applicationId!=null and applicationId!=''">
+                and f.application_id = #{applicationId}
+            </if>
+            <if test="type!=null">
+                and f.type = #{type}
+            </if>
+            and f.is_deleted = 0
+        </where>
+    </select>
+    <select id="queryListByType"
+            resultType="com.minigod.zero.bpmn.module.account.entity.AccountAdditionalFileEntity">
+        select f.* from customer_account_open_info o
+        left join open_account_additional_file f on o.application_id = f.application_id
+        <where>
+            and o.user_id = #{userId}
+            <if test="type!=null">
+                and f.file_type = #{type}
+            </if>
+            and f.is_deleted = 0
+            order by f.create_time desc
+        </where>
+    </select>
+    <delete id="deleteWithValidByAdditionalIds">
+        DELETE f,d FROM
+        open_account_additional_file
+        f left join
+        open_account_additional_detail
+        d on f.additional_id = d.additional_id
+        WHERE f.additional_id in (
+        <foreach collection="additionalIds" item="additionalId" separator=",">
+            #{additionalId}
+        </foreach>
+        )
+    </delete>
+    <delete id="deleteByApplicationAndType">
+        DELETE f,d
+        FROM open_account_additional_file f
+                 left join
+             open_account_additional_detail d on f.additional_id = d.additional_id
+        WHERE f.application_id = #{applicationId}
+          and f.type = #{type}
+    </delete>
+    <delete id="deleteByApplicationAndTypeAndFileType">
+        DELETE f,d
+        FROM open_account_additional_file f
+                 left join
+             open_account_additional_detail d on f.additional_id = d.additional_id
+        WHERE f.application_id = #{applicationId}
+          and f.type = #{type}
+          and f.file_type = #{fileType}
+    </delete>
+</mapper>

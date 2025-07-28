@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.CashSupportCurrencyBankMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="cashSupportCurrencyBankResultMap" type="com.minigod.zero.manage.entity.CashSupportCurrencyBankEntity">
+        <result column="id" property="id"/>
+        <result column="currency" property="currency"/>
+        <result column="payee_bank_id" property="payeeBankId"/>
+        <result column="support_type" property="supportType"/>
+        <result column="sort_order" property="sortOrder"/>
+        <result column="deposit_id" property="depositId"/>
+        <result column="is_default" property="isDefault"/>
+        <result column="account_type" property="accountType"/>
+        <result column="payee_bank_detail_id" property="payeeBankDetailId"/>
+    </resultMap>
+
+
+    <select id="selectCashSupportCurrencyBankPage" resultMap="cashSupportCurrencyBankResultMap">
+        select * from cash_support_currency_bank where is_deleted = 0
+    </select>
+
+    <delete id="deleteById">
+        delete from cash_support_currency_bank where id = #{id}
+    </delete>
+
+
+</mapper>

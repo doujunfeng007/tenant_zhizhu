@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.TaTDailyInterestMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.TaTDailyInterestEntity">
+            <id property="interestid" column="interestId" jdbcType="INTEGER"/>
+            <result property="subaccountid" column="subAccountId" jdbcType="VARCHAR"/>
+            <result property="productid" column="productId" jdbcType="INTEGER"/>
+            <result property="interestdate" column="interestDate" jdbcType="TIMESTAMP"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="amount" column="amount" jdbcType="DECIMAL"/>
+            <result property="facevalue" column="faceValue" jdbcType="DECIMAL"/>
+            <result property="volume" column="volume" jdbcType="INTEGER"/>
+            <result property="interest" column="interest" jdbcType="DECIMAL"/>
+            <result property="interestrate" column="interestRate" jdbcType="DECIMAL"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        interestId,subAccountId,productId,
+        interestDate,currency,amount,
+        faceValue,volume,interest,
+        interestRate,createTime,updateTime
+    </sql>
+</mapper>

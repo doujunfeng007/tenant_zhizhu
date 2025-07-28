@@ -1,0 +1,11 @@
+#数据源配置
+spring:
+  datasource:
+    url: ${zero.datasource.prd.url}
+    username: ${zero.datasource.prd.username}
+    password: ${zero.datasource.prd.password}
+
+#第三方登陆
+social:
+  enabled: true
+  domain: http://127.0.0.1:1888

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpm.mapper.AcctOpenScheduleTempMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="acctOpenScheduleTempResultMap" type="com.minigod.zero.bpm.entity.AcctOpenScheduleTempEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="step" property="step"/>
+        <result column="route" property="route"/>
+        <result column="schedule" property="schedule"/>
+        <result column="bank_type" property="bankType"/>
+        <result column="account_type" property="accountType"/>
+    </resultMap>
+
+
+    <select id="selectAcctOpenScheduleTempPage" resultMap="acctOpenScheduleTempResultMap">
+        select * from acct_open_schedule_temp where is_deleted = 0
+    </select>
+
+
+</mapper>

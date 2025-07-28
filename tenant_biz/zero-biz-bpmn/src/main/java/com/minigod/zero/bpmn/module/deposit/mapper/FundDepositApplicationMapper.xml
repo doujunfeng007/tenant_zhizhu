@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.deposit.mapper.FundDepositApplicationMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="fundDepositApplicationResultMap"
+               type="com.minigod.zero.bpmn.module.deposit.entity.FundDepositApplicationEntity">
+        <result column="a_id" property="id"/>
+        <result column="a_application_id" property="applicationId"/>
+        <result column="a_application_title" property="applicationTitle"/>
+        <result column="a_current_node" property="currentNode"/>
+        <result column="a_last_approval_user" property="lastApprovalUser"/>
+        <result column="a_last_approval_time" property="lastApprovalTime"/>
+        <result column="a_approval_opinion" property="approvalOpinion"/>
+        <result column="a_start_time" property="startTime"/>
+        <result column="a_remark" property="remark"/>
+        <result column="a_application_status" property="applicationStatus"/>
+        <result column="a_assign_drafter" property="assignDrafter"/>
+        <result column="a_flow_path" property="flowPath"/>
+        <result column="a_fire_aid" property="fireAid"/>
+        <result column="a_instance_id" property="instanceId"/>
+        <result column="a_definition_id" property="definitionId"/>
+        <result column="a_process_instance_id" property="processInstanceId"/>
+        <result column="a_task_id" property="taskId"/>
+        <result column="a_deploy_id" property="deployId"/>
+        <result column="a_tenant_id" property="tenantId"/>
+        <result column="a_create_dept" property="createDept"/>
+        <result column="a_status" property="status"/>
+        <result column="a_create_user" property="createUser"/>
+        <result column="a_update_user" property="updateUser"/>
+        <result column="a_create_time" property="createTime"/>
+        <result column="a_update_time" property="updateTime"/>
+        <result column="a_is_deleted" property="isDeleted"/>
+    </resultMap>
+    <resultMap id="fundDepositApplicationResultMapVO"
+               type="com.minigod.zero.bpmn.module.deposit.vo.FundDepositApplicationVO"
+               extends="fundDepositApplicationResultMap">
+        <association property="info" javaType="com.minigod.zero.bpmn.module.deposit.vo.FundDepositInfoVO"
+                     resultMap="com.minigod.zero.bpmn.module.deposit.mapper.FundDepositInfoMapper.fundDepositInfoResultMapVo">
+        </association>
+        <association property="flow" javaType="com.minigod.zero.bpmn.module.bank.entity.DepositBankBillFlow"
+                     resultMap="com.minigod.zero.bpmn.module.bank.mapper.DepositBankBillFlowMapper.BaseResultMap">
+        </association>
+        <collection property="imagesList" ofType="com.minigod.zero.bpmn.module.deposit.vo.FundDepositImageVO"
+                    resultMap="com.minigod.zero.bpmn.module.deposit.mapper.FundDepositImageMapper.BaseResultMapVo">
+        </collection>
+    </resultMap>
+    <sql id="Base_Column_List">
+        a.id a_id,
+        a.application_id a_application_id,
+        a.application_title a_application_title,
+        a.current_node a_current_node,
+        a.last_approval_user a_last_approval_user,
+        a.last_approval_time a_last_approval_time,
+        a.approval_opinion a_approval_opinion,
+        a.start_time a_start_time,
+        a.remark a_remark,
+        a.application_status a_application_status,
+        a.assign_drafter a_assign_drafter,
+        a.flow_path a_flow_path,
+        a.fire_aid a_fire_aid,
+        a.instance_id a_instance_id,
+        a.definition_id a_definition_id,
+        a.process_instance_id a_process_instance_id,
+        a.task_id a_task_id,
+        a.deploy_id a_deploy_id,
+        a.tenant_id a_tenant_id,
+        a.create_dept a_create_dept,
+        a.status a_status,
+        a.create_user a_create_user,
+        a.update_user a_update_user,
+        a.create_time a_create_time,
+        a.update_time a_update_time,
+        a.is_deleted a_is_deleted
+    </sql>
+
+    <select id="selectFundDepositApplicationPage" resultMap="fundDepositApplicationResultMapVO">
+        select
+            <include refid="Base_Column_List"/>,
+            <include refid="com.minigod.zero.bpmn.module.deposit.mapper.FundDepositInfoMapper.Base_Column_List"/>,
+            <include refid="com.minigod.zero.bpmn.module.deposit.mapper.FundDepositImageMapper.Base_Column_List"/>,
+            <include refid="com.minigod.zero.bpmn.module.bank.mapper.DepositBankBillFlowMapper.Base_Column_List"/>
+        from client_fund_deposit_application a
+        left join client_fund_deposit_info info on a.application_id = info.application_id
+        left join client_fund_deposit_image img on a.application_id = img.application_id
+        left join deposit_bank_bill_flow flow on info.application_id = flow.application_id
+        <where>
+            <if test="vo.applicationId != null and vo.applicationId != ''">
+                and a.application_id like concat('%', concat(#{vo.applicationId}, '%'))
+            </if>
+            <if test="vo.applicationStatus != null">
+                and a.application_status = #{vo.applicationStatus}
+            </if>
+            <if test="vo.applicationStatusList != null and vo.applicationStatusList.size() > 0">
+                and a.application_status in  (
+                <foreach collection="vo.applicationStatusList" item="status" separator=",">
+                    #{status}
+                </foreach>
+                )
+            </if>
+            <if test="vo.clientId != null and vo.clientId != ''">
+                and info.client_id = #{vo.clientId}
+            </if>
+            <if test="vo.fundAccount != null and vo.fundAccount != ''">
+                and info.fund_account = #{vo.fundAccount}
+            </if>
+            <if test="vo.remittanceAccount != null and vo.remittanceAccount != ''">
+                and info.remittance_account = #{vo.remittanceAccount}
+            </if>
+            <if test="vo.remittanceAccountName != null and vo.remittanceAccountName != ''">
+                and info.remittance_account_name like concat('%', concat(#{vo.remittanceAccountName}, '%'))
+            </if>
+            <if test="vo.clientName != null and vo.clientName != ''">
+                and info.remittance_account_name like concat('%', concat(#{vo.clientName}, '%'))
+            </if>
+            <if test="vo.clientNameEn != null and vo.clientNameEn != ''">
+                and info.remittance_account_name like concat('%', concat(#{vo.clientNameEn}, '%'))
+            </if>
+            <if test="vo.depositAmount != null and vo.depositAmount != ''">
+                and info.deposit_balance = #{vo.depositAmount}
+            </if>
+            <if test="vo.moneyType != null and vo.moneyType != ''">
+                and info.money_type = #{vo.moneyType}
+            </if>
+            <if test="vo.swiftCode != null and vo.swiftCode != ''">
+                and info.swift_code = #{vo.swiftCode}
+            </if>
+            <if test="vo.bankId != null and vo.bankId != ''">
+                and info.remittance_bank_id = #{vo.bankId}
+            </if>
+            <if test="vo.bankCode != null and vo.bankCode != ''">
+                and info.remittance_bank_code = #{vo.bankCode}
+            </if>
+            <if test="vo.referenceNo != null and vo.referenceNo != ''">
+                and flow.reference_no = #{vo.referenceNo}
+            </if>
+            <if test="vo.beginApplicationDate != null and vo.beginApplicationDate != ''">
+                and info.application_time >= #{vo.beginApplicationDate}
+            </if>
+            <if test="vo.endApplicationDate != null and vo.endApplicationDate != ''">
+                and info.application_time <![CDATA[ <= ]]>#{vo.endApplicationDate}
+            </if>
+            <if test="vo.userId != null ">
+                and info.user_id = #{vo.userId}
+            </if>
+            <if test="vo.remittanceType != null ">
+                and info.remittance_type = #{vo.remittanceType}
+            </if>
+            <if test="vo.tenantId != null and vo.tenantId != ''">
+                and a.tenant_id = #{vo.tenantId}
+            </if>
+            and a.is_deleted = 0
+            and info.remittance_type != 6 and info.remittance_type != 7
+            and a.instance_id is not null
+        </where>
+        group by a.application_id
+        order by a.start_time desc
+    </select>
+    <update id="addAssignDrafter">
+        update client_fund_deposit_application
+        set assign_drafter   = #{param1},
+            last_approval_time = now()
+        where application_id = #{param2}
+    </update>
+    <update id="clearAssignDrafter">
+        update client_fund_deposit_application
+        set assign_drafter     = NULL,
+            last_approval_time = now()
+        where application_id = #{param1}
+    </update>
+
+    <update id="updateApplicationStatusByApplicationId" parameterType="java.lang.Object">
+        update client_fund_deposit_application set status = #{status} where application_id=#{applicationId}
+    </update>
+</mapper>

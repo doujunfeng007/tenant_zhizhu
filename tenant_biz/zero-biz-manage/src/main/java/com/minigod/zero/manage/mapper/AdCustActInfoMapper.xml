@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.AdCustActInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="adCustActInfoResultMap" type="com.minigod.zero.manage.entity.AdCustActInfoEntity">
+        <result column="id" property="id"/>
+        <result column="ad_id" property="adId"/>
+        <result column="user_id" property="userId"/>
+        <result column="ptf_id" property="ptfId"/>
+        <result column="str_a" property="strA"/>
+        <result column="str_b" property="strB"/>
+        <result column="str_c" property="strC"/>
+        <result column="str_d" property="strD"/>
+        <result column="str_e" property="strE"/>
+        <result column="lock_version" property="lockVersion"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_time" property="createTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+
+    <select id="selectAdCustActInfoPage" resultMap="adCustActInfoResultMap">
+        select * from oms_ad_cust_act_info where is_deleted = 0
+    </select>
+
+
+</mapper>

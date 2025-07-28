@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.exchange.mapper.CustomerCurrencyExchangeApplicationMapper">
+  <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.exchange.entity.CustomerCurrencyExchangeApplication">
+    <!--@mbg.generated-->
+    <!--@Table customer_currency_exchange_application-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="application_id" jdbcType="VARCHAR" property="applicationId" />
+    <result column="application_title" jdbcType="VARCHAR" property="applicationTitle" />
+    <result column="current_node" jdbcType="VARCHAR" property="currentNode" />
+    <result column="last_approval_user" jdbcType="VARCHAR" property="lastApprovalUser" />
+    <result column="last_approval_time" jdbcType="TIMESTAMP" property="lastApprovalTime" />
+    <result column="approval_opinion" jdbcType="VARCHAR" property="approvalOpinion" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="application_status" jdbcType="INTEGER" property="applicationStatus" />
+    <result column="assign_drafter" jdbcType="VARCHAR" property="assignDrafter" />
+    <result column="flow_path" jdbcType="LONGVARCHAR" property="flowPath" />
+    <result column="instance_id" jdbcType="VARCHAR" property="instanceId" />
+    <result column="definition_id" jdbcType="VARCHAR" property="definitionId" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="deploy_id" jdbcType="VARCHAR" property="deployId" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    <result column="create_dept" jdbcType="BIGINT" property="createDept" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_deleted" jdbcType="INTEGER" property="isDeleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, application_id, application_title, current_node, last_approval_user, last_approval_time,
+    approval_opinion, start_time, remark, application_status, assign_drafter, flow_path,
+    instance_id, definition_id, process_instance_id, task_id, deploy_id, create_user,
+    update_user, create_dept, create_time, update_time, `status`, is_deleted
+  </sql>
+
+    <select id="queryPageList" resultType="com.minigod.zero.bpmn.module.exchange.vo.CurrencyExchangeApplicationVO">
+        SELECT
+        a.*,
+        i.trade_account,
+        i.fund_account,
+        i.client_name,
+        cust.cust_name_spell AS clientNameSpell,
+        cust.phone_area,
+        cust.phone_number,
+        i.exchange_type,
+        i.amount_out,
+        i.exchange_rate,
+        i.amount_in,
+        i.exchange_direction,
+        i.processing_status,
+        i.status AS appStatus
+        FROM
+        customer_currency_exchange_info i
+        INNER JOIN customer_currency_exchange_application a ON a.application_id = i.application_id
+        LEFT JOIN zero_cust.bpm_securities_info cust ON cust.cust_id = i.cust_id
+        <where>
+            <if test="query.applicationId!='' and query.applicationId!=null">
+                and a.application_id =#{query.applicationId}
+            </if>
+            <if test="query.applicationStatus!=null and query.applicationStatus!=''">
+                and a.application_status = #{query.applicationStatus}
+            </if>
+            <if test="query.assignDrafter!=null and query.assignDrafter!=''">
+                and (a.assign_drafter = #{query.assignDrafter} or a.assign_drafter is NULL)
+            </if>
+            <if test="query.appStatus!=null and query.appStatus!=''">
+                and i.status = #{query.appStatus}
+            </if>
+            <if test="query.clientName!=null and query.clientName!=''">
+                and i.client_name like concat('%',concat(#{query.clientName},'%'))
+            </if>
+
+            <if test="query.tradeAccount!=null and query.tradeAccount!=''">
+                and i.trade_account = #{query.tradeAccount}
+            </if>
+            <if test="query.fundAccount!=null and query.fundAccount!=''">
+                and i.fund_account =#{query.fundAccount}
+            </if>
+
+            <if test="query.exchangeType != null ">
+                and i.exchange_type =#{query.exchangeType}
+            </if>
+            <if test="query.currencyOut != null ">
+                and i.currency_out =#{query.currencyOut}
+            </if>
+            <if test="query.currencyIn != null ">
+                and i.currency_in =#{query.currencyIn}
+            </if>
+
+            <if test="query.exchangeDirection != null ">
+                and i.exchange_direction =#{query.exchangeDirection}
+            </if>
+
+            <if test="query.processingStatus != null ">
+                and i.processing_status =#{query.processingStatus}
+            </if>
+
+            <if test="query.phoneNumber!='' and query.phoneNumber!=null">
+                and cust.phone_number =#{query.phoneNumber}
+            </if>
+
+            <if test="query.clientNameSpell!=null and query.clientNameSpell!=''">
+                and
+                cust.cust_name_spell like concat('%',concat(#{query.clientNameSpell},'%'))
+            </if>
+
+            <if test="query.startTime!=null and query.startTime!=''">
+                and a.create_time <![CDATA[ >= ]]>  #{query.startTime}
+            </if>
+
+            <if test="query.endTime!=null and query.endTime!=''">
+                and a.create_time <![CDATA[ <= ]]>  #{query.endTime}
+            </if>
+
+            <if test="query.isCheck != null ">
+                and a.application_status  in (1,2,10)
+            </if>
+            <if test="query.tenantId != null and query.tenantId != ''">
+                and i.tenant_id = #{query.tenantId}
+            </if>
+         and i.is_deleted =0
+        </where>
+        ORDER BY a.create_time DESC
+    </select>
+
+    <select id="queryList" resultType="com.minigod.zero.bpmn.module.exchange.vo.CurrencyExchangeApplicationVO">
+        SELECT
+        a.*,
+        i.trade_account,
+        i.fund_account,
+        i.client_name,
+        cust.cust_name_spell AS clientNameSpell,
+        cust.phone_number,
+        i.exchange_type,
+        i.amount_out,
+        i.exchange_rate,
+        i.amount_in,
+        i.exchange_direction,
+        i.processing_status,
+        i.STATUS AS appStatus
+        FROM
+        customer_currency_exchange_info i
+        INNER JOIN customer_currency_exchange_application a ON a.application_id = i.application_id
+        LEFT JOIN zero_cust.bpm_securities_info cust ON cust.cust_id = i.cust_id
+        <where>
+            <if test="query.applicationId!='' and query.applicationId!=null">
+                and a.application_id =#{query.applicationId}
+            </if>
+            <if test="query.applicationStatus!=null and query.applicationStatus!=''">
+                and a.application_status = #{query.applicationStatus}
+            </if>
+            <if test="query.appStatus!=null and query.appStatus!=''">
+                and i.status = #{query.appStatus}
+            </if>
+            <if test="query.clientName!=null and query.clientName!=''">
+                and
+                i.client_name like concat('%',concat(#{query.clientName},'%'))
+            </if>
+            <if test="query.tradeAccount!=null and query.tradeAccount!=''">
+                and i.trade_account = #{query.tradeAccount}
+            </if>
+            <if test="query.fundAccount!=null and query.fundAccount!=''">
+                and i.fund_account =#{query.fundAccount}
+            </if>
+
+            <if test="query.exchangeType != null ">
+                and i.exchange_type =#{query.exchangeType}
+            </if>
+            <if test="query.currencyOut != null ">
+                and i.currency_out =#{query.currencyOut}
+            </if>
+            <if test="query.currencyIn != null ">
+                and i.currency_in =#{query.currencyIn}
+            </if>
+
+            <if test="query.exchangeDirection != null ">
+                and i.exchange_direction =#{query.exchangeDirection}
+            </if>
+
+            <if test="query.processingStatus != null ">
+                and i.processing_status =#{query.processingStatus}
+            </if>
+
+            <if test="query.phoneNumber!='' and query.phoneNumber!=null">
+                and cust.phone_number =#{query.phoneNumber}
+            </if>
+
+            <if test="query.clientNameSpell!=null and query.clientNameSpell!=''">
+                and
+                cust.cust_name_spell like concat('%',concat(#{query.clientNameSpell},'%'))
+            </if>
+
+            <if test="query.startTime!=null and query.startTime!=''">
+                and a.create_time <![CDATA[ >= ]]>  #{query.startTime}
+            </if>
+
+            <if test="query.endTime!=null and query.endTime!=''">
+                and a.create_time <![CDATA[ <= ]]>  #{query.endTime}
+            </if>
+
+            <if test="query.isCheck != null ">
+                and a.application_status  in (1,2,10)
+            </if>
+            <if test="query.tenantId != null and query.tenantId != ''">
+                and i.tenant_id = #{query.tenantId}
+            </if>
+            and i.is_deleted =0
+
+
+        </where>
+        ORDER BY a.create_time DESC
+    </select>
+
+    <update id="addAssignDrafter">
+        update
+        customer_currency_exchange_application
+        set assign_drafter = #{userId}
+        where application_id = #{applicationId}
+    </update>
+
+    <update id="clearAssignDrafter">
+        update
+        customer_currency_exchange_application
+        set assign_drafter = NULL
+        where application_id = #{applicationId}
+    </update>
+
+    <select id="queryByApplicationId" resultMap="BaseResultMap">
+        select *
+        from customer_currency_exchange_application
+        where application_id = #{applicationId}
+    </select>
+</mapper>

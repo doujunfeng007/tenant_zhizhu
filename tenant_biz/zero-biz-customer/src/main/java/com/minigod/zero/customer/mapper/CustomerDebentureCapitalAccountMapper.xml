@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerDebentureCapitalAccountMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerDebentureCapitalAccount">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="tradeAccount" column="trade_account" jdbcType="VARCHAR"/>
+            <result property="fundAccount" column="fund_account" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,trade_account,fund_account,
+        create_time,is_deleted
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_debenture_capital_account
+        where  id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from customer_debenture_capital_account
+        where  id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerDebentureCapitalAccount" useGeneratedKeys="true">
+        insert into customer_debenture_capital_account
+        ( id,trade_account,fund_account
+        ,create_time,is_deleted)
+        values (#{id,jdbcType=BIGINT},#{tradeAccount,jdbcType=VARCHAR},#{fundAccount,jdbcType=VARCHAR}
+        ,#{createTime,jdbcType=TIMESTAMP},#{isDeleted,jdbcType=TINYINT})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerDebentureCapitalAccount" useGeneratedKeys="true">
+        insert into customer_debenture_capital_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="tradeAccount != null">trade_account,</if>
+                <if test="fundAccount != null">fund_account,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="isDeleted != null">is_deleted,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="tradeAccount != null">#{tradeAccount,jdbcType=VARCHAR},</if>
+                <if test="fundAccount != null">#{fundAccount,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="isDeleted != null">#{isDeleted,jdbcType=TINYINT},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.CustomerDebentureCapitalAccount">
+        update customer_debenture_capital_account
+        <set>
+                <if test="tradeAccount != null">
+                    trade_account = #{tradeAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="fundAccount != null">
+                    fund_account = #{fundAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted,jdbcType=TINYINT},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.CustomerDebentureCapitalAccount">
+        update customer_debenture_capital_account
+        set
+            trade_account =  #{tradeAccount,jdbcType=VARCHAR},
+            fund_account =  #{fundAccount,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            is_deleted =  #{isDeleted,jdbcType=TINYINT}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

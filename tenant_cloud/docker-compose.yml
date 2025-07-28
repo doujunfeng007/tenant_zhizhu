@@ -1,0 +1,184 @@
+version: '3'
+services:
+
+  zero-swagger:
+    image: "${REGISTER}/zero-swagger:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 18000:18000
+    privileged: true
+    restart: always
+    network_mode: host
+
+  zero-gateway1:
+    image: "${REGISTER}/zero-gateway:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    network_mode: host
+
+#  zero-gateway2:
+#    image: "${REGISTER}/zero-gateway:${TAG}"
+#    environment:
+#      - TZ=Asia/Shanghai
+#    privileged: true
+#    restart: always
+#    networks:
+#      zero_net:
+#        ipv4_address: 172.30.0.82
+
+  zero-auth1:
+    image: "${REGISTER}/zero-auth:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    networks:
+      - zero_net
+
+  zero-auth-biz:
+    image: "${REGISTER}/zero-auth-biz:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    network_mode: host
+#    networks:
+#      - zero_net
+
+  zero-auth-mkt:
+    image: "${REGISTER}/zero-auth-mkt:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    network_mode: host
+#    networks:
+#      - zero_net
+#  zero-auth2:
+#    image: "${REGISTER}/zero-auth:${TAG}"
+#    environment:
+#      - TZ=Asia/Shanghai
+#    privileged: true
+#    restart: always
+#    networks:
+#      zero_net:
+#        ipv4_address: 172.30.0.92
+
+  zero-report:
+    image: "${REGISTER}/zero-report:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    ports:
+      - 8108:8108
+    network_mode: host
+
+  zero-log:
+    image: "${REGISTER}/zero-log:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    network_mode: host
+
+  zero-desk:
+    image: "${REGISTER}/zero-desk:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    network_mode: host
+
+  zero-user:
+    image: "${REGISTER}/zero-user:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    network_mode: host
+
+  zero-system:
+    image: "${REGISTER}/zero-system:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    network_mode: host
+
+#  zero-flow:
+#    image: "${REGISTER}/zero-flow:${TAG}"
+#    environment:
+#      - TZ=Asia/Shanghai
+#    privileged: true
+#    restart: always
+#    network_mode: host
+
+  zero-resource:
+    image: "${REGISTER}/zero-resource:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    network_mode: host
+
+  zero-job-admin:
+    image: "${REGISTER}/zero-job-admin:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    network_mode: host
+
+  zero-develop:
+    image: "${REGISTER}/zero-develop:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    network_mode: host
+
+  zero-nginx:
+    image: nginx:stable-alpine-perl
+    hostname: "zero-nginx"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 88:88
+    volumes:
+      - /home/docker/zero/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+    privileged: true
+    restart: always
+    networks:
+      - zero_net
+
+  web-nginx:
+    image: nginx:stable-alpine-perl
+    hostname: "web-nginx"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 7000:7000
+      - 7001:7001
+      - 7002:7002
+      - 7003:7003
+      - 8000:8000
+    volumes:
+      - /home/docker/zero/nginx/web/html:/usr/share/nginx/html
+      - /home/docker/zero/nginx/web/back:/usr/share/nginx/back
+      - /home/docker/zero/nginx/web/nuxt:/usr/share/nginx/nuxt
+      - /home/docker/zero/nginx/web/nginx.conf:/etc/nginx/nginx.conf
+      - /home/docker/zero/nginx/web/website:/usr/share/nginx/website
+    privileged: true
+    restart: always
+    networks:
+      - zero_net
+networks:
+  zero_net:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.30.0.0/16

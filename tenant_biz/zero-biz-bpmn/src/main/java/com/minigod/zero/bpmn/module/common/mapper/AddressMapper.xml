@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.common.mapper.AddressMapper">
+  <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.common.entity.Address">
+    <!--@mbg.generated-->
+    <!--@Table sys_address-->
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="parent_id" property="parentId" />
+    <result column="enable" property="enable" />
+    <result column="language" property="language" />
+    <result column="code" property="code" />
+    <result column="level" property="level" />
+    <result column="ancestors" property="ancestors" />
+    <result column="area_type" property="areaType" />
+    <result column="query_code" property="queryCode" />
+    <result column="create_user" property="createUser" />
+    <result column="update_user" property="updateUser" />
+    <result column="update_time" property="updateTime" />
+    <result column="create_time" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, parent_id, `enable`, `language`, code, `level`, ancestors, area_type,
+    query_code, create_user, update_user, update_time, create_time
+  </sql>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into sys_address
+    (id, `name`, parent_id, `enable`, `language`, code, `level`, ancestors, area_type,
+      query_code, create_user, update_user, update_time, create_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id}, #{item.name}, #{item.parentId}, #{item.enable}, #{item.language}, #{item.code},
+        #{item.level}, #{item.ancestors}, #{item.areaType}, #{item.queryCode}, #{item.createUser},
+        #{item.updateUser}, #{item.updateTime}, #{item.createTime})
+    </foreach>
+  </insert>
+  <resultMap type="com.minigod.zero.bpmn.module.common.vo.address.Province" id="provinceResult">
+    <result property="label" column="province_name"/>
+    <result property="code" column="province_code"/>
+    <result property="value" column="province_id"/>
+    <collection ofType="com.minigod.zero.bpmn.module.common.vo.address.City" property="children">
+      <result property="label" column="city_name"/>
+      <result property="code" column="city_code"/>
+      <result property="value" column="city_id"/>
+      <collection ofType="com.minigod.zero.bpmn.module.common.vo.address.Area" property="children">
+        <result property="label" column="area_name"/>
+        <result property="code" column="area_code"/>
+        <result property="value" column="area_id"/>
+      </collection>
+    </collection>
+  </resultMap>
+  <select id="getAddressList" resultMap="provinceResult">
+      select
+      province.id province_id,
+      <if test="language == null or language == '' or language == 'zh-CN'">
+          province.name province_name,
+      </if>
+      <if test="language == 'en-US'">
+          IFNULL(province.name_en,province.name) as province_name,
+      </if>
+      <if test="language == 'zh-HK'">
+          IFNULL(province.name_hant,province.name) as province_name,
+      </if>
+      province.code province_code,
+      city.id city_id,
+      <if test="language == null or language == '' or language == 'zh-CN'">
+          city.name city_name,
+      </if>
+      <if test="language == 'en-US'">
+          IFNULL(city.name_en,city.name) as city_name,
+      </if>
+      <if test="language == 'zh-HK'">
+          IFNULL(city.name_hant,city.name) as city_name,
+      </if>
+      city.code city_code,
+      <if test="language == null or language == '' or language == 'zh-CN'">
+          area.name area_name,
+      </if>
+      <if test="language == 'en-US'">
+          IFNULL(area.name_en,area.name) as area_name,
+      </if>
+      <if test="language == 'zh-HK'">
+          IFNULL(area.name_hant,area.name) as area_name,
+      </if>
+      area.id area_id,
+      area.code area_code
+      from sys_address country
+      left join sys_address province on country.id = province.parent_id and province.enable = 1
+      left join sys_address city on province.id = city.parent_id and city.enable = 1
+      left join sys_address area on city.id = area.parent_id and area.enable = 1
+      <where>
+          country.enable = 1
+          <if test="query.countryCode!=null and query.countryCode!=''">
+              and country.query_code = #{query.countryCode}
+          </if>
+          <choose>
+              <when test="query.provinceCode!=null and query.provinceCode!=''">
+                  and province.query_code = #{query.provinceCode}
+                  and province.area_type = 2
+              </when>
+              <otherwise>
+                  and province.area_type = 1
+              </otherwise>
+          </choose>
+      </where>
+      group by area.id
+  </select>
+  <select id="getAddressInfoByAreaCodeValue" resultType="java.lang.String">
+    select
+      <if test="language == null or language == '' or language == 'zh-CN'">
+          address.name
+      </if>
+      <if test="language == 'en-US'">
+          IFNULL(address.name_en,address.name)
+      </if>
+      <if test="language == 'zh-HK'">
+          address.name
+      </if>
+    from sys_address address
+    where address.id = #{value}
+  </select>
+</mapper>

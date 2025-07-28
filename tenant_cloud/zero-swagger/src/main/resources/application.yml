@@ -1,0 +1,6 @@
+server:
+  port: 8000
+knife4j:
+  enableAggregation: true
+  cloud:
+    enable: true

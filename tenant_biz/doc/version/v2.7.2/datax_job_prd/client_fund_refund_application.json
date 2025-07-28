@@ -1,0 +1,132 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "mysqlreader",
+          "parameter": {
+            "username": "BGiv1Nj/RkA62kCvYRpURw==",
+            "password": "jJ1jarzC1lh43N/bEGp/Fw==",
+            "column": [
+              "`id`",
+              "`application_id`",
+              "`application_title`",
+              "`withdraw_application_id`",
+              "`client_id`",
+              "`fund_account`",
+              "`ccy`",
+              "`refund_amount`",
+              "`refund_bank_fee`",
+              "`net_refund_amount`",
+              "`refund_type`",
+              "`gt_business_step`",
+              "`gt_deal_status`",
+              "`gt_deal_date`",
+              "`gt_rt_code`",
+              "`gt_msg`",
+              "`refund_reason`",
+              "`status`",
+              "`current_node`",
+              "`last_approval_user`",
+              "`approval_opinion`",
+              "`approval_time`",
+              "`callback_status`",
+              "`application_status`",
+              "`is_back`",
+              "`assign_drafter`",
+              "`flow_path`",
+              "`fire_aid`",
+              "`instance_id`",
+              "`definition_id`",
+              "`process_instance_id`",
+              "`task_id`",
+              "`deploy_id`",
+              "`create_time`",
+              "`create_user`",
+              "`update_time`",
+              "`update_user`",
+              "`tenant_id`"
+            ],
+            "splitPk": "",
+            "where": "create_time >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY) OR update_time >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY )",
+            "connection": [
+              {
+                "table": [
+                  "client_fund_refund_application"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://10.10.1.20:13049/zero_bpmn?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "username": "x23iAGFtBmYzhTgDDjvFPg==",
+            "password": "sTO8zolMP4HE+FE4/Q/juOlJhAfkZyhMvpevvHYrEc8=",
+            "column": [
+              "`id`",
+              "`application_id`",
+              "`application_title`",
+              "`withdraw_application_id`",
+              "`client_id`",
+              "`fund_account`",
+              "`ccy`",
+              "`refund_amount`",
+              "`refund_bank_fee`",
+              "`net_refund_amount`",
+              "`refund_type`",
+              "`gt_business_step`",
+              "`gt_deal_status`",
+              "`gt_deal_date`",
+              "`gt_rt_code`",
+              "`gt_msg`",
+              "`refund_reason`",
+              "`status`",
+              "`current_node`",
+              "`last_approval_user`",
+              "`approval_opinion`",
+              "`approval_time`",
+              "`callback_status`",
+              "`application_status`",
+              "`is_back`",
+              "`assign_drafter`",
+              "`flow_path`",
+              "`fire_aid`",
+              "`instance_id`",
+              "`definition_id`",
+              "`process_instance_id`",
+              "`task_id`",
+              "`deploy_id`",
+              "`create_time`",
+              "`create_user`",
+              "`update_time`",
+              "`update_user`",
+              "`tenant_id`"
+            ],
+            "writeMode": "update",
+            "connection": [
+              {
+                "table": [
+                  "client_fund_refund_application"
+                ],
+                "jdbcUrl": "jdbc:mysql://10.10.1.20:13049/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

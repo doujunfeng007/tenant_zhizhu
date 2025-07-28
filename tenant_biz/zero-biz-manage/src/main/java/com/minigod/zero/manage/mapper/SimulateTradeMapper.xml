@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.minigod.zero.manage.mapper.SimulateTradeMapper">
+
+    <select id="listSimulateCompetition" resultType="com.minigod.zero.manage.entity.SimulateCompetitionEntity">
+        select * from simulate_competition
+        <where>
+            <if test="params.competitionId != null">and id = #{params.competitionId}</if>
+            <if test="params.competitionName != null">and competition_name = #{params.competitionName}</if>
+            <if test="params.startTime != null and params.startTime != ''">and start_time >= #{params.startTime}</if>
+            <if test="params.endTime != null and params.endTime != ''">and end_time <![CDATA[ <= ]]> #{params.endTime}</if>
+            <if test="params.tenantId != null and params.tenantId != ''">and tenant_id = #{params.tenantId}</if>
+        </where>
+    </select>
+
+    <select id="listRankData" resultType="com.minigod.zero.manage.vo.simulatetrade.CompetitionRankDataVO">
+        SELECT c.*
+        FROM (
+        SELECT b.*,CASE WHEN b.tradeCount > 0 THEN (SELECT COUNT(*) FROM (select a.`type` AS
+        competitionId,p.freeze_profit_rate profitRate,p.id as pid,p.freeze_trade_count tradeCount from
+        freeze_profit_target p
+        LEFT JOIN simulate_account a ON p.sim_account_id = a.id
+        LEFT JOIN simulate_competition s ON a.`type` = s.id where a.state = 1 and p.status = 2
+        <if test="params.competitionId != null">and a.`type` = #{params.competitionId}</if>
+        <if test="params.startTime != null">and s.start_time >= #{params.startTime}</if>
+        <if test="params.endTime != null">and s.end_time <![CDATA[ <= ]]> #{params.endTime}</if>
+        <if test="params.tenantId != null and params.tenantId != ''">and s.tenant_id = #{params.tenantId}</if>
+        ) t2
+        WHERE t2.competitionId = b.competitionId AND ((t2.profitRate > b.profitRate) or (t2.profitRate = b.profitRate
+        and t2.pid >=b.id) )
+        and t2.tradeCount > 0
+        ) ELSE 0 END AS `rank`
+        FROM (
+        SELECT p.id,p.sim_account_id simulateAccountId, p.freeze_market_value marketValue, p.freeze_hold_profit holdProfit,
+        p.freeze_day_profit todayProfit, p.freeze_day_profit_rate todayProfitRate,
+        p.freeze_total_profit totalProfit, p.status, p.freeze_trade_count tradeCount,p.freeze_total_fund totalFund,
+        p.freeze_enable_fund enableFund, p.freeze_profit profit, p.freeze_profit_rate profitRate,
+        p.freeze_competition_days competitionDays, a.user_id, a.`type` AS competitionId,
+        a.currency,a.market, a.open_date, s.competition_name, s.register_start_time, s.register_end_time, s.start_time,
+        s.end_time
+        FROM freeze_profit_target p
+        LEFT JOIN simulate_account a ON p.sim_account_id=a.id
+        LEFT JOIN simulate_competition s ON a.`type`=s.id
+        WHERE a.state=1 and p.status=2
+        <if test="params.competitionId != null">and a.`type` = #{params.competitionId}</if>
+        <if test="params.startTime != null">and s.start_time >= #{params.startTime}</if>
+        <if test="params.endTime != null">and s.end_time = #{params.endTime}</if>
+        <if test="params.tenantId != null and params.tenantId != ''">and s.tenant_id = #{params.tenantId}</if>
+        ORDER BY s.start_time DESC, s.id DESC, p.freeze_profit_rate DESC, a.id asc
+        )b
+        )c
+        ORDER BY start_time desc,`rank` asc,profitRate asc
+    </select>
+
+    <select id="listRankHistoryData" resultType="com.minigod.zero.manage.vo.simulatetrade.CompetitionRankDataVO">
+        SELECT c.*
+        FROM (
+        SELECT b.*,
+        CASE WHEN b.tradeCount > 0 THEN (SELECT COUNT(*) FROM (select a.`type` AS competitionId,p.freeze_profit_rate profitRate,p.id as pid,p.freeze_trade_count tradeCount from freeze_profit_target p
+        LEFT JOIN simulate_account a ON p.sim_account_id = a.id
+        LEFT JOIN simulate_competition s ON a.`type` = s.id
+        where a.state = 1
+        <if test="params.competitionId != null">and a.`type` = #{params.competitionId}</if>
+        <if test="params.status != null">and p.status = #{params.status}</if>
+        <if test="params.startTime != null">and s.start_time >= #{params.startTime}</if>
+        <if test="params.endTime != null">and s.end_time <![CDATA[ <= ]]> #{params.endTime}</if>
+         <if test="params.tenantId != null and params.tenantId != ''">and s.tenant_id = #{params.tenantId}</if>
+        ) t2
+        WHERE t2.competitionId = b.competitionId   AND ((t2.profitRate > b.profitRate)  or (t2.profitRate = b.profitRate  and t2.pid >=b.id) )
+        and  t2.tradeCount > 0
+        ) ELSE 0 END AS `rank`
+        FROM (
+        SELECT p.id,p.sim_account_id simulateAccountId, p.freeze_market_value marketValue, p.freeze_hold_profit holdProfit,
+        p.freeze_total_profit totalProfit, p.status, p.freeze_trade_count tradeCount,p.freeze_total_fund totalFund,
+        p.freeze_enable_fund enableFund, p.freeze_profit profit, p.freeze_profit_rate profitRate,
+        p.freeze_competition_days competitionDays, a.user_id, a.`type` AS competitionId,
+        a.currency,a.market, a.open_date, s.competition_name, s.register_start_time, s.register_end_time, s.start_time, s.end_time
+        FROM freeze_profit_target p
+        LEFT JOIN simulate_account a ON p.sim_account_id=a.id
+        LEFT JOIN simulate_competition s ON a.`type`=s.id
+        where a.state=1
+        <if test="params.competitionId != null">and a.`type` = #{params.competitionId}</if>
+        <if test="params.status != null">and p.status = #{params.status}</if>
+        <if test="params.startTime != null">and s.start_time >= #{params.startTime}</if>
+        <if test="params.endTime != null">and s.end_time <![CDATA[ <= ]]> #{params.endTime}</if>
+        <if test="params.tenantId != null and params.tenantId != ''">and s.tenant_id = #{params.tenantId}</if>
+        ORDER BY s.start_time DESC, s.id DESC, p.freeze_profit_rate DESC, a.id asc
+        )b
+        )c
+        ORDER BY start_time desc,`rank` asc,profitRate asc
+    </select>
+
+    <select id="listPositionData" resultType="com.minigod.zero.manage.vo.simulatetrade.CompetitionPositionDataVO">
+        SELECT a.`type` competitionId, a.open_date openDate, s.competition_name competitionName,
+        a.user_id userId, p.id, p.asset_id assetId, p.qty, p.cost_price costPrice
+        FROM hold_stock p
+        LEFT JOIN simulate_account a ON p.simu_account_id=a.id
+        LEFT JOIN simulate_competition s ON a.`type`=s.id
+        WHERE a.`type`>1 AND a.state=1
+        <if test="params.competitionId != null">and s.id = #{params.competitionId}</if>
+        <if test="params.userId != null">and a.user_id = #{params.userId}</if>
+        <if test="params.stockCode != null and params.market != null">and p.asset_id = #{param.stockCode + '.' + param.market}</if>
+        <if test="params.tenantId != null and params.tenantId != ''">and s.tenant_id = #{params.tenantId}</if>
+        ORDER BY a.open_date DESC
+    </select>
+
+    <select id="listPositionDataByIds" resultType="com.minigod.zero.manage.vo.simulatetrade.CompetitionPositionDataVO">
+        SELECT a.`type` competitionId, a.open_date openDate, s.competition_name competitionName,
+        a.user_id userId, p.id, p.asset_id assetId, p.qty, p.cost_price costPrice
+        FROM hold_stock p
+        LEFT JOIN simulate_account a ON p.simu_account_id=a.id
+        LEFT JOIN simulate_competition s ON a.`type`=s.id
+        WHERE a.state=1
+        and p.id IN
+        <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        ORDER BY
+        FIND_IN_SET(p.id,<foreach item="id" index="index" collection="ids" separator=",">
+            #{id}
+        </foreach>)
+    </select>
+
+    <update id="updateHoldStock">
+        UPDATE hold_stock SET
+        qty =
+        <foreach collection="list" item="data" separator=" " open="case id" close="end">
+            <foreach collection="data" item="item" separator=" " open="when" close="then">
+                when #{item.id} then #{item.qty}
+            </foreach>
+        </foreach>,
+        cost_price =
+        <foreach collection="list" item="data" separator=" " open="case id" close="end">
+            <foreach collection="data" item="item" separator=" " open="when" close="then">
+                when #{item.id} then #{item.costPrice}
+            </foreach>
+        </foreach>
+        WHERE id IN
+        <foreach collection="list" item="data" open="(" close=")" separator=",">
+            #{data.id}
+        </foreach>
+        LIMIT #{limit}
+    </update>
+
+    <select id="listEntrustOrder" resultType="com.minigod.zero.manage.vo.simulatetrade.CompetitionEntrustOrderVO">
+        SELECT e.id,e.asset_id assetId, e.create_time orderTime, e.order_action orderAction, e.order_state orderState, e.order_qty orderQty,
+        e.order_price orderPrice, e.trade_qty tradeQty, e.trade_price tradePrice, e.entrust_type,
+        c.competition_name competitionName, c.update_time competitionUpdateTime, c.end_time endTime, a.user_id userId
+        FROM entrust_order e
+        LEFT JOIN simulate_account a ON a.id=e.simu_account_id
+        LEFT JOIN simulate_competition c ON c.id=a.`type`
+        WHERE a.`type`>1 AND a.state=1
+        <if test="params.competitionId != null">
+            AND c.id = #{params.competitionId}
+        </if>
+        <if test="params.userId != null">
+            AND a.user_id = #{params.userId}
+        </if>
+        <if test="params.assetId != null">
+            AND e.asset_id = #{params.assetId}
+        </if>
+        <if test="params.orderAction != null">
+            <choose>
+                <when test="params.orderAction == 1">
+                    AND e.order_action = #{params.orderAction}
+                    AND e.entrust_type = #{params.buyType}
+                </when>
+                <when test="params.orderAction == 2">
+                    AND e.order_action = #{params.orderAction}
+                    AND e.entrust_type = #{params.sellType}
+                </when>
+                <otherwise>
+                    AND e.entrust_type = #{params.entrustType}
+                </otherwise>
+            </choose>
+        </if>
+        <if test="params.orderState != null">
+            AND e.order_state = #{params.orderState}
+        </if>
+        <if test="params.startTime != null and params.startTime != ''">
+            AND e.create_time >= #{params.startTime}
+        </if>
+        <if test="params.endTime != null and params.endTime != ''">
+            AND e.create_time <![CDATA[ <= ]]> #{params.endTime}
+        </if>
+        <if test="params.tenantId != null and params.tenantId != ''">
+            AND c.tenant_id = #{params.tenantId}
+        </if>
+        ORDER BY e.update_time DESC
+    </select>
+
+    <select id="listEntrustOrderByIds" resultType="com.minigod.zero.manage.vo.simulatetrade.CompetitionEntrustOrderVO">
+        SELECT e.id,e.asset_id assetId, e.create_time orderTime, e.order_action orderAction, e.order_state orderState, e.order_qty orderQty,
+        e.order_price orderPrice, e.trade_qty tradeQty, e.trade_price tradePrice, e.entrust_type,
+        c.id competitionId, c.competition_name competitionName, c.update_time competitionUpdateTime, c.end_time endTime, a.user_id userId
+        FROM entrust_order e
+        LEFT JOIN simulate_account a ON a.id=e.simu_account_id
+        LEFT JOIN simulate_competition c ON c.id=a.`type`
+        WHERE a.state=1 and e.id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        ORDER BY e.update_time DESC
+    </select>
+
+    <select id="getSimulateAccoundId" resultType="java.lang.Long">
+        select id from simulate_account where user_id= #{userId} and `type` = #{competitionId} limit 1
+    </select>
+
+    <select id="listSimulateCompetitionIdName" resultType="com.minigod.zero.manage.vo.simulatetrade.SimulateCompetitionVO">
+        select id, competition_name competitionName from simulate_competition order by id desc
+    </select>
+
+    <select id="getSimulateCompetition" resultType="com.minigod.zero.manage.entity.SimulateCompetitionEntity">
+        select * from simulate_competition
+        where id = #{id}
+    </select>
+
+    <select id="getSysConfigKeyVal" resultType="java.lang.String">
+       select key_value from sys_config where module_name= #{moduleName} and key_name= #{keyName} limit 1
+    </select>
+
+    <delete id="deleteSimulateCompetitionFilterById">
+        delete from simulate_competition_filter where competition_id = #{competitionId}
+    </delete>
+
+    <insert id="saveSimulateCompetitionFilter">
+        insert into simulate_competition_filter(competition_id, user_id, create_time, update_time)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id}, #{item.userId}, #{item.createTime}, #{item.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="saveSimulateAccountFilter">
+        insert into simulate_account_filter(user_id, create_time, update_time, status)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.userId}, #{item.createTime}, #{item.updateTime},  #{item.status})
+        </foreach>
+    </insert>
+
+    <update id="updateSysConfigKeyVal">
+        update sys_config set key_value= #{keyValue} where module_name= #{moduleName} and key_name= #{keyName} limit 1
+    </update>
+
+    <update id="updateSimulateAccountTradeCount">
+        update simulate_account set trade_count= #{tradeCount}, update_time=now() where `type`= #{competitionId}
+    </update>
+
+    <update id="updateSimulateAccountState">
+        update simulate_account set state= #{state}, update_time=now() where `type` = #{competitionId}
+    </update>
+
+    <update id="updateSimulateAccountStateInUserIds">
+        update simulate_account set state= #{state}, update_time=now() where `type` = #{competitionId} and user_id in
+        <foreach collection="userIds" item="userId" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </update>
+
+    <update id="updateSimulateAccountStateNotInUserIds">
+        update simulate_account set state= #{state}, update_time=now() where `type` = #{competitionId} and user_id not in
+        <foreach collection="userIds" item="userId" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </update>
+
+    <update id="updateSimulateCompetition">
+        update simulate_competition
+        <set>
+            <if test="competitionName != null and competitionName != ''">
+                competition_name = #{competitionName},
+            </if>
+            <if test="conditionDescription != null and conditionDescription != ''">
+                condition_description = #{conditionDescription},
+            </if>
+            <if test="registerStartTime != null">
+                register_start_time = #{registerStartTime},
+            </if>
+            <if test="registerEndTime != null">
+                register_end_time = #{registerEndTime},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime},
+            </if>
+            <if test="promulgateTime != null">
+                promulgate_time = #{promulgateTime},
+            </if>
+            <if test="awardTime != null">
+                award_time = #{awardTime},
+            </if>
+            <if test="isEffective != null">
+                is_effective = #{isEffective},
+            </if>
+            <if test="priority != null">
+                priority = #{priority},
+            </if>
+            <if test="contentDescription != null and contentDescription != ''">
+                content_description = #{contentDescription},
+            </if>
+            <if test="attentionDescription != null and attentionDescription != ''">
+                attention_description = #{attentionDescription},
+            </if>
+            <if test="awardDescription != null and awardDescription != ''">
+                award_description = #{awardDescription},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="openMarketFlag != null">
+                open_market_flag = #{openMarketFlag},
+            </if>
+            <if test="filterType != null">
+                filter_type = #{filterType},
+            </if>
+            <if test="inviteCode != null and inviteCode != ''">
+                invite_code = #{inviteCode},
+            </if>
+            <if test="isInvite != null">
+                is_invite = #{isInvite},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <insert id="addSimulateCompetition">
+        insert into simulate_competition(competition_name, condition_description, register_start_time, register_end_time, start_time, end_time, promulgate_time, award_time, is_effective, priority, content_description, attention_description, award_description, create_time, update_time, open_market_flag, filter_type, invite_code, is_invite, tenant_id)
+        values (#{competitionName}, #{conditionDescription}, #{registerStartTime}, #{registerEndTime}, #{startTime}, #{endTime}, #{promulgateTime}, #{awardTime}, #{isEffective}, #{priority}, #{contentDescription}, #{attentionDescription}, #{awardDescription}, #{createTime}, #{updateTime}, #{openMarketFlag}, #{filterType}, #{inviteCode}, #{isInvite}, #{tenantId})
+    </insert>
+
+    <insert id="addSysConfigKeyVal">
+        insert into sys_config(module_name, key_name, remark, key_value, is_status, create_time, update_time, upd_version)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.moduleName}, #{item.keyName}, #{item.remark}, #{item.keyValue}, #{item.isStatus}, #{item.createTime}, #{item.updateTime}, #{item.updVersion})
+        </foreach>
+    </insert>
+
+    <select id="listSimulateAccountFilter" resultType="com.minigod.zero.manage.vo.simulatetrade.SimulateAccountFilterVO">
+        SELECT f.id, f.user_id, f.create_time, f.competition_id, c.competition_name, c.filter_type
+        FROM simulate_competition_filter f
+        LEFT JOIN simulate_competition c ON f.competition_id=c.id
+        <where>
+            <if test="params.competitionId != null">and f.competition_id = #{params.id}</if>
+            <if test="params.userId != null">and f.user_id = #{params.userId}</if>
+        </where>
+        order by f.competition_id asc, f.user_id asc
+    </select>
+
+    <select id="simulateAccountFilterList" resultType="com.minigod.zero.manage.entity.SimulateAccountFilterEntity">
+        SELECT *
+        FROM simulate_account_filter
+        <where>
+            <if test="params.userId != null">and user_id = #{params.userId}</if>
+            <if test="params.userIds != null and params.userIds.size > 0 ">
+                and user_id in
+                <foreach item="userId" index="index" collection="params.userIds" open="(" separator="," close=")">
+                    #{userId}
+                </foreach>
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="simulateAccountFilterListByIds" resultType="com.minigod.zero.manage.entity.SimulateAccountFilterEntity">
+        SELECT *
+        FROM simulate_account_filter
+        where id in
+        <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="simulateAccountFilterListByUserIds" resultType="com.minigod.zero.manage.entity.SimulateAccountFilterEntity">
+        SELECT *
+        FROM simulate_account_filter
+        where user_id in
+        <foreach item="userId" index="index" collection="userIds" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </select>
+
+    <update id="deleteSimulateAccountFilter">
+        update simulate_account_filter set status = 0, update_time = now()
+        where id in
+        <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="updateSimulateAccountFilterValid">
+        update simulate_account_filter set status = 1, update_time = now()
+        where user_id in
+        <foreach item="userId" index="index" collection="userIds" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </update>
+
+    <select id="selectSimulateCompetitionLastId" resultType="java.lang.Long">
+        select max(id) from simulate_competition
+    </select>
+</mapper>

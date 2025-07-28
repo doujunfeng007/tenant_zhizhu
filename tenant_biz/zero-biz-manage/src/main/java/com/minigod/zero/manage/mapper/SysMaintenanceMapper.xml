@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.SysMaintenanceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="sysMaintenanceResultMap" type="com.minigod.zero.manage.entity.SysMaintenanceEntity">
+        <result column="id" property="id"/>
+        <result column="sys_type" property="sysType"/>
+        <result column="login_state" property="loginState"/>
+        <result column="open_state" property="openState"/>
+        <result column="quot_level" property="quotLevel"/>
+        <result column="status" property="status"/>
+        <result column="force_time" property="forceTime"/>
+        <result column="dead_time" property="deadTime"/>
+        <result column="tips_content_hans" property="tipsContentHans"/>
+        <result column="tips_content_hant" property="tipsContentHant"/>
+        <result column="tips_content_en" property="tipsContentEn"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+
+    <select id="selectSysMaintenancePage" resultType="com.minigod.zero.manage.vo.SysMaintenanceVO">
+        select * from oms_sys_maintenance where is_deleted = 0
+        <if test="null !=sysMaintenance.sysType">
+            and sys_type = #{sysMaintenance.sysType}
+        </if>
+        <if test="null !=sysMaintenance.loginState">
+            and login_state = #{sysMaintenance.loginState}
+        </if>
+        <if test="null !=sysMaintenance.openState">
+            and open_state = #{sysMaintenance.openState}
+        </if>
+        <if test="null !=sysMaintenance.quotLevel">
+            and quot_level = #{sysMaintenance.quotLevel}
+        </if>
+        <if test="null !=sysMaintenance.status">
+            and status = #{sysMaintenance.status}
+        </if>
+        order by create_time desc
+    </select>
+
+
+</mapper>

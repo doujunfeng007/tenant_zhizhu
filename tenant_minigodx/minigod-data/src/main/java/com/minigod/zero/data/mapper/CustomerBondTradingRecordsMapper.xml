@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.CustomerBondTradingRecordsMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.CustomerBondTradingRecords">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="subAccountId" column="sub_account_id" jdbcType="VARCHAR"/>
+            <result property="submitDate" column="submit_date" jdbcType="TIMESTAMP"/>
+            <result property="settledDate" column="settled_date" jdbcType="TIMESTAMP"/>
+            <result property="confirmedDate" column="confirmed_date" jdbcType="TIMESTAMP"/>
+            <result property="rejectedDate" column="rejected_date" jdbcType="TIMESTAMP"/>
+            <result property="canceledDate" column="canceled_date" jdbcType="TIMESTAMP"/>
+            <result property="bondCode" column="bond_code" jdbcType="VARCHAR"/>
+            <result property="bondName" column="bond_name" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="INTEGER"/>
+            <result property="mode" column="mode" jdbcType="INTEGER"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="amount" column="amount" jdbcType="DECIMAL"/>
+            <result property="businessAmount" column="business_amount" jdbcType="DECIMAL"/>
+            <result property="businessBalance" column="business_balance" jdbcType="DECIMAL"/>
+            <result property="businessPrice" column="business_price" jdbcType="DECIMAL"/>
+            <result property="feeCount" column="fee_count" jdbcType="DECIMAL"/>
+            <result property="sequenceNo" column="sequence_no" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="statusDesc" column="status_desc" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+            <result column="transaction_gain_loss" jdbcType="DECIMAL" property="transactionGainLoss" />
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,sub_account_id,submit_date,
+        settled_date,confirmed_date,rejected_date,
+        canceled_date,bond_code,bond_name,
+        type,mode,currency,
+        amount,business_amount,business_balance,
+        business_price,fee_count,sequence_no,
+        status,status_desc,create_time,
+        update_time,is_deleted
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_bond_trading_records
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from customer_bond_trading_records
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.CustomerBondTradingRecords" useGeneratedKeys="true">
+        insert into customer_bond_trading_records
+        ( id,sub_account_id,submit_date
+        ,settled_date,confirmed_date,rejected_date
+        ,canceled_date,bond_code,bond_name
+        ,type,mode,currency
+        ,amount,business_amount,business_balance
+        ,business_price,fee_count,sequence_no
+        ,status,status_desc,create_time
+        ,update_time,is_deleted)
+        values (#{id,jdbcType=INTEGER},#{subAccountId,jdbcType=VARCHAR},#{submitDate,jdbcType=TIMESTAMP}
+        ,#{settledDate,jdbcType=TIMESTAMP},#{confirmedDate,jdbcType=TIMESTAMP},#{rejectedDate,jdbcType=TIMESTAMP}
+        ,#{canceledDate,jdbcType=TIMESTAMP},#{bondCode,jdbcType=VARCHAR},#{bondName,jdbcType=VARCHAR}
+        ,#{type,jdbcType=INTEGER},#{mode,jdbcType=INTEGER},#{currency,jdbcType=VARCHAR}
+        ,#{amount,jdbcType=DECIMAL},#{businessAmount,jdbcType=DECIMAL},#{businessBalance,jdbcType=DECIMAL}
+        ,#{businessPrice,jdbcType=DECIMAL},#{feeCount,jdbcType=DECIMAL},#{sequenceNo,jdbcType=INTEGER}
+        ,#{status,jdbcType=INTEGER},#{statusDesc,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}
+        ,#{updateTime,jdbcType=TIMESTAMP},#{isDeleted,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.CustomerBondTradingRecords" useGeneratedKeys="true">
+        insert into customer_bond_trading_records
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="subAccountId != null">sub_account_id,</if>
+                <if test="submitDate != null">submit_date,</if>
+                <if test="settledDate != null">settled_date,</if>
+                <if test="confirmedDate != null">confirmed_date,</if>
+                <if test="rejectedDate != null">rejected_date,</if>
+                <if test="canceledDate != null">canceled_date,</if>
+                <if test="bondCode != null">bond_code,</if>
+                <if test="bondName != null">bond_name,</if>
+                <if test="type != null">type,</if>
+                <if test="mode != null">mode,</if>
+                <if test="currency != null">currency,</if>
+                <if test="amount != null">amount,</if>
+                <if test="businessAmount != null">business_amount,</if>
+                <if test="businessBalance != null">business_balance,</if>
+                <if test="businessPrice != null">business_price,</if>
+                <if test="feeCount != null">fee_count,</if>
+                <if test="sequenceNo != null">sequence_no,</if>
+                <if test="status != null">status,</if>
+                <if test="statusDesc != null">status_desc,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="isDeleted != null">is_deleted,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="subAccountId != null">#{subAccountId,jdbcType=VARCHAR},</if>
+                <if test="submitDate != null">#{submitDate,jdbcType=TIMESTAMP},</if>
+                <if test="settledDate != null">#{settledDate,jdbcType=TIMESTAMP},</if>
+                <if test="confirmedDate != null">#{confirmedDate,jdbcType=TIMESTAMP},</if>
+                <if test="rejectedDate != null">#{rejectedDate,jdbcType=TIMESTAMP},</if>
+                <if test="canceledDate != null">#{canceledDate,jdbcType=TIMESTAMP},</if>
+                <if test="bondCode != null">#{bondCode,jdbcType=VARCHAR},</if>
+                <if test="bondName != null">#{bondName,jdbcType=VARCHAR},</if>
+                <if test="type != null">#{type,jdbcType=INTEGER},</if>
+                <if test="mode != null">#{mode,jdbcType=INTEGER},</if>
+                <if test="currency != null">#{currency,jdbcType=VARCHAR},</if>
+                <if test="amount != null">#{amount,jdbcType=DECIMAL},</if>
+                <if test="businessAmount != null">#{businessAmount,jdbcType=DECIMAL},</if>
+                <if test="businessBalance != null">#{businessBalance,jdbcType=DECIMAL},</if>
+                <if test="businessPrice != null">#{businessPrice,jdbcType=DECIMAL},</if>
+                <if test="feeCount != null">#{feeCount,jdbcType=DECIMAL},</if>
+                <if test="sequenceNo != null">#{sequenceNo,jdbcType=INTEGER},</if>
+                <if test="status != null">#{status,jdbcType=INTEGER},</if>
+                <if test="statusDesc != null">#{statusDesc,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="isDeleted != null">#{isDeleted,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.CustomerBondTradingRecords">
+        update customer_bond_trading_records
+        <set>
+                <if test="subAccountId != null">
+                    sub_account_id = #{subAccountId,jdbcType=VARCHAR},
+                </if>
+                <if test="submitDate != null">
+                    submit_date = #{submitDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="settledDate != null">
+                    settled_date = #{settledDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="confirmedDate != null">
+                    confirmed_date = #{confirmedDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="rejectedDate != null">
+                    rejected_date = #{rejectedDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="canceledDate != null">
+                    canceled_date = #{canceledDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="bondCode != null">
+                    bond_code = #{bondCode,jdbcType=VARCHAR},
+                </if>
+                <if test="bondName != null">
+                    bond_name = #{bondName,jdbcType=VARCHAR},
+                </if>
+                <if test="type != null">
+                    type = #{type,jdbcType=INTEGER},
+                </if>
+                <if test="mode != null">
+                    mode = #{mode,jdbcType=INTEGER},
+                </if>
+                <if test="currency != null">
+                    currency = #{currency,jdbcType=VARCHAR},
+                </if>
+                <if test="amount != null">
+                    amount = #{amount,jdbcType=DECIMAL},
+                </if>
+                <if test="businessAmount != null">
+                    business_amount = #{businessAmount,jdbcType=DECIMAL},
+                </if>
+                <if test="businessBalance != null">
+                    business_balance = #{businessBalance,jdbcType=DECIMAL},
+                </if>
+                <if test="businessPrice != null">
+                    business_price = #{businessPrice,jdbcType=DECIMAL},
+                </if>
+                <if test="feeCount != null">
+                    fee_count = #{feeCount,jdbcType=DECIMAL},
+                </if>
+                <if test="sequenceNo != null">
+                    sequence_no = #{sequenceNo,jdbcType=INTEGER},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=INTEGER},
+                </if>
+                <if test="statusDesc != null">
+                    status_desc = #{statusDesc,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted,jdbcType=INTEGER},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.CustomerBondTradingRecords">
+        update customer_bond_trading_records
+        set
+            sub_account_id =  #{subAccountId,jdbcType=VARCHAR},
+            submit_date =  #{submitDate,jdbcType=TIMESTAMP},
+            settled_date =  #{settledDate,jdbcType=TIMESTAMP},
+            confirmed_date =  #{confirmedDate,jdbcType=TIMESTAMP},
+            rejected_date =  #{rejectedDate,jdbcType=TIMESTAMP},
+            canceled_date =  #{canceledDate,jdbcType=TIMESTAMP},
+            bond_code =  #{bondCode,jdbcType=VARCHAR},
+            bond_name =  #{bondName,jdbcType=VARCHAR},
+            type =  #{type,jdbcType=INTEGER},
+            mode =  #{mode,jdbcType=INTEGER},
+            currency =  #{currency,jdbcType=VARCHAR},
+            amount =  #{amount,jdbcType=DECIMAL},
+            business_amount =  #{businessAmount,jdbcType=DECIMAL},
+            business_balance =  #{businessBalance,jdbcType=DECIMAL},
+            business_price =  #{businessPrice,jdbcType=DECIMAL},
+            fee_count =  #{feeCount,jdbcType=DECIMAL},
+            sequence_no =  #{sequenceNo,jdbcType=INTEGER},
+            status =  #{status,jdbcType=INTEGER},
+            status_desc =  #{statusDesc,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            is_deleted =  #{isDeleted,jdbcType=INTEGER}
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="selectBondTradingBackList"
+            resultType="com.minigod.zero.data.dto.CustomerBondTradingBackListDTO">
+        select
+        cbtr.id,
+        cbtr.sub_account_id as fundAccount,
+        cfta.trade_account as tradeAccount,
+        cfta.cust_id as custId,
+        cbtr.bond_code as bondCode,
+        cbtr.type as type,
+        cbtr.currency as currency,
+        cbtr.amount as amount,
+        cbtr.business_amount as businessAmount,
+        cbtr.business_balance as businessBalance,
+        cbtr.business_price as businessPrice,
+        cbtr.status as status,
+        cbtr.status_desc as statusDesc,
+        cbtr.create_time as createTime
+
+        from customer_bond_trading_records as cbtr
+        left join customer_bond_capital_account as cfca on cbtr.sub_account_id=cfca.sub_account
+        left join customer_bond_trading_account as cfta on cfca.trade_account=cfta.trade_account
+        <where>
+            <if test="custId != null">
+                and cfta.cust_id = #{custId}
+            </if>
+            <if test="tradeAccount!=null and tradeAccount!=''">
+                and cfca.trade_account = #{tradeAccount}
+            </if>
+            <if test="fundAccount!=null and fundAccount!=''">
+                and cbtr.sub_account_id = #{fundAccount}
+            </if>
+            <if test="bondCode!=null and bondCode!=''">
+                and cbtr.bond_code = #{bondCode}
+            </if>
+            <if test="tradeStartDate!=null and tradeEndDate!=null ">
+                and cbtr.create_time between #{tradeStartDate}  and #{tradeEndDate}
+            </if>
+
+        </where>
+        order by cbtr.create_time desc
+
+    </select>
+    <select id="fundHoldingList"
+            resultMap="BaseResultMap">
+        select
+        cbhr.*
+        from customer_bond_holding_records as cbhr
+        left join customer_bond_capital_account as cfca on cbhr.sub_account_id=cfca.fund_account
+        left join customer_bond_trading_account as cfta on cfca.trade_account=cfta.trade_account
+        <where>
+            <if test="custId != null">
+                and cfta.cust_id = #{custId}
+            </if>
+            <if test="tradeAccount!=null and tradeAccount!=''">
+                and cfca.trade_account = #{tradeAccount}
+            </if>
+            <if test="fundAccount!=null and fundAccount!=''">
+                and cbhr.sub_account_id = #{fundAccount}
+            </if>
+
+        </where>
+        order by cbhr.create_time desc
+    </select>
+    <select id="selectTradingAppList" resultType="com.minigod.zero.data.dto.CustomerHldTradingAppListDTO">
+        select
+        chtr.id,
+        chtr.submit_date as submitDate,
+        chtr.settled_date as settledDate,
+        chtr.confirmed_date as confirmedDate,
+        chtr.rejected_date as rejectedDate,
+        chtr.canceled_date as canceledDate,
+        chtr.status as status,
+        chtr.status_desc as statusDesc,
+        chtr.bond_code as bondCode,
+        chtr.bond_name as bondName,
+        chtr.type as type,
+        chtr.status as amount,
+        chtr.business_amount as businessAmount
+
+        from customer_bond_trading_records as chtr
+        left join customer_bond_capital_account as cfca on chtr.sub_account_id=cfca.sub_account
+        left join customer_bond_trading_account as cfta on cfca.trade_account=cfta.trade_account
+        where cfta.cust_id = #{userId}
+
+        <if test="time!=null">
+            and chtr.create_time > #{time}
+        </if>
+        <if test="type!=null and type!=''">
+            and chtr.type = #{type}
+        </if>
+        <if test="status!=null and status!=''">
+            and chtr.status = #{status}
+        </if>
+        <if test="type==null and type==''">
+            and (chtr.type = 1 or chtr.type = 2)
+        </if>
+        order by chtr.create_time desc
+
+    </select>
+</mapper>

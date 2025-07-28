@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.CustomerFundTradingRecordsMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.CustomerFundTradingRecords">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="subAccountId" column="sub_account_id" jdbcType="VARCHAR"/>
+            <result property="submitDate" column="submit_date" jdbcType="TIMESTAMP"/>
+            <result property="settledDate" column="settled_date" jdbcType="TIMESTAMP"/>
+            <result property="confirmedDate" column="confirmed_date" jdbcType="TIMESTAMP"/>
+            <result property="rejectedDate" column="rejected_date" jdbcType="TIMESTAMP"/>
+            <result property="canceledDate" column="canceled_date" jdbcType="TIMESTAMP"/>
+            <result property="fundCode" column="fund_code" jdbcType="VARCHAR"/>
+            <result property="fundName" column="fund_name" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="INTEGER"/>
+            <result property="mode" column="mode" jdbcType="INTEGER"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="amount" column="amount" jdbcType="DECIMAL"/>
+            <result property="businessAmount" column="business_amount" jdbcType="DECIMAL"/>
+            <result property="businessBalance" column="business_balance" jdbcType="DECIMAL"/>
+            <result property="businessPrice" column="business_price" jdbcType="DECIMAL"/>
+            <result property="feeCount" column="fee_count" jdbcType="DECIMAL"/>
+            <result property="sequenceNo" column="sequence_no" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="statusDesc" column="status_desc" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+            <result property="transactionGainLoss" column="transaction_gain_loss" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,sub_account_id,submit_date,
+        settled_date,confirmed_date,rejected_date,
+        canceled_date,fund_code,fund_name,
+        type,mode,currency,
+        amount,business_amount,business_balance,
+        business_price,fee_count,sequence_no,
+        status,status_desc,create_time,
+        update_time,is_deleted,transaction_gain_loss
+    </sql>
+</mapper>

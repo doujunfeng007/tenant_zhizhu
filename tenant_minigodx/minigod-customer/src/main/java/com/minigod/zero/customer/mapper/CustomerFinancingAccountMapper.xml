@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerFinancingAccountMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerFinancingAccountEntity">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="custId" column="cust_id" jdbcType="BIGINT"/>
+        <result property="tenantId" column="tenant_id" jdbcType="BIGINT"/>
+        <result property="accountId" column="account_id" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="transitedAmount" column="transited_amount" jdbcType="DECIMAL"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="updatePwdTime" column="update_pwd_time" jdbcType="TIMESTAMP"/>
+        <result property="accountType" column="account_type" jdbcType="INTEGER"/>
+        <result property="activationTime" column="activation_time" jdbcType="TIMESTAMP"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,cust_id,tenant_id,
+        account_id,password,status,create_time,
+        update_time,transited_amount,is_deleted,update_pwd_time,account_type,activation_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_financing_account
+        where  id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from customer_financing_account
+        where  id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerFinancingAccountEntity" useGeneratedKeys="true">
+        insert into customer_financing_account
+        ( id,cust_id,tenant_id
+        ,account_id,password,status,create_time
+        ,update_time,transited_amount,is_deleted,update_pwd_time,account_type,activation_time)
+        values (#{id,jdbcType=BIGINT},#{custId,jdbcType=BIGINT},#{tenantId,jdbcType=VARCHAR}
+               ,#{accountId,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP}
+               ,#{updateTime,jdbcType=TIMESTAMP},#{transitedAmount,jdbcType=DECIMAL}
+               ,#{isDeleted,jdbcType=TINYINT},#{updatePwdTime},#{accountType},#{activationTime})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerFinancingAccountEntity" useGeneratedKeys="true">
+        insert into customer_financing_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="custId != null">cust_id,</if>
+            <if test="tenantId != null">tenant_id,</if>
+            <if test="accountId != null">account_id,</if>
+            <if test="password != null">password,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="transitedAmount != null">transited_amount,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="updatePwdTime != null">update_pwd_time,</if>
+            <if test="accountType != null">account_type,</if>
+            <if test="activationTime != null">activation_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=BIGINT},</if>
+            <if test="custId != null">#{custId,jdbcType=BIGINT},</if>
+            <if test="tenantId != null">#{tenantId,jdbcType=VARCHAR},</if>
+            <if test="accountId != null">#{accountId,jdbcType=VARCHAR},</if>
+            <if test="password != null">#{password,jdbcType=VARCHAR},</if>
+
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="transitedAmount != null">#{transitedAmount,jdbcType=DECIMAL},</if>
+            <if test="isDeleted != null">#{isDeleted,jdbcType=TINYINT},</if>
+            <if test="updatePwdTime != null">#{updatePwdTime},</if>
+            <if test="accountType != null">#{accountType},</if>
+            <if test="activationTime != null">#{activationTime},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.CustomerFinancingAccountEntity">
+        update customer_financing_account
+        <set>
+            <if test="custId != null">
+                cust_id = #{custId,jdbcType=BIGINT},
+            </if>
+            <if test="tenantId != null">
+                tenant_id = #{tenantId,jdbcType=VARCHAR},
+            </if>
+            <if test="accountId != null">
+                account_id = #{accountId,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="transitedAmount != null">
+                transited_amount = #{transitedAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="updatePwdTime != null">
+                update_pwd_time = #{updatePwdTime},
+            </if>
+            <if test="accountType != null">
+                account_type = #{accountType},
+            </if>
+            <if test="activationTime != null">
+                activation_time = #{activationTime},
+            </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.CustomerFinancingAccountEntity">
+        update customer_financing_account
+        set
+            cust_id =  #{custId,jdbcType=BIGINT},
+            tenant_id =  #{tenantId,jdbcType=VARCHAR},
+            account_id =  #{accountId,jdbcType=VARCHAR},
+            password =  #{password,jdbcType=VARCHAR},
+            status =  #{status,jdbcType=INTEGER},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            transited_amount =  #{transitedAmount,jdbcType=DECIMAL},
+            is_deleted =  #{isDeleted,jdbcType=TINYINT},
+            update_pwd_time = #{updatePwdTime},
+            account_type = #{accountType},
+            activation_time = #{activationTime}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectCustomerFinancingAccountPage" resultMap="BaseResultMap">
+        select * from customer_financing_account where is_deleted = 0
+    </select>
+
+    <select id="selectByCustId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select * from customer_financing_account where cust_id =#{custId}
+    </select>
+
+    <update id="updateByAccountId" parameterType="com.minigod.zero.customer.vo.CustomerAccountBalanceVO">
+        update customer_financing_account
+        set available_amount =#{availableAmount},freeze_amount = #{freezeAmount},available_amount = #{availableAmount}
+        where account_id = #{accountId}
+    </update>
+
+    <update id="freezeAvailableAmount" parameterType="java.lang.Object">
+        update customer_financing_account set available_amount = available_amount - #{amount},freeze_amount= freeze_amount + #{amount} ,update_time  = now()
+        where id = #{id} and available_amount >= #{amount}
+    </update>
+
+    <update id="reduceFreezeAmount" parameterType="java.lang.Object">
+        update customer_financing_account set freeze_amount= freeze_amount - #{amount} ,update_time  = now()
+        where id = #{id} and freeze_amount >= #{amount}
+    </update>
+
+    <update id="freezeToAvailableAmount" parameterType="java.lang.Object">
+        update customer_financing_account set available_amount = available_amount + #{amount},freeze_amount= freeze_amount - #{amount} ,update_time  = now()
+        where id = #{id} and freeze_amount > #{amount}
+    </update>
+
+    <select id="selectByAccountId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from customer_financing_account where account_id =#{accountId}
+    </select>
+
+    <select id="selectAllAccount" resultMap="BaseResultMap">
+        select * from customer_financing_account where status in (0,5)
+    </select>
+
+    <select id="selectByAccountIdAndTenantId" resultMap="BaseResultMap" parameterType="java.lang.Object">
+        select * from customer_financing_account where account_id =#{accountId} and tenant_id =#{tenantId}
+    </select>
+
+</mapper>

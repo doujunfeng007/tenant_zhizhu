@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.ClientFundDepositInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.ClientFundDepositInfo">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+            <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+            <result property="bizId" column="biz_id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="clientId" column="client_id" jdbcType="VARCHAR"/>
+            <result property="fundAccount" column="fund_account" jdbcType="VARCHAR"/>
+            <result property="swiftCode" column="swift_code" jdbcType="VARCHAR"/>
+            <result property="bankType" column="bank_type" jdbcType="INTEGER"/>
+            <result property="remittanceType" column="remittance_type" jdbcType="INTEGER"/>
+            <result property="remittanceBankName" column="remittance_bank_name" jdbcType="VARCHAR"/>
+            <result property="remittanceAccount" column="remittance_account" jdbcType="VARCHAR"/>
+            <result property="remittanceAccountName" column="remittance_account_name" jdbcType="VARCHAR"/>
+            <result property="remittanceBankCode" column="remittance_bank_code" jdbcType="VARCHAR"/>
+            <result property="remittanceBankId" column="remittance_bank_id" jdbcType="VARCHAR"/>
+            <result property="receivingBankName" column="receiving_bank_name" jdbcType="VARCHAR"/>
+            <result property="receivingBankCode" column="receiving_bank_code" jdbcType="VARCHAR"/>
+            <result property="receivingAccount" column="receiving_account" jdbcType="VARCHAR"/>
+            <result property="receivingAccountName" column="receiving_account_name" jdbcType="VARCHAR"/>
+            <result property="receivingAddress" column="receiving_address" jdbcType="VARCHAR"/>
+            <result property="depositBalance" column="deposit_balance" jdbcType="DECIMAL"/>
+            <result property="applicationTime" column="application_time" jdbcType="TIMESTAMP"/>
+            <result property="moneyType" column="money_type" jdbcType="INTEGER"/>
+            <result property="hsBankId" column="hs_bank_id" jdbcType="VARCHAR"/>
+            <result property="hsBankAccount" column="hs_bank_account" jdbcType="VARCHAR"/>
+            <result property="hsDealStatus" column="hs_deal_status" jdbcType="INTEGER"/>
+            <result property="entryTime" column="entry_time" jdbcType="TIMESTAMP"/>
+            <result property="retryCount" column="retry_count" jdbcType="INTEGER"/>
+            <result property="firstDepFlag" column="first_dep_flag" jdbcType="CHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="receivingAmount" column="receiving_amount" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,application_id,tenant_id,
+        biz_id,user_id,client_id,
+        fund_account,swift_code,bank_type,
+        remittance_type,remittance_bank_name,remittance_account,
+        remittance_account_name,remittance_bank_code,remittance_bank_id,
+        receiving_bank_name,receiving_bank_code,receiving_account,
+        receiving_account_name,receiving_address,deposit_balance,
+        application_time,money_type,hs_bank_id,
+        hs_bank_account,hs_deal_status,entry_time,
+        retry_count,first_dep_flag,create_time,
+        update_time,receiving_amount
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from client_fund_deposit_info
+        where  id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from client_fund_deposit_info
+        where  id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.ClientFundDepositInfo" useGeneratedKeys="true">
+        insert into client_fund_deposit_info
+        ( id,application_id,tenant_id
+        ,biz_id,user_id,client_id
+        ,fund_account,swift_code,bank_type
+        ,remittance_type,remittance_bank_name,remittance_account
+        ,remittance_account_name,remittance_bank_code,remittance_bank_id
+        ,receiving_bank_name,receiving_bank_code,receiving_account
+        ,receiving_account_name,receiving_address,deposit_balance
+        ,application_time,money_type,hs_bank_id
+        ,hs_bank_account,hs_deal_status,entry_time
+        ,retry_count,first_dep_flag,create_time
+        ,update_time,receiving_amount)
+        values (#{id,jdbcType=BIGINT},#{applicationId,jdbcType=VARCHAR},#{tenantId,jdbcType=VARCHAR}
+        ,#{bizId,jdbcType=BIGINT},#{userId,jdbcType=BIGINT},#{clientId,jdbcType=VARCHAR}
+        ,#{fundAccount,jdbcType=VARCHAR},#{swiftCode,jdbcType=VARCHAR},#{bankType,jdbcType=INTEGER}
+        ,#{remittanceType,jdbcType=INTEGER},#{remittanceBankName,jdbcType=VARCHAR},#{remittanceAccount,jdbcType=VARCHAR}
+        ,#{remittanceAccountName,jdbcType=VARCHAR},#{remittanceBankCode,jdbcType=VARCHAR},#{remittanceBankId,jdbcType=VARCHAR}
+        ,#{receivingBankName,jdbcType=VARCHAR},#{receivingBankCode,jdbcType=VARCHAR},#{receivingAccount,jdbcType=VARCHAR}
+        ,#{receivingAccountName,jdbcType=VARCHAR},#{receivingAddress,jdbcType=VARCHAR},#{depositBalance,jdbcType=DECIMAL}
+        ,#{applicationTime,jdbcType=TIMESTAMP},#{moneyType,jdbcType=INTEGER},#{hsBankId,jdbcType=VARCHAR}
+        ,#{hsBankAccount,jdbcType=VARCHAR},#{hsDealStatus,jdbcType=INTEGER},#{entryTime,jdbcType=TIMESTAMP}
+        ,#{retryCount,jdbcType=INTEGER},#{firstDepFlag,jdbcType=CHAR},#{createTime,jdbcType=TIMESTAMP}
+        ,#{updateTime,jdbcType=TIMESTAMP},#{receivingAmount,jdbcType=DECIMAL})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.ClientFundDepositInfo" useGeneratedKeys="true">
+        insert into client_fund_deposit_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="applicationId != null">application_id,</if>
+                <if test="tenantId != null">tenant_id,</if>
+                <if test="bizId != null">biz_id,</if>
+                <if test="userId != null">user_id,</if>
+                <if test="clientId != null">client_id,</if>
+                <if test="fundAccount != null">fund_account,</if>
+                <if test="swiftCode != null">swift_code,</if>
+                <if test="bankType != null">bank_type,</if>
+                <if test="remittanceType != null">remittance_type,</if>
+                <if test="remittanceBankName != null">remittance_bank_name,</if>
+                <if test="remittanceAccount != null">remittance_account,</if>
+                <if test="remittanceAccountName != null">remittance_account_name,</if>
+                <if test="remittanceBankCode != null">remittance_bank_code,</if>
+                <if test="remittanceBankId != null">remittance_bank_id,</if>
+                <if test="receivingBankName != null">receiving_bank_name,</if>
+                <if test="receivingBankCode != null">receiving_bank_code,</if>
+                <if test="receivingAccount != null">receiving_account,</if>
+                <if test="receivingAccountName != null">receiving_account_name,</if>
+                <if test="receivingAddress != null">receiving_address,</if>
+                <if test="depositBalance != null">deposit_balance,</if>
+                <if test="applicationTime != null">application_time,</if>
+                <if test="moneyType != null">money_type,</if>
+                <if test="hsBankId != null">hs_bank_id,</if>
+                <if test="hsBankAccount != null">hs_bank_account,</if>
+                <if test="hsDealStatus != null">hs_deal_status,</if>
+                <if test="entryTime != null">entry_time,</if>
+                <if test="retryCount != null">retry_count,</if>
+                <if test="firstDepFlag != null">first_dep_flag,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="receivingAmount != null">receiving_amount,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="applicationId != null">#{applicationId,jdbcType=VARCHAR},</if>
+                <if test="tenantId != null">#{tenantId,jdbcType=VARCHAR},</if>
+                <if test="bizId != null">#{bizId,jdbcType=BIGINT},</if>
+                <if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+                <if test="clientId != null">#{clientId,jdbcType=VARCHAR},</if>
+                <if test="fundAccount != null">#{fundAccount,jdbcType=VARCHAR},</if>
+                <if test="swiftCode != null">#{swiftCode,jdbcType=VARCHAR},</if>
+                <if test="bankType != null">#{bankType,jdbcType=INTEGER},</if>
+                <if test="remittanceType != null">#{remittanceType,jdbcType=INTEGER},</if>
+                <if test="remittanceBankName != null">#{remittanceBankName,jdbcType=VARCHAR},</if>
+                <if test="remittanceAccount != null">#{remittanceAccount,jdbcType=VARCHAR},</if>
+                <if test="remittanceAccountName != null">#{remittanceAccountName,jdbcType=VARCHAR},</if>
+                <if test="remittanceBankCode != null">#{remittanceBankCode,jdbcType=VARCHAR},</if>
+                <if test="remittanceBankId != null">#{remittanceBankId,jdbcType=VARCHAR},</if>
+                <if test="receivingBankName != null">#{receivingBankName,jdbcType=VARCHAR},</if>
+                <if test="receivingBankCode != null">#{receivingBankCode,jdbcType=VARCHAR},</if>
+                <if test="receivingAccount != null">#{receivingAccount,jdbcType=VARCHAR},</if>
+                <if test="receivingAccountName != null">#{receivingAccountName,jdbcType=VARCHAR},</if>
+                <if test="receivingAddress != null">#{receivingAddress,jdbcType=VARCHAR},</if>
+                <if test="depositBalance != null">#{depositBalance,jdbcType=DECIMAL},</if>
+                <if test="applicationTime != null">#{applicationTime,jdbcType=TIMESTAMP},</if>
+                <if test="moneyType != null">#{moneyType,jdbcType=INTEGER},</if>
+                <if test="hsBankId != null">#{hsBankId,jdbcType=VARCHAR},</if>
+                <if test="hsBankAccount != null">#{hsBankAccount,jdbcType=VARCHAR},</if>
+                <if test="hsDealStatus != null">#{hsDealStatus,jdbcType=INTEGER},</if>
+                <if test="entryTime != null">#{entryTime,jdbcType=TIMESTAMP},</if>
+                <if test="retryCount != null">#{retryCount,jdbcType=INTEGER},</if>
+                <if test="firstDepFlag != null">#{firstDepFlag,jdbcType=CHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="receivingAmount != null">#{receivingAmount,jdbcType=DECIMAL},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.ClientFundDepositInfo">
+        update client_fund_deposit_info
+        <set>
+                <if test="applicationId != null">
+                    application_id = #{applicationId,jdbcType=VARCHAR},
+                </if>
+                <if test="tenantId != null">
+                    tenant_id = #{tenantId,jdbcType=VARCHAR},
+                </if>
+                <if test="bizId != null">
+                    biz_id = #{bizId,jdbcType=BIGINT},
+                </if>
+                <if test="userId != null">
+                    user_id = #{userId,jdbcType=BIGINT},
+                </if>
+                <if test="clientId != null">
+                    client_id = #{clientId,jdbcType=VARCHAR},
+                </if>
+                <if test="fundAccount != null">
+                    fund_account = #{fundAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="swiftCode != null">
+                    swift_code = #{swiftCode,jdbcType=VARCHAR},
+                </if>
+                <if test="bankType != null">
+                    bank_type = #{bankType,jdbcType=INTEGER},
+                </if>
+                <if test="remittanceType != null">
+                    remittance_type = #{remittanceType,jdbcType=INTEGER},
+                </if>
+                <if test="remittanceBankName != null">
+                    remittance_bank_name = #{remittanceBankName,jdbcType=VARCHAR},
+                </if>
+                <if test="remittanceAccount != null">
+                    remittance_account = #{remittanceAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="remittanceAccountName != null">
+                    remittance_account_name = #{remittanceAccountName,jdbcType=VARCHAR},
+                </if>
+                <if test="remittanceBankCode != null">
+                    remittance_bank_code = #{remittanceBankCode,jdbcType=VARCHAR},
+                </if>
+                <if test="remittanceBankId != null">
+                    remittance_bank_id = #{remittanceBankId,jdbcType=VARCHAR},
+                </if>
+                <if test="receivingBankName != null">
+                    receiving_bank_name = #{receivingBankName,jdbcType=VARCHAR},
+                </if>
+                <if test="receivingBankCode != null">
+                    receiving_bank_code = #{receivingBankCode,jdbcType=VARCHAR},
+                </if>
+                <if test="receivingAccount != null">
+                    receiving_account = #{receivingAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="receivingAccountName != null">
+                    receiving_account_name = #{receivingAccountName,jdbcType=VARCHAR},
+                </if>
+                <if test="receivingAddress != null">
+                    receiving_address = #{receivingAddress,jdbcType=VARCHAR},
+                </if>
+                <if test="depositBalance != null">
+                    deposit_balance = #{depositBalance,jdbcType=DECIMAL},
+                </if>
+                <if test="applicationTime != null">
+                    application_time = #{applicationTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="moneyType != null">
+                    money_type = #{moneyType,jdbcType=INTEGER},
+                </if>
+                <if test="hsBankId != null">
+                    hs_bank_id = #{hsBankId,jdbcType=VARCHAR},
+                </if>
+                <if test="hsBankAccount != null">
+                    hs_bank_account = #{hsBankAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="hsDealStatus != null">
+                    hs_deal_status = #{hsDealStatus,jdbcType=INTEGER},
+                </if>
+                <if test="entryTime != null">
+                    entry_time = #{entryTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="retryCount != null">
+                    retry_count = #{retryCount,jdbcType=INTEGER},
+                </if>
+                <if test="firstDepFlag != null">
+                    first_dep_flag = #{firstDepFlag,jdbcType=CHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="receivingAmount != null">
+                    receiving_amount = #{receivingAmount,jdbcType=DECIMAL},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.ClientFundDepositInfo">
+        update client_fund_deposit_info
+        set
+            application_id =  #{applicationId,jdbcType=VARCHAR},
+            tenant_id =  #{tenantId,jdbcType=VARCHAR},
+            biz_id =  #{bizId,jdbcType=BIGINT},
+            user_id =  #{userId,jdbcType=BIGINT},
+            client_id =  #{clientId,jdbcType=VARCHAR},
+            fund_account =  #{fundAccount,jdbcType=VARCHAR},
+            swift_code =  #{swiftCode,jdbcType=VARCHAR},
+            bank_type =  #{bankType,jdbcType=INTEGER},
+            remittance_type =  #{remittanceType,jdbcType=INTEGER},
+            remittance_bank_name =  #{remittanceBankName,jdbcType=VARCHAR},
+            remittance_account =  #{remittanceAccount,jdbcType=VARCHAR},
+            remittance_account_name =  #{remittanceAccountName,jdbcType=VARCHAR},
+            remittance_bank_code =  #{remittanceBankCode,jdbcType=VARCHAR},
+            remittance_bank_id =  #{remittanceBankId,jdbcType=VARCHAR},
+            receiving_bank_name =  #{receivingBankName,jdbcType=VARCHAR},
+            receiving_bank_code =  #{receivingBankCode,jdbcType=VARCHAR},
+            receiving_account =  #{receivingAccount,jdbcType=VARCHAR},
+            receiving_account_name =  #{receivingAccountName,jdbcType=VARCHAR},
+            receiving_address =  #{receivingAddress,jdbcType=VARCHAR},
+            deposit_balance =  #{depositBalance,jdbcType=DECIMAL},
+            application_time =  #{applicationTime,jdbcType=TIMESTAMP},
+            money_type =  #{moneyType,jdbcType=INTEGER},
+            hs_bank_id =  #{hsBankId,jdbcType=VARCHAR},
+            hs_bank_account =  #{hsBankAccount,jdbcType=VARCHAR},
+            hs_deal_status =  #{hsDealStatus,jdbcType=INTEGER},
+            entry_time =  #{entryTime,jdbcType=TIMESTAMP},
+            retry_count =  #{retryCount,jdbcType=INTEGER},
+            first_dep_flag =  #{firstDepFlag,jdbcType=CHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            receiving_amount =  #{receivingAmount,jdbcType=DECIMAL}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="getDepositStats" resultType="com.minigod.zero.data.vo.ClientDepositStatVO">
+        SELECT
+        COALESCE(SUM(CASE WHEN money_type = 3 THEN receiving_amount ELSE 0 END), 0) as cnyTotal,
+        COALESCE(SUM(CASE WHEN money_type = 2 THEN receiving_amount ELSE 0 END), 0) as usdTotal,
+        COALESCE(SUM(CASE WHEN money_type = 1 THEN receiving_amount ELSE 0 END), 0) as hkdTotal
+        FROM client_fund_deposit_info
+        WHERE hs_deal_status = 1  <!-- 只统计处理成功的记录 -->
+    </select>
+</mapper>

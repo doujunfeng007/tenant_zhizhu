@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpm.mapper.AcctOpenOfflineMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="acctOpenOfflineResultMap" type="com.minigod.zero.bpm.entity.AcctOpenOfflineEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="info" property="info"/>
+        <result column="push_recved" property="pushRecved"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+
+    <select id="selectAcctOpenOfflinePage" resultMap="acctOpenOfflineResultMap">
+        select * from acct_open_offline where is_deleted = 0
+    </select>
+
+
+</mapper>

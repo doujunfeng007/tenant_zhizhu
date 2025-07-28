@@ -1,0 +1,120 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "mysqlreader",
+          "parameter": {
+            "username": "BGiv1Nj/RkA62kCvYRpURw==",
+            "password": "jJ1jarzC1lh43N/bEGp/Fw==",
+            "column": [
+              "`id`",
+              "`application_id`",
+              "`tenant_id`",
+              "`biz_id`",
+              "`user_id`",
+              "`client_id`",
+              "`fund_account`",
+              "`swift_code`",
+              "`bank_type`",
+              "`remittance_type`",
+              "`remittance_bank_name`",
+              "`remittance_account`",
+              "`remittance_account_name`",
+              "`remittance_bank_code`",
+              "`remittance_bank_id`",
+              "`receiving_bank_name`",
+              "`receiving_bank_code`",
+              "`receiving_account`",
+              "`receiving_account_name`",
+              "`receiving_address`",
+              "`deposit_balance`",
+              "`application_time`",
+              "`money_type`",
+              "`hs_bank_id`",
+              "`hs_bank_account`",
+              "`hs_deal_status`",
+              "`entry_time`",
+              "`retry_count`",
+              "`first_dep_flag`",
+              "`create_time`",
+              "`update_time`",
+              "`receiving_amount`"
+            ],
+            "splitPk": "",
+            "where": "create_time >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY) OR update_time >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY )",
+            "connection": [
+              {
+                "table": [
+                  "client_fund_deposit_info"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://203.86.123.168:43436/zero_bpmn?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "username": "x23iAGFtBmYzhTgDDjvFPg==",
+            "password": "sTO8zolMP4HE+FE4/Q/juOlJhAfkZyhMvpevvHYrEc8=",
+            "column": [
+              "`id`",
+              "`application_id`",
+              "`tenant_id`",
+              "`biz_id`",
+              "`user_id`",
+              "`client_id`",
+              "`fund_account`",
+              "`swift_code`",
+              "`bank_type`",
+              "`remittance_type`",
+              "`remittance_bank_name`",
+              "`remittance_account`",
+              "`remittance_account_name`",
+              "`remittance_bank_code`",
+              "`remittance_bank_id`",
+              "`receiving_bank_name`",
+              "`receiving_bank_code`",
+              "`receiving_account`",
+              "`receiving_account_name`",
+              "`receiving_address`",
+              "`deposit_balance`",
+              "`application_time`",
+              "`money_type`",
+              "`hs_bank_id`",
+              "`hs_bank_account`",
+              "`hs_deal_status`",
+              "`entry_time`",
+              "`retry_count`",
+              "`first_dep_flag`",
+              "`create_time`",
+              "`update_time`",
+              "`receiving_amount`"
+            ],
+            "writeMode": "update",
+            "connection": [
+              {
+                "table": [
+                  "client_fund_deposit_info"
+                ],
+                "jdbcUrl": "jdbc:mysql://203.86.123.168:43436/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

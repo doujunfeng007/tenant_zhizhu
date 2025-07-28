@@ -1,0 +1,6 @@
+#minigod-customer-dev.yaml
+cust:
+    #旧密码修改超时时间
+    pwdStatusDayNum: 180
+
+#----------------#

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.minigod.zero.manage.mapper.SnCouponManageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.minigod.zero.manage.entity.SnCouponManageEntity">
+        <id column="id" property="id"/>
+        <result column="card_type" property="cardType"/>
+        <result column="card_name" property="cardName"/>
+        <result column="card_id" property="cardId"/>
+        <result column="use_type" property="useType"/>
+        <result column="amount" property="amount"/>
+        <result column="expired_time" property="expiredTime"/>
+        <result column="channel_id" property="channelId"/>
+        <result column="create_number" property="createNumber"/>
+        <result column="use_validity_day" property="useValidityDay"/>
+        <result column="reward_condition" property="rewardCondition"/>
+        <result column="exchange_max_number" property="exchangeMaxNumber"/>
+        <result column="send_mobile_msg" property="sendMobileMsg"/>
+        <result column="send_mobile_msg_content" property="sendMobileMsgContent"/>
+        <result column="remark" property="remark"/>
+        <result column="opr_name" property="oprName"/>
+        <result column="code" property="code"/>
+        <result column="use_status" property="useStatus"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, card_type, card_name, card_id, use_type, amount, expired_time,
+        channel_id, create_number, use_validity_day, reward_condition,
+        exchange_max_number, send_mobile_msg, send_mobile_msg_content,
+        remark, opr_name, code, use_status, create_time, update_time,
+        create_user, update_user, is_deleted, tenant_id, create_dept, status
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_coupon_manage
+        WHERE is_deleted = 0
+        <if test="cardName != null and cardName != ''">
+            AND card_name LIKE CONCAT('%', #{cardName}, '%')
+        </if>
+        <if test="channelId != null and channelId != ''">
+            AND channel_id = #{channelId}
+        </if>
+        <if test="useType != null">
+            AND use_type = #{useType}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 查询有效的优惠券 -->
+    <select id="queryValidCoupons" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_coupon_manage
+        WHERE is_deleted = 0
+        AND status = 0
+        AND use_status = 0
+        AND expired_time > NOW()
+        <if test="channelId != null and channelId != ''">
+            AND channel_id = #{channelId}
+        </if>
+        <if test="useType != null">
+            AND use_type = #{useType}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 根据兑换码查询优惠券 -->
+    <select id="getByCode" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_coupon_manage
+        WHERE is_deleted = 0
+        AND code = #{code}
+        LIMIT 1
+    </select>
+
+    <!-- 更新优惠券使用状态 -->
+    <update id="updateUseStatus">
+        UPDATE sn_coupon_manage
+        SET use_status = #{useStatus},
+            update_time = NOW()
+        WHERE id = #{id}
+          AND is_deleted = 0
+          AND use_status != #{useStatus}
+    </update>
+
+</mapper>

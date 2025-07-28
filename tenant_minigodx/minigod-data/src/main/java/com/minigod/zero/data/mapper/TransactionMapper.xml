@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.TransactionMapper">
+    <!-- 基础结果映射 -->
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.Transaction">
+        <id column="id" property="id" />
+        <result column="nomineeTransId" property="nomineeTransId" />
+        <result column="orderId" property="orderId" />
+        <result column="subAccountId" property="subAccountId" />
+        <result column="type" property="type" />
+        <result column="mode" property="mode" />
+        <result column="fundCode" property="fundCode" />
+        <result column="currency" property="currency" />
+        <result column="amount" property="amount" />
+        <result column="quantity" property="quantity" />
+        <result column="price" property="price" />
+        <result column="transactionDate" property="transactionDate" />
+        <result column="confirmedDate" property="confirmedDate" />
+        <result column="expectedSettledDate" property="expectedSettledDate" />
+        <result column="settledDate" property="settledDate" />
+        <result column="effectiveSettledDate" property="effectiveSettledDate" />
+        <result column="settledAmount" property="settledAmount" />
+        <result column="gainLoss" property="gainLoss" />
+        <result column="fee" property="fee" />
+        <result column="source" property="source" />
+        <result column="location" property="location" />
+        <result column="remark" property="remark" />
+        <result column="status" property="status" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用列定义 -->
+    <sql id="Base_Column_List">
+        id, nomineeTransId, orderId, subAccountId, type, mode, fundCode, currency,
+        amount, quantity, price, transactionDate, confirmedDate, expectedSettledDate,
+        settledDate, effectiveSettledDate, settledAmount, gainLoss, fee, source,
+        location, remark, status, createTime, updateTime
+    </sql>
+
+    <!-- 根据主键查询 -->
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />
+        from t_transaction
+        where id = #{id}
+    </select>
+
+    <!-- 插入完整记录 -->
+    <insert id="insert" parameterType="com.minigod.zero.data.entity.Transaction">
+        insert into t_transaction
+        (<include refid="Base_Column_List" />)
+        values (
+        #{id}, #{nomineeTransId}, #{orderId}, #{subAccountId}, #{type}, #{mode},
+        #{fundCode}, #{currency}, #{amount}, #{quantity}, #{price}, #{transactionDate},
+        #{confirmedDate}, #{expectedSettledDate}, #{settledDate}, #{effectiveSettledDate},
+        #{settledAmount}, #{gainLoss}, #{fee}, #{source}, #{location}, #{remark},
+        #{status}, #{createTime}, #{updateTime}
+        )
+    </insert>
+
+    <!-- 选择性插入 -->
+    <insert id="insertSelective" parameterType="com.minigod.zero.data.entity.Transaction">
+        insert into t_transaction
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="nomineeTransId != null">nomineeTransId,</if>
+            <!-- 其他字段类似 -->
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="nomineeTransId != null">#{nomineeTransId},</if>
+            <!-- 其他字段类似 -->
+        </trim>
+    </insert>
+
+    <!-- 选择性更新 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.Transaction">
+        update t_transaction
+        <set>
+            <if test="nomineeTransId != null">nomineeTransId = #{nomineeTransId},</if>
+            <if test="orderId != null">orderId = #{orderId},</if>
+            <!-- 其他字段类似 -->
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 完整更新 -->
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.Transaction">
+        update t_transaction
+        set nomineeTransId = #{nomineeTransId},
+        orderId = #{orderId},
+        subAccountId = #{subAccountId},
+        <!-- 其他字段类似 -->
+        where id = #{id}
+    </update>
+
+    <!-- 条件查询 -->
+    <select id="selectByCondition" parameterType="com.minigod.zero.data.entity.Transaction" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />
+        from t_transaction
+        <where>
+            <if test="nomineeTransId != null">and nomineeTransId = #{nomineeTransId}</if>
+            <if test="orderId != null">and orderId = #{orderId}</if>
+            <!-- 其他条件类似 -->
+        </where>
+    </select>
+
+    <!-- 根据主键删除 -->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_transaction where id = #{id}
+    </delete>
+</mapper>

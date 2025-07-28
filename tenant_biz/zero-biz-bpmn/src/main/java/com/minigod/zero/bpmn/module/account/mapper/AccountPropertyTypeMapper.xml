@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountPropertyTypeMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_property_typeResultMap"
+               type="com.minigod.zero.bpmn.module.account.entity.AccountPropertyTypeEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="property_type" property="propertyType"/>
+        <result column="property_amount" property="propertyAmount"/>
+    </resultMap>
+    <resultMap type="com.minigod.zero.bpmn.module.account.vo.AccountPropertyTypeVO" id="OpenAccountPropertyTypeResultVo"
+               extends="account_property_typeResultMap">
+    </resultMap>
+    <select id="queryListByApplicationId" resultMap="OpenAccountPropertyTypeResultVo">
+        select *
+        from open_account_property_type
+        where application_id = #{applicationId}
+    </select>
+</mapper>

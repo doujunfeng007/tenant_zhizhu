@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.withdraw.mapper.DbsRemitReqLogMapper">
+
+    <resultMap type="com.minigod.zero.bpmn.module.withdraw.entity.DbsRemitReqLog" id="DbsRemitReqLogResult">
+        <result property="id" column="id"/>
+        <result property="applicationId" column="application_id"/>
+        <result property="txnType" column="txn_type"/>
+        <result property="msgId" column="msg_id"/>
+        <result property="txnRefId" column="txn_ref_id"/>
+        <result property="cusRef" column="cus_ref"/>
+        <result property="ddaRef" column="dda_ref"/>
+        <result property="reqStatus" column="req_status"/>
+        <result property="enqStatus" column="enq_status"/>
+        <result property="enqType" column="enq_type"/>
+        <result property="rejCode" column="rej_code"/>
+        <result property="rejDescription" column="rej_description"/>
+        <result property="reqMessage" column="req_message"/>
+        <result property="reqTime" column="req_time"/>
+        <result property="ack1Message" column="ack1_message"/>
+        <result property="ack1Time" column="ack1_time"/>
+        <result property="ack2Message" column="ack2_message"/>
+        <result property="ack2Time" column="ack2_time"/>
+        <result property="ack3Message" column="ack3_message"/>
+        <result property="ack3Time" column="ack3_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUser" column="create_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUser" column="update_user"/>
+<result property="isDeleted" column="is_deleted"/>
+ <result property="createDept" column="create_dept"/>
+ <result property="status" column="status"/>
+        <result property="bankReference" column="bank_reference"/>
+    </resultMap>
+
+
+    <sql id="selectDbsRemitReqLogVo">
+        select id, application_id, txn_type, msg_id, txn_ref_id, cus_ref, dda_ref, req_status, enq_status, enq_type, rej_code, rej_description, req_message, req_time, ack1_message, ack1_time, ack2_message, ack2_time, ack3_message, ack3_time, create_time, create_user, update_time, update_user,bank_reference from dbs_remit_req_log
+    </sql>
+
+    <select id="selectDbsRemitReqLogList" parameterType="DbsRemitReqLog" resultMap="DbsRemitReqLogResult">
+        <include refid="selectDbsRemitReqLogVo"/>
+        <where>
+            <if test="applicationId != null  and applicationId != ''"> and application_id = #{applicationId}</if>
+            <if test="txnType != null "> and txn_type = #{txnType}</if>
+            <if test="msgId != null  and msgId != ''"> and msg_id = #{msgId}</if>
+            <if test="txnRefId != null  and txnRefId != ''"> and txn_ref_id = #{txnRefId}</if>
+            <if test="cusRef != null  and cusRef != ''"> and cus_ref = #{cusRef}</if>
+            <if test="ddaRef != null  and ddaRef != ''"> and dda_ref = #{ddaRef}</if>
+            <if test="reqStatus != null  and reqStatus != ''"> and req_status = #{reqStatus}</if>
+            <if test="enqStatus != null  and enqStatus != ''"> and enq_status = #{enqStatus}</if>
+            <if test="enqType != null  and enqType != ''"> and enq_type = #{enqType}</if>
+            <if test="rejCode != null  and rejCode != ''"> and rej_code = #{rejCode}</if>
+            <if test="rejDescription != null  and rejDescription != ''"> and rej_description = #{rejDescription}</if>
+            <if test="reqMessage != null  and reqMessage != ''"> and req_message = #{reqMessage}</if>
+            <if test="reqTime != null "> and req_time = #{reqTime}</if>
+            <if test="ack1Message != null  and ack1Message != ''"> and ack1_message = #{ack1Message}</if>
+            <if test="ack1Time != null "> and ack1_time = #{ack1Time}</if>
+            <if test="ack2Message != null  and ack2Message != ''"> and ack2_message = #{ack2Message}</if>
+            <if test="ack2Time != null "> and ack2_time = #{ack2Time}</if>
+            <if test="ack3Message != null  and ack3Message != ''"> and ack3_message = #{ack3Message}</if>
+            <if test="ack3Time != null "> and ack3_time = #{ack3Time}</if>
+            <if test="bank_reference != null  and bank_reference != ''"> and bank_reference = #{bankReference}</if>
+        </where>
+    </select>
+
+    <select id="selectDbsRemitReqLogByid" parameterType="Long" resultMap="DbsRemitReqLogResult">
+        <include refid="selectDbsRemitReqLogVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertDbsRemitReqLog" parameterType="DbsRemitReqLog" useGeneratedKeys="true" keyProperty="id">
+        insert into dbs_remit_req_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="applicationId != null and applicationId != ''">application_id,</if>
+            <if test="txnType != null and txnType != ''">txn_type,</if>
+            <if test="msgId != null and msgId != ''">msg_id,</if>
+            <if test="txnRefId != null and txnRefId != ''">txn_ref_id,</if>
+            <if test="cusRef != null and cusRef != ''">cus_ref,</if>
+            <if test="ddaRef != null and ddaRef != ''">dda_ref,</if>
+            <if test="reqStatus != null and reqStatus != ''">req_status,</if>
+            <if test="enqStatus != null and enqStatus != ''">enq_status,</if>
+            <if test="enqType != null and enqType != ''">enq_type,</if>
+            <if test="rejCode != null and rejCode != ''">rej_code,</if>
+            <if test="rejDescription != null and rejDescription != ''">rej_description,</if>
+            <if test="reqMessage != null and reqMessage != ''">req_message,</if>
+            <if test="reqTime != null">req_time,</if>
+            <if test="ack1Message != null and ack1Message != ''">ack1_message,</if>
+            <if test="ack1Time != null">ack1_time,</if>
+            <if test="ack2Message != null and ack2Message != ''">ack2_message,</if>
+            <if test="ack2Time != null">ack2_time,</if>
+            <if test="ack3Message != null and ack3Message != ''">ack3_message,</if>
+            <if test="ack3Time != null">ack3_time,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateUser != null">update_user,</if>
+            <if test="bankReference != null and bankReference!=''">bank_beference,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="applicationId != null and applicationId != ''">#{applicationId},</if>
+            <if test="txnType != null and txnType != ''">#{txnType},</if>
+            <if test="msgId != null and msgId != ''">#{msgId},</if>
+            <if test="txnRefId != null and txnRefId != ''">#{txnRefId},</if>
+            <if test="cusRef != null and cusRef != ''">#{cusRef},</if>
+            <if test="ddaRef != null and ddaRef != ''">#{ddaRef},</if>
+            <if test="reqStatus != null and reqStatus != ''">#{reqStatus},</if>
+            <if test="enqStatus != null and enqStatus != ''">#{enqStatus},</if>
+            <if test="enqType != null and enqType != ''">#{enqType},</if>
+            <if test="rejCode != null and rejCode != ''">#{rejCode},</if>
+            <if test="rejDescription != null and rejDescription != ''">#{rejDescription},</if>
+            <if test="reqMessage != null and reqMessage != ''">#{reqMessage},</if>
+            <if test="reqTime != null">#{reqTime},</if>
+            <if test="ack1Message != null and ack1Message != ''">#{ack1Message},</if>
+            <if test="ack1Time != null">#{ack1Time},</if>
+            <if test="ack2Message != null and ack2Message != ''">#{ack2Message},</if>
+            <if test="ack2Time != null">#{ack2Time},</if>
+            <if test="ack3Message != null and ack3Message != ''">#{ack3Message},</if>
+            <if test="ack3Time != null">#{ack3Time},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateUser != null">#{updateUser},</if>
+            <if test="bankReference != null and bankReference != ''">#{bankReference},</if>
+        </trim>
+    </insert>
+
+    <update id="updateDbsRemitReqLog" parameterType="DbsRemitReqLog">
+        update dbs_remit_req_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="applicationId != null and applicationId != ''">application_id = #{applicationId},</if>
+            <if test="txnType != null and txnType != ''">txn_type = #{txnType},</if>
+            <if test="msgId != null and msgId != ''">msg_id = #{msgId},</if>
+            <if test="txnRefId != null and txnRefId != ''">txn_ref_id = #{txnRefId},</if>
+            <if test="cusRef != null and cusRef != ''">cus_ref = #{cusRef},</if>
+            <if test="ddaRef != null and ddaRef != ''">dda_ref = #{ddaRef},</if>
+            <if test="reqStatus != null and reqStatus != ''">req_status = #{reqStatus},</if>
+            <if test="enqStatus != null and enqStatus != ''">enq_status = #{enqStatus},</if>
+            <if test="enqType != null and enqType != ''">enq_type = #{enqType},</if>
+            <if test="rejCode != null and rejCode != ''">rej_code = #{rejCode},</if>
+            <if test="rejDescription != null and rejDescription != ''">rej_description = #{rejDescription},</if>
+            <if test="reqMessage != null and reqMessage != ''">req_message = #{reqMessage},</if>
+            <if test="reqTime != null">req_time = #{reqTime},</if>
+            <if test="ack1Message != null and ack1Message != ''">ack1_message = #{ack1Message},</if>
+            <if test="ack1Time != null">ack1_time = #{ack1Time},</if>
+            <if test="ack2Message != null and ack2Message != ''">ack2_message = #{ack2Message},</if>
+            <if test="ack2Time != null">ack2_time = #{ack2Time},</if>
+            <if test="ack3Message != null and ack3Message != ''">ack3_message = #{ack3Message},</if>
+            <if test="ack3Time != null">ack3_time = #{ack3Time},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
+            <if test="bankReference != null and bankReference!=''">bank_reference = #{bankReference},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDbsRemitReqLogByid" parameterType="Long">
+        delete from dbs_remit_req_log where id = #{id}
+    </delete>
+
+    <delete id="deleteDbsRemitReqLogByids" parameterType="String">
+        delete from dbs_remit_req_log where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+</mapper>

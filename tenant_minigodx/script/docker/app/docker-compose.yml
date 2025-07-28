@@ -1,0 +1,367 @@
+version: '3'
+services:
+
+  ####################################################################################################
+  ###===================================  以下为中间件模块  =========================================###
+  ####################################################################################################
+
+  nacos:
+    image: nacos/nacos-server:2.0.1
+    hostname: "nacos-standalone"
+    environment:
+      - MODE=standalone
+      - TZ=Asia/Shanghai
+    volumes:
+      - /docker/nacos/standalone-logs/:/home/nacos/logs
+      - /docker/nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties
+    ports:
+      - 8848:8848
+      - 9848:9848
+      - 9849:9849
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.48
+
+  sentinel:
+    image: minigod-mkt/sentinel-dashboard:1.8.0
+    hostname: "sentinel"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 8858:8858
+    restart: on-failure
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.58
+
+  seata-server:
+    image: seataio/seata-server:1.4.1
+    hostname: "seata-server"
+    ports:
+      - 8091:8091
+    environment:
+      - TZ=Asia/Shanghai
+      - SEATA_PORT=8091
+      - STORE_MODE=file
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.68
+
+  minigod-nginx:
+    image: nginx:stable-alpine-perl
+    hostname: "minigod-nginx"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+    - 88:88
+    volumes:
+    - /docker/nginx/api/nginx.conf:/etc/nginx/nginx.conf
+    privileged: true
+    restart: always
+    networks:
+    - minigod_net
+
+  web-nginx:
+    image: nginx:stable-alpine-perl
+    hostname: "web-nginx"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 8000:8000
+    volumes:
+      - /docker/nginx/web/html:/usr/share/nginx/html
+      - /docker/nginx/web/nginx.conf:/etc/nginx/nginx.conf
+    privileged: true
+    restart: always
+    networks:
+      - minigod_net
+
+  minigod-redis:
+    image: redis:5.0.8-alpine
+    hostname: "minigod-redis"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+    - 3379:6379
+    volumes:
+    - /docker/redis/data:/data
+    command: "redis-server --appendonly yes"
+    privileged: true
+    restart: always
+    networks:
+    - minigod_net
+
+  ####################################################################################################
+  ###=================================  以下为ZSDP服务模块  =======================================###
+  ####################################################################################################
+
+  minigod-admin:
+    image: "${REGISTER}/minigod-admin:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+    - 7002:7002
+    privileged: true
+    restart: always
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.72
+
+  minigod-swagger:
+    image: "${REGISTER}/minigod-swagger:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 18000:18000
+    privileged: true
+    restart: always
+    networks:
+      - minigod_net
+
+  minigod-turbine:
+    image: "${REGISTER}/minigod-turbine:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 7003:7003
+    privileged: true
+    restart: always
+    networks:
+      - minigod_net
+
+  minigod-gateway1:
+    image: "${REGISTER}/minigod-gateway:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.81
+
+  minigod-gateway2:
+    image: "${REGISTER}/minigod-gateway:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.82
+
+  minigod-auth1:
+    image: "${REGISTER}/minigod-auth:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.91
+
+  minigod-auth2:
+    image: "${REGISTER}/minigod-auth:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.92
+
+  minigod-report:
+    image: "${REGISTER}/minigod-report:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    ports:
+      - 8108:8108
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.98
+
+  minigod-log:
+    image: "${REGISTER}/minigod-log:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    networks:
+    - minigod_net
+
+  minigod-desk:
+    image: "${REGISTER}/minigod-desk:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    networks:
+    - minigod_net
+
+  minigod-user:
+    image: "${REGISTER}/minigod-user:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    networks:
+    - minigod_net
+
+  minigod-system:
+    image: "${REGISTER}/minigod-system:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    networks:
+    - minigod_net
+
+  minigod-flow:
+    image: "${REGISTER}/minigod-flow:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    networks:
+      - minigod_net
+
+  minigod-resource:
+    image: "${REGISTER}/minigod-resource:${TAG}"
+    environment:
+      - TZ=Asia/Shanghai
+    privileged: true
+    restart: always
+    networks:
+      - minigod_net
+
+  ####################################################################################################
+  ###===============================  以下为Prometheus监控模块  =====================================###
+  ####################################################################################################
+
+  prometheus:
+    image: prom/prometheus:v2.24.1
+    hostname: "prometheus"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 9090:9090
+    volumes:
+      - /docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /docker/prometheus/rules:/etc/prometheus/rules
+    command: "--config.file=/etc/prometheus/prometheus.yml  --web.enable-lifecycle"
+    privileged: true
+    restart: always
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.90
+
+  node-exporter:
+    image: prom/node-exporter:v1.0.1
+    hostname: "node-exporter"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 9190:9100
+    privileged: true
+    restart: always
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.93
+
+  mysqld-exporter:
+    image: prom/mysqld-exporter:v0.12.1
+    hostname: "mysqld-exporter"
+    environment:
+      - TZ=Asia/Shanghai
+      # 需要先在mysql服务执行如下语句
+      # =====================================================================================
+      # === CREATE USER 'exporter'@'mysql服务ip' IDENTIFIED BY '密码';                     ===
+      # === GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter'@'mysql服务ip';  ===
+      # === flush privileges;                                                             ===
+      # =====================================================================================
+      - DATA_SOURCE_NAME=exporter:密码@(mysql服务ip:mysql服务端口)/
+    ports:
+      - 9104:9104
+    privileged: true
+    restart: always
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.94
+
+  cadvisor:
+    image: google/cadvisor:v0.33.0
+    hostname: "cadvisor"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 18080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    command: "detach=true"
+    privileged: true
+    restart: always
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.180
+
+  grafana:
+    image: grafana/grafana:7.3.7
+    hostname: "grafana"
+    environment:
+      - TZ=Asia/Shanghai
+      - GF_SERVER_ROOT_URL=https://grafana.zsdp.com
+      - GF_SECURITY_ADMIN_PASSWORD=1qaz@WSX
+    ports:
+      - 3000:3000
+    volumes:
+      - /docker/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - /docker/grafana:/var/lib/grafana
+    privileged: true
+    restart: always
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.30
+
+  alertmanager:
+    image: prom/alertmanager:v0.21.0
+    hostname: "alertmanager"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 9093:9093
+    volumes:
+      - /docker/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - /docker/alertmanager/data:/etc/alertmanager/data
+      - /docker/alertmanager/templates:/etc/alertmanager/templates
+    command: "--config.file=/etc/alertmanager/alertmanager.yml --storage.path=/etc/alertmanager/data"
+    privileged: true
+    restart: always
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.99
+
+  webhook-dingtalk:
+    image: timonwong/prometheus-webhook-dingtalk:v1.4.0
+    hostname: "webhook-dingtalk"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 8060:8060
+    command: "ding.profile=webhook_robot=https://oapi.dingtalk.com/robot/send?access_token=xxxxx"
+    privileged: true
+    restart: always
+    networks:
+      minigod_net:
+        ipv4_address: 172.30.0.96
+
+networks:
+  minigod_net:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.30.0.0/16

@@ -1,0 +1,10 @@
+#服务器端口
+server:
+  port: 8000
+
+#数据源配置
+spring:
+  datasource:
+    url: ${minigod.datasource.information.sit.url}
+    username: ${minigod.datasource.information.sit.username}
+    password: ${minigod.datasource.information.sit.password}

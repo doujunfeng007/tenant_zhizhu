@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.margincredit.mapper.IncreaseCreditLimitMapper">
+  <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.margincredit.entity.IncreaseCreditLimitEntity">
+    <!--@mbg.generated-->
+    <!--@Table increase_credit_limit-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="trade_account" jdbcType="VARCHAR" property="tradeAccount" />
+    <result column="fund_account" jdbcType="VARCHAR" property="fundAccount" />
+    <result column="apply_quota" jdbcType="DECIMAL" property="applyQuota" />
+    <result column="credit_rating" jdbcType="DECIMAL" property="creditRating" />
+    <result column="back_reason" jdbcType="VARCHAR" property="backReason" />
+    <result column="hk_limit_val" jdbcType="DECIMAL" property="hkLimitVal" />
+    <result column="client_name" jdbcType="VARCHAR" property="clientName" />
+    <result column="client_name_spell" jdbcType="VARCHAR" property="clientNameSpell" />
+    <result column="current_line_credit" jdbcType="DECIMAL" property="currentLineCredit" />
+    <result column="use_line_credit" jdbcType="DECIMAL" property="useLineCredit" />
+    <result column="application_id" jdbcType="VARCHAR" property="applicationId" />
+    <result column="cust_id" jdbcType="BIGINT" property="custId" />
+    <result column="apply_type" jdbcType="INTEGER" property="applyType" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    <result column="create_dept" jdbcType="BIGINT" property="createDept" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_deleted" jdbcType="INTEGER" property="isDeleted" />
+    <result column="tenant_id" jdbcType="VARCHAR" property="tenantId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, trade_account, fund_account, apply_quota, credit_rating, back_reason, hk_limit_val,
+    client_name, client_name_spell, current_line_credit, use_line_credit, application_id,
+    cust_id, apply_type, create_user, update_user, create_dept, create_time, update_time,
+    `status`, is_deleted, tenant_id
+  </sql>
+</mapper>

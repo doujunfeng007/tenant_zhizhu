@@ -1,0 +1,43 @@
+#minigod-data-dev.yaml
+spring:
+
+    datasource:
+        dynamic:
+            primary: master
+            datasource:
+                master:
+                    druid:
+                        #独立校验配置
+                        validation-query: select 1
+                        #启用sql日志拦截器
+                        proxy-filters: sqlLogInterceptor
+                        #oracle校验
+                        #validation-query: select 1 from dual
+                    url: jdbc:mysql://203.86.123.168:43436/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true
+                    username: root
+                    password: UZh)F01phE#232fp
+                slave:
+                    druid:
+                        #独立校验配置
+                        validation-query: select 1
+                        #启用sql日志拦截器
+                        proxy-filters: sqlLogInterceptor
+                        #oracle校验
+                        #validation-query: select 1 from dual
+                    url: jdbc:mysql://203.86.123.168:43436/ifund_account?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true
+                    username: root
+                    password: UZh)F01phE#232fp
+
+
+
+#添加地址
+report:
+  customer:
+    statement:
+      account:
+        placePath: '/data/apps/place'
+        tenantMap:
+          '000000':
+            hldBondDailyTemplate: ''
+            hldBondMonthTemplate: ''
+            hldBondDayTemplate: ''

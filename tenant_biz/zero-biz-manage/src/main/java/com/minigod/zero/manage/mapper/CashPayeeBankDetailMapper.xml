@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.CashPayeeBankDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="cashPayeeBankDetailResultMap" type="com.minigod.zero.manage.entity.CashPayeeBankDetailEntity">
+        <result column="id" property="id"/>
+        <result column="payee_bank_id" property="payeeBankId"/>
+        <result column="support_type" property="supportType"/>
+        <result column="currency" property="currency"/>
+        <result column="bank_account" property="bankAccount"/>
+        <result column="payee_address" property="payeeAddress"/>
+        <result column="app_guide" property="appGuide"/>
+        <result column="pc_guide" property="pcGuide"/>
+        <result column="example" property="example"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="enable" property="enable"/>
+        <result column="fps_id" property="fpsId"/>
+        <result column="time_arrival" property="timeArrival"/>
+        <result column="time_arrival_hant" property="timeArrivalHant"/>
+        <result column="time_arrival_en" property="timeArrivalEn"/>
+        <result column="time_arrival_remark" property="timeArrivalRemark"/>
+        <result column="charge_money" property="chargeMoney"/>
+        <result column="charge_money_hant" property="chargeMoneyHant"/>
+        <result column="charge_money_en" property="chargeMoneyEn"/>
+        <result column="charge_money_remark" property="chargeMoneyRemark"/>
+        <result column="payee_name" property="payeeName"/>
+        <result column="payee_name_remark" property="payeeNameRemark"/>
+        <result column="account_type" property="accountType"/>
+        <result column="max_amt" property="maxAmt"/>
+    </resultMap>
+
+
+    <select id="selectCashPayeeBankDetailPage" resultMap="cashPayeeBankDetailResultMap">
+        select * from cash_payee_bank_detail where is_deleted = 0
+    </select>
+
+    <select id="findSupportInfoByDeposit" resultMap="cashPayeeBankDetailResultMap">
+        select pbd.* from cash_support_currency_bank scb RIGHT JOIN cash_payee_bank_detail pbd on scb.payee_bank_detail_id = pbd.id
+        AND scb.support_type = pbd.support_type
+        AND scb.currency = pbd.currency
+        AND scb.payee_bank_id = pbd.payee_bank_id
+        AND scb.account_type = pbd.account_type
+        where scb.deposit_id = #{depositId} and scb.is_default = 1
+        <if test="supportTypeList != null and supportTypeList.length > 0">
+            and scb.support_type in
+            <foreach collection="supportTypeList" item="item" index="index" open="(" separator="," close=")">
+                #{supportTypeList[${index}]}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="findCurrencyByDepositIdAndSupportType" resultType="java.lang.String">
+        SELECT scb.currency FROM cash_support_currency_bank scb RIGHT JOIN cash_payee_bank_detail pbd ON scb.account_type = pbd.account_type
+        AND scb.support_type = pbd.support_type
+        AND scb.currency = pbd.currency
+        AND scb.payee_bank_detail_id = pbd.id
+        AND scb.payee_bank_id = pbd.payee_bank_id
+        AND scb.account_type = pbd.account_type
+        WHERE scb.deposit_id = #{depositId} AND scb.support_type = #{supportType}
+        GROUP BY scb.currency
+    </select>
+
+    <select id="findPayeeBankByCurrencyAndSupportType" resultMap="cashPayeeBankDetailResultMap" parameterType="java.lang.Object">
+        SELECT pd.* FROM cash_payee_bank_detail AS  pd
+                             INNER JOIN cash_payee_bank AS p
+                                        ON pd.payee_bank_id=p.id
+        where pd.currency =#{currency} and pd.support_type = #{supportType} and pd.enable  = 1 AND p.bank_type=1
+        order by pd.create_time desc limit 1
+    </select>
+
+    <select id="findReceivingBankById" resultMap="cashPayeeBankDetailResultMap" parameterType="java.lang.Object">
+        select * from cash_payee_bank_detail
+        where enable  = 1 and id =#{payeeBankDetailId}
+    </select>
+
+    <select id="findPayeeBankByDepositBankById" resultMap="cashPayeeBankDetailResultMap" parameterType="java.lang.Object">
+        select
+            cpdd.*
+        from cash_support_currency_bank as cscb
+        left join cash_payee_bank_detail as cpdd on cpdd.id = cscb.payee_bank_detail_id
+        where cscb.currency = #{currency} and cscb.support_type = #{supportType} and cscb.deposit_id = #{depositBankById}
+    </select>
+
+    <select id="findPaymentBankByWithdrawalsBankById" resultMap="cashPayeeBankDetailResultMap" parameterType="java.lang.Object">
+        select
+            cpdd.*
+        from cash_withdrawals_support_currency_bank as cwscb
+             left join cash_payee_bank_detail as cpdd on cpdd.id = cwscb.payment_bank_detail_id
+        where cwscb.currency = #{currency}
+          AND cwscb.support_type = #{supportType}
+          AND cwscb.withdrawals_id = #{withdrawalsBankById}
+          AND cwscb.is_deleted=0
+          AND cpdd.is_deleted=0
+          AND cwscb.is_default=1
+    </select>
+</mapper>

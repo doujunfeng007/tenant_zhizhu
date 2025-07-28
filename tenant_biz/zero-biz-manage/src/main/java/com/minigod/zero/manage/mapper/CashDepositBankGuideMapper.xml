@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.CashDepositBankGuideMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="cashDepositBankGuideResultMap" type="com.minigod.zero.manage.entity.CashDepositBankGuideEntity">
+        <result column="id" property="id"/>
+        <result column="deposit_id" property="depositId"/>
+        <result column="explains" property="explains"/>
+        <result column="operation" property="operation"/>
+        <result column="operation_hant" property="operationHant"/>
+        <result column="operation_en" property="operationEn"/>
+        <result column="notes" property="notes"/>
+        <result column="notes_hant" property="notesHant"/>
+        <result column="notes_en" property="notesEn"/>
+        <result column="support_type" property="supportType"/>
+    </resultMap>
+
+
+</mapper>

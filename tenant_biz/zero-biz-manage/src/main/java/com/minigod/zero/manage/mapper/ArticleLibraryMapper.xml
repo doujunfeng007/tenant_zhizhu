@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.ArticleLibraryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="articleLibraryResultMap" type="com.minigod.zero.manage.entity.ArticleLibraryEntity">
+        <result column="id" property="id"/>
+        <result column="key_id" property="keyId"/>
+
+        <result column="related_id" property="relatedId"/>
+        <result column="thum_img" property="thumImg"/>
+
+        <result column="identification" property="identification"/>
+        <result column="title" property="title"/>
+        <result column="title_hant" property="titleHant"/>
+        <result column="title_en" property="titleEn"/>
+
+        <result column="summary" property="summary"/>
+        <result column="summary_hant" property="summaryHant"/>
+        <result column="summary_en" property="summaryEn"/>
+        <result column="author" property="author"/>
+        <result column="key_word" property="keyWord"/>
+        <result column="key_word_hant" property="keyWordHant"/>
+        <result column="key_word_en" property="keyWordEn"/>
+        <result column="content" property="content"/>
+        <result column="content_hant" property="contentHant"/>
+        <result column="content_en" property="contentEn"/>
+
+        <result column="tenant_id" property="tenantId"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_user_name" property="updateUserName"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <select id="selectArticleLibraryPage" resultType="com.minigod.zero.manage.vo.ArticleLibraryVO">
+        select * from oms_article_library where is_deleted = 0
+        <if test="articleLibrary.title != null and articleLibrary.title !=''">
+            and title like concat('%', #{articleLibrary.title},'%')
+        </if>
+        <if test="articleLibrary.author != null and articleLibrary.author !=''">
+            and author like concat('%', #{articleLibrary.author},'%')
+        </if>
+        <if test="articleLibrary.updateUser != null">
+            and update_user = #{articleLibrary.updateUser}
+        </if>
+        <if test="articleLibrary.tenantId != null">
+            and tenant_id = #{articleLibrary.tenantId}
+        </if>
+        <if test="articleLibrary.startTime != null ">
+            and update_time <![CDATA[ >= ]]> #{articleLibrary.startTime}
+        </if>
+        <if test="articleLibrary.endTime != null ">
+            and update_time <![CDATA[ <= ]]> #{articleLibrary.endTime}
+        </if>
+        order by update_time desc;
+    </select>
+
+</mapper>

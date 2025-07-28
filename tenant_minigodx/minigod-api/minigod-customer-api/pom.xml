@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>minigod-api</artifactId>
+        <groupId>com.minigod</groupId>
+        <version>4.0.2-SNAPSHOT</version>
+    </parent>
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.20</version>
+        </dependency>
+        <dependency>
+            <groupId>com.minigod.zero</groupId>
+            <artifactId>zero-starter-sms</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.minigod.zero</groupId>
+            <artifactId>zero-platform-api</artifactId>
+            <version>${zero.biz.api.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <modelVersion>4.0.0</modelVersion>
+    <version>4.0.2-SNAPSHOT</version>
+    <artifactId>minigod-customer-api</artifactId>
+    <name>${project.artifactId}</name>
+    <packaging>jar</packaging>
+
+
+</project>

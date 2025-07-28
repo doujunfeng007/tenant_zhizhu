@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.CashWithdrawalsSupportCurrencyBankMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="cashSupportCurrencyBankResultMap" type="com.minigod.zero.manage.entity.CashWithdrawalsSupportCurrencyBankEntity">
+        <result column="id" property="id"/>
+        <result column="currency" property="currency"/>
+        <result column="payment_bank_id" property="paymentBankId"/>
+        <result column="support_type" property="supportType"/>
+        <result column="sort_order" property="sortOrder"/>
+        <result column="withdrawals_id" property="withdrawalsId"/>
+        <result column="is_default" property="isDefault"/>
+        <result column="account_type" property="accountType"/>
+        <result column="payment_bank_detail_id" property="paymentBankDetailId"/>
+    </resultMap>
+
+</mapper>

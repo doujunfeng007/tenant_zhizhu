@@ -1,0 +1,156 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+                    "name": "mysqlreader",
+          "parameter": {
+            "username": "X3saU2xIvqh/xJ2natkJRQ==",
+            "password": "bDLTlVUgOz6kcv+kvsVSS6vBjgKzpK/rW8CQFZqbmPQ=",
+            "column": [
+              "`productId`",
+              "`isin`",
+              "`name`",
+              "`fixInterestRate`",
+              "`buyingRate`",
+              "`sellingRate`",
+              "`currency`",
+              "`nominalValue`",
+              "`faceValue`",
+              "`appraisement`",
+              "`unit`",
+              "`issueAmount`",
+              "`tradingUnit`",
+              "`issueDate`",
+              "`maturityDate`",
+              "`riskLevel`",
+              "`interestCalculationDays`",
+              "`liquidationDate`",
+              "`marketOpenTime`",
+              "`closingTime`",
+              "`issuer`",
+              "`productDescription`",
+              "`stampTax`",
+              "`brokerageCharges`",
+              "`limitOrder`",
+              "`type`",
+              "`auditStatus`",
+              "`status`",
+              "`riskWarning`",
+              "`creator`",
+              "`lastUpdatedBy`",
+              "`synchState`",
+              "`maturityStatus`",
+              "`createTime`",
+              "`updateTime`",
+              "`settlementDate`",
+              "`clearingValue`",
+              "`listingTime`",
+              "`customerForm`",
+              "`minInitSubscriptionQuantity`",
+              "`ipoMinSubscriptionQuantity`",
+              "`productAbbr`",
+              "`clearingStatus`",
+              "`clearingRemark`",
+              "`redemptionUnit`",
+              "`corporateAccount`",
+              "`underlyingbondId`",
+              "`documentUrl`",
+              "`archivesUrl`",
+              "`nextInterestDate`"
+            ],
+            "where": "createTime >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY) OR updateTime >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY )",
+            "splitPk": "",
+            "connection": [
+              {
+                "table": [
+                  "t_product"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://203.86.123.168:43436/tadb?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true\n"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "username": "x23iAGFtBmYzhTgDDjvFPg==",
+            "password": "sTO8zolMP4HE+FE4/Q/juOlJhAfkZyhMvpevvHYrEc8=",
+            "column": [
+              "`productId`",
+              "`isin`",
+              "`name`",
+              "`fixInterestRate`",
+              "`buyingRate`",
+              "`sellingRate`",
+              "`currency`",
+              "`nominalValue`",
+              "`faceValue`",
+              "`appraisement`",
+              "`unit`",
+              "`issueAmount`",
+              "`tradingUnit`",
+              "`issueDate`",
+              "`maturityDate`",
+              "`riskLevel`",
+              "`interestCalculationDays`",
+              "`liquidationDate`",
+              "`marketOpenTime`",
+              "`closingTime`",
+              "`issuer`",
+              "`productDescription`",
+              "`stampTax`",
+              "`brokerageCharges`",
+              "`limitOrder`",
+              "`type`",
+              "`auditStatus`",
+              "`status`",
+              "`riskWarning`",
+              "`creator`",
+              "`lastUpdatedBy`",
+              "`synchState`",
+              "`maturityStatus`",
+              "`createTime`",
+              "`updateTime`",
+              "`settlementDate`",
+              "`clearingValue`",
+              "`listingTime`",
+              "`customerForm`",
+              "`minInitSubscriptionQuantity`",
+              "`ipoMinSubscriptionQuantity`",
+              "`productAbbr`",
+              "`clearingStatus`",
+              "`clearingRemark`",
+              "`redemptionUnit`",
+              "`corporateAccount`",
+              "`underlyingbondId`",
+              "`documentUrl`",
+              "`archivesUrl`",
+              "`nextInterestDate`"
+            ],
+            "writeMode": "update",
+            "connection": [
+              {
+                "table": [
+                  "t_product"
+                ],
+                "jdbcUrl": "jdbc:mysql://203.86.123.168:43436/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

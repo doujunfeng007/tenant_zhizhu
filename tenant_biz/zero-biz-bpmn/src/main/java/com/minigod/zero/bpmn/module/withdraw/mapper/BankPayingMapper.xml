@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.withdraw.mapper.BankPayingMapper">
+
+    <resultMap type="com.minigod.zero.bpmn.module.withdraw.entity.BankPaying" id="BankPayingResult">
+        <result property="id" column="id"/>
+        <result property="bankCode" column="bank_code"/>
+        <result property="bankName" column="bank_name"/>
+        <result property="bankEname" column="bank_ename"/>
+        <result property="bankAcctName" column="bank_acct_name"/>
+        <result property="bankAcct" column="bank_acct"/>
+        <result property="ccy" column="ccy"/>
+        <result property="bankAcctType" column="bank_acct_type"/>
+        <result property="serviceType" column="service_type"/>
+        <result property="glCode" column="gl_code"/>
+        <result property="gtInBankCode" column="gt_in_bank_code"/>
+        <result property="gtInBankAcct" column="gt_in_bank_acct"/>
+        <result property="gtFeeInBankCode" column="gt_fee_in_bank_code"/>
+        <result property="gtFeeInBankAcct" column="gt_fee_in_bank_acct"/>
+        <result property="gtOutBankCode" column="gt_out_bank_code"/>
+        <result property="gtOutBankAcct" column="gt_out_bank_acct"/>
+        <result property="active" column="active"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUser" column="create_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUser" column="update_user"/>
+<result property="isDeleted" column="is_deleted"/>
+ <result property="createDept" column="create_dept"/>
+ <result property="status" column="status"/>
+    </resultMap>
+
+
+    <sql id="selectBankPayingVo">
+        select id, bank_code, bank_name, bank_ename, bank_acct_name, bank_acct, ccy, bank_acct_type, service_type, gl_code, gt_in_bank_code, gt_in_bank_acct, gt_fee_in_bank_code, gt_fee_in_bank_acct, gt_out_bank_code, gt_out_bank_acct, active, create_time, create_user, update_time, update_user from bank_paying
+    </sql>
+
+    <select id="selectBankPayingList" parameterType="BankPaying" resultMap="BankPayingResult">
+        <include refid="selectBankPayingVo"/>
+        <where>
+            <if test="bankCode != null  and bankCode != ''"> and bank_code = #{bankCode}</if>
+            <if test="bankName != null  and bankName != ''"> and bank_name like concat('%', #{bankName}, '%')</if>
+            <if test="bankEname != null  and bankEname != ''"> and bank_ename like concat('%', #{bankEname}, '%')</if>
+            <if test="bankAcctName != null  and bankAcctName != ''"> and bank_acct_name like concat('%', #{bankAcctName}, '%')</if>
+            <if test="bankAcct != null  and bankAcct != ''"> and bank_acct = #{bankAcct}</if>
+            <if test="ccy != null  and ccy != ''"> and ccy = #{ccy}</if>
+            <if test="bankAcctType != null  and bankAcctType != ''"> and bank_acct_type = #{bankAcctType}</if>
+            <if test="serviceType != null  and serviceType != ''"> and service_type = #{serviceType}</if>
+            <if test="glCode != null  and glCode != ''"> and gl_code = #{glCode}</if>
+            <if test="gtInBankCode != null  and gtInBankCode != ''"> and gt_in_bank_code = #{gtInBankCode}</if>
+            <if test="gtInBankAcct != null  and gtInBankAcct != ''"> and gt_in_bank_acct = #{gtInBankAcct}</if>
+            <if test="gtFeeInBankCode != null  and gtFeeInBankCode != ''"> and gt_fee_in_bank_code = #{gtFeeInBankCode}</if>
+            <if test="gtFeeInBankAcct != null  and gtFeeInBankAcct != ''"> and gt_fee_in_bank_acct = #{gtFeeInBankAcct}</if>
+            <if test="gtOutBankCode != null  and gtOutBankCode != ''"> and gt_out_bank_code = #{gtOutBankCode}</if>
+            <if test="gtOutBankAcct != null  and gtOutBankAcct != ''"> and gt_out_bank_acct = #{gtOutBankAcct}</if>
+            <if test="active != null "> and active = #{active}</if>
+        </where>
+    </select>
+
+    <select id="selectBankPayingByid" parameterType="Long" resultMap="BankPayingResult">
+        <include refid="selectBankPayingVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertBankPaying" parameterType="BankPaying" useGeneratedKeys="true" keyProperty="id">
+        insert into bank_paying
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bankCode != null and bankCode != ''">bank_code,</if>
+            <if test="bankName != null and bankName != ''">bank_name,</if>
+            <if test="bankEname != null and bankEname != ''">bank_ename,</if>
+            <if test="bankAcctName != null and bankAcctName != ''">bank_acct_name,</if>
+            <if test="bankAcct != null and bankAcct != ''">bank_acct,</if>
+            <if test="ccy != null and ccy != ''">ccy,</if>
+            <if test="bankAcctType != null and bankAcctType != ''">bank_acct_type,</if>
+            <if test="serviceType != null and serviceType != ''">service_type,</if>
+            <if test="glCode != null and glCode != ''">gl_code,</if>
+            <if test="gtInBankCode != null and gtInBankCode != ''">gt_in_bank_code,</if>
+            <if test="gtInBankAcct != null and gtInBankAcct != ''">gt_in_bank_acct,</if>
+            <if test="gtFeeInBankCode != null and gtFeeInBankCode != ''">gt_fee_in_bank_code,</if>
+            <if test="gtFeeInBankAcct != null and gtFeeInBankAcct != ''">gt_fee_in_bank_acct,</if>
+            <if test="gtOutBankCode != null and gtOutBankCode != ''">gt_out_bank_code,</if>
+            <if test="gtOutBankAcct != null and gtOutBankAcct != ''">gt_out_bank_acct,</if>
+            <if test="active != null">active,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateUser != null">update_user,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bankCode != null and bankCode != ''">#{bankCode},</if>
+            <if test="bankName != null and bankName != ''">#{bankName},</if>
+            <if test="bankEname != null and bankEname != ''">#{bankEname},</if>
+            <if test="bankAcctName != null and bankAcctName != ''">#{bankAcctName},</if>
+            <if test="bankAcct != null and bankAcct != ''">#{bankAcct},</if>
+            <if test="ccy != null and ccy != ''">#{ccy},</if>
+            <if test="bankAcctType != null and bankAcctType != ''">#{bankAcctType},</if>
+            <if test="serviceType != null and serviceType != ''">#{serviceType},</if>
+            <if test="glCode != null and glCode != ''">#{glCode},</if>
+            <if test="gtInBankCode != null and gtInBankCode != ''">#{gtInBankCode},</if>
+            <if test="gtInBankAcct != null and gtInBankAcct != ''">#{gtInBankAcct},</if>
+            <if test="gtFeeInBankCode != null and gtFeeInBankCode != ''">#{gtFeeInBankCode},</if>
+            <if test="gtFeeInBankAcct != null and gtFeeInBankAcct != ''">#{gtFeeInBankAcct},</if>
+            <if test="gtOutBankCode != null and gtOutBankCode != ''">#{gtOutBankCode},</if>
+            <if test="gtOutBankAcct != null and gtOutBankAcct != ''">#{gtOutBankAcct},</if>
+            <if test="active != null">#{active},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateUser != null">#{updateUser},</if>
+        </trim>
+    </insert>
+
+    <update id="updateBankPaying" parameterType="BankPaying">
+        update bank_paying
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bankCode != null and bankCode != ''">bank_code = #{bankCode},</if>
+            <if test="bankName != null and bankName != ''">bank_name = #{bankName},</if>
+            <if test="bankEname != null and bankEname != ''">bank_ename = #{bankEname},</if>
+            <if test="bankAcctName != null and bankAcctName != ''">bank_acct_name = #{bankAcctName},</if>
+            <if test="bankAcct != null and bankAcct != ''">bank_acct = #{bankAcct},</if>
+            <if test="ccy != null and ccy != ''">ccy = #{ccy},</if>
+            <if test="bankAcctType != null and bankAcctType != ''">bank_acct_type = #{bankAcctType},</if>
+            <if test="serviceType != null and serviceType != ''">service_type = #{serviceType},</if>
+            <if test="glCode != null and glCode != ''">gl_code = #{glCode},</if>
+            <if test="gtInBankCode != null and gtInBankCode != ''">gt_in_bank_code = #{gtInBankCode},</if>
+            <if test="gtInBankAcct != null and gtInBankAcct != ''">gt_in_bank_acct = #{gtInBankAcct},</if>
+            <if test="gtFeeInBankCode != null and gtFeeInBankCode != ''">gt_fee_in_bank_code = #{gtFeeInBankCode},</if>
+            <if test="gtFeeInBankAcct != null and gtFeeInBankAcct != ''">gt_fee_in_bank_acct = #{gtFeeInBankAcct},</if>
+            <if test="gtOutBankCode != null and gtOutBankCode != ''">gt_out_bank_code = #{gtOutBankCode},</if>
+            <if test="gtOutBankAcct != null and gtOutBankAcct != ''">gt_out_bank_acct = #{gtOutBankAcct},</if>
+            <if test="active != null">active = #{active},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBankPayingByid" parameterType="Long">
+        delete from bank_paying where id = #{id}
+    </delete>
+
+    <delete id="deleteBankPayingByids" parameterType="String">
+        delete from bank_paying where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+</mapper>

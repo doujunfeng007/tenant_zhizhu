@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpm.mapper.CashExtractingMoneyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="cashExtractingMoneyResultMap" type="com.minigod.zero.bpm.entity.CashExtractingMoneyEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="ext_account" property="extAccount"/>
+        <result column="ext_account_name" property="extAccountName"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="ext_method" property="extMethod"/>
+        <result column="bank_name" property="bankName"/>
+        <result column="bank_code" property="bankCode"/>
+        <result column="swift_code" property="swiftCode"/>
+        <result column="payee" property="payee"/>
+        <result column="address" property="address"/>
+        <result column="bank_account" property="bankAccount"/>
+        <result column="available_amount" property="availableAmount"/>
+        <result column="extraction_amount" property="extractionAmount"/>
+        <result column="remarks" property="remarks"/>
+        <result column="status" property="status"/>
+        <result column="currency" property="currency"/>
+        <result column="charge_money" property="chargeMoney"/>
+        <result column="back_person" property="backPerson"/>
+        <result column="back_reason" property="backReason"/>
+        <result column="is_find" property="isFind"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="modify_time" property="modifyTime"/>
+        <result column="export_state" property="exportState"/>
+        <result column="push_recved" property="pushRecved"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="err_cnt" property="errCnt"/>
+        <result column="extract_money_img_ids" property="extractMoneyImgIds"/>
+        <result column="bank_id" property="bankId"/>
+        <result column="bus_type" property="busType"/>
+        <result column="revert_serial_no" property="revertSerialNo"/>
+        <result column="init_date" property="initDate"/>
+    </resultMap>
+
+
+    <select id="selectCashExtractingMoneyPage" resultMap="cashExtractingMoneyResultMap">
+        select * from cash_extracting_money where is_deleted = 0
+    </select>
+
+    <select id="selectExtractingMoneySumByCurrency" resultType="java.math.BigDecimal">
+        select sum(extraction_amount) from cash_extracting_money where currency = #{currency} and cust_id = #{custId} and `status` = 3
+    </select>
+
+
+</mapper>

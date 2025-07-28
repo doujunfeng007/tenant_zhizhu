@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.trade.mapper.CustStrategyOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="strategyOrderResultMap" type="com.minigod.zero.trade.entity.CustStrategyOrderEntity">
+        <id property="id" column="id" />
+        <result property="custId" column="cust_id" />
+        <result property="tradeAccount" column="trade_account" />
+        <result property="capitalAccount" column="capital_account" />
+        <result property="assetId" column="asset_id" />
+        <result property="stockName" column="stock_name" />
+        <result property="entrustAmount" column="entrust_amount" />
+        <result property="entrustPrice" column="entrust_price" />
+        <result property="entrustProp" column="entrust_prop" />
+        <result property="entrustBs" column="entrust_bs" />
+        <result property="sessionType" column="session_type" />
+        <result property="strategyPrice" column="strategy_price" />
+        <result property="strategyAction" column="strategy_action" />
+        <result property="deadlineDate" column="deadline_date" />
+        <result property="expirationTime" column="expiration_time" />
+        <result property="discType" column="disc_type" />
+        <result property="entrustStatus" column="entrust_status" />
+        <result property="entrustNo" column="entrust_no" />
+        <result property="entrustTime" column="entrust_time" />
+        <result property="errorMessage" column="error_message" />
+        <result property="createTime" column="create_time" />
+        <result property="updateUser" column="update_user" />
+        <result property="updateTime" column="update_time" />
+        <result property="isDeleted" column="is_deleted" />
+    </resultMap>
+
+
+    <select id="getMaxId" resultType="java.lang.Long">
+        select max(id) from cust_strategy_order
+    </select>
+
+
+</mapper>

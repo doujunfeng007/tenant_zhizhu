@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerStockOpenAcocuntInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="stockOpenAcocuntInfoResultMap" type="com.minigod.zero.customer.entity.CustomerStockOpenAccountInfoEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="invest_target" property="investTarget"/>
+        <result column="invest_target_other" property="investTargetOther"/>
+        <result column="stocks_investment_experience_type" property="stocksInvestmentExperienceType"/>
+        <result column="warrants_investment_experience_type" property="warrantsInvestmentExperienceType"/>
+        <result column="is_traded_derivative_products" property="isTradedDerivativeProducts"/>
+        <result column="is_open_usa_stock_market" property="isOpenUsaStockMarket"/>
+        <result column="is_open_hk_stock_market" property="isOpenHkStockMarket"/>
+        <result column="bcan_no" property="bcanNo"/>
+        <result column="bcan_status" property="bcanStatus"/>
+        <result column="credit_amount" property="creditAmount"/>
+        <result column="credit_ratio" property="creditRatio"/>
+        <result column="credit_expire_date" property="creditExpireDate"/>
+        <result column="is_allow_derivatives_transaction" property="isAllowDerivativesTransaction"/>
+        <result column="accept_risk" property="acceptRisk"/>
+        <result column="review_time" property="reviewTime"/>
+        <result column="trade_fee" property="tradeFee"/>
+        <result column="service_fee" property="serviceFee"/>
+        <result column="client_group" property="clientGroup"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="investment_frequency" property="investmentFrequency"/>
+        <result column="tax_residency" property="taxResidency"/>
+        <result column="number_of_tax_residency" property="numberOfTaxResidency"/>
+    </resultMap>
+
+
+    <select id="selectCustomerStockOpenAcocuntInfoPage" resultMap="stockOpenAcocuntInfoResultMap">
+        select * from customer_stock_open_acocunt_info where is_deleted = 0
+    </select>
+
+
+</mapper>

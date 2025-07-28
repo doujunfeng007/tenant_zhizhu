@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.edda.mapper.DbsEddaReqLogMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.edda.entity.DbsEddaReqLogEntity">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="applicationid" column="applicationId" jdbcType="VARCHAR"/>
+            <result property="businesstype" column="businessType" jdbcType="VARCHAR"/>
+            <result property="msgid" column="msgId" jdbcType="VARCHAR"/>
+            <result property="ddaref" column="ddaRef" jdbcType="VARCHAR"/>
+            <result property="reqstatus" column="reqStatus" jdbcType="VARCHAR"/>
+            <result property="enqstatus" column="enqStatus" jdbcType="VARCHAR"/>
+            <result property="reqmessage" column="reqMessage" jdbcType="VARCHAR"/>
+            <result property="reqtime" column="reqTime" jdbcType="TIMESTAMP"/>
+            <result property="resmessage" column="resMessage" jdbcType="VARCHAR"/>
+            <result property="restime" column="resTime" jdbcType="TIMESTAMP"/>
+            <result property="ackmessage" column="ackMessage" jdbcType="VARCHAR"/>
+            <result property="acktime" column="ackTime" jdbcType="VARCHAR"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,applicationId,businessType,
+        msgId,ddaRef,reqStatus,
+        enqStatus,reqMessage,reqTime,
+        resMessage,resTime,ackMessage,
+        ackTime,createTime,updateTime
+    </sql>
+</mapper>

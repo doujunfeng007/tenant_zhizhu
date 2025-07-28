@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.PublishItemMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="publishItemResultMap" type="com.minigod.zero.manage.entity.PublishItemEntity">
+        <result column="id" property="id"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="is_leaf" property="isLeaf"/>
+        <result column="picon" property="picon"/>
+        <result column="name" property="name"/>
+        <result column="name_hant" property="nameHant"/>
+        <result column="name_en" property="nameEn"/>
+        <result column="message" property="message"/>
+        <result column="message_hant" property="messageHant"/>
+        <result column="message_en" property="messageEn"/>
+        <result column="is_share" property="isShare"/>
+        <result column="sort_id" property="sortId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <select id="selectPublishItemPage" resultMap="publishItemResultMap">
+        select * from oms_publish_item where is_deleted = 0 order by sort_id asc
+    </select>
+
+
+</mapper>

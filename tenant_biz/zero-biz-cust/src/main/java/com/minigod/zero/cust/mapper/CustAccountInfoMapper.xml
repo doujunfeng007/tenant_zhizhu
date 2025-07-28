@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.cust.mapper.CustAccountInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="acctInfoResultMap" type="com.minigod.zero.bpm.entity.BpmAccountInfoEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="author_email" property="authorEmail"/>
+        <result column="author_status" property="authorStatus"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="acct_type" property="acctType"/>
+        <result column="trade_auth" property="tradeAuth"/>
+        <result column="app_permission" property="appPermission"/>
+        <result column="is_current" property="isCurrent"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <select id="getCurrentAccount" resultType="com.minigod.zero.cust.apivo.CustAccountVO">
+        select m.trade_account, m.acct_type, m.app_permission, n.capital_account, n.account_type, f.fund_account from bpm_account_info m
+          left join (select trade_account, capital_account, account_type from bpm_capital_info where  is_deleted = 0) n
+            on m.trade_account = n.trade_account left join bpm_fund_acct_info f
+            on m.trade_account = f.trade_account where m.cust_id = #{custId} and m.is_current = 1 and m.is_deleted = 0
+    </select>
+
+    <select id="getCustTradePushInfo" resultType="com.minigod.zero.cust.apivo.CustTradePushInfoVO">
+        select b.cust_id,b.trade_account,a.capital_account,c.cust_name,c.given_name_spell,c.family_name_spell,c.email from bpm_capital_info a
+        inner join bpm_account_info b on a.trade_account = b.trade_account
+        inner join bpm_securities_info c on b.cust_id = c.cust_id where a.capital_account = #{capitalAccount}
+    </select>
+
+    <select id="getCustIdList" resultType="java.lang.Long">
+        select cust_id from bpm_account_info
+        where (cust_id = #{custId} or author_email = #{custId}) and author_status = 1 and is_deleted = 0
+        group by cust_id
+    </select>
+
+    <select id="getAcctList" resultType="com.minigod.zero.cust.cache.AcctInfo">
+        select m.trade_account, m.acct_type, m.app_permission, m.is_current, n.fund_account, c.company_name, c.company_name_en
+          from bpm_account_info m left join bpm_fund_acct_info n
+            on m.trade_account = n.trade_account left join bpm_company_info c on m.trade_account = c.trade_account
+         where m.cust_id = #{custId} and m.is_deleted = 0 and m.author_status = 1
+    </select>
+
+</mapper>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.system.mapper.ZeroUserSettingMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.system.entity.ZeroUserSetting">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+
+            <result property="account" column="account" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="realName" column="real_name" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="area" column="area" jdbcType="VARCHAR"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+
+            <result property="sort" column="sort" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        account,password,name,
+        real_name,email,
+        area,phone
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from zero_user_setting
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from zero_user_setting
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.system.entity.ZeroUserSetting" useGeneratedKeys="true">
+        insert into zero_user_setting
+        ( id
+        ,account,password,name
+        ,real_name,email
+        ,area,phone)
+        values (#{id,jdbcType=BIGINT}
+        ,#{account,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR}
+        ,#{realName,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR}
+        ,#{area,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR}
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.system.entity.ZeroUserSetting" useGeneratedKeys="true">
+        insert into zero_user_setting
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+
+                <if test="account != null">account,</if>
+                <if test="password != null">password,</if>
+                <if test="name != null">name,</if>
+                <if test="realName != null">real_name,</if>
+
+                <if test="email != null">email,</if>
+                <if test="area != null">area,</if>
+                <if test="phone != null">phone,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+
+                <if test="account != null">#{account,jdbcType=VARCHAR},</if>
+                <if test="password != null">#{password,jdbcType=VARCHAR},</if>
+                <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+                <if test="realName != null">#{realName,jdbcType=VARCHAR},</if>
+
+                <if test="email != null">#{email,jdbcType=VARCHAR},</if>
+                <if test="area != null">#{area,jdbcType=VARCHAR},</if>
+                <if test="phone != null">#{phone,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.system.entity.ZeroUserSetting">
+        update zero_user_setting
+        <set>
+                <if test="account != null">
+                    account = #{account,jdbcType=VARCHAR},
+                </if>
+                <if test="password != null">
+                    password = #{password,jdbcType=VARCHAR},
+                </if>
+                <if test="name != null">
+                    name = #{name,jdbcType=VARCHAR},
+                </if>
+                <if test="realName != null">
+                    real_name = #{realName,jdbcType=VARCHAR},
+                </if>
+                <if test="email != null">
+                    email = #{email,jdbcType=VARCHAR},
+                </if>
+                <if test="area != null">
+                    area = #{area,jdbcType=VARCHAR},
+                </if>
+                <if test="phone != null">
+                    phone = #{phone,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.system.entity.ZeroUserSetting">
+        update zero_user_setting
+        set
+            account =  #{account,jdbcType=VARCHAR},
+            password =  #{password,jdbcType=VARCHAR},
+            name =  #{name,jdbcType=VARCHAR},
+            real_name =  #{realName,jdbcType=VARCHAR},
+            email =  #{email,jdbcType=VARCHAR},
+            area =  #{area,jdbcType=VARCHAR},
+            phone =  #{phone,jdbcType=VARCHAR}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="userSettingQueryPage" resultMap="BaseResultMap" parameterType="java.lang.Object">
+        select
+        <include refid="Base_Column_List" />
+        from zero_user_setting
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (
+                    account = #{keyword} or
+                    phone = #{keyword} or
+                    email = #{keyword} or
+                    name = #{keyword}
+                )
+            </if>
+        </where>
+    </select>
+
+    <select id="getAll"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from zero_user_setting
+    </select>
+</mapper>

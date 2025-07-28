@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountBackReasonMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_back_reasonResultMap"
+               type="com.minigod.zero.bpmn.module.account.entity.AccountBackReasonEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="code" property="code"/>
+        <result column="content" property="content"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="title" property="title"/>
+    </resultMap>
+    <resultMap id="account_back_reasonResultMapVo" type="com.minigod.zero.bpmn.module.account.vo.AccountBackReasonVO"
+               extends="account_back_reasonResultMap">
+    </resultMap>
+    <select id="selectByApplicationId" resultMap="account_back_reasonResultMapVo">
+        select *
+        from open_account_back_reason
+        where application_id = #{applicationId}  and is_deleted = 0
+    </select>
+    <select id="selectByApplicationIdAndCode" resultMap="account_back_reasonResultMapVo">
+        select * from
+        open_account_back_reason
+        <where>
+            <if test="applicationId!=null and applicationId!=''">
+                and application_id = #{applicationId}
+            </if>
+            <if test="code!=null and code!=''">
+                and code = #{code}
+            </if>
+            and is_deleted = 0
+        </where>
+        order by create_time asc
+    </select>
+    <select id="selectCodeListByApplicationId" resultType="java.lang.String">
+        select `code`
+        from open_account_back_reason
+        where application_id = #{applicationId}  and is_deleted = 0
+    </select>
+    <delete id="deleteWithCode">
+        update
+         open_account_back_reason set  is_deleted = 1
+        where application_id = #{applicationId}
+          and code = #{code}  and is_deleted = 0
+    </delete>
+    <delete id="deleteByApplicationId">
+        update
+         open_account_back_reason set is_deleted = 1
+        where application_id = #{applicationId}  and is_deleted = 0
+    </delete>
+</mapper>

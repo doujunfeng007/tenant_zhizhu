@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.ClientFundWithdrawInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.ClientFundWithdrawInfo">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+            <result property="clientId" column="client_id" jdbcType="VARCHAR"/>
+            <result property="fundAccount" column="fund_account" jdbcType="VARCHAR"/>
+            <result property="entrustTime" column="entrust_time" jdbcType="TIMESTAMP"/>
+            <result property="idKind" column="id_kind" jdbcType="INTEGER"/>
+            <result property="idNode" column="id_node" jdbcType="VARCHAR"/>
+            <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+            <result property="clientNameSpell" column="client_name_spell" jdbcType="VARCHAR"/>
+            <result property="bankAcctType" column="bank_acct_type" jdbcType="VARCHAR"/>
+            <result property="sex" column="sex" jdbcType="VARCHAR"/>
+            <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+            <result property="transferType" column="transfer_type" jdbcType="SMALLINT"/>
+            <result property="ccy" column="ccy" jdbcType="VARCHAR"/>
+            <result property="withdrawAmount" column="withdraw_amount" jdbcType="DECIMAL"/>
+            <result property="frozenBalance" column="frozen_balance" jdbcType="DECIMAL"/>
+            <result property="drawableBalance" column="drawable_balance" jdbcType="DECIMAL"/>
+            <result property="deductWay" column="deduct_way" jdbcType="TINYINT"/>
+            <result property="chargeFee" column="charge_fee" jdbcType="DECIMAL"/>
+            <result property="actualAmount" column="actual_amount" jdbcType="DECIMAL"/>
+            <result property="refundedAmount" column="refunded_amount" jdbcType="DECIMAL"/>
+            <result property="refundedDate" column="refunded_date" jdbcType="TIMESTAMP"/>
+            <result property="initDate" column="init_date" jdbcType="TIMESTAMP"/>
+            <result property="frozenRefId" column="frozen_ref_id" jdbcType="VARCHAR"/>
+            <result property="oldChargeFee" column="old_charge_fee" jdbcType="DECIMAL"/>
+            <result property="freeFeeFlag" column="free_fee_flag" jdbcType="TINYINT"/>
+            <result property="recvAccountType" column="recv_account_type" jdbcType="TINYINT"/>
+            <result property="recvBankCode" column="recv_bank_code" jdbcType="VARCHAR"/>
+            <result property="recvBankId" column="recv_bank_id" jdbcType="VARCHAR"/>
+            <result property="recvBankName" column="recv_bank_name" jdbcType="VARCHAR"/>
+            <result property="recvBankAcct" column="recv_bank_acct" jdbcType="VARCHAR"/>
+            <result property="recvBankType" column="recv_bank_type" jdbcType="INTEGER"/>
+            <result property="recvBankAcctName" column="recv_bank_acct_name" jdbcType="VARCHAR"/>
+            <result property="recvSwiftCode" column="recv_swift_code" jdbcType="VARCHAR"/>
+            <result property="recvContactAddress" column="recv_contact_address" jdbcType="VARCHAR"/>
+            <result property="recvBankBranchName" column="recv_bank_branch_name" jdbcType="VARCHAR"/>
+            <result property="recvBankBranchCode" column="recv_bank_branch_code" jdbcType="VARCHAR"/>
+            <result property="thirdRecvFlag" column="third_recv_flag" jdbcType="TINYINT"/>
+            <result property="thirdRecvReal" column="third_recv_real" jdbcType="VARCHAR"/>
+            <result property="thirdRecvReason" column="third_recv_reason" jdbcType="VARCHAR"/>
+            <result property="payWay" column="pay_way" jdbcType="SMALLINT"/>
+            <result property="payType" column="pay_type" jdbcType="SMALLINT"/>
+            <result property="payBankCode" column="pay_bank_code" jdbcType="VARCHAR"/>
+            <result property="payBankName" column="pay_bank_name" jdbcType="VARCHAR"/>
+            <result property="payAccountName" column="pay_account_name" jdbcType="VARCHAR"/>
+            <result property="payBankAcct" column="pay_bank_acct" jdbcType="VARCHAR"/>
+            <result property="payBankId" column="pay_bank_id" jdbcType="BIGINT"/>
+            <result property="bankState" column="bank_state" jdbcType="TINYINT"/>
+            <result property="bankRefId" column="bank_ref_id" jdbcType="VARCHAR"/>
+            <result property="bankRtCode" column="bank_rt_code" jdbcType="VARCHAR"/>
+            <result property="bankRtMsg" column="bank_rt_msg" jdbcType="VARCHAR"/>
+            <result property="remittanceId" column="remittance_id" jdbcType="VARCHAR"/>
+            <result property="callbackStatus" column="callback_status" jdbcType="SMALLINT"/>
+            <result property="gtBusinessStep" column="gt_business_step" jdbcType="INTEGER"/>
+            <result property="gtDealStatus" column="gt_deal_status" jdbcType="TINYINT"/>
+            <result property="gtDealDate" column="gt_deal_date" jdbcType="TIMESTAMP"/>
+            <result property="gtRtCode" column="gt_rt_code" jdbcType="VARCHAR"/>
+            <result property="gtRtMsg" column="gt_rt_msg" jdbcType="VARCHAR"/>
+            <result property="exportStatus" column="export_status" jdbcType="TINYINT"/>
+            <result property="exportDate" column="export_date" jdbcType="TIMESTAMP"/>
+            <result property="printStatus" column="print_status" jdbcType="TINYINT"/>
+            <result property="printDate" column="print_date" jdbcType="TIMESTAMP"/>
+            <result property="applySource" column="apply_source" jdbcType="TINYINT"/>
+            <result property="custRemark" column="cust_remark" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
+            <result property="bankReference" column="bank_reference" jdbcType="VARCHAR"/>
+            <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+            <result property="createDept" column="create_dept" jdbcType="BIGINT"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="remittanceVoucher" column="remittance_voucher" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,application_id,client_id,
+        fund_account,entrust_time,id_kind,
+        id_node,client_name,client_name_spell,
+        bank_acct_type,sex,mobile,
+        transfer_type,ccy,withdraw_amount,
+        frozen_balance,drawable_balance,deduct_way,
+        charge_fee,actual_amount,refunded_amount,
+        refunded_date,init_date,frozen_ref_id,
+        old_charge_fee,free_fee_flag,recv_account_type,
+        recv_bank_code,recv_bank_id,recv_bank_name,
+        recv_bank_acct,recv_bank_type,recv_bank_acct_name,
+        recv_swift_code,recv_contact_address,recv_bank_branch_name,
+        recv_bank_branch_code,third_recv_flag,third_recv_real,
+        third_recv_reason,pay_way,pay_type,
+        pay_bank_code,pay_bank_name,pay_account_name,
+        pay_bank_acct,pay_bank_id,bank_state,
+        bank_ref_id,bank_rt_code,bank_rt_msg,
+        remittance_id,callback_status,gt_business_step,
+        gt_deal_status,gt_deal_date,gt_rt_code,
+        gt_rt_msg,export_status,export_date,
+        print_status,print_date,apply_source,
+        cust_remark,remark,create_time,
+        create_user,update_time,update_user,
+        bank_reference,tenant_id,create_dept,
+        status,is_deleted,user_id,
+        remittance_voucher
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from client_fund_withdraw_info
+        where  id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from client_fund_withdraw_info
+        where  id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.ClientFundWithdrawInfo" useGeneratedKeys="true">
+        insert into client_fund_withdraw_info
+        ( id,application_id,client_id
+        ,fund_account,entrust_time,id_kind
+        ,id_node,client_name,client_name_spell
+        ,bank_acct_type,sex,mobile
+        ,transfer_type,ccy,withdraw_amount
+        ,frozen_balance,drawable_balance,deduct_way
+        ,charge_fee,actual_amount,refunded_amount
+        ,refunded_date,init_date,frozen_ref_id
+        ,old_charge_fee,free_fee_flag,recv_account_type
+        ,recv_bank_code,recv_bank_id,recv_bank_name
+        ,recv_bank_acct,recv_bank_type,recv_bank_acct_name
+        ,recv_swift_code,recv_contact_address,recv_bank_branch_name
+        ,recv_bank_branch_code,third_recv_flag,third_recv_real
+        ,third_recv_reason,pay_way,pay_type
+        ,pay_bank_code,pay_bank_name,pay_account_name
+        ,pay_bank_acct,pay_bank_id,bank_state
+        ,bank_ref_id,bank_rt_code,bank_rt_msg
+        ,remittance_id,callback_status,gt_business_step
+        ,gt_deal_status,gt_deal_date,gt_rt_code
+        ,gt_rt_msg,export_status,export_date
+        ,print_status,print_date,apply_source
+        ,cust_remark,remark,create_time
+        ,create_user,update_time,update_user
+        ,bank_reference,tenant_id,create_dept
+        ,status,is_deleted,user_id
+        ,remittance_voucher)
+        values (#{id,jdbcType=BIGINT},#{applicationId,jdbcType=VARCHAR},#{clientId,jdbcType=VARCHAR}
+        ,#{fundAccount,jdbcType=VARCHAR},#{entrustTime,jdbcType=TIMESTAMP},#{idKind,jdbcType=INTEGER}
+        ,#{idNode,jdbcType=VARCHAR},#{clientName,jdbcType=VARCHAR},#{clientNameSpell,jdbcType=VARCHAR}
+        ,#{bankAcctType,jdbcType=VARCHAR},#{sex,jdbcType=VARCHAR},#{mobile,jdbcType=VARCHAR}
+        ,#{transferType,jdbcType=SMALLINT},#{ccy,jdbcType=VARCHAR},#{withdrawAmount,jdbcType=DECIMAL}
+        ,#{frozenBalance,jdbcType=DECIMAL},#{drawableBalance,jdbcType=DECIMAL},#{deductWay,jdbcType=TINYINT}
+        ,#{chargeFee,jdbcType=DECIMAL},#{actualAmount,jdbcType=DECIMAL},#{refundedAmount,jdbcType=DECIMAL}
+        ,#{refundedDate,jdbcType=TIMESTAMP},#{initDate,jdbcType=TIMESTAMP},#{frozenRefId,jdbcType=VARCHAR}
+        ,#{oldChargeFee,jdbcType=DECIMAL},#{freeFeeFlag,jdbcType=TINYINT},#{recvAccountType,jdbcType=TINYINT}
+        ,#{recvBankCode,jdbcType=VARCHAR},#{recvBankId,jdbcType=VARCHAR},#{recvBankName,jdbcType=VARCHAR}
+        ,#{recvBankAcct,jdbcType=VARCHAR},#{recvBankType,jdbcType=INTEGER},#{recvBankAcctName,jdbcType=VARCHAR}
+        ,#{recvSwiftCode,jdbcType=VARCHAR},#{recvContactAddress,jdbcType=VARCHAR},#{recvBankBranchName,jdbcType=VARCHAR}
+        ,#{recvBankBranchCode,jdbcType=VARCHAR},#{thirdRecvFlag,jdbcType=TINYINT},#{thirdRecvReal,jdbcType=VARCHAR}
+        ,#{thirdRecvReason,jdbcType=VARCHAR},#{payWay,jdbcType=SMALLINT},#{payType,jdbcType=SMALLINT}
+        ,#{payBankCode,jdbcType=VARCHAR},#{payBankName,jdbcType=VARCHAR},#{payAccountName,jdbcType=VARCHAR}
+        ,#{payBankAcct,jdbcType=VARCHAR},#{payBankId,jdbcType=BIGINT},#{bankState,jdbcType=TINYINT}
+        ,#{bankRefId,jdbcType=VARCHAR},#{bankRtCode,jdbcType=VARCHAR},#{bankRtMsg,jdbcType=VARCHAR}
+        ,#{remittanceId,jdbcType=VARCHAR},#{callbackStatus,jdbcType=SMALLINT},#{gtBusinessStep,jdbcType=INTEGER}
+        ,#{gtDealStatus,jdbcType=TINYINT},#{gtDealDate,jdbcType=TIMESTAMP},#{gtRtCode,jdbcType=VARCHAR}
+        ,#{gtRtMsg,jdbcType=VARCHAR},#{exportStatus,jdbcType=TINYINT},#{exportDate,jdbcType=TIMESTAMP}
+        ,#{printStatus,jdbcType=TINYINT},#{printDate,jdbcType=TIMESTAMP},#{applySource,jdbcType=TINYINT}
+        ,#{custRemark,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}
+        ,#{createUser,jdbcType=BIGINT},#{updateTime,jdbcType=TIMESTAMP},#{updateUser,jdbcType=BIGINT}
+        ,#{bankReference,jdbcType=VARCHAR},#{tenantId,jdbcType=VARCHAR},#{createDept,jdbcType=BIGINT}
+        ,#{status,jdbcType=INTEGER},#{isDeleted,jdbcType=INTEGER},#{userId,jdbcType=BIGINT}
+        ,#{remittanceVoucher,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.ClientFundWithdrawInfo" useGeneratedKeys="true">
+        insert into client_fund_withdraw_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="applicationId != null">application_id,</if>
+                <if test="clientId != null">client_id,</if>
+                <if test="fundAccount != null">fund_account,</if>
+                <if test="entrustTime != null">entrust_time,</if>
+                <if test="idKind != null">id_kind,</if>
+                <if test="idNode != null">id_node,</if>
+                <if test="clientName != null">client_name,</if>
+                <if test="clientNameSpell != null">client_name_spell,</if>
+                <if test="bankAcctType != null">bank_acct_type,</if>
+                <if test="sex != null">sex,</if>
+                <if test="mobile != null">mobile,</if>
+                <if test="transferType != null">transfer_type,</if>
+                <if test="ccy != null">ccy,</if>
+                <if test="withdrawAmount != null">withdraw_amount,</if>
+                <if test="frozenBalance != null">frozen_balance,</if>
+                <if test="drawableBalance != null">drawable_balance,</if>
+                <if test="deductWay != null">deduct_way,</if>
+                <if test="chargeFee != null">charge_fee,</if>
+                <if test="actualAmount != null">actual_amount,</if>
+                <if test="refundedAmount != null">refunded_amount,</if>
+                <if test="refundedDate != null">refunded_date,</if>
+                <if test="initDate != null">init_date,</if>
+                <if test="frozenRefId != null">frozen_ref_id,</if>
+                <if test="oldChargeFee != null">old_charge_fee,</if>
+                <if test="freeFeeFlag != null">free_fee_flag,</if>
+                <if test="recvAccountType != null">recv_account_type,</if>
+                <if test="recvBankCode != null">recv_bank_code,</if>
+                <if test="recvBankId != null">recv_bank_id,</if>
+                <if test="recvBankName != null">recv_bank_name,</if>
+                <if test="recvBankAcct != null">recv_bank_acct,</if>
+                <if test="recvBankType != null">recv_bank_type,</if>
+                <if test="recvBankAcctName != null">recv_bank_acct_name,</if>
+                <if test="recvSwiftCode != null">recv_swift_code,</if>
+                <if test="recvContactAddress != null">recv_contact_address,</if>
+                <if test="recvBankBranchName != null">recv_bank_branch_name,</if>
+                <if test="recvBankBranchCode != null">recv_bank_branch_code,</if>
+                <if test="thirdRecvFlag != null">third_recv_flag,</if>
+                <if test="thirdRecvReal != null">third_recv_real,</if>
+                <if test="thirdRecvReason != null">third_recv_reason,</if>
+                <if test="payWay != null">pay_way,</if>
+                <if test="payType != null">pay_type,</if>
+                <if test="payBankCode != null">pay_bank_code,</if>
+                <if test="payBankName != null">pay_bank_name,</if>
+                <if test="payAccountName != null">pay_account_name,</if>
+                <if test="payBankAcct != null">pay_bank_acct,</if>
+                <if test="payBankId != null">pay_bank_id,</if>
+                <if test="bankState != null">bank_state,</if>
+                <if test="bankRefId != null">bank_ref_id,</if>
+                <if test="bankRtCode != null">bank_rt_code,</if>
+                <if test="bankRtMsg != null">bank_rt_msg,</if>
+                <if test="remittanceId != null">remittance_id,</if>
+                <if test="callbackStatus != null">callback_status,</if>
+                <if test="gtBusinessStep != null">gt_business_step,</if>
+                <if test="gtDealStatus != null">gt_deal_status,</if>
+                <if test="gtDealDate != null">gt_deal_date,</if>
+                <if test="gtRtCode != null">gt_rt_code,</if>
+                <if test="gtRtMsg != null">gt_rt_msg,</if>
+                <if test="exportStatus != null">export_status,</if>
+                <if test="exportDate != null">export_date,</if>
+                <if test="printStatus != null">print_status,</if>
+                <if test="printDate != null">print_date,</if>
+                <if test="applySource != null">apply_source,</if>
+                <if test="custRemark != null">cust_remark,</if>
+                <if test="remark != null">remark,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="createUser != null">create_user,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="updateUser != null">update_user,</if>
+                <if test="bankReference != null">bank_reference,</if>
+                <if test="tenantId != null">tenant_id,</if>
+                <if test="createDept != null">create_dept,</if>
+                <if test="status != null">status,</if>
+                <if test="isDeleted != null">is_deleted,</if>
+                <if test="userId != null">user_id,</if>
+                <if test="remittanceVoucher != null">remittance_voucher,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="applicationId != null">#{applicationId,jdbcType=VARCHAR},</if>
+                <if test="clientId != null">#{clientId,jdbcType=VARCHAR},</if>
+                <if test="fundAccount != null">#{fundAccount,jdbcType=VARCHAR},</if>
+                <if test="entrustTime != null">#{entrustTime,jdbcType=TIMESTAMP},</if>
+                <if test="idKind != null">#{idKind,jdbcType=INTEGER},</if>
+                <if test="idNode != null">#{idNode,jdbcType=VARCHAR},</if>
+                <if test="clientName != null">#{clientName,jdbcType=VARCHAR},</if>
+                <if test="clientNameSpell != null">#{clientNameSpell,jdbcType=VARCHAR},</if>
+                <if test="bankAcctType != null">#{bankAcctType,jdbcType=VARCHAR},</if>
+                <if test="sex != null">#{sex,jdbcType=VARCHAR},</if>
+                <if test="mobile != null">#{mobile,jdbcType=VARCHAR},</if>
+                <if test="transferType != null">#{transferType,jdbcType=SMALLINT},</if>
+                <if test="ccy != null">#{ccy,jdbcType=VARCHAR},</if>
+                <if test="withdrawAmount != null">#{withdrawAmount,jdbcType=DECIMAL},</if>
+                <if test="frozenBalance != null">#{frozenBalance,jdbcType=DECIMAL},</if>
+                <if test="drawableBalance != null">#{drawableBalance,jdbcType=DECIMAL},</if>
+                <if test="deductWay != null">#{deductWay,jdbcType=TINYINT},</if>
+                <if test="chargeFee != null">#{chargeFee,jdbcType=DECIMAL},</if>
+                <if test="actualAmount != null">#{actualAmount,jdbcType=DECIMAL},</if>
+                <if test="refundedAmount != null">#{refundedAmount,jdbcType=DECIMAL},</if>
+                <if test="refundedDate != null">#{refundedDate,jdbcType=TIMESTAMP},</if>
+                <if test="initDate != null">#{initDate,jdbcType=TIMESTAMP},</if>
+                <if test="frozenRefId != null">#{frozenRefId,jdbcType=VARCHAR},</if>
+                <if test="oldChargeFee != null">#{oldChargeFee,jdbcType=DECIMAL},</if>
+                <if test="freeFeeFlag != null">#{freeFeeFlag,jdbcType=TINYINT},</if>
+                <if test="recvAccountType != null">#{recvAccountType,jdbcType=TINYINT},</if>
+                <if test="recvBankCode != null">#{recvBankCode,jdbcType=VARCHAR},</if>
+                <if test="recvBankId != null">#{recvBankId,jdbcType=VARCHAR},</if>
+                <if test="recvBankName != null">#{recvBankName,jdbcType=VARCHAR},</if>
+                <if test="recvBankAcct != null">#{recvBankAcct,jdbcType=VARCHAR},</if>
+                <if test="recvBankType != null">#{recvBankType,jdbcType=INTEGER},</if>
+                <if test="recvBankAcctName != null">#{recvBankAcctName,jdbcType=VARCHAR},</if>
+                <if test="recvSwiftCode != null">#{recvSwiftCode,jdbcType=VARCHAR},</if>
+                <if test="recvContactAddress != null">#{recvContactAddress,jdbcType=VARCHAR},</if>
+                <if test="recvBankBranchName != null">#{recvBankBranchName,jdbcType=VARCHAR},</if>
+                <if test="recvBankBranchCode != null">#{recvBankBranchCode,jdbcType=VARCHAR},</if>
+                <if test="thirdRecvFlag != null">#{thirdRecvFlag,jdbcType=TINYINT},</if>
+                <if test="thirdRecvReal != null">#{thirdRecvReal,jdbcType=VARCHAR},</if>
+                <if test="thirdRecvReason != null">#{thirdRecvReason,jdbcType=VARCHAR},</if>
+                <if test="payWay != null">#{payWay,jdbcType=SMALLINT},</if>
+                <if test="payType != null">#{payType,jdbcType=SMALLINT},</if>
+                <if test="payBankCode != null">#{payBankCode,jdbcType=VARCHAR},</if>
+                <if test="payBankName != null">#{payBankName,jdbcType=VARCHAR},</if>
+                <if test="payAccountName != null">#{payAccountName,jdbcType=VARCHAR},</if>
+                <if test="payBankAcct != null">#{payBankAcct,jdbcType=VARCHAR},</if>
+                <if test="payBankId != null">#{payBankId,jdbcType=BIGINT},</if>
+                <if test="bankState != null">#{bankState,jdbcType=TINYINT},</if>
+                <if test="bankRefId != null">#{bankRefId,jdbcType=VARCHAR},</if>
+                <if test="bankRtCode != null">#{bankRtCode,jdbcType=VARCHAR},</if>
+                <if test="bankRtMsg != null">#{bankRtMsg,jdbcType=VARCHAR},</if>
+                <if test="remittanceId != null">#{remittanceId,jdbcType=VARCHAR},</if>
+                <if test="callbackStatus != null">#{callbackStatus,jdbcType=SMALLINT},</if>
+                <if test="gtBusinessStep != null">#{gtBusinessStep,jdbcType=INTEGER},</if>
+                <if test="gtDealStatus != null">#{gtDealStatus,jdbcType=TINYINT},</if>
+                <if test="gtDealDate != null">#{gtDealDate,jdbcType=TIMESTAMP},</if>
+                <if test="gtRtCode != null">#{gtRtCode,jdbcType=VARCHAR},</if>
+                <if test="gtRtMsg != null">#{gtRtMsg,jdbcType=VARCHAR},</if>
+                <if test="exportStatus != null">#{exportStatus,jdbcType=TINYINT},</if>
+                <if test="exportDate != null">#{exportDate,jdbcType=TIMESTAMP},</if>
+                <if test="printStatus != null">#{printStatus,jdbcType=TINYINT},</if>
+                <if test="printDate != null">#{printDate,jdbcType=TIMESTAMP},</if>
+                <if test="applySource != null">#{applySource,jdbcType=TINYINT},</if>
+                <if test="custRemark != null">#{custRemark,jdbcType=VARCHAR},</if>
+                <if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="createUser != null">#{createUser,jdbcType=BIGINT},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateUser != null">#{updateUser,jdbcType=BIGINT},</if>
+                <if test="bankReference != null">#{bankReference,jdbcType=VARCHAR},</if>
+                <if test="tenantId != null">#{tenantId,jdbcType=VARCHAR},</if>
+                <if test="createDept != null">#{createDept,jdbcType=BIGINT},</if>
+                <if test="status != null">#{status,jdbcType=INTEGER},</if>
+                <if test="isDeleted != null">#{isDeleted,jdbcType=INTEGER},</if>
+                <if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+                <if test="remittanceVoucher != null">#{remittanceVoucher,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.ClientFundWithdrawInfo">
+        update client_fund_withdraw_info
+        <set>
+                <if test="applicationId != null">
+                    application_id = #{applicationId,jdbcType=VARCHAR},
+                </if>
+                <if test="clientId != null">
+                    client_id = #{clientId,jdbcType=VARCHAR},
+                </if>
+                <if test="fundAccount != null">
+                    fund_account = #{fundAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="entrustTime != null">
+                    entrust_time = #{entrustTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="idKind != null">
+                    id_kind = #{idKind,jdbcType=INTEGER},
+                </if>
+                <if test="idNode != null">
+                    id_node = #{idNode,jdbcType=VARCHAR},
+                </if>
+                <if test="clientName != null">
+                    client_name = #{clientName,jdbcType=VARCHAR},
+                </if>
+                <if test="clientNameSpell != null">
+                    client_name_spell = #{clientNameSpell,jdbcType=VARCHAR},
+                </if>
+                <if test="bankAcctType != null">
+                    bank_acct_type = #{bankAcctType,jdbcType=VARCHAR},
+                </if>
+                <if test="sex != null">
+                    sex = #{sex,jdbcType=VARCHAR},
+                </if>
+                <if test="mobile != null">
+                    mobile = #{mobile,jdbcType=VARCHAR},
+                </if>
+                <if test="transferType != null">
+                    transfer_type = #{transferType,jdbcType=SMALLINT},
+                </if>
+                <if test="ccy != null">
+                    ccy = #{ccy,jdbcType=VARCHAR},
+                </if>
+                <if test="withdrawAmount != null">
+                    withdraw_amount = #{withdrawAmount,jdbcType=DECIMAL},
+                </if>
+                <if test="frozenBalance != null">
+                    frozen_balance = #{frozenBalance,jdbcType=DECIMAL},
+                </if>
+                <if test="drawableBalance != null">
+                    drawable_balance = #{drawableBalance,jdbcType=DECIMAL},
+                </if>
+                <if test="deductWay != null">
+                    deduct_way = #{deductWay,jdbcType=TINYINT},
+                </if>
+                <if test="chargeFee != null">
+                    charge_fee = #{chargeFee,jdbcType=DECIMAL},
+                </if>
+                <if test="actualAmount != null">
+                    actual_amount = #{actualAmount,jdbcType=DECIMAL},
+                </if>
+                <if test="refundedAmount != null">
+                    refunded_amount = #{refundedAmount,jdbcType=DECIMAL},
+                </if>
+                <if test="refundedDate != null">
+                    refunded_date = #{refundedDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="initDate != null">
+                    init_date = #{initDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="frozenRefId != null">
+                    frozen_ref_id = #{frozenRefId,jdbcType=VARCHAR},
+                </if>
+                <if test="oldChargeFee != null">
+                    old_charge_fee = #{oldChargeFee,jdbcType=DECIMAL},
+                </if>
+                <if test="freeFeeFlag != null">
+                    free_fee_flag = #{freeFeeFlag,jdbcType=TINYINT},
+                </if>
+                <if test="recvAccountType != null">
+                    recv_account_type = #{recvAccountType,jdbcType=TINYINT},
+                </if>
+                <if test="recvBankCode != null">
+                    recv_bank_code = #{recvBankCode,jdbcType=VARCHAR},
+                </if>
+                <if test="recvBankId != null">
+                    recv_bank_id = #{recvBankId,jdbcType=VARCHAR},
+                </if>
+                <if test="recvBankName != null">
+                    recv_bank_name = #{recvBankName,jdbcType=VARCHAR},
+                </if>
+                <if test="recvBankAcct != null">
+                    recv_bank_acct = #{recvBankAcct,jdbcType=VARCHAR},
+                </if>
+                <if test="recvBankType != null">
+                    recv_bank_type = #{recvBankType,jdbcType=INTEGER},
+                </if>
+                <if test="recvBankAcctName != null">
+                    recv_bank_acct_name = #{recvBankAcctName,jdbcType=VARCHAR},
+                </if>
+                <if test="recvSwiftCode != null">
+                    recv_swift_code = #{recvSwiftCode,jdbcType=VARCHAR},
+                </if>
+                <if test="recvContactAddress != null">
+                    recv_contact_address = #{recvContactAddress,jdbcType=VARCHAR},
+                </if>
+                <if test="recvBankBranchName != null">
+                    recv_bank_branch_name = #{recvBankBranchName,jdbcType=VARCHAR},
+                </if>
+                <if test="recvBankBranchCode != null">
+                    recv_bank_branch_code = #{recvBankBranchCode,jdbcType=VARCHAR},
+                </if>
+                <if test="thirdRecvFlag != null">
+                    third_recv_flag = #{thirdRecvFlag,jdbcType=TINYINT},
+                </if>
+                <if test="thirdRecvReal != null">
+                    third_recv_real = #{thirdRecvReal,jdbcType=VARCHAR},
+                </if>
+                <if test="thirdRecvReason != null">
+                    third_recv_reason = #{thirdRecvReason,jdbcType=VARCHAR},
+                </if>
+                <if test="payWay != null">
+                    pay_way = #{payWay,jdbcType=SMALLINT},
+                </if>
+                <if test="payType != null">
+                    pay_type = #{payType,jdbcType=SMALLINT},
+                </if>
+                <if test="payBankCode != null">
+                    pay_bank_code = #{payBankCode,jdbcType=VARCHAR},
+                </if>
+                <if test="payBankName != null">
+                    pay_bank_name = #{payBankName,jdbcType=VARCHAR},
+                </if>
+                <if test="payAccountName != null">
+                    pay_account_name = #{payAccountName,jdbcType=VARCHAR},
+                </if>
+                <if test="payBankAcct != null">
+                    pay_bank_acct = #{payBankAcct,jdbcType=VARCHAR},
+                </if>
+                <if test="payBankId != null">
+                    pay_bank_id = #{payBankId,jdbcType=BIGINT},
+                </if>
+                <if test="bankState != null">
+                    bank_state = #{bankState,jdbcType=TINYINT},
+                </if>
+                <if test="bankRefId != null">
+                    bank_ref_id = #{bankRefId,jdbcType=VARCHAR},
+                </if>
+                <if test="bankRtCode != null">
+                    bank_rt_code = #{bankRtCode,jdbcType=VARCHAR},
+                </if>
+                <if test="bankRtMsg != null">
+                    bank_rt_msg = #{bankRtMsg,jdbcType=VARCHAR},
+                </if>
+                <if test="remittanceId != null">
+                    remittance_id = #{remittanceId,jdbcType=VARCHAR},
+                </if>
+                <if test="callbackStatus != null">
+                    callback_status = #{callbackStatus,jdbcType=SMALLINT},
+                </if>
+                <if test="gtBusinessStep != null">
+                    gt_business_step = #{gtBusinessStep,jdbcType=INTEGER},
+                </if>
+                <if test="gtDealStatus != null">
+                    gt_deal_status = #{gtDealStatus,jdbcType=TINYINT},
+                </if>
+                <if test="gtDealDate != null">
+                    gt_deal_date = #{gtDealDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="gtRtCode != null">
+                    gt_rt_code = #{gtRtCode,jdbcType=VARCHAR},
+                </if>
+                <if test="gtRtMsg != null">
+                    gt_rt_msg = #{gtRtMsg,jdbcType=VARCHAR},
+                </if>
+                <if test="exportStatus != null">
+                    export_status = #{exportStatus,jdbcType=TINYINT},
+                </if>
+                <if test="exportDate != null">
+                    export_date = #{exportDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="printStatus != null">
+                    print_status = #{printStatus,jdbcType=TINYINT},
+                </if>
+                <if test="printDate != null">
+                    print_date = #{printDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="applySource != null">
+                    apply_source = #{applySource,jdbcType=TINYINT},
+                </if>
+                <if test="custRemark != null">
+                    cust_remark = #{custRemark,jdbcType=VARCHAR},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="createUser != null">
+                    create_user = #{createUser,jdbcType=BIGINT},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateUser != null">
+                    update_user = #{updateUser,jdbcType=BIGINT},
+                </if>
+                <if test="bankReference != null">
+                    bank_reference = #{bankReference,jdbcType=VARCHAR},
+                </if>
+                <if test="tenantId != null">
+                    tenant_id = #{tenantId,jdbcType=VARCHAR},
+                </if>
+                <if test="createDept != null">
+                    create_dept = #{createDept,jdbcType=BIGINT},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=INTEGER},
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted,jdbcType=INTEGER},
+                </if>
+                <if test="userId != null">
+                    user_id = #{userId,jdbcType=BIGINT},
+                </if>
+                <if test="remittanceVoucher != null">
+                    remittance_voucher = #{remittanceVoucher,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.ClientFundWithdrawInfo">
+        update client_fund_withdraw_info
+        set
+            application_id =  #{applicationId,jdbcType=VARCHAR},
+            client_id =  #{clientId,jdbcType=VARCHAR},
+            fund_account =  #{fundAccount,jdbcType=VARCHAR},
+            entrust_time =  #{entrustTime,jdbcType=TIMESTAMP},
+            id_kind =  #{idKind,jdbcType=INTEGER},
+            id_node =  #{idNode,jdbcType=VARCHAR},
+            client_name =  #{clientName,jdbcType=VARCHAR},
+            client_name_spell =  #{clientNameSpell,jdbcType=VARCHAR},
+            bank_acct_type =  #{bankAcctType,jdbcType=VARCHAR},
+            sex =  #{sex,jdbcType=VARCHAR},
+            mobile =  #{mobile,jdbcType=VARCHAR},
+            transfer_type =  #{transferType,jdbcType=SMALLINT},
+            ccy =  #{ccy,jdbcType=VARCHAR},
+            withdraw_amount =  #{withdrawAmount,jdbcType=DECIMAL},
+            frozen_balance =  #{frozenBalance,jdbcType=DECIMAL},
+            drawable_balance =  #{drawableBalance,jdbcType=DECIMAL},
+            deduct_way =  #{deductWay,jdbcType=TINYINT},
+            charge_fee =  #{chargeFee,jdbcType=DECIMAL},
+            actual_amount =  #{actualAmount,jdbcType=DECIMAL},
+            refunded_amount =  #{refundedAmount,jdbcType=DECIMAL},
+            refunded_date =  #{refundedDate,jdbcType=TIMESTAMP},
+            init_date =  #{initDate,jdbcType=TIMESTAMP},
+            frozen_ref_id =  #{frozenRefId,jdbcType=VARCHAR},
+            old_charge_fee =  #{oldChargeFee,jdbcType=DECIMAL},
+            free_fee_flag =  #{freeFeeFlag,jdbcType=TINYINT},
+            recv_account_type =  #{recvAccountType,jdbcType=TINYINT},
+            recv_bank_code =  #{recvBankCode,jdbcType=VARCHAR},
+            recv_bank_id =  #{recvBankId,jdbcType=VARCHAR},
+            recv_bank_name =  #{recvBankName,jdbcType=VARCHAR},
+            recv_bank_acct =  #{recvBankAcct,jdbcType=VARCHAR},
+            recv_bank_type =  #{recvBankType,jdbcType=INTEGER},
+            recv_bank_acct_name =  #{recvBankAcctName,jdbcType=VARCHAR},
+            recv_swift_code =  #{recvSwiftCode,jdbcType=VARCHAR},
+            recv_contact_address =  #{recvContactAddress,jdbcType=VARCHAR},
+            recv_bank_branch_name =  #{recvBankBranchName,jdbcType=VARCHAR},
+            recv_bank_branch_code =  #{recvBankBranchCode,jdbcType=VARCHAR},
+            third_recv_flag =  #{thirdRecvFlag,jdbcType=TINYINT},
+            third_recv_real =  #{thirdRecvReal,jdbcType=VARCHAR},
+            third_recv_reason =  #{thirdRecvReason,jdbcType=VARCHAR},
+            pay_way =  #{payWay,jdbcType=SMALLINT},
+            pay_type =  #{payType,jdbcType=SMALLINT},
+            pay_bank_code =  #{payBankCode,jdbcType=VARCHAR},
+            pay_bank_name =  #{payBankName,jdbcType=VARCHAR},
+            pay_account_name =  #{payAccountName,jdbcType=VARCHAR},
+            pay_bank_acct =  #{payBankAcct,jdbcType=VARCHAR},
+            pay_bank_id =  #{payBankId,jdbcType=BIGINT},
+            bank_state =  #{bankState,jdbcType=TINYINT},
+            bank_ref_id =  #{bankRefId,jdbcType=VARCHAR},
+            bank_rt_code =  #{bankRtCode,jdbcType=VARCHAR},
+            bank_rt_msg =  #{bankRtMsg,jdbcType=VARCHAR},
+            remittance_id =  #{remittanceId,jdbcType=VARCHAR},
+            callback_status =  #{callbackStatus,jdbcType=SMALLINT},
+            gt_business_step =  #{gtBusinessStep,jdbcType=INTEGER},
+            gt_deal_status =  #{gtDealStatus,jdbcType=TINYINT},
+            gt_deal_date =  #{gtDealDate,jdbcType=TIMESTAMP},
+            gt_rt_code =  #{gtRtCode,jdbcType=VARCHAR},
+            gt_rt_msg =  #{gtRtMsg,jdbcType=VARCHAR},
+            export_status =  #{exportStatus,jdbcType=TINYINT},
+            export_date =  #{exportDate,jdbcType=TIMESTAMP},
+            print_status =  #{printStatus,jdbcType=TINYINT},
+            print_date =  #{printDate,jdbcType=TIMESTAMP},
+            apply_source =  #{applySource,jdbcType=TINYINT},
+            cust_remark =  #{custRemark,jdbcType=VARCHAR},
+            remark =  #{remark,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            create_user =  #{createUser,jdbcType=BIGINT},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            update_user =  #{updateUser,jdbcType=BIGINT},
+            bank_reference =  #{bankReference,jdbcType=VARCHAR},
+            tenant_id =  #{tenantId,jdbcType=VARCHAR},
+            create_dept =  #{createDept,jdbcType=BIGINT},
+            status =  #{status,jdbcType=INTEGER},
+            is_deleted =  #{isDeleted,jdbcType=INTEGER},
+            user_id =  #{userId,jdbcType=BIGINT},
+            remittance_voucher =  #{remittanceVoucher,jdbcType=VARCHAR}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

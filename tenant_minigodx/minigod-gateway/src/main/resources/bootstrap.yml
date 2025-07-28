@@ -1,0 +1,28 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: minigod-gateway
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+        shared-configs:
+          - dataId: gateway-routes.yaml
+          - dataId: jwt-key.yaml
+        timeout: 10000
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  main:
+    allow-bean-definition-overriding: true
+    web-application-type: reactive
+
+management:
+  health:
+    redis:
+      enabled: false
+
+

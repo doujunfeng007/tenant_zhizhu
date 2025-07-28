@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.CustomOpenInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="custom_open_infoResultMap" type="com.minigod.zero.bpmn.module.account.entity.CustomOpenInfoEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.AppEntityMapper.AppBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="access_way" property="accessWay"/>
+        <result column="id_kind" property="idKind"/>
+        <result column="id_card" property="idCard"/>
+        <result column="open_type" property="openType"/>
+        <result column="bank_card" property="bankCard"/>
+        <result column="fund_account_type" property="fundAccountType"/>
+        <result column="account_markets" property="accountMarkets"/>
+        <result column="status" property="status"/>
+        <result column="pending_type" property="pendingType"/>
+        <result column="fail_type" property="failType"/>
+        <result column="fail_reason" property="failReason"/>
+        <result column="is_noticed" property="isNoticed"/>
+        <result column="notice_err_count" property="noticeErrCount"/>
+        <result column="is_pushed" property="isPushed"/>
+        <result column="push_err_count" property="pushErrCount"/>
+        <result column="remote_id" property="remoteId"/>
+        <result column="ca_status" property="caStatus"/>
+        <result column="ca_valid_id" property="caValidId"/>
+        <result column="open_date" property="openDate"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="is_send" property="isSend"/>
+        <result column="form_data" property="formData"/>
+        <result column="open_account_pdf_url" property="openAccountPdfUrl"/>
+        <result column="open_source" property="openSource"/>
+        <result column="open_invite_id" property="openInviteId"/>
+        <result column="open_channel" property="openChannel"/>
+        <result column="stock_types" property="stockTypes"/>
+    </resultMap>
+
+</mapper>

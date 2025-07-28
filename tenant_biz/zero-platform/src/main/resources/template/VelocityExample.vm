@@ -1,0 +1,12 @@
+
+******************************************************************************************************************
+velocity template test:
+string test-----------${user}-----------${number}-----------${latestProduct.url}-----------${latestProduct.name}
+condition test-----------
+#if ($user == "Big Joe")
+list iterator-----------
+#foreach( $aa in $list )
+$aa
+#end
+#end
+date test-----------${date}

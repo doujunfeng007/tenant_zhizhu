@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.TNonTradingDayConfigMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.TNonTradingDayConfig">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="nontradingday" column="nonTradingDay" jdbcType="DATE"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="timePeriod" column="time_period" jdbcType="TINYINT"/>
+            <result property="reasonClosure" column="reason_closure" jdbcType="VARCHAR"/>
+            <result property="uin" column="uin" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,nonTradingDay,createTime,
+        updateTime,time_period,reason_closure,
+        uin
+    </sql>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.withdraw.mapper.BankAreaMapper">
+
+    <resultMap type="com.minigod.zero.bpmn.module.withdraw.entity.BankArea" id="BankAreaResult">
+                <result property="id" column="id"/>
+                <result property="name" column="name"/>
+                <result property="pid" column="pid"/>
+                <result property="level" column="level"/>
+                <result property="status" column="status"/>
+                <result property="createTime" column="create_time"/>
+                <result property="createUser" column="create_user"/>
+                <result property="updateTime" column="update_time"/>
+                <result property="updateUser" column="update_user"/>
+<result property="isDeleted" column="is_deleted"/>
+ <result property="createDept" column="create_dept"/>
+ <result property="status" column="status"/>
+    </resultMap>
+
+
+    <sql id="selectBankAreaVo">
+        select id, name, pid, level, status, create_time, create_user, update_time, update_user from bank_area
+    </sql>
+
+    <select id="selectBankAreaList" parameterType="BankArea" resultMap="BankAreaResult">
+        <include refid="selectBankAreaVo"/>
+        <where>
+                        <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+                        <if test="pid != null "> and pid = #{pid}</if>
+                        <if test="level != null "> and level = #{level}</if>
+                        <if test="status != null "> and status = #{status}</if>
+        </where>
+    </select>
+
+    <select id="selectBankAreaByid" parameterType="Long" resultMap="BankAreaResult">
+            <include refid="selectBankAreaVo"/>
+            where id = #{id}
+    </select>
+
+    <insert id="insertBankArea" parameterType="BankArea" useGeneratedKeys="true" keyProperty="id">
+        insert into bank_area
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="name != null and name != ''">name,</if>
+                    <if test="pid != null">pid,</if>
+                    <if test="level != null">level,</if>
+                    <if test="status != null">status,</if>
+                    <if test="createTime != null">create_time,</if>
+                    <if test="createUser != null">create_user,</if>
+                    <if test="updateTime != null">update_time,</if>
+                    <if test="updateUser != null">update_user,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="name != null and name != ''">#{name},</if>
+                    <if test="pid != null">#{pid},</if>
+                    <if test="level != null">#{level},</if>
+                    <if test="status != null">#{status},</if>
+                    <if test="createTime != null">#{createTime},</if>
+                    <if test="createUser != null">#{createUser},</if>
+                    <if test="updateTime != null">#{updateTime},</if>
+                    <if test="updateUser != null">#{updateUser},</if>
+        </trim>
+    </insert>
+
+    <update id="updateBankArea" parameterType="BankArea">
+        update bank_area
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="name != null and name != ''">name = #{name},</if>
+                    <if test="pid != null">pid = #{pid},</if>
+                    <if test="level != null">level = #{level},</if>
+                    <if test="status != null">status = #{status},</if>
+                    <if test="createTime != null">create_time = #{createTime},</if>
+                    <if test="createUser != null">create_user = #{createUser},</if>
+                    <if test="updateTime != null">update_time = #{updateTime},</if>
+                    <if test="updateUser != null">update_user = #{updateUser},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBankAreaByid" parameterType="Long">
+        delete from bank_area where id = #{id}
+    </delete>
+
+    <delete id="deleteBankAreaByids" parameterType="String">
+        delete from bank_area where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+</mapper>

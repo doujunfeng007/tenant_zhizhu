@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.withdraw.mapper.ClientTeltransferInfoMapper">
+
+
+    <resultMap type="com.minigod.zero.bpmn.module.withdraw.entity.ClientTeltransferInfo" id="ClientTeltransferInfoResult">
+        <result property="id" column="id"/>
+        <result property="applicationId" column="application_id"/>
+        <result property="clientId" column="client_id"/>
+        <result property="fundAccount" column="fund_account"/>
+        <result property="bankCode" column="bank_code"/>
+        <result property="bankName" column="bank_name"/>
+        <result property="bankAcct" column="bank_acct"/>
+        <result property="nationality" column="nationality"/>
+        <result property="provinceId" column="province_id"/>
+        <result property="provinceName" column="province_name"/>
+        <result property="cityId" column="city_id"/>
+        <result property="cityName" column="city_name"/>
+        <result property="swiftCode" column="swift_code"/>
+        <result property="isVisible" column="is_visible"/>
+        <result property="country" column="country"/>
+        <result property="address" column="address"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUser" column="create_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUser" column="update_user"/>
+<result property="isDeleted" column="is_deleted"/>
+ <result property="createDept" column="create_dept"/>
+ <result property="status" column="status"/>
+    </resultMap>
+
+
+    <sql id="selectClientTeltransferInfoVo">
+        select id, application_id, client_id, fund_account, bank_code, bank_name, bank_acct, nationality, province_id, province_name, city_id, city_name, swift_code, is_visible, country, address, create_time, create_user, update_time, update_user,is_deleted, create_dept, status from client_teltransfer_info
+    </sql>
+
+    <select id="selectClientTeltransferInfoList" parameterType="ClientTeltransferInfo" resultMap="ClientTeltransferInfoResult">
+        <include refid="selectClientTeltransferInfoVo"/>
+        <where>
+            <if test="applicationId != null  and applicationId != ''"> and application_id = #{applicationId}</if>
+            <if test="clientId != null  and clientId != ''"> and client_id = #{clientId}</if>
+            <if test="fundAccount != null  and fundAccount != ''"> and fund_account = #{fundAccount}</if>
+            <if test="bankCode != null  and bankCode != ''"> and bank_code = #{bankCode}</if>
+            <if test="bankName != null  and bankName != ''"> and bank_name like concat('%', #{bankName}, '%')</if>
+            <if test="bankAcct != null  and bankAcct != ''"> and bank_acct = #{bankAcct}</if>
+            <if test="nationality != null  and nationality != ''"> and nationality = #{nationality}</if>
+            <if test="provinceId != null "> and province_id = #{provinceId}</if>
+            <if test="provinceName != null  and provinceName != ''"> and province_name like concat('%', #{provinceName}, '%')</if>
+            <if test="cityId != null "> and city_id = #{cityId}</if>
+            <if test="cityName != null  and cityName != ''"> and city_name like concat('%', #{cityName}, '%')</if>
+            <if test="swiftCode != null  and swiftCode != ''"> and swift_code = #{swiftCode}</if>
+            <if test="isVisible != null  and isVisible != ''"> and is_visible = #{isVisible}</if>
+            <if test="country != null  and country != ''"> and country = #{country}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+        </where>
+    </select>
+
+    <select id="selectClientTeltransferInfoByid" parameterType="Long" resultMap="ClientTeltransferInfoResult">
+        <include refid="selectClientTeltransferInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertClientTeltransferInfo" parameterType="ClientTeltransferInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into client_teltransfer_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="applicationId != null and applicationId != ''">application_id,</if>
+            <if test="clientId != null and clientId != ''">client_id,</if>
+            <if test="fundAccount != null and fundAccount != ''">fund_account,</if>
+            <if test="bankCode != null and bankCode != ''">bank_code,</if>
+            <if test="bankName != null and bankName != ''">bank_name,</if>
+            <if test="bankAcct != null and bankAcct != ''">bank_acct,</if>
+            <if test="nationality != null and nationality != ''">nationality,</if>
+            <if test="provinceId != null">province_id,</if>
+            <if test="provinceName != null and provinceName != ''">province_name,</if>
+            <if test="cityId != null">city_id,</if>
+            <if test="cityName != null and cityName != ''">city_name,</if>
+            <if test="swiftCode != null and swiftCode != ''">swift_code,</if>
+            <if test="isVisible != null and isVisible != ''">is_visible,</if>
+            <if test="country != null and country != ''">country,</if>
+            <if test="address != null and address != ''">address,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateUser != null">update_user,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="applicationId != null and applicationId != ''">#{applicationId},</if>
+            <if test="clientId != null and clientId != ''">#{clientId},</if>
+            <if test="fundAccount != null and fundAccount != ''">#{fundAccount},</if>
+            <if test="bankCode != null and bankCode != ''">#{bankCode},</if>
+            <if test="bankName != null and bankName != ''">#{bankName},</if>
+            <if test="bankAcct != null and bankAcct != ''">#{bankAcct},</if>
+            <if test="nationality != null and nationality != ''">#{nationality},</if>
+            <if test="provinceId != null">#{provinceId},</if>
+            <if test="provinceName != null and provinceName != ''">#{provinceName},</if>
+            <if test="cityId != null">#{cityId},</if>
+            <if test="cityName != null and cityName != ''">#{cityName},</if>
+            <if test="swiftCode != null and swiftCode != ''">#{swiftCode},</if>
+            <if test="isVisible != null and isVisible != ''">#{isVisible},</if>
+            <if test="country != null and country != ''">#{country},</if>
+            <if test="address != null and address != ''">#{address},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateUser != null">#{updateUser},</if>
+        </trim>
+    </insert>
+
+    <update id="updateClientTeltransferInfo" parameterType="ClientTeltransferInfo">
+        update client_teltransfer_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="applicationId != null and applicationId != ''">application_id = #{applicationId},</if>
+            <if test="clientId != null and clientId != ''">client_id = #{clientId},</if>
+            <if test="fundAccount != null and fundAccount != ''">fund_account = #{fundAccount},</if>
+            <if test="bankCode != null and bankCode != ''">bank_code = #{bankCode},</if>
+            <if test="bankName != null and bankName != ''">bank_name = #{bankName},</if>
+            <if test="bankAcct != null and bankAcct != ''">bank_acct = #{bankAcct},</if>
+            <if test="nationality != null and nationality != ''">nationality = #{nationality},</if>
+            <if test="provinceId != null">province_id = #{provinceId},</if>
+            <if test="provinceName != null and provinceName != ''">province_name = #{provinceName},</if>
+            <if test="cityId != null">city_id = #{cityId},</if>
+            <if test="cityName != null and cityName != ''">city_name = #{cityName},</if>
+            <if test="swiftCode != null and swiftCode != ''">swift_code = #{swiftCode},</if>
+            <if test="isVisible != null and isVisible != ''">is_visible = #{isVisible},</if>
+            <if test="country != null and country != ''">country = #{country},</if>
+            <if test="address != null and address != ''">address = #{address},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteClientTeltransferInfoByid" parameterType="Long">
+        delete from client_teltransfer_info where id = #{id}
+    </delete>
+
+    <delete id="deleteClientTeltransferInfoByids" parameterType="String">
+        delete from client_teltransfer_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

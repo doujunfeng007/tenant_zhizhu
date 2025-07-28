@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerStatementFileHistoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerStatementFileHistoryEntity">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="statementFileId" column="statement_file_id" jdbcType="BIGINT"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="sendEmailId" column="send_email_id" jdbcType="VARCHAR"/>
+            <result property="sendTime" column="send_time" jdbcType="TIMESTAMP"/>
+            <result property="sendNum" column="send_num" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,statement_file_id,email,
+        send_time,send_num,create_time,
+        update_time
+    </sql>
+    <select id="customerStatementList" resultType="com.minigod.zero.customer.vo.StatementHistoryListVO">
+        select
+        ci.id as custId,
+        cbi.client_name as name,
+        CONCAT(cbi.family_name_spell,cbi.given_name_spell) as enName,
+        case when cf.type = 1 then DATE_FORMAT(cf.date, '%Y-%m-%d') else DATE_FORMAT(cf.date, '%Y-%m')  end as statementTime,
+        cfa.account_id as accountId,
+        cbi.email as openEmail,
+        cf.status as statementStatus,
+        cf.error_msg as errorMsg,
+        cf.id as statementFileId,
+        csfh.send_time as sendTime,
+        csfh.send_num as sendNum,
+        cf.type as statementType
+        from customer_statement_file_history as csfh
+        left join customer_file as cf on cf.id = csfh.statement_file_id
+        left join customer_info as ci on cf.cust_id = ci.id
+        left join customer_basic_info cbi on ci.id = cbi.cust_id
+        left join customer_financing_account cfa on ci.id = cfa.cust_id and cfa.status = 0
+        <where>
+            <if test="statementHistoryListDTO.startTime != null and statementHistoryListDTO.startTime != ''">
+                and DATE_FORMAT(csfh.send_time, '%Y-%m-%d') &gt;= #{statementHistoryListDTO.startTime}
+            </if>
+            <if test="statementHistoryListDTO.endTime != null and statementHistoryListDTO.endTime != '' ">
+                and DATE_FORMAT(csfh.send_time, '%Y-%m-%d') &lt;= #{statementHistoryListDTO.endTime}
+            </if>
+
+            <if test="statementHistoryListDTO.sendNum != null">
+                and csfh.send_num = #{statementHistoryListDTO.sendNum}
+            </if>
+
+            <if test="statementHistoryListDTO.statementStatus != null">
+                and cf.status = #{statementHistoryListDTO.statementStatus}
+            </if>
+
+            <if test="statementHistoryListDTO.keyword != null and statementHistoryListDTO.keyword != ''">
+                and (
+                ci.id =#{statementHistoryListDTO.keyword}
+                or cfa.account_id = #{statementHistoryListDTO.keyword}
+                or ci.cell_phone = #{statementHistoryListDTO.keyword}
+                or cbi.phone_number = #{statementHistoryListDTO.keyword}
+                or cbi.client_name like concat('%',#{statementHistoryListDTO.keyword},'%')
+                or cbi.given_name_spell like concat('%',#{statementHistoryListDTO.keyword},'%')
+                )
+            </if>
+            and cf.type in (1,2)
+        </where>
+        order by cf.create_time desc
+    </select>
+</mapper>

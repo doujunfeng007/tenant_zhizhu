@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.FundLatestPriceMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.FundLatestPriceEntity">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="fundCode" column="fund_code" jdbcType="VARCHAR"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="priceDate" column="price_date" jdbcType="TIMESTAMP"/>
+            <result property="price" column="price" jdbcType="DECIMAL"/>
+            <result property="adjustedPriceDate" column="adjusted_price_date" jdbcType="TIMESTAMP"/>
+            <result property="adjustedPrice" column="adjusted_price" jdbcType="DECIMAL"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="lastUpdateTime" column="last_update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,fund_code,currency,
+        price_date,price,adjusted_price_date,
+        adjusted_price,remark,create_time,
+        update_time,last_update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from fund_latest_price
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from fund_latest_price
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.FundLatestPriceEntity" useGeneratedKeys="true">
+        insert into fund_latest_price
+        ( id,fund_code,currency
+        ,price_date,price,adjusted_price_date
+        ,adjusted_price,remark,create_time
+        ,update_time,last_update_time)
+        values (#{id,jdbcType=INTEGER},#{fundCode,jdbcType=VARCHAR},#{currency,jdbcType=VARCHAR}
+        ,#{priceDate,jdbcType=TIMESTAMP},#{price,jdbcType=DECIMAL},#{adjustedPriceDate,jdbcType=TIMESTAMP}
+        ,#{adjustedPrice,jdbcType=DECIMAL},#{remark,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}
+        ,#{updateTime,jdbcType=TIMESTAMP},#{lastUpdateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.FundLatestPriceEntity" useGeneratedKeys="true">
+        insert into fund_latest_price
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="fundCode != null">fund_code,</if>
+                <if test="currency != null">currency,</if>
+                <if test="priceDate != null">price_date,</if>
+                <if test="price != null">price,</if>
+                <if test="adjustedPriceDate != null">adjusted_price_date,</if>
+                <if test="adjustedPrice != null">adjusted_price,</if>
+                <if test="remark != null">remark,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="lastUpdateTime != null">last_update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="fundCode != null">#{fundCode,jdbcType=VARCHAR},</if>
+                <if test="currency != null">#{currency,jdbcType=VARCHAR},</if>
+                <if test="priceDate != null">#{priceDate,jdbcType=TIMESTAMP},</if>
+                <if test="price != null">#{price,jdbcType=DECIMAL},</if>
+                <if test="adjustedPriceDate != null">#{adjustedPriceDate,jdbcType=TIMESTAMP},</if>
+                <if test="adjustedPrice != null">#{adjustedPrice,jdbcType=DECIMAL},</if>
+                <if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="lastUpdateTime != null">#{lastUpdateTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.FundLatestPriceEntity">
+        update fund_latest_price
+        <set>
+                <if test="fundCode != null">
+                    fund_code = #{fundCode,jdbcType=VARCHAR},
+                </if>
+                <if test="currency != null">
+                    currency = #{currency,jdbcType=VARCHAR},
+                </if>
+                <if test="priceDate != null">
+                    price_date = #{priceDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="price != null">
+                    price = #{price,jdbcType=DECIMAL},
+                </if>
+                <if test="adjustedPriceDate != null">
+                    adjusted_price_date = #{adjustedPriceDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="adjustedPrice != null">
+                    adjusted_price = #{adjustedPrice,jdbcType=DECIMAL},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="lastUpdateTime != null">
+                    last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.FundLatestPriceEntity">
+        update fund_latest_price
+        set
+            fund_code =  #{fundCode,jdbcType=VARCHAR},
+            currency =  #{currency,jdbcType=VARCHAR},
+            price_date =  #{priceDate,jdbcType=TIMESTAMP},
+            price =  #{price,jdbcType=DECIMAL},
+            adjusted_price_date =  #{adjustedPriceDate,jdbcType=TIMESTAMP},
+            adjusted_price =  #{adjustedPrice,jdbcType=DECIMAL},
+            remark =  #{remark,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            last_update_time =  #{lastUpdateTime,jdbcType=TIMESTAMP}
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByFundCodeAndDay" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from fund_latest_price where fund_code = #{fundCode} and currency = #{currency}
+        and price_date = {day}
+    </select>
+</mapper>

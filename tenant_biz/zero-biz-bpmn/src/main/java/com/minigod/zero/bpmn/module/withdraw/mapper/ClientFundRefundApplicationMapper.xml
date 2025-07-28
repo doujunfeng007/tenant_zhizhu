@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.withdraw.mapper.ClientFundRefundApplicationMapper">
+
+    <resultMap type="com.minigod.zero.bpmn.module.withdraw.entity.ClientFundRefundApplication" id="ClientFundRefundApplicationResult">
+        <result property="id" column="id"/>
+        <result property="applicationId" column="application_id"/>
+        <result property="applicationTitle" column="application_title"/>
+        <result property="withdrawApplicationId" column="withdraw_application_id"/>
+        <result property="clientId" column="client_id"/>
+        <result property="fundAccount" column="fund_account"/>
+        <result property="ccy" column="ccy"/>
+        <result property="refundAmount" column="refund_amount"/>
+        <result property="refundBankFee" column="refund_bank_fee"/>
+        <result property="netRefundAmount" column="net_refund_amount"/>
+        <result property="refundType" column="refund_type"/>
+        <result property="gtBusinessStep" column="gt_business_step"/>
+        <result property="gtDealStatus" column="gt_deal_status"/>
+        <result property="gtDealDate" column="gt_deal_date"/>
+        <result property="gtRtCode" column="gt_rt_code"/>
+        <result property="gtMsg" column="gt_msg"/>
+        <result property="refundReason" column="refund_reason"/>
+        <result property="status" column="status"/>
+        <result property="currentNode" column="current_node"/>
+        <result property="lastApprovalUser" column="last_approval_user"/>
+        <result property="approvalOpinion" column="approval_opinion"/>
+        <result property="approvalTime" column="approval_time"/>
+        <result property="callbackStatus" column="callback_status"/>
+        <result property="applicationStatus" column="application_status"/>
+        <result property="isBack" column="is_back"/>
+        <result property="assignDrafter" column="assign_drafter"/>
+        <result property="flowPath" column="flow_path"/>
+        <result property="fireAid" column="fire_aid"/>
+        <result property="instanceId" column="instance_id"/>
+        <result property="definitionId" column="definition_id"/>
+        <result property="processInstanceId" column="process_instance_id"/>
+        <result property="taskId" column="task_id"/>
+        <result property="deployId" column="deploy_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUser" column="create_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUser" column="update_user"/>
+<result property="isDeleted" column="is_deleted"/>
+ <result property="createDept" column="create_dept"/>
+ <result property="status" column="status"/>
+    </resultMap>
+
+
+    <sql id="selectClientFundRefundApplicationVo">
+        select id, application_id, application_title, withdraw_application_id, client_id, fund_account, ccy, refund_amount, refund_bank_fee, net_refund_amount, refund_type, gt_business_step, gt_deal_status, gt_deal_date, gt_rt_code, gt_msg, refund_reason, status, current_node, last_approval_user, approval_opinion, approval_time, callback_status, application_status, is_back, assign_drafter, flow_path, fire_aid, instance_id, definition_id, process_instance_id, task_id, deploy_id, create_time, create_user, update_time, update_user from client_fund_refund_application
+    </sql>
+
+    <select id="selectClientFundRefundApplicationList" parameterType="ClientFundRefundApplication" resultMap="ClientFundRefundApplicationResult">
+        <include refid="selectClientFundRefundApplicationVo"/>
+        <where>
+            <if test="applicationId != null  and applicationId != ''"> and application_id = #{applicationId}</if>
+            <if test="applicationTitle != null  and applicationTitle != ''"> and application_title = #{applicationTitle}</if>
+            <if test="withdrawApplicationId != null  and withdrawApplicationId != ''"> and withdraw_application_id = #{withdrawApplicationId}</if>
+            <if test="clientId != null  and clientId != ''"> and client_id = #{clientId}</if>
+            <if test="fundAccount != null  and fundAccount != ''"> and fund_account = #{fundAccount}</if>
+            <if test="ccy != null  and ccy != ''"> and ccy = #{ccy}</if>
+            <if test="refundAmount != null "> and refund_amount = #{refundAmount}</if>
+            <if test="refundBankFee != null "> and refund_bank_fee = #{refundBankFee}</if>
+            <if test="netRefundAmount != null "> and net_refund_amount = #{netRefundAmount}</if>
+            <if test="refundType != null "> and refund_type = #{refundType}</if>
+            <if test="gtBusinessStep != null "> and gt_business_step = #{gtBusinessStep}</if>
+            <if test="gtDealStatus != null "> and gt_deal_status = #{gtDealStatus}</if>
+            <if test="gtDealDate != null "> and gt_deal_date = #{gtDealDate}</if>
+            <if test="gtRtCode != null  and gtRtCode != ''"> and gt_rt_code = #{gtRtCode}</if>
+            <if test="gtMsg != null  and gtMsg != ''"> and gt_msg = #{gtMsg}</if>
+            <if test="refundReason != null  and refundReason != ''"> and refund_reason = #{refundReason}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="currentNode != null  and currentNode != ''"> and current_node = #{currentNode}</if>
+            <if test="lastApprovalUser != null  and lastApprovalUser != ''"> and last_approval_user = #{lastApprovalUser}</if>
+            <if test="approvalOpinion != null  and approvalOpinion != ''"> and approval_opinion = #{approvalOpinion}</if>
+            <if test="approvalTime != null "> and approval_time = #{approvalTime}</if>
+            <if test="callbackStatus != null "> and callback_status = #{callbackStatus}</if>
+            <if test="applicationStatus != null "> and application_status = #{applicationStatus}</if>
+            <if test="isBack != null "> and is_back = #{isBack}</if>
+            <if test="assignDrafter != null  and assignDrafter != ''"> and assign_drafter = #{assignDrafter}</if>
+            <if test="flowPath != null  and flowPath != ''"> and flow_path = #{flowPath}</if>
+            <if test="fireAid != null "> and fire_aid = #{fireAid}</if>
+            <if test="instanceId != null  and instanceId != ''"> and instance_id = #{instanceId}</if>
+            <if test="definitionId != null  and definitionId != ''"> and definition_id = #{definitionId}</if>
+            <if test="processInstanceId != null  and processInstanceId != ''"> and process_instance_id = #{processInstanceId}</if>
+            <if test="taskId != null  and taskId != ''"> and task_id = #{taskId}</if>
+            <if test="deployId != null  and deployId != ''"> and deploy_id = #{deployId}</if>
+        </where>
+    </select>
+
+    <select id="selectClientFundRefundApplicationByid" parameterType="Long" resultMap="ClientFundRefundApplicationResult">
+        <include refid="selectClientFundRefundApplicationVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertClientFundRefundApplication" parameterType="ClientFundRefundApplication" useGeneratedKeys="true" keyProperty="id">
+        insert into client_fund_refund_application
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="applicationId != null and applicationId != ''">application_id,</if>
+            <if test="applicationTitle != null and applicationTitle != ''">application_title,</if>
+            <if test="withdrawApplicationId != null and withdrawApplicationId != ''">withdraw_application_id,</if>
+            <if test="clientId != null and clientId != ''">client_id,</if>
+            <if test="fundAccount != null and fundAccount != ''">fund_account,</if>
+            <if test="ccy != null and ccy != ''">ccy,</if>
+            <if test="refundAmount != null">refund_amount,</if>
+            <if test="refundBankFee != null">refund_bank_fee,</if>
+            <if test="netRefundAmount != null">net_refund_amount,</if>
+            <if test="refundType != null">refund_type,</if>
+            <if test="gtBusinessStep != null">gt_business_step,</if>
+            <if test="gtDealStatus != null">gt_deal_status,</if>
+            <if test="gtDealDate != null">gt_deal_date,</if>
+            <if test="gtRtCode != null and gtRtCode != ''">gt_rt_code,</if>
+            <if test="gtMsg != null and gtMsg != ''">gt_msg,</if>
+            <if test="refundReason != null and refundReason != ''">refund_reason,</if>
+            <if test="status != null">status,</if>
+            <if test="currentNode != null and currentNode != ''">current_node,</if>
+            <if test="lastApprovalUser != null and lastApprovalUser != ''">last_approval_user,</if>
+            <if test="approvalOpinion != null and approvalOpinion != ''">approval_opinion,</if>
+            <if test="approvalTime != null">approval_time,</if>
+            <if test="callbackStatus != null">callback_status,</if>
+            <if test="applicationStatus != null">application_status,</if>
+            <if test="isBack != null">is_back,</if>
+            <if test="assignDrafter != null and assignDrafter != ''">assign_drafter,</if>
+            <if test="flowPath != null and flowPath != ''">flow_path,</if>
+            <if test="fireAid != null">fire_aid,</if>
+            <if test="instanceId != null and instanceId != ''">instance_id,</if>
+            <if test="definitionId != null and definitionId != ''">definition_id,</if>
+            <if test="processInstanceId != null and processInstanceId != ''">process_instance_id,</if>
+            <if test="taskId != null and taskId != ''">task_id,</if>
+            <if test="deployId != null and deployId != ''">deploy_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateUser != null">update_user,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="applicationId != null and applicationId != ''">#{applicationId},</if>
+            <if test="applicationTitle != null and applicationTitle != ''">#{applicationTitle},</if>
+            <if test="withdrawApplicationId != null and withdrawApplicationId != ''">#{withdrawApplicationId},</if>
+            <if test="clientId != null and clientId != ''">#{clientId},</if>
+            <if test="fundAccount != null and fundAccount != ''">#{fundAccount},</if>
+            <if test="ccy != null and ccy != ''">#{ccy},</if>
+            <if test="refundAmount != null">#{refundAmount},</if>
+            <if test="refundBankFee != null">#{refundBankFee},</if>
+            <if test="netRefundAmount != null">#{netRefundAmount},</if>
+            <if test="refundType != null">#{refundType},</if>
+            <if test="gtBusinessStep != null">#{gtBusinessStep},</if>
+            <if test="gtDealStatus != null">#{gtDealStatus},</if>
+            <if test="gtDealDate != null">#{gtDealDate},</if>
+            <if test="gtRtCode != null and gtRtCode != ''">#{gtRtCode},</if>
+            <if test="gtMsg != null and gtMsg != ''">#{gtMsg},</if>
+            <if test="refundReason != null and refundReason != ''">#{refundReason},</if>
+            <if test="status != null">#{status},</if>
+            <if test="currentNode != null and currentNode != ''">#{currentNode},</if>
+            <if test="lastApprovalUser != null and lastApprovalUser != ''">#{lastApprovalUser},</if>
+            <if test="approvalOpinion != null and approvalOpinion != ''">#{approvalOpinion},</if>
+            <if test="approvalTime != null">#{approvalTime},</if>
+            <if test="callbackStatus != null">#{callbackStatus},</if>
+            <if test="applicationStatus != null">#{applicationStatus},</if>
+            <if test="isBack != null">#{isBack},</if>
+            <if test="assignDrafter != null and assignDrafter != ''">#{assignDrafter},</if>
+            <if test="flowPath != null and flowPath != ''">#{flowPath},</if>
+            <if test="fireAid != null">#{fireAid},</if>
+            <if test="instanceId != null and instanceId != ''">#{instanceId},</if>
+            <if test="definitionId != null and definitionId != ''">#{definitionId},</if>
+            <if test="processInstanceId != null and processInstanceId != ''">#{processInstanceId},</if>
+            <if test="taskId != null and taskId != ''">#{taskId},</if>
+            <if test="deployId != null and deployId != ''">#{deployId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateUser != null">#{updateUser},</if>
+        </trim>
+    </insert>
+
+    <update id="updateClientFundRefundApplication" parameterType="ClientFundRefundApplication">
+        update client_fund_refund_application
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="applicationId != null and applicationId != ''">application_id = #{applicationId},</if>
+            <if test="applicationTitle != null and applicationTitle != ''">application_title = #{applicationTitle},</if>
+            <if test="withdrawApplicationId != null and withdrawApplicationId != ''">withdraw_application_id = #{withdrawApplicationId},</if>
+            <if test="clientId != null and clientId != ''">client_id = #{clientId},</if>
+            <if test="fundAccount != null and fundAccount != ''">fund_account = #{fundAccount},</if>
+            <if test="ccy != null and ccy != ''">ccy = #{ccy},</if>
+            <if test="refundAmount != null">refund_amount = #{refundAmount},</if>
+            <if test="refundBankFee != null">refund_bank_fee = #{refundBankFee},</if>
+            <if test="netRefundAmount != null">net_refund_amount = #{netRefundAmount},</if>
+            <if test="refundType != null">refund_type = #{refundType},</if>
+            <if test="gtBusinessStep != null">gt_business_step = #{gtBusinessStep},</if>
+            <if test="gtDealStatus != null">gt_deal_status = #{gtDealStatus},</if>
+            <if test="gtDealDate != null">gt_deal_date = #{gtDealDate},</if>
+            <if test="gtRtCode != null and gtRtCode != ''">gt_rt_code = #{gtRtCode},</if>
+            <if test="gtMsg != null and gtMsg != ''">gt_msg = #{gtMsg},</if>
+            <if test="refundReason != null and refundReason != ''">refund_reason = #{refundReason},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="currentNode != null and currentNode != ''">current_node = #{currentNode},</if>
+            <if test="lastApprovalUser != null and lastApprovalUser != ''">last_approval_user = #{lastApprovalUser},</if>
+            <if test="approvalOpinion != null and approvalOpinion != ''">approval_opinion = #{approvalOpinion},</if>
+            <if test="approvalTime != null">approval_time = #{approvalTime},</if>
+            <if test="callbackStatus != null">callback_status = #{callbackStatus},</if>
+            <if test="applicationStatus != null">application_status = #{applicationStatus},</if>
+            <if test="isBack != null">is_back = #{isBack},</if>
+            <if test="assignDrafter != null and assignDrafter != ''">assign_drafter = #{assignDrafter},</if>
+            <if test="flowPath != null and flowPath != ''">flow_path = #{flowPath},</if>
+            <if test="fireAid != null">fire_aid = #{fireAid},</if>
+            <if test="instanceId != null and instanceId != ''">instance_id = #{instanceId},</if>
+            <if test="definitionId != null and definitionId != ''">definition_id = #{definitionId},</if>
+            <if test="processInstanceId != null and processInstanceId != ''">process_instance_id = #{processInstanceId},</if>
+            <if test="taskId != null and taskId != ''">task_id = #{taskId},</if>
+            <if test="deployId != null and deployId != ''">deploy_id = #{deployId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
+        </trim>
+        <where>
+            <if test="id != null"> and id = #{id}</if>
+            <if test="applicationId != null and applicationId != ''"> and application_id = #{applicationId}</if>
+        </where>
+    </update>
+
+    <delete id="deleteClientFundRefundApplicationByid" parameterType="Long">
+        delete from client_fund_refund_application where id = #{id}
+    </delete>
+
+    <delete id="deleteClientFundRefundApplicationByids" parameterType="String">
+        delete from client_fund_refund_application where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+</mapper>

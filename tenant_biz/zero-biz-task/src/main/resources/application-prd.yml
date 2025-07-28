@@ -1,0 +1,18 @@
+#服务器端口
+server:
+  port: 8000
+
+#数据源配置
+spring:
+  datasource:
+    dynamic:
+      primary: default
+      datasource:
+        default:
+          url: ${zero.datasource.prd.url}
+          username: ${zero.datasource.prd.username}
+          password: ${zero.datasource.prd.password}
+        cust:
+          url: ${zero.datasource.cust.prd.url}
+          username: ${zero.datasource.cust.prd.username}
+          password: ${zero.datasource.cust.prd.password}

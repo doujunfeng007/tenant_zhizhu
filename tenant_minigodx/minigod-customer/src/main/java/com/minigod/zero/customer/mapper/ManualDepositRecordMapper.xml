@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.ManualDepositRecordMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.ManualDepositRecord">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="custId" column="cust_id" jdbcType="BIGINT"/>
+        <result property="accountId" column="account_id" jdbcType="VARCHAR"/>
+        <result property="custName" column="cust_name" jdbcType="VARCHAR"/>
+        <result property="depositAmount" column="deposit_amount" jdbcType="DECIMAL"/>
+        <result property="currency" column="currency" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createUserName" column="create_user_name" jdbcType="VARCHAR"/>
+        <result property="createUserId" column="create_user_id" jdbcType="BIGINT"/>
+        <result property="bankType" column="bank_type" jdbcType="INTEGER"/>
+        <result property="bankName" column="bank_name" jdbcType="VARCHAR"/>
+        <result property="bankId" column="bank_id" jdbcType="VARCHAR"/>
+        <result property="remittanceAccount" column="remittance_account" jdbcType="VARCHAR"/>
+        <result property="remittanceAccountName" column="remittance_account_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,cust_id,account_id,
+        cust_name,deposit_amount,currency,
+        create_time,create_user_name,create_user_id,
+        bank_type,bank_name,bank_id,
+        remittance_account,remittance_account_name
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from manual_deposit_record
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from manual_deposit_record
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.ManualDepositRecord" useGeneratedKeys="true">
+        insert into manual_deposit_record
+        ( id,cust_id,account_id
+        ,cust_name,deposit_amount,currency
+        ,create_time,create_user_name,create_user_id
+        ,bank_type,bank_name,bank_id
+        ,remittance_account,remittance_account_name)
+        values (#{id,jdbcType=INTEGER},#{custId,jdbcType=BIGINT},#{accountId,jdbcType=VARCHAR}
+               ,#{custName,jdbcType=VARCHAR},#{depositAmount,jdbcType=DECIMAL},#{currency,jdbcType=VARCHAR}
+               ,#{createTime,jdbcType=TIMESTAMP},#{createUserName,jdbcType=VARCHAR},#{createUserId,jdbcType=BIGINT}
+               ,#{bankType,jdbcType=INTEGER},#{bankName,jdbcType=VARCHAR},#{bankId,jdbcType=VARCHAR}
+               ,#{remittanceAccount,jdbcType=VARCHAR},#{remittanceAccountName,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.ManualDepositRecord" useGeneratedKeys="true">
+        insert into manual_deposit_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="custId != null">cust_id,</if>
+            <if test="accountId != null">account_id,</if>
+            <if test="custName != null">cust_name,</if>
+            <if test="depositAmount != null">deposit_amount,</if>
+            <if test="currency != null">currency,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createUserName != null">create_user_name,</if>
+            <if test="createUserId != null">create_user_id,</if>
+            <if test="bankType != null">bank_type,</if>
+            <if test="bankName != null">bank_name,</if>
+            <if test="bankId != null">bank_id,</if>
+            <if test="remittanceAccount != null">remittance_account,</if>
+            <if test="remittanceAccountName != null">remittance_account_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=INTEGER},</if>
+            <if test="custId != null">#{custId,jdbcType=BIGINT},</if>
+            <if test="accountId != null">#{accountId,jdbcType=VARCHAR},</if>
+            <if test="custName != null">#{custName,jdbcType=VARCHAR},</if>
+            <if test="depositAmount != null">#{depositAmount,jdbcType=DECIMAL},</if>
+            <if test="currency != null">#{currency,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="createUserName != null">#{createUserName,jdbcType=VARCHAR},</if>
+            <if test="createUserId != null">#{createUserId,jdbcType=BIGINT},</if>
+            <if test="bankType != null">#{bankType,jdbcType=INTEGER},</if>
+            <if test="bankName != null">#{bankName,jdbcType=VARCHAR},</if>
+            <if test="bankId != null">#{bankId,jdbcType=VARCHAR},</if>
+            <if test="remittanceAccount != null">#{remittanceAccount,jdbcType=VARCHAR},</if>
+            <if test="remittanceAccountName != null">#{remittanceAccountName,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.ManualDepositRecord">
+        update manual_deposit_record
+        <set>
+            <if test="custId != null">
+                cust_id = #{custId,jdbcType=BIGINT},
+            </if>
+            <if test="accountId != null">
+                account_id = #{accountId,jdbcType=VARCHAR},
+            </if>
+            <if test="custName != null">
+                cust_name = #{custName,jdbcType=VARCHAR},
+            </if>
+            <if test="depositAmount != null">
+                deposit_amount = #{depositAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="currency != null">
+                currency = #{currency,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserName != null">
+                create_user_name = #{createUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=BIGINT},
+            </if>
+            <if test="bankType != null">
+                bank_type = #{bankType,jdbcType=INTEGER},
+            </if>
+            <if test="bankName != null">
+                bank_name = #{bankName,jdbcType=VARCHAR},
+            </if>
+            <if test="bankId != null">
+                bank_id = #{bankId,jdbcType=VARCHAR},
+            </if>
+            <if test="remittanceAccount != null">
+                remittance_account = #{remittanceAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="remittanceAccountName != null">
+                remittance_account_name = #{remittanceAccountName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.ManualDepositRecord">
+        update manual_deposit_record
+        set
+            cust_id =  #{custId,jdbcType=BIGINT},
+            account_id =  #{accountId,jdbcType=VARCHAR},
+            cust_name =  #{custName,jdbcType=VARCHAR},
+            deposit_amount =  #{depositAmount,jdbcType=DECIMAL},
+            currency =  #{currency,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            create_user_name =  #{createUserName,jdbcType=VARCHAR},
+            create_user_id =  #{createUserId,jdbcType=BIGINT},
+            bank_type =  #{bankType,jdbcType=INTEGER},
+            bank_name =  #{bankName,jdbcType=VARCHAR},
+            bank_id =  #{bankId,jdbcType=VARCHAR},
+            remittance_account =  #{remittanceAccount,jdbcType=VARCHAR},
+            remittance_account_name =  #{remittanceAccountName,jdbcType=VARCHAR}
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="queryList" parameterType="java.lang.Object" resultType="com.minigod.zero.customer.vo.ManualDepositRecordVO">
+        select
+            <include refid="Base_Column_List" />
+        from manual_deposit_record
+        <where>
+            <if test="keyword != null and keyword != ''">
+                cust_id = #{keyword}
+                or account_id= #{keyword}
+                or cust_name = #{keyword}
+            </if>
+            <if test="startTime != null and  startTime != ''">
+                and create_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and create_time &lt;= #{endTime}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+</mapper>

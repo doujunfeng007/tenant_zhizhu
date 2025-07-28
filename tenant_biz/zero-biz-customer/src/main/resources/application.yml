@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+
+  datasource:
+    url: ${minigod.datasource.customer.dev.url}
+    username: ${minigod.datasource.customer.dev.username}
+    password: ${minigod.datasource.customer.dev.password}

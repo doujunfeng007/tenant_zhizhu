@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.TFundNameMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.TFundName">
+            <id property="productid" column="productId" jdbcType="INTEGER"/>
+            <result property="isin" column="isin" jdbcType="VARCHAR"/>
+            <result property="nameen" column="nameEn" jdbcType="VARCHAR"/>
+            <result property="namecn" column="nameCn" jdbcType="VARCHAR"/>
+            <result property="nametw" column="nameTw" jdbcType="VARCHAR"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="lastupdatedby" column="lastUpdatedBy" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        productId,isin,nameEn,
+        nameCn,nameTw,createTime,
+        updateTime,lastUpdatedBy
+    </sql>
+</mapper>

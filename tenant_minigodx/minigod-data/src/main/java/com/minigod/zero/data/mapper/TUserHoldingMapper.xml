@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.TUserHoldingMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.TUserHolding">
+            <id property="holdingid" column="holdingId" jdbcType="INTEGER"/>
+            <result property="subaccountid" column="subAccountId" jdbcType="VARCHAR"/>
+            <result property="fundcode" column="fundCode" jdbcType="VARCHAR"/>
+            <result property="holdingtype" column="holdingType" jdbcType="INTEGER"/>
+            <result property="totalquantity" column="totalQuantity" jdbcType="DECIMAL"/>
+            <result property="availablequantity" column="availableQuantity" jdbcType="DECIMAL"/>
+            <result property="frozenquantity" column="frozenQuantity" jdbcType="DECIMAL"/>
+            <result property="transitedquantity" column="transitedQuantity" jdbcType="DECIMAL"/>
+            <result property="withdrawquantity" column="withdrawQuantity" jdbcType="DECIMAL"/>
+            <result property="averagecost" column="averageCost" jdbcType="DECIMAL"/>
+            <result property="dilutedcost" column="dilutedCost" jdbcType="DECIMAL"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="accumulatedbuyamount" column="accumulatedBuyAmount" jdbcType="DECIMAL"/>
+            <result property="accumulatedcashdividends" column="accumulatedCashDividends" jdbcType="DECIMAL"/>
+            <result property="realizedgainloss" column="realizedGainLoss" jdbcType="DECIMAL"/>
+            <result property="totalgainloss" column="totalGainLoss" jdbcType="DECIMAL"/>
+            <result property="totalfee" column="totalFee" jdbcType="DECIMAL"/>
+            <result property="flowid" column="flowId" jdbcType="INTEGER"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        holdingId,subAccountId,fundCode,
+        holdingType,totalQuantity,availableQuantity,
+        frozenQuantity,transitedQuantity,withdrawQuantity,
+        averageCost,dilutedCost,currency,
+        accumulatedBuyAmount,accumulatedCashDividends,realizedGainLoss,
+        totalGainLoss,totalFee,flowId,
+        createTime,updateTime
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_user_holding
+        where  holdingId = #{holdingid,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_user_holding
+        where  holdingId = #{holdingid,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="holdingId" keyProperty="holdingid" parameterType="com.minigod.zero.data.entity.TUserHolding" useGeneratedKeys="true">
+        insert into t_user_holding
+        ( holdingId,subAccountId,fundCode
+        ,holdingType,totalQuantity,availableQuantity
+        ,frozenQuantity,transitedQuantity,withdrawQuantity
+        ,averageCost,dilutedCost,currency
+        ,accumulatedBuyAmount,accumulatedCashDividends,realizedGainLoss
+        ,totalGainLoss,totalFee,flowId
+        ,createTime,updateTime)
+        values (#{holdingid,jdbcType=INTEGER},#{subaccountid,jdbcType=VARCHAR},#{fundcode,jdbcType=VARCHAR}
+        ,#{holdingtype,jdbcType=INTEGER},#{totalquantity,jdbcType=DECIMAL},#{availablequantity,jdbcType=DECIMAL}
+        ,#{frozenquantity,jdbcType=DECIMAL},#{transitedquantity,jdbcType=DECIMAL},#{withdrawquantity,jdbcType=DECIMAL}
+        ,#{averagecost,jdbcType=DECIMAL},#{dilutedcost,jdbcType=DECIMAL},#{currency,jdbcType=VARCHAR}
+        ,#{accumulatedbuyamount,jdbcType=DECIMAL},#{accumulatedcashdividends,jdbcType=DECIMAL},#{realizedgainloss,jdbcType=DECIMAL}
+        ,#{totalgainloss,jdbcType=DECIMAL},#{totalfee,jdbcType=DECIMAL},#{flowid,jdbcType=INTEGER}
+        ,#{createtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="holdingId" keyProperty="holdingid" parameterType="com.minigod.zero.data.entity.TUserHolding" useGeneratedKeys="true">
+        insert into t_user_holding
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="holdingid != null">holdingId,</if>
+                <if test="subaccountid != null">subAccountId,</if>
+                <if test="fundcode != null">fundCode,</if>
+                <if test="holdingtype != null">holdingType,</if>
+                <if test="totalquantity != null">totalQuantity,</if>
+                <if test="availablequantity != null">availableQuantity,</if>
+                <if test="frozenquantity != null">frozenQuantity,</if>
+                <if test="transitedquantity != null">transitedQuantity,</if>
+                <if test="withdrawquantity != null">withdrawQuantity,</if>
+                <if test="averagecost != null">averageCost,</if>
+                <if test="dilutedcost != null">dilutedCost,</if>
+                <if test="currency != null">currency,</if>
+                <if test="accumulatedbuyamount != null">accumulatedBuyAmount,</if>
+                <if test="accumulatedcashdividends != null">accumulatedCashDividends,</if>
+                <if test="realizedgainloss != null">realizedGainLoss,</if>
+                <if test="totalgainloss != null">totalGainLoss,</if>
+                <if test="totalfee != null">totalFee,</if>
+                <if test="flowid != null">flowId,</if>
+                <if test="createtime != null">createTime,</if>
+                <if test="updatetime != null">updateTime,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="holdingid != null">#{holdingid,jdbcType=INTEGER},</if>
+                <if test="subaccountid != null">#{subaccountid,jdbcType=VARCHAR},</if>
+                <if test="fundcode != null">#{fundcode,jdbcType=VARCHAR},</if>
+                <if test="holdingtype != null">#{holdingtype,jdbcType=INTEGER},</if>
+                <if test="totalquantity != null">#{totalquantity,jdbcType=DECIMAL},</if>
+                <if test="availablequantity != null">#{availablequantity,jdbcType=DECIMAL},</if>
+                <if test="frozenquantity != null">#{frozenquantity,jdbcType=DECIMAL},</if>
+                <if test="transitedquantity != null">#{transitedquantity,jdbcType=DECIMAL},</if>
+                <if test="withdrawquantity != null">#{withdrawquantity,jdbcType=DECIMAL},</if>
+                <if test="averagecost != null">#{averagecost,jdbcType=DECIMAL},</if>
+                <if test="dilutedcost != null">#{dilutedcost,jdbcType=DECIMAL},</if>
+                <if test="currency != null">#{currency,jdbcType=VARCHAR},</if>
+                <if test="accumulatedbuyamount != null">#{accumulatedbuyamount,jdbcType=DECIMAL},</if>
+                <if test="accumulatedcashdividends != null">#{accumulatedcashdividends,jdbcType=DECIMAL},</if>
+                <if test="realizedgainloss != null">#{realizedgainloss,jdbcType=DECIMAL},</if>
+                <if test="totalgainloss != null">#{totalgainloss,jdbcType=DECIMAL},</if>
+                <if test="totalfee != null">#{totalfee,jdbcType=DECIMAL},</if>
+                <if test="flowid != null">#{flowid,jdbcType=INTEGER},</if>
+                <if test="createtime != null">#{createtime,jdbcType=TIMESTAMP},</if>
+                <if test="updatetime != null">#{updatetime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.TUserHolding">
+        update t_user_holding
+        <set>
+                <if test="subaccountid != null">
+                    subAccountId = #{subaccountid,jdbcType=VARCHAR},
+                </if>
+                <if test="fundcode != null">
+                    fundCode = #{fundcode,jdbcType=VARCHAR},
+                </if>
+                <if test="holdingtype != null">
+                    holdingType = #{holdingtype,jdbcType=INTEGER},
+                </if>
+                <if test="totalquantity != null">
+                    totalQuantity = #{totalquantity,jdbcType=DECIMAL},
+                </if>
+                <if test="availablequantity != null">
+                    availableQuantity = #{availablequantity,jdbcType=DECIMAL},
+                </if>
+                <if test="frozenquantity != null">
+                    frozenQuantity = #{frozenquantity,jdbcType=DECIMAL},
+                </if>
+                <if test="transitedquantity != null">
+                    transitedQuantity = #{transitedquantity,jdbcType=DECIMAL},
+                </if>
+                <if test="withdrawquantity != null">
+                    withdrawQuantity = #{withdrawquantity,jdbcType=DECIMAL},
+                </if>
+                <if test="averagecost != null">
+                    averageCost = #{averagecost,jdbcType=DECIMAL},
+                </if>
+                <if test="dilutedcost != null">
+                    dilutedCost = #{dilutedcost,jdbcType=DECIMAL},
+                </if>
+                <if test="currency != null">
+                    currency = #{currency,jdbcType=VARCHAR},
+                </if>
+                <if test="accumulatedbuyamount != null">
+                    accumulatedBuyAmount = #{accumulatedbuyamount,jdbcType=DECIMAL},
+                </if>
+                <if test="accumulatedcashdividends != null">
+                    accumulatedCashDividends = #{accumulatedcashdividends,jdbcType=DECIMAL},
+                </if>
+                <if test="realizedgainloss != null">
+                    realizedGainLoss = #{realizedgainloss,jdbcType=DECIMAL},
+                </if>
+                <if test="totalgainloss != null">
+                    totalGainLoss = #{totalgainloss,jdbcType=DECIMAL},
+                </if>
+                <if test="totalfee != null">
+                    totalFee = #{totalfee,jdbcType=DECIMAL},
+                </if>
+                <if test="flowid != null">
+                    flowId = #{flowid,jdbcType=INTEGER},
+                </if>
+                <if test="createtime != null">
+                    createTime = #{createtime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updatetime != null">
+                    updateTime = #{updatetime,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   holdingId = #{holdingid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.TUserHolding">
+        update t_user_holding
+        set
+            subAccountId =  #{subaccountid,jdbcType=VARCHAR},
+            fundCode =  #{fundcode,jdbcType=VARCHAR},
+            holdingType =  #{holdingtype,jdbcType=INTEGER},
+            totalQuantity =  #{totalquantity,jdbcType=DECIMAL},
+            availableQuantity =  #{availablequantity,jdbcType=DECIMAL},
+            frozenQuantity =  #{frozenquantity,jdbcType=DECIMAL},
+            transitedQuantity =  #{transitedquantity,jdbcType=DECIMAL},
+            withdrawQuantity =  #{withdrawquantity,jdbcType=DECIMAL},
+            averageCost =  #{averagecost,jdbcType=DECIMAL},
+            dilutedCost =  #{dilutedcost,jdbcType=DECIMAL},
+            currency =  #{currency,jdbcType=VARCHAR},
+            accumulatedBuyAmount =  #{accumulatedbuyamount,jdbcType=DECIMAL},
+            accumulatedCashDividends =  #{accumulatedcashdividends,jdbcType=DECIMAL},
+            realizedGainLoss =  #{realizedgainloss,jdbcType=DECIMAL},
+            totalGainLoss =  #{totalgainloss,jdbcType=DECIMAL},
+            totalFee =  #{totalfee,jdbcType=DECIMAL},
+            flowId =  #{flowid,jdbcType=INTEGER},
+            createTime =  #{createtime,jdbcType=TIMESTAMP},
+            updateTime =  #{updatetime,jdbcType=TIMESTAMP}
+        where   holdingId = #{holdingid,jdbcType=INTEGER}
+    </update>
+
+    <select id="customerAssets" resultType="com.minigod.zero.data.vo.CustomerAssetVO" >
+        select
+            holding.*,
+            account.customerName,
+            holding.hldHkdTotalQuantity + account.hkdTotalQuantity+ holding.bondHkdTotalQuantity as hkdAssets,
+            holding.hldUsdTotalQuantity + account.usdTotalQuantity+ holding.bondUsdTotalQuantity as usdAssets,
+            holding.hldCnyTotalQuantity + account.cnyTotalQuantity+ holding.bondCnyTotalQuantity as cnyAssets
+        from (
+             select
+                 a.extAccountId as accountId,
+                 SUM(case when uh.holdingType = 64 and uh.currency = 'HKD' then uh.totalQuantity/10000 else 0 end) as hldHkdTotalQuantity,
+                 SUM(case when uh.holdingType = 64 and uh.currency = 'USD' then uh.totalQuantity/10000 else 0 end) as hldUsdTotalQuantity,
+                 SUM(case when uh.holdingType = 64 and uh.currency = 'CNY' then uh.totalQuantity/10000 else 0 end) as hldCnyTotalQuantity,
+                 SUM(case when uh.holdingType = 65 and uh.currency = 'HKD' then uh.totalQuantity/10000 else 0 end) as bondHkdTotalQuantity,
+                 SUM(case when uh.holdingType = 65 and uh.currency = 'USD' then uh.totalQuantity/10000 else 0 end) as bondUsdTotalQuantity,
+                 SUM(case when uh.holdingType = 65 and uh.currency = 'CNY' then uh.totalQuantity/10000 else 0 end) as bondCnyTotalQuantity
+             from t_user_holding as uh
+             LEFT JOIN t_sub_account as sa on uh.subAccountId = sa.subAccountId
+             LEFT JOIN t_account as a on sa.accountId = a.accountId
+             where uh.holdingType in (64,65)
+             GROUP BY a.extAccountId
+        ) as holding
+        LEFT JOIN (
+            select
+                cfa.account_id as accountId,
+                cbi.client_name as customerName,
+                SUM(case when faa.currency = 'HKD' then (faa.available_amount + faa.freeze_amount + faa.transited_amount)/10000 else 0 end) as hkdTotalQuantity,
+                SUM(case when faa.currency = 'USD' then (faa.available_amount + faa.freeze_amount + faa.transited_amount)/10000 else 0 end) as usdTotalQuantity,
+                SUM(case when faa.currency = 'CNY' then (faa.available_amount + faa.freeze_amount + faa.transited_amount)/10000 else 0 end) as cnyTotalQuantity
+            from customer_financing_account as cfa
+            LEFT JOIN financing_account_amount as faa on faa.account_id = cfa.account_id
+            LEFT JOIN customer_basic_info as cbi on cbi.cust_id = cfa.cust_id
+            where cfa.status = 0
+            GROUP BY cfa.account_id, cbi.client_name
+        ) as account on account.accountId COLLATE utf8mb4_general_ci = holding.accountId COLLATE utf8mb4_general_ci
+    </select>
+
+
+    <select id="selectAllAssets" resultType="com.minigod.zero.data.vo.CustomerAssetVO">
+        select
+            sum(result.hkdTotalQuantity) as hkdTotalQuantity,
+            sum(result.usdTotalQuantity) as usdTotalQuantity,
+            sum(result.cnyTotalQuantity) as cnyTotalQuantity
+        from (
+             select
+                 SUM(case when uh.currency = 'HKD' then uh.totalQuantity/10000 else 0 end) as hkdTotalQuantity,
+                 SUM(case when uh.currency = 'USD' then uh.totalQuantity/10000 else 0 end) as usdTotalQuantity,
+                 SUM(case when uh.currency = 'CNY' then uh.totalQuantity/10000 else 0 end) as cnyTotalQuantity
+             from t_user_holding as uh
+             LEFT JOIN t_sub_account as sa on uh.subAccountId = sa.subAccountId
+             LEFT JOIN t_account as a on sa.accountId = a.accountId
+             where uh.holdingType in (64,65)
+             union all
+             select
+                 SUM(case when faa.currency = 'HKD' then (faa.available_amount + faa.freeze_amount + faa.transited_amount)/10000 else 0 end) as hkdTotalQuantity,
+                 SUM(case when faa.currency = 'USD' then (faa.available_amount + faa.freeze_amount + faa.transited_amount)/10000 else 0 end) as usdTotalQuantity,
+                 SUM(case when faa.currency = 'CNY' then (faa.available_amount + faa.freeze_amount + faa.transited_amount)/10000 else 0 end) as cnyTotalQuantity
+             from customer_financing_account as cfa
+             LEFT JOIN financing_account_amount as faa on faa.account_id = cfa.account_id
+             where cfa.status = 0
+        ) as result
+    </select>
+
+    <select id="selectAccumulatedProfitByCurrency" resultType="com.minigod.zero.data.vo.AccumulatedProfitVO">
+        -- 按币种分组统计累计利息（活利得对应【已分配的利息】加【未分配的利息】的总和）
+        SELECT
+            currency,
+            SUM(realizedGainLoss) / 10000 as realizedGainLoss,  -- 已实现盈亏
+            SUM(totalGainLoss) / 10000 as totalGainLoss, -- 活利得累计总收益
+            SUM(accumulatedCashDividends) / 10000 as accumulatedCashDividends -- 累计派息金额
+        FROM t_user_holding
+        GROUP BY currency;
+    </select>
+</mapper>

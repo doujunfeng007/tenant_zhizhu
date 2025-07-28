@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.trade.mapper.IpoPredictConfigMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="ipoRredictConfigResultMap" type="com.minigod.zero.trade.entity.IpoPredictConfigEntity">
+        <result column="id" property="id"/>
+        <result column="asset_name_predict" property="assetNamePredict"/>
+        <result column="entrance_fee" property="entranceFee"/>
+        <result column="user_ipo_rate" property="userIpoRate"/>
+        <result column="vip_ipo_rate" property="vipIpoRate"/>
+        <result column="begin_predict_time" property="beginPredictTime"/>
+        <result column="end_predict_time" property="endPredictTime"/>
+        <result column="user_financing_ceiling" property="userFinancingCeiling"/>
+        <result column="vip_financing_ceiling" property="vipFinancingCeiling"/>
+        <result column="user_total_financing_ceiling" property="userTotalFinancingCeiling"/>
+        <result column="vip_total_financing_ceiling" property="vipTotalFinancingCeiling"/>
+        <result column="notice_msg" property="noticeMsg"/>
+        <result column="asset_name" property="assetName"/>
+        <result column="asset_id" property="assetId"/>
+        <result column="enable_status" property="enableStatus"/>
+        <result column="operate_time" property="operateTime"/>
+        <result column="operator_id" property="operatorId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_delete" property="isDelete"/>
+    </resultMap>
+
+
+    <select id="selectIpoRredictConfigPage" resultMap="ipoRredictConfigResultMap">
+        select * from ipo_predict_config where is_deleted = 0
+    </select>
+
+
+</mapper>

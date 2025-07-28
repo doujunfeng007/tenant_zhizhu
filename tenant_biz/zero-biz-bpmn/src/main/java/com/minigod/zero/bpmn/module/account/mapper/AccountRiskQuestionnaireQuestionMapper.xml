@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountRiskQuestionnaireQuestionMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="accountRiskQuestionnaireQuestionResultMap"
+               type="com.minigod.zero.bpmn.module.account.entity.AccountRiskQuestionnaireQuestionEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="questionnaire_id" property="questionnaireId"/>
+        <result column="question_id" property="questionId"/>
+        <result column="sort" property="sort"/>
+
+    </resultMap>
+
+    <resultMap id="accountRiskQuestionnaireQuestionVOMap"
+               type="com.minigod.zero.bpmn.module.account.vo.AccountRiskQuestionnaireQuestionVO"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="questionnaire_id" property="questionnaireId"/>
+        <result column="questionnaire_name" property="questionnaireName"/>
+        <result column="questionnaire_type" property="questionnaireType"/>
+        <result column="questionnaire_desc" property="questionnaireDesc"/>
+        <result column="question_id" property="questionId"/>
+        <result column="question" property="question"/>
+        <result column="opt_type" property="optType"/>
+        <result column="check_type" property="checkType"/>
+        <result column="question_type" property="questionType"/>
+        <result column="lang" property="lang"/>
+        <result column="flag" property="flag"/>
+        <result column="sort" property="sort"/>
+    </resultMap>
+
+    <select id="getByQuestionnaireId" resultMap="accountRiskQuestionnaireQuestionVOMap">
+        SELECT qire_ques.id,
+               qire.id AS questionnaire_id,
+               qire.questionnaire_name,
+               qire.questionnaire_type,
+               qire.questionnaire_desc,
+               qire.lang,
+               ques.question_id,
+               ques.question,
+               ques.sort,
+               ques.question_type,
+               ques.opt_type,
+               ques.check_type,
+               ques.flag
+        FROM acct_risk_questionnaire AS qire
+                 INNER JOIN acct_risk_questionnaire_question AS qire_ques ON qire.id = qire_ques.questionnaire_id
+                 INNER JOIN acct_risk_question AS ques ON qire_ques.question_id = ques.question_id
+        WHERE qire.id = #{questionnaireId} AND LOWER(qire.lang) = #{lang} AND qire.is_deleted = 0
+    </select>
+</mapper>

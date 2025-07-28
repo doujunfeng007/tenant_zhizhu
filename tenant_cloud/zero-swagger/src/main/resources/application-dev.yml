@@ -1,0 +1,29 @@
+knife4j:
+  cloud:
+    routes:
+      - name: 授权模块
+        uri: 127.0.0.1 #网关地址
+        location: /zero-auth/v2/api-docs
+      - name: 系统模块
+        uri: 127.0.0.1
+        location: /zero-system/v2/api-docs
+      - name: 用户模块
+        uri: 127.0.0.1
+        location: /zero-user/v2/api-docs
+      - name: 客户模块
+        uri: 127.0.0.1
+        location: /zero-cust/v2/api-docs
+      - name: 行情管理模块
+        uri: 127.0.0.1
+        location: /mktmgr-server/v2/api-docs
+      - name: 资源/短信模块
+        uri: 127.0.0.1
+        location: /zero-resource/v2/api-docs
+      - name: 行情核心模块
+        uri: 127.0.0.1
+        location: /mktquot-core/v2/api-docs
+      - name: 资讯核心模块
+        uri: 127.0.0.1
+        location: /mktinfo-core/v2/api-docs
+
+

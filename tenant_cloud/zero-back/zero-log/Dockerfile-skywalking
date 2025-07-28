@@ -1,0 +1,20 @@
+FROM baseimages/openjdk:11-jdk-slim-fontconfig
+
+LABEL MAINTAINER=tech-operations@yff.com
+
+RUN mkdir -p /zero/back/log
+
+WORKDIR /zero/back/log
+ENV SW_AGENT_NAME=zero-log
+ENV SW_AGENT_COLLECTOR_BACKEND_SERVICES=skywalking-oap.skywalking:11800
+ENV SW_AGENT_SPAN_LIMIT=2000
+COPY apache-skywalking-java-agent-9.3.0.tgz .
+RUN tar xf apache-skywalking-java-agent-9.3.0.tgz
+
+EXPOSE 8000
+
+ADD ./target/zero-log.jar ./app.jar
+
+ENTRYPOINT ["java", "-javaagent:skywalking-agent/skywalking-agent.jar", "-Dfile.encoding=UTF-8", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
+
+#CMD ["--spring.profiles.active=sit"]

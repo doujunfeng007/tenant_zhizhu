@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.ReportLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="reportLogResultMap" type="com.minigod.zero.manage.entity.ReportLogEntity">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="bus_account" property="busAccount"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="email" property="email"/>
+        <result column="log_content" property="logContent"/>
+        <result column="log_path" property="logPath"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+
+    <select id="selectReportLogPage" resultType="com.minigod.zero.manage.vo.ReportLogVO">
+        select * from oms_report_log where is_deleted = 0
+        <if test="reportLog.startTime != null ">
+            and create_time <![CDATA[ >= ]]> #{reportLog.startTime}
+        </if>
+        <if test="reportLog.endTime != null ">
+            and create_time <![CDATA[ <= ]]> #{reportLog.endTime}
+        </if>
+        <if test="reportLog.userId != null">
+            and user_id =#{reportLog.userId}
+        </if>
+        <if test="reportLog.phoneNumber != null and reportLog.phoneNumber !=''">
+            and phone_number like concat(concat('%', #{reportLog.phoneNumber}),'%')
+        </if>
+        <if test="reportLog.email != null and reportLog.email !=''">
+            and email like concat(concat('%', #{reportLog.email}),'%')
+        </if>
+        <if test="reportLog.busAccount != null and reportLog.busAccount !=''">
+            and bus_account like concat(concat('%', #{reportLog.busAccount}),'%')
+        </if>
+        order by create_time desc
+    </select>
+
+</mapper>

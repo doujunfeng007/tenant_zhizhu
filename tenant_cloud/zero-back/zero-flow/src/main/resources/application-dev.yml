@@ -1,0 +1,10 @@
+#服务器端口
+server:
+  port: 8106
+
+#数据源配置
+spring:
+  datasource:
+    url: ${zero.datasource.flow.dev.url}
+    username: ${zero.datasource.flow.dev.username}
+    password: ${zero.datasource.flow.dev.password}

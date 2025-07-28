@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.DiscoverIconMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="DiscoverIconResultMap" type="com.minigod.zero.manage.entity.DiscoverIconEntity">
+        <result column="id" property="id"/>
+        <result column="function_code" property="functionCode"/>
+        <result column="function_name" property="functionName"/>
+        <result column="name" property="name"/>
+        <result column="url_small" property="urlSmall"/>
+        <result column="url_big" property="urlBig"/>
+        <result column="url_android" property="urlAndroid"/>
+        <result column="url_ios_black" property="urlIosBlack"/>
+        <result column="url_ios_white" property="urlIosWhite"/>
+        <result column="url_android_black" property="urlAndroidBlack"/>
+        <result column="url_android_white" property="urlAndroidWhite"/>
+        <result column="url_page" property="urlPage"/>
+        <result column="ip_filter" property="ipFilter"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+
+    <select id="selectDiscoverIconPage" resultType="com.minigod.zero.manage.vo.DiscoverIconVO">
+        select * from oms_discover_icon where is_deleted = 0
+    </select>
+
+    <select id="getIconExtList" resultType="com.minigod.zero.manage.vo.response.IconExtVO">
+        select role.id, role.role_id, role.icon_id, role.grade, role.is_display, role.is_deleted,icon.function_name
+        from oms_discover_role_icon role
+                 left join oms_discover_icon icon
+                           on role.icon_id = icon.id
+        where role.role_id = #{roleId}
+          and role.is_display = #{isDisplay}
+        order by role.grade asc
+    </select>
+
+    <select id="queryDiscoverIconList" resultType="com.minigod.zero.manage.vo.DiscoverIconVO" >
+        select * from oms_discover_icon order create_time desc
+    </select>
+</mapper>

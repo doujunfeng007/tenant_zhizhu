@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountRiskQuestionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="acctRiskQuestionResultMap" type="com.minigod.zero.bpmn.module.account.vo.AccountRiskQuestionVO">
+        <result column="id" property="id"/>
+        <result column="question_id" property="questionId"/>
+        <result column="question" property="question"/>
+        <result column="sort" property="sort"/>
+        <result column="lang" property="lang"/>
+        <result column="question_type" property="questionType"/>
+        <result column="opt_type" property="optType"/>
+        <result column="check_type" property="checkType"/>
+        <result column="flag" property="flag"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="selectAcctRiskQuestionPage" parameterType="com.minigod.zero.bpmn.module.account.dto.AccountRiskQuestionDTO" resultMap="acctRiskQuestionResultMap">
+        SELECT id,
+               question_id,
+               question,
+               sort,
+               lang,
+               question_type,
+               opt_type,
+               check_type,
+               flag,
+               create_time,
+               update_time
+        FROM acct_risk_question
+        <where>
+            <if test="acctRiskQuestion.questionType!='' and acctRiskQuestion.questionType!=null">
+                AND question_type = #{acctRiskQuestion.questionType}
+            </if>
+            <if test="acctRiskQuestion.optType!='' and acctRiskQuestion.optType!=null">
+                AND opt_type = #{acctRiskQuestion.optType}
+            </if>
+            <if test="acctRiskQuestion.checkType!='' and acctRiskQuestion.checkType!=null">
+                AND check_type = #{acctRiskQuestion.checkType}
+            </if>
+            <if test="acctRiskQuestion.flag!='' and acctRiskQuestion.flag!=null">
+                AND flag = #{acctRiskQuestion.flag}
+            </if>
+            <if test="acctRiskQuestion.question!=null and acctRiskQuestion.question!=''">
+                AND question LIKE concat('%',concat(#{acctRiskQuestion.question},'%'))
+            </if>
+            <if test="acctRiskQuestion.lang!=null and acctRiskQuestion.lang!=''">
+                AND LOWER(lang) = #{acctRiskQuestion.lang}
+            </if>
+            AND is_deleted = 0
+        </where>
+        ORDER BY update_time DESC
+    </select>
+
+    <select id="selectAcctRiskQuestionAndOptionCountPage" parameterType="com.minigod.zero.bpmn.module.account.dto.AccountRiskQuestionDTO"
+            resultType="com.minigod.zero.bpmn.module.account.vo.AccountRiskQuestionAndOptionCountVO">
+        SELECT que.question_id,
+               que.question,
+               que.question_type,
+               que.check_type,
+               que.opt_type,
+               CASE que.check_type
+                   WHEN 1 THEN
+                       '单选'
+                   WHEN 2 THEN
+                       '多选'
+                   END AS check_type_name,
+               (SELECT COUNT(1) FROM acct_risk_question_option AS opt WHERE opt.question_id = que.question_id) AS optionCount,
+               (SELECT SUM(opt.option_score) FROM acct_risk_question_option AS opt WHERE opt.question_id = que.question_id) AS totalScore
+        FROM acct_risk_question AS que
+        <where>
+            <if test="acctRiskQuestion.lang!=null and acctRiskQuestion.lang!=''">
+                AND que.lang = #{acctRiskQuestion.lang}
+            </if>
+        AND que.flag = 0 AND que.is_deleted = 0
+        </where>
+        ORDER BY que.update_time DESC
+    </select>
+
+    <select id="findQuestion" parameterType="com.minigod.zero.bpmn.module.account.dto.AccountRiskQuestionDTO"
+            resultType="com.minigod.zero.bpmn.module.account.vo.FundRiskQuestionVO">
+           SELECT question_id AS questionId,
+                  question
+           FROM acct_risk_question
+		   WHERE flag = 0
+		     AND is_deleted = 0
+		     AND question_type = #{acctRiskQuestion.questionType}
+		     AND LOWER(lang) = #{acctRiskQuestion.lang}
+		   ORDER BY sort
+    </select>
+</mapper>

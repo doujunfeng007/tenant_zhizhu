@@ -1,0 +1,3 @@
+#密码错误次数
+login:
+    failureNum: 3

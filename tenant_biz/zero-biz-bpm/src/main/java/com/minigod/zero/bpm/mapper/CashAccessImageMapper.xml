@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpm.mapper.CashAccessImageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="cashAccessImageResultMap" type="com.minigod.zero.bpm.entity.CashAccessImageEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="acc_img_path" property="accImgPath"/>
+        <result column="create_time" property="createTime"/>
+        <result column="image_location_type" property="imageLocationType"/>
+        <result column="error_status" property="errorStatus"/>
+        <result column="is_find" property="isFind"/>
+        <result column="service_type" property="serviceType"/>
+        <result column="transact_id" property="transactId"/>
+    </resultMap>
+
+
+    <select id="selectCashAccessImagePage" resultMap="cashAccessImageResultMap">
+        select * from cash_access_image where is_deleted = 0
+    </select>
+
+
+</mapper>

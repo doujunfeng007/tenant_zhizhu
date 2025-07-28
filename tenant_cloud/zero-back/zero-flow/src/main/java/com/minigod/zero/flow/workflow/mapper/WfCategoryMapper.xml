@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.flow.workflow.mapper.WfCategoryMapper">
+
+    <resultMap type="com.minigod.zero.flow.workflow.domain.WfCategory" id="FlowCategoryResult">
+        <result property="id" column="id"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="code" column="code"/>
+        <result property="remark" column="remark"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+    <resultMap type="com.minigod.zero.flow.workflow.domain.vo.WfCategoryVo" id="FlowCategoryResultVo">
+        <result property="id" column="id"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="code" column="code"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+    <select id="selectVoById" resultMap="FlowCategoryResultVo">
+        select * from wf_category where category_id = #{categoryId} and is_deleted = 0
+    </select>
+    <select id="selectVoPage" resultMap="FlowCategoryResultVo">
+        select * from wf_category
+        <where>
+            and is_deleted = 0
+            <if test="bo.categoryName!=null and bo.categoryName!=''">
+                and category_name like concat('%',concat(#{bo.categoryName},'%'))
+            </if>
+            <if test="bo.code!=null and bo.code!=''">
+                and code like concat('%',concat(#{code},'%'))
+            </if>
+        </where>
+        order by id desc
+    </select>
+    <select id="selectVoList" resultMap="FlowCategoryResultVo">
+        select * from wf_category
+        <where>
+            and is_deleted = 0
+            <if test="bo.categoryName!=null and bo.categoryName!=''">
+                and category_name like concat('%',concat(#{bo.categoryName},'%'))
+            </if>
+            <if test="bo.code!=null and bo.code!=''">
+                and code like concat('%',concat(#{bo.code},'%'))
+            </if>
+        </where>
+        order by id desc
+    </select>
+</mapper>

@@ -1,0 +1,106 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "mysqlreader",
+          "parameter": {
+            "username": "X3saU2xIvqh/xJ2natkJRQ==",
+            "password": "bDLTlVUgOz6kcv+kvsVSS6vBjgKzpK/rW8CQFZqbmPQ=",
+            "column": [
+              "`id`",
+              "`nomineeTransId`",
+              "`orderId`",
+              "`subAccountId`",
+              "`type`",
+              "`mode`",
+              "`fundCode`",
+              "`currency`",
+              "`amount`",
+              "`quantity`",
+              "`price`",
+              "`transactionDate`",
+              "`confirmedDate`",
+              "`expectedSettledDate`",
+              "`settledDate`",
+              "`effectiveSettledDate`",
+              "`settledAmount`",
+              "`gainLoss`",
+              "`fee`",
+              "`source`",
+              "`location`",
+              "`remark`",
+              "`status`",
+              "`createTime`",
+              "`updateTime`"
+            ],
+            "where": "createTime >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY) OR updateTime >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY )",
+            "splitPk": "",
+            "connection": [
+              {
+                "table": [
+                  "t_transaction"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://10.10.1.20:13049/c_tradedb?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "username": "x23iAGFtBmYzhTgDDjvFPg==",
+            "password": "sTO8zolMP4HE+FE4/Q/juOlJhAfkZyhMvpevvHYrEc8=",
+            "column": [
+              "`id`",
+              "`nomineeTransId`",
+              "`orderId`",
+              "`subAccountId`",
+              "`type`",
+              "`mode`",
+              "`fundCode`",
+              "`currency`",
+              "`amount`",
+              "`quantity`",
+              "`price`",
+              "`transactionDate`",
+              "`confirmedDate`",
+              "`expectedSettledDate`",
+              "`settledDate`",
+              "`effectiveSettledDate`",
+              "`settledAmount`",
+              "`gainLoss`",
+              "`fee`",
+              "`source`",
+              "`location`",
+              "`remark`",
+              "`status`",
+              "`createTime`",
+              "`updateTime`"
+            ],
+            "writeMode": "update",
+            "connection": [
+              {
+                "table": [
+                  "t_transaction"
+                ],
+                "jdbcUrl": "jdbc:mysql://10.10.1.20:13049/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

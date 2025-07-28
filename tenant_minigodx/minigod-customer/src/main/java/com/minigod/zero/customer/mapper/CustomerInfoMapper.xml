@@ -1,0 +1,1164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerInfoEntity">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="tenantId" column="tenant_id" jdbcType="BIGINT"/>
+            <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+            <result property="signature" column="signature" jdbcType="VARCHAR"/>
+            <result property="gender" column="gender" jdbcType="TINYINT"/>
+            <result property="custIcon" column="cust_icon" jdbcType="CHAR"/>
+            <result property="custChannel" column="cust_channel" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="invCustId" column="inv_cust_id" jdbcType="BIGINT"/>
+            <result property="custType" column="cust_type" jdbcType="TINYINT"/>
+            <result property="lockVersion" column="lock_version" jdbcType="INTEGER"/>
+            <result property="cellPhone" column="cell_phone" jdbcType="VARCHAR"/>
+            <result property="areaCode" column="area_code" jdbcType="VARCHAR"/>
+            <result property="regSourceType" column="reg_source_type" jdbcType="TINYINT"/>
+            <result property="regChannel" column="reg_channel" jdbcType="TINYINT"/>
+            <result property="cellEmail" column="cell_email" jdbcType="VARCHAR"/>
+            <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="cancelTime" column="cancel_time" jdbcType="TIMESTAMP"/>
+            <result property="bindCust" column="bind_cust" jdbcType="BIGINT"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+            <result property="createDept" column="create_dept" jdbcType="BIGINT"/>
+            <result property="piLevel" column="pi_level" jdbcType="TINYINT"/>
+            <result property="riskLevel" column="risk_level" jdbcType="TINYINT"/>
+            <result property="piRiskLevel" column="pi_risk_level" jdbcType="TINYINT"/>
+            <result property="derivative" column="derivative" jdbcType="TINYINT"/>
+            <result property="riskExpiryDate" column="risk_expiry_date" jdbcType="DATE"/>
+            <result property="pwdUpdTime" column="pwd_upd_time" jdbcType="TIMESTAMP"/>
+            <result property="pwdWarnStatus" column="pwd_warn_status" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,tenant_id,nick_name,
+        signature,gender,cust_icon,
+        cust_channel,password,inv_cust_id,
+        cust_type,lock_version,cell_phone,
+        area_code,reg_source_type,reg_channel,
+        cell_email,create_user,create_time,
+        update_user,update_time,status,
+        cancel_time,bind_cust,is_deleted,
+        create_dept,pi_level,risk_level,pi_risk_level,derivative,risk_expiry_date,pwd_upd_time,pwd_warn_status
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_info
+        where  id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from customer_info
+        where  id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerInfoEntity" useGeneratedKeys="true">
+        insert into customer_info
+        ( id,tenant_id,nick_name
+        ,signature,gender,cust_icon
+        ,cust_channel,password,inv_cust_id
+        ,cust_type,lock_version,cell_phone
+        ,area_code,reg_source_type,reg_channel
+        ,cell_email,create_user,create_time
+        ,update_user,update_time,status
+        ,cancel_time,bind_cust,is_deleted
+        ,create_dept,pi_level,risk_level,pi_risk_level,derivative)
+        values (#{id,jdbcType=BIGINT},#{tenantId,jdbcType=VARCHAR},#{nickName,jdbcType=VARCHAR}
+        ,#{signature,jdbcType=VARCHAR},#{gender,jdbcType=TINYINT},#{custIcon,jdbcType=CHAR}
+        ,#{custChannel,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{invCustId,jdbcType=BIGINT}
+        ,#{custType,jdbcType=TINYINT},#{lockVersion,jdbcType=INTEGER},#{cellPhone,jdbcType=VARCHAR}
+        ,#{areaCode,jdbcType=VARCHAR},#{regSourceType,jdbcType=TINYINT},#{regChannel,jdbcType=TINYINT}
+        ,#{cellEmail,jdbcType=VARCHAR},#{createUser,jdbcType=BIGINT},#{createTime,jdbcType=TIMESTAMP}
+        ,#{updateUser,jdbcType=BIGINT},#{updateTime,jdbcType=TIMESTAMP},#{status,jdbcType=TINYINT}
+        ,#{cancelTime,jdbcType=TIMESTAMP},#{bindCust,jdbcType=BIGINT},#{isDeleted,jdbcType=TINYINT}
+        ,#{createDept,jdbcType=BIGINT},#{piLevel},#{riskLevel},#{piRiskLevel},#{derivative})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerInfoEntity" useGeneratedKeys="true">
+        insert into customer_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="tenantId != null">tenant_id,</if>
+                <if test="nickName != null">nick_name,</if>
+                <if test="signature != null">signature,</if>
+                <if test="gender != null">gender,</if>
+                <if test="custIcon != null">cust_icon,</if>
+                <if test="custChannel != null">cust_channel,</if>
+                <if test="password != null">password,</if>
+                <if test="invCustId != null">inv_cust_id,</if>
+                <if test="custType != null">cust_type,</if>
+                <if test="lockVersion != null">lock_version,</if>
+                <if test="cellPhone != null">cell_phone,</if>
+                <if test="areaCode != null">area_code,</if>
+                <if test="regSourceType != null">reg_source_type,</if>
+                <if test="regChannel != null">reg_channel,</if>
+                <if test="cellEmail != null">cell_email,</if>
+                <if test="createUser != null">create_user,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateUser != null">update_user,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="status != null">status,</if>
+                <if test="cancelTime != null">cancel_time,</if>
+                <if test="bindCust != null">bind_cust,</if>
+                <if test="isDeleted != null">is_deleted,</if>
+                <if test="createDept != null">create_dept,</if>
+                <if test="piLevel != null">pi_level,</if>
+                <if test="riskLevel != null">risk_level,</if>
+                <if test="piRiskLevel != null">pi_risk_level,</if>
+                <if test="derivative != null">
+                    derivative,
+                </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="tenantId != null">#{tenantId,jdbcType=VARCHAR},</if>
+                <if test="nickName != null">#{nickName,jdbcType=VARCHAR},</if>
+                <if test="signature != null">#{signature,jdbcType=VARCHAR},</if>
+                <if test="gender != null">#{gender,jdbcType=TINYINT},</if>
+                <if test="custIcon != null">#{custIcon,jdbcType=CHAR},</if>
+                <if test="custChannel != null">#{custChannel,jdbcType=VARCHAR},</if>
+                <if test="password != null">#{password,jdbcType=VARCHAR},</if>
+                <if test="invCustId != null">#{invCustId,jdbcType=BIGINT},</if>
+                <if test="custType != null">#{custType,jdbcType=TINYINT},</if>
+                <if test="lockVersion != null">#{lockVersion,jdbcType=INTEGER},</if>
+                <if test="cellPhone != null">#{cellPhone,jdbcType=VARCHAR},</if>
+                <if test="areaCode != null">#{areaCode,jdbcType=VARCHAR},</if>
+                <if test="regSourceType != null">#{regSourceType,jdbcType=TINYINT},</if>
+                <if test="regChannel != null">#{regChannel,jdbcType=TINYINT},</if>
+                <if test="cellEmail != null">#{cellEmail,jdbcType=VARCHAR},</if>
+                <if test="createUser != null">#{createUser,jdbcType=BIGINT},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateUser != null">#{updateUser,jdbcType=BIGINT},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="status != null">#{status,jdbcType=TINYINT},</if>
+                <if test="cancelTime != null">#{cancelTime,jdbcType=TIMESTAMP},</if>
+                <if test="bindCust != null">#{bindCust,jdbcType=BIGINT},</if>
+                <if test="isDeleted != null">#{isDeleted,jdbcType=TINYINT},</if>
+                <if test="createDept != null">#{createDept,jdbcType=BIGINT},</if>
+                <if test="piLevel != null">#{piLevel},</if>
+                <if test="riskLevel != null">#{riskLevel},</if>
+                <if test="piRiskLevel != null">#{piRiskLevel},</if>
+                <if test="derivative != null">
+                    #{derivative},
+                </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.CustomerInfoEntity">
+        update customer_info
+        <set>
+                <if test="tenantId != null">
+                    tenant_id = #{tenantId,jdbcType=VARCHAR},
+                </if>
+                <if test="nickName != null">
+                    nick_name = #{nickName,jdbcType=VARCHAR},
+                </if>
+                <if test="signature != null">
+                    signature = #{signature,jdbcType=VARCHAR},
+                </if>
+                <if test="gender != null">
+                    gender = #{gender,jdbcType=TINYINT},
+                </if>
+                <if test="custIcon != null">
+                    cust_icon = #{custIcon,jdbcType=CHAR},
+                </if>
+                <if test="custChannel != null">
+                    cust_channel = #{custChannel,jdbcType=VARCHAR},
+                </if>
+                <if test="password != null">
+                    password = #{password,jdbcType=VARCHAR},
+                </if>
+                <if test="invCustId != null">
+                    inv_cust_id = #{invCustId,jdbcType=BIGINT},
+                </if>
+                <if test="custType != null">
+                    cust_type = #{custType,jdbcType=TINYINT},
+                </if>
+                <if test="lockVersion != null">
+                    lock_version = #{lockVersion,jdbcType=INTEGER},
+                </if>
+                <if test="cellPhone != null">
+                    cell_phone = #{cellPhone,jdbcType=VARCHAR},
+                </if>
+                <if test="areaCode != null">
+                    area_code = #{areaCode,jdbcType=VARCHAR},
+                </if>
+                <if test="regSourceType != null">
+                    reg_source_type = #{regSourceType,jdbcType=TINYINT},
+                </if>
+                <if test="regChannel != null">
+                    reg_channel = #{regChannel,jdbcType=TINYINT},
+                </if>
+                <if test="cellEmail != null">
+                    cell_email = #{cellEmail,jdbcType=VARCHAR},
+                </if>
+                <if test="createUser != null">
+                    create_user = #{createUser,jdbcType=BIGINT},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateUser != null">
+                    update_user = #{updateUser,jdbcType=BIGINT},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=TINYINT},
+                </if>
+                <if test="cancelTime != null">
+                    cancel_time = #{cancelTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="bindCust != null">
+                    bind_cust = #{bindCust,jdbcType=BIGINT},
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted,jdbcType=TINYINT},
+                </if>
+                <if test="createDept != null">
+                    create_dept = #{createDept,jdbcType=BIGINT},
+                </if>
+                <if test="piLevel != null">
+                    pi_level = #{piLevel},
+                </if>
+                <if test="riskLevel != null">
+                    risk_level = #{riskLevel},
+                </if>
+                <if test="piRiskLevel != null">
+                    pi_risk_level = #{piRiskLevel},
+                </if>
+                <if test="derivative != null">
+                    derivative = #{derivative},
+                </if>
+                <if test="riskExpiryDate != null">
+                    risk_expiry_date = #{riskExpiryDate},
+                </if>
+                <if test="pwdUpdTime != null">
+                    pwd_upd_time = #{pwdUpdTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="pwdWarnStatus != null">
+                    pwd_warn_status = #{pwdWarnStatus},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.CustomerInfoEntity">
+        update customer_info
+        set
+            tenant_id =  #{tenantId,jdbcType=VARCHAR},
+            nick_name =  #{nickName,jdbcType=VARCHAR},
+            signature =  #{signature,jdbcType=VARCHAR},
+            gender =  #{gender,jdbcType=TINYINT},
+            cust_icon =  #{custIcon,jdbcType=CHAR},
+            cust_channel =  #{custChannel,jdbcType=VARCHAR},
+            password =  #{password,jdbcType=VARCHAR},
+            inv_cust_id =  #{invCustId,jdbcType=BIGINT},
+            cust_type =  #{custType,jdbcType=TINYINT},
+            lock_version =  #{lockVersion,jdbcType=INTEGER},
+            cell_phone =  #{cellPhone,jdbcType=VARCHAR},
+            area_code =  #{areaCode,jdbcType=VARCHAR},
+            reg_source_type =  #{regSourceType,jdbcType=TINYINT},
+            reg_channel =  #{regChannel,jdbcType=TINYINT},
+            cell_email =  #{cellEmail,jdbcType=VARCHAR},
+            create_user =  #{createUser,jdbcType=BIGINT},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_user =  #{updateUser,jdbcType=BIGINT},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            status =  #{status,jdbcType=TINYINT},
+            cancel_time =  #{cancelTime,jdbcType=TIMESTAMP},
+            bind_cust =  #{bindCust,jdbcType=BIGINT},
+            is_deleted =  #{isDeleted,jdbcType=TINYINT},
+            create_dept =  #{createDept,jdbcType=BIGINT},
+            pi_level = #{piLevel},
+            risk_level = #{riskLevel},
+            pi_risk_level = #{piRiskLevel},
+            derivative = #{derivative}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <select id="selectCustomerInfoPage" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from customer_info where is_deleted = 0
+    </select>
+
+    <select id="loadCustomerByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from customer_info where cell_phone=#{userName} and area_code = #{areaCode} and tenant_id =#{tenantId}
+    </select>
+
+    <select id="selectByNickName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from customer_info where nick_name=#{nickName}
+    </select>
+
+    <select id="selectByCustId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from customer_info where id = #{custId} and is_deleted = 0
+    </select>
+
+    <select id="selectByCustIds" parameterType="java.util.List" resultMap="BaseResultMap">
+        select * from customer_info where id IN
+        <foreach item="item" index="index" collection="custIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+         and is_deleted = 0
+    </select>
+
+    <select id="custRiskList" resultType="com.minigod.zero.customer.vo.CustRiskInfoVO">
+        select ci.id as cust_id,ci.cell_phone,ci.pi_level,cbi.client_name,
+        chta.risk_level as hld_risk_level,cbta.risk_level as bond_risk_level,cfta.risk_level as fund_risk_level,
+        cbta.cust_id as bond_cust_id, cfta.cust_id as fund_cust_id, chta.cust_id as hld_cust_id
+        from customer_info ci
+        left join customer_basic_info as cbi on ci.id=cast(cbi.cust_id as signed INTEGER)
+        left join customer_bond_trading_account as cbta on ci.id=cbta.cust_id
+        left join customer_fund_trading_account as cfta on ci.id=cfta.cust_id
+        left join customer_hld_trading_account as chta on ci.id=chta.cust_id
+            <where>
+                <if test="custRiskInfoDTO.clientName !=null and custRiskInfoDTO.clientName!='' ">
+                    and cbi.client_name like concat('%',#{custRiskInfoDTO.clientName},'%')
+                </if>
+                <if test="custRiskInfoDTO.cellPhone !=null and custRiskInfoDTO.cellPhone!='' ">
+                    and ci.cell_phone = #{custRiskInfoDTO.cellPhone}
+                </if>
+            </where>
+    </select>
+    <select id="hldStatement" resultType="com.minigod.zero.customer.vo.HldStatementMonthVO">
+        /*活利得月结单交易明细*/
+        select
+        t2.name as hldName,
+        t.fundCode as hldCode,
+        t.transactionDate,
+        CASE
+        WHEN t.type = 3000 THEN '买入'
+        WHEN t.type = 3100 THEN '卖出'
+
+        END AS type ,
+        t.currency,
+        t.quantity,
+        t2.nominalValue,
+        t.quantity * t2.nominalValue as faceAmount ,
+        t.settledAmount,
+        t.amount+t.fee as amout
+/*        t3.realized_gain_loss as realizedGainLoss
+*/
+        from customer_hld_trading_transaction t
+        left join t_product t2 on t.fundCode = t2.productId
+        left join customer_hld_holding_records t3 on t.fundCode = t3.hld_code and t.subAccountId = t3.sub_account_id
+
+        where t.type in (3000,3100)
+        and t.createTime &gt;= #{custStatementDTO.startDate}
+        and t.createTime &lt;= #{custStatementDTO.endDate}
+        and t.subAccountId = #{custStatementDTO.subAccountId}
+
+    </select>
+    <select id="selHldAccountList" resultType="java.lang.String">
+
+        /*活利得 用户*/
+        SELECT p.subAccountId
+        FROM customer_hld_holding_history p
+        INNER JOIN (
+        SELECT a.subAccountId, MAX(a.id) AS flowId
+        FROM customer_hld_holding_history a
+        WHERE a.transactionTime &lt; DATE_SUB(#{date}, INTERVAL 1 DAY)
+        GROUP BY a.subAccountId
+        ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+        WHERE p.transactionTime >= DATE_SUB(#{date}, INTERVAL 1 DAY)
+        or (p.transactionTime  &lt; #{date} AND p.totalQuantity > 0 )
+        GROUP BY p.subAccountId;
+
+    </select>
+    <select id="selBondAccountList" resultType="java.lang.String">
+        /*债券易 用户*/
+        SELECT p.subAccountId
+        FROM customer_bond_holding_history p
+                 INNER JOIN (
+            SELECT a.subAccountId, MAX(a.id) AS flowId
+            FROM customer_bond_holding_history a
+            WHERE a.transactionTime &lt; #{custStatementDTO.startDate}
+            GROUP BY a.subAccountId
+        ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+        WHERE p.transactionTime >= #{custStatementDTO.startDate}
+           or (p.transactionTime  &lt; #{custStatementDTO.endDate} AND p.totalQuantity > 0 )
+        GROUP BY p.subAccountId;
+    </select>
+
+    <select id="selAccountList" resultType="java.lang.String">
+
+        (SELECT p.subAccountId
+        FROM customer_bond_holding_history p
+                 INNER JOIN (
+            SELECT a.subAccountId, MAX(a.id) AS flowId
+            FROM customer_bond_holding_history a
+            GROUP BY a.subAccountId
+        ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+        WHERE p.totalQuantity > 0
+        GROUP BY p.subAccountId)
+        union
+        (SELECT p.subAccountId
+         FROM customer_hld_holding_history p
+                  INNER JOIN (
+             SELECT a.subAccountId, MAX(a.id) AS flowId
+             FROM customer_hld_holding_history a
+             GROUP BY a.subAccountId
+         ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+         WHERE p.totalQuantity > 0
+         GROUP BY p.subAccountId)
+    </select>
+
+    <select id="selAccountByDateList" resultType="java.lang.String">
+
+        (SELECT p.subAccountId
+         FROM customer_bond_holding_history p
+                  INNER JOIN (
+             SELECT a.subAccountId, MAX(a.id) AS flowId
+             FROM customer_bond_holding_history a
+             WHERE a.transactionTime &lt; #{endDate}
+             GROUP BY a.subAccountId
+         ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+         WHERE p.transactionTime >= #{startDate}
+            or (p.transactionTime  &lt; #{endDate} AND p.totalQuantity > 0 )
+         GROUP BY p.subAccountId)
+        union
+        (SELECT p.subAccountId
+         FROM customer_hld_holding_history p
+                  INNER JOIN (
+             SELECT a.subAccountId, MAX(a.id) AS flowId
+             FROM customer_hld_holding_history a
+             WHERE a.transactionTime &lt; #{endDate}
+             GROUP BY a.subAccountId
+         ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+         WHERE p.transactionTime >= #{startDate}
+            or (p.transactionTime  &lt; #{endDate} AND p.totalQuantity > 0 )
+         GROUP BY p.subAccountId)
+    </select>
+
+    <select id="hldHoldingStatementList" resultType="com.minigod.zero.customer.vo.HldHoldingStatementMonthVO">
+        /*活利得月结单持仓总览*/
+        select t.hld_code as hldCode,
+        t.hld_name as hldName,
+        t.currency,
+        COALESCE(t.total_quantity , 0)  as quantity,
+        COALESCE(t2.nominalValue, 0) as nominalValue,
+        COALESCE(t.total_quantity, 0) * COALESCE(t2.nominalValue, 0) as faceAmount,
+        COALESCE(t.total_gain_loss, 0) as transactionGainLoss,
+        COALESCE(t3.rate, 1) as rate,
+        (COALESCE(t.total_quantity, 0) * COALESCE(t2.nominalValue, 0)  * COALESCE(t3.rate, 1) + COALESCE(t.total_gain_loss, 0)) as hldMarket,
+        COALESCE(t4.price, 100) as price
+        from customer_hld_holding_records t
+        left join t_product t2 on t.hld_code = t2.productId
+        LEFT JOIN t_market_reference_price t4 ON t.hld_code = t4.productId
+        left join t_exch_rate t3 on t.currency = t3.srcCurrency and t3.dstCurrency = 'HKD'
+        where   t.total_quantity &gt; 0
+        and t.sub_account_id = #{custStatementDTO.subAccountId}
+    </select>
+    <select id="hldTradingStatementList" resultType="com.minigod.zero.customer.vo.HldTradingBuyStatementDailyVO">
+        /*活利得日结单-活利得交易明细-活利得买入确认单*/
+        select t2.name as hldName ,
+               t2.isin as hldCode,
+        t.transactionDate AS transactionDate,
+        t.currency AS currency,
+        t.orderId AS orderId,
+        COALESCE(t.quantity, 0) as quantity,
+        COALESCE(t2.nominalValue ,0)as  nominalValue,
+        COALESCE(t.quantity, 0) * COALESCE(t2.nominalValue, 0)  as faceAmount,
+        COALESCE(t.price,0)as businessPrice,
+        COALESCE(t.amount,0)+COALESCE(t.fee,0) as amout,
+        COALESCE(t1.transaction_gain_loss,0)as transactionGainLoss,
+        COALESCE(t.amount,0)+COALESCE(t1.transaction_gain_loss,0)+COALESCE(t.fee,0) as totalSettlementAmount,
+        COALESCE(t3.rate, 1) as rate,
+        t1.type as orderType
+        from customer_hld_trading_transaction t
+        left join customer_hld_trading_records t1 on t.orderId = t1.id
+        left join t_product t2 on t.fundCode = t2.productId
+        left join t_exch_rate t3 on t.currency = t3.srcCurrency and t3.dstCurrency = 'HKD'
+
+        where t.type = 3000 and  t.createTime  &gt;= #{custStatementDTO.startDate}
+          and t.createTime  &lt;= #{custStatementDTO.endDate}
+          and t.subAccountId = #{custStatementDTO.subAccountId}
+    </select>
+    <select id="hldTradingSaleStatementList"
+            resultType="com.minigod.zero.customer.vo.HldTradingSaleStatementDailyVO">
+        /*活利得日结单-活利得交易明细-活利得卖出确认单*/
+        select t2.name as hldName ,
+               t2.isin as hldCode,
+               t.transactionDate AS transactionDate,
+               t.currency AS currency,
+               t.orderId AS orderId,
+               COALESCE(t.quantity, 0) as quantity,
+               COALESCE(t2.nominalValue ,0)as  nominalValue,
+               COALESCE(t.quantity, 0) * COALESCE(t2.nominalValue, 0)  as faceAmount,
+               COALESCE(t.price,0)as businessPrice,
+               COALESCE(t.amount,0)+COALESCE(t.fee,0) as amout,
+               COALESCE(t1.transaction_gain_loss,0)as transactionGainLoss,
+               COALESCE(t.amount,0) as totalSettlementAmount,
+               COALESCE(t3.rate, 1) as rate,
+               t1.type as orderType
+        from customer_hld_trading_transaction t
+        left join customer_hld_trading_records t1 on t.orderId = t1.id
+        left join t_product t2 on t.fundCode = t2.productId
+        left join t_exch_rate t3 on t.currency = t3.srcCurrency and t3.dstCurrency = 'HKD'
+
+        where  t.type = 3100 and  t.createTime  &gt;= #{custStatementDTO.startDate}
+        and t.createTime  &lt;= #{custStatementDTO.endDate}
+        and t.subAccountId = #{custStatementDTO.subAccountId}
+
+    </select>
+    <select id="hldHoldingHistoryStatementList"
+            resultType="com.minigod.zero.customer.vo.HldHoldingHistoryStatementDailyVO">
+        /*活利得日结单-2-2.活利得持仓总览*/
+        select t2.isin  as hldCode,
+               t2.productId as productId,
+        t.hld_name as hldName,
+        t.currency,
+        COALESCE(t.total_quantity , 0)  as quantity,
+        COALESCE(t2.nominalValue, 0) as nominalValue ,
+        COALESCE(t.total_quantity, 0) * COALESCE(t2.nominalValue, 0) as faceAmount,
+        COALESCE(t.total_gain_loss, 0) as totalGainLoss,
+        COALESCE(t1.price, 100) as price,
+        COALESCE(t3.rate, 1) as rate,
+        (COALESCE(t.total_quantity, 0) * COALESCE(t2.nominalValue, 0)) as hldMarket
+        from customer_hld_holding_records t
+        left join t_product t2 on t.hld_code = t2.productId
+        left join t_exch_rate t3 on t.currency = t3.srcCurrency and t3.dstCurrency = 'HKD'
+        left join t_market_reference_price t1 on t.hld_code = t1.productId
+
+        where t.total_quantity &gt; 0
+          and t.sub_account_id = #{custStatementDTO.subAccountId}
+
+
+
+    </select>
+    <select id="selCustHldStatement" resultType="com.minigod.zero.customer.vo.CustStatementVO">
+        /*活利得日结单-1-1.客户基本信息*/
+        select
+            CASE
+            WHEN c1.client_name IS NOT NULL  AND c1.client_name &lt;&gt; '' THEN
+            CONCAT(c1.client_name)
+            ELSE
+            CONCAT(c1.given_name_spell, ' ', c1.family_name_spell)
+            END AS custName  ,
+            c1.contact_detail_address as accountContactAddress,
+            c2.trade_account as accountNumber,
+            c3.sub_account as subAccountId
+        from customer_hld_capital_account AS c3
+                 inner join customer_hld_trading_account AS c2  on c2.trade_account = c3.trade_account
+                 inner join customer_basic_info AS c1   on c1.cust_id = CONCAT(c2.cust_id,'')
+        where c1.cust_id = #{id}
+
+    </select>
+
+    <select id="selCustBondStatement" resultType="com.minigod.zero.customer.vo.CustStatementVO">
+        /*债卷易.客户基本信息*/
+        select
+            CASE
+            WHEN c1.client_name IS NOT NULL  AND c1.client_name &lt;&gt; '' THEN
+            CONCAT(c1.client_name)
+            ELSE
+            CONCAT(c1.given_name_spell, ' ', c1.family_name_spell)
+            END AS custName  ,
+            c1.contact_detail_address as accountContactAddress,
+            C2.trade_account as accountNumber,
+            C3.sub_account as subAccountId,
+            C2.account_id as accountId
+        from customer_bond_capital_account AS C3
+                 inner join customer_bond_trading_account AS C2  on C2.trade_account = C3.trade_account
+                 inner join customer_basic_info AS c1   on c1.cust_id = CONCAT(C2.cust_id,'')
+        where c1.cust_id = #{id}
+
+    </select>
+    <select id="selHldAccountMonthList" resultType="java.lang.String">
+        /*活利得 月用户*/
+        SELECT p.subAccountId
+        FROM customer_hld_holding_history p
+                 INNER JOIN (
+            SELECT a.subAccountId, MAX(a.id) AS flowId
+            FROM customer_hld_holding_history a
+            WHERE a.transactionTime &lt; #{endDate}
+            GROUP BY a.subAccountId
+        ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+        WHERE p.transactionTime >= #{startDate}
+           or (p.transactionTime  &lt; #{endDate} AND p.totalQuantity > 0 )
+        GROUP BY p.subAccountId
+    </select>
+    <select id="selBondAccountMonthList" resultType="java.lang.String">
+        /*债券易 月用户*/
+        SELECT p.subAccountId
+        FROM customer_bond_holding_history p
+                 INNER JOIN (
+            SELECT a.subAccountId, MAX(a.id) AS flowId
+            FROM customer_bond_holding_history a
+            WHERE a.transactionTime &lt; #{endDate}
+            GROUP BY a.subAccountId
+        ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+        WHERE p.transactionTime >=  #{startDate}
+           or (p.transactionTime  &lt; #{endDate} AND p.totalQuantity > 0 )
+        GROUP BY p.subAccountId
+    </select>
+    <select id="selAccountMonthList" resultType="java.lang.String">
+        /*债券易 月用户*/
+        (SELECT p.subAccountId
+        FROM customer_bond_holding_history p
+                 INNER JOIN (
+            SELECT a.subAccountId, MAX(a.id) AS flowId
+            FROM customer_bond_holding_history a
+            WHERE a.transactionTime &lt; #{endDate}
+            GROUP BY a.subAccountId
+        ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+        WHERE p.transactionTime >=  #{startDate}
+           or (p.transactionTime  &lt; #{endDate} AND p.totalQuantity > 0 )
+        GROUP BY p.subAccountId)
+        union
+        (SELECT p.subAccountId
+         FROM customer_hld_holding_history p
+                  INNER JOIN (
+             SELECT a.subAccountId, MAX(a.id) AS flowId
+             FROM customer_hld_holding_history a
+             WHERE a.transactionTime &lt; #{endDate}
+             GROUP BY a.subAccountId
+         ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+         WHERE p.transactionTime >= #{startDate}
+            or (p.transactionTime  &lt; #{endDate} AND p.totalQuantity > 0 )
+         GROUP BY p.subAccountId
+        )
+    </select>
+    <select id="selCustList" resultType="java.lang.String">
+        (select a1.cust_id
+         from customer_basic_info as a1
+                  left join customer_bond_trading_account as a2 on a1.cust_id=a2.cust_id
+                  left join customer_bond_capital_account as a4 on a4.trade_account= a2.trade_account
+         where a4.sub_account in
+        (SELECT p.subAccountId
+         FROM customer_bond_holding_history p
+                  INNER JOIN (
+             SELECT a.subAccountId, MAX(a.id) AS flowId
+             FROM customer_bond_holding_history a
+             GROUP BY a.subAccountId
+         ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+         WHERE p.totalQuantity > 0
+         GROUP BY p.subAccountId))
+        union
+        (select a1.cust_id
+        from customer_basic_info as a1
+                 left join customer_hld_trading_account as a2 on a1.cust_id=a2.cust_id
+                 left join customer_hld_capital_account as a4 on a4.trade_account= a2.trade_account
+        where a4.sub_account in
+        (SELECT p.subAccountId
+         FROM customer_hld_holding_history p
+                  INNER JOIN (
+             SELECT a.subAccountId, MAX(a.id) AS flowId
+             FROM customer_hld_holding_history a
+             GROUP BY a.subAccountId
+         ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+         WHERE p.totalQuantity > 0
+         GROUP BY p.subAccountId))
+    </select>
+    <select id="selCustByDateList" resultType="java.lang.String">
+        (select a1.cust_id
+         from customer_basic_info as a1
+                  left join customer_bond_trading_account as a2 on a1.cust_id=a2.cust_id
+                  left join customer_bond_capital_account as a4 on a4.trade_account= a2.trade_account
+         where a4.sub_account in
+        (SELECT p.subAccountId
+         FROM customer_bond_holding_history p
+                  INNER JOIN (
+             SELECT a.subAccountId, MAX(a.id) AS flowId
+             FROM customer_bond_holding_history a
+             WHERE a.transactionTime &lt; #{endDate}
+             GROUP BY a.subAccountId
+         ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+         WHERE p.transactionTime >= #{startDate}
+            or (p.transactionTime  &lt; #{endDate} AND p.totalQuantity > 0 )
+         GROUP BY p.subAccountId))
+        union
+        (select a1.cust_id
+        from customer_basic_info as a1
+                 left join customer_hld_trading_account as a2 on a1.cust_id=a2.cust_id
+                 left join customer_hld_capital_account as a4 on a4.trade_account= a2.trade_account
+        where a4.sub_account in
+        (SELECT p.subAccountId
+         FROM customer_hld_holding_history p
+                  INNER JOIN (
+             SELECT a.subAccountId, MAX(a.id) AS flowId
+             FROM customer_hld_holding_history a
+             WHERE a.transactionTime &lt; #{endDate}
+             GROUP BY a.subAccountId
+         ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+         WHERE p.transactionTime >= #{startDate}
+            or (p.transactionTime  &lt; #{endDate} AND p.totalQuantity > 0 )
+         GROUP BY p.subAccountId))
+    </select>
+    <select id="selCustMonthList" resultType="java.lang.String">
+        (select a1.cust_id
+        from customer_basic_info as a1
+                 left join customer_bond_trading_account as a2 on a1.cust_id=a2.cust_id
+                 left join customer_bond_capital_account as a4 on a4.trade_account= a2.trade_account
+        where a4.sub_account in
+        (SELECT p.subAccountId
+         FROM customer_bond_holding_history p
+                  INNER JOIN (
+             SELECT a.subAccountId, MAX(a.id) AS flowId
+             FROM customer_bond_holding_history a
+             WHERE a.transactionTime &lt; #{endDate}
+             GROUP BY a.subAccountId
+         ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+         WHERE p.transactionTime >=  #{startDate}
+            or (p.transactionTime  &lt; #{endDate} AND p.totalQuantity > 0 )
+         GROUP BY p.subAccountId))
+        union
+        (select a1.cust_id
+         from customer_basic_info as a1
+                  left join customer_hld_trading_account as a2 on a1.cust_id=a2.cust_id
+                  left join customer_hld_capital_account as a4 on a4.trade_account= a2.trade_account
+         where a4.sub_account in
+        (SELECT p.subAccountId
+         FROM customer_hld_holding_history p
+                  INNER JOIN (
+             SELECT a.subAccountId, MAX(a.id) AS flowId
+             FROM customer_hld_holding_history a
+             WHERE a.transactionTime &lt; #{endDate}
+             GROUP BY a.subAccountId
+         ) q ON p.id = q.flowId AND p.subAccountId = q.subAccountId
+         WHERE p.transactionTime >= #{startDate}
+            or (p.transactionTime  &lt; #{endDate} AND p.totalQuantity > 0 )
+         GROUP BY p.subAccountId
+        ))
+    </select>
+
+    <select id="visitorList" resultType="com.minigod.zero.customer.vo.CustomerOpenAccountVO" parameterType="java.lang.Object">
+        select
+            ci.id as custId,
+            CONCAT_WS('+',ci.area_code,ci.cell_phone) as phone,
+            ci.create_time as createTime,
+            ci.status as status,
+            '未开户' as openStatus,
+            cfa.account_id as accountId,
+            nick_name as name
+        from customer_info as ci
+        left join customer_financing_account cfa on ci.id = cfa.cust_id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (
+                ci.id = #{keyword}
+                or ci.cell_phone = #{keyword}
+                    or ci.nick_name = #{keyword}
+                )
+            </if>
+            <if test="startTime != null and startTime != ''">
+                and ci.create_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and ci.create_time &lt;= #{endTime}
+            </if>
+            and cfa.status = 4
+        </where>
+        order by ci.create_time desc
+
+    </select>
+
+
+    <select id="userList" resultType="com.minigod.zero.customer.vo.CustomerOpenAccountVO" parameterType="java.lang.Object">
+        select
+            ci.id as custId,
+            CONCAT_WS('+',ci.area_code,ci.cell_phone) as phone,
+            cbi.client_name as name,
+            CONCAT_WS('+',cbi.phone_area,cbi.phone_number) as openPhone,
+            CONCAT(cbi.family_name_spell,cbi.given_name_spell) as enName,
+            cbi.create_time as createTime,
+            cfa.account_id as accountId,
+            ci.risk_level as riskLevel,
+            ci.pi_level as  piLevel,
+            ci.status as status,
+            cbi.email as openEmail,
+            '已开户' as openStatus
+        from customer_financing_account cfa
+        inner join customer_info as ci on ci.id = cfa.cust_id
+        inner join customer_basic_info cbi on ci.id = cbi.cust_id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (
+                    cfa.account_id = #{keyword}
+                    or ci.cell_phone = #{keyword}
+                    or cbi.phone_number = #{keyword}
+                    or cbi.client_name like concat('%',#{keyword},'%')
+                    or cbi.given_name_spell like concat('%',#{keyword},'%')
+                )
+            </if>
+            <if test="startTime != null and startTime != ''">
+                and cbi.create_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and cbi.create_time &lt;= #{endTime}
+            </if>
+            and cfa.status = 0
+        </where>
+        order by ci.create_time desc
+    </select>
+
+    <select id="customerList" resultType="com.minigod.zero.customer.vo.CustomerOpenAccountVO" parameterType="java.lang.Object">
+        select
+        ci.id as custId,
+        CONCAT_WS('+',ci.area_code,ci.cell_phone) as phone,
+        cbi.client_name as name,
+        CONCAT_WS('+',cbi.phone_area,cbi.phone_number) as openPhone,
+        CONCAT(cbi.family_name_spell,cbi.given_name_spell) as enName,
+        cbi.create_time as openAccountTime,
+        cfa.account_id as accountId,
+        ci.risk_level as riskLevel,
+        ci.pi_level as piLevel,
+        ci.status as status,
+        cbi.email as openEmail,
+        '已入金' as openStatus
+        from (select account_id from financing_account_amount group by account_id) as faa
+        inner join customer_financing_account cfa on cfa.account_id = faa.account_id
+        inner join customer_info as ci on ci.id = cfa.cust_id
+        inner join customer_basic_info cbi on ci.id = cbi.cust_id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (ci.id =#{keyword}
+                or cfa.account_id = #{keyword}
+                or ci.cell_phone = #{keyword}
+                or cbi.phone_number = #{keyword}
+                or cbi.client_name like concat('%',#{keyword},'%')
+                or cbi.given_name_spell like concat('%',#{keyword},'%'))
+            </if>
+            <if test="riskLevel != null and riskLevel != 0">
+                and ci.risk_level is NOT NULL AND ci.risk_level = #{riskLevel}
+            </if>
+            <if test="riskLevel != null and riskLevel == 0">
+                and ci.risk_level is NULL
+            </if>
+            <if test="piLevel != null and piLevel == 1">
+                and ci.pi_level is NOT NULL and ci.pi_level = 4
+            </if>
+            <if test="piLevel != null and piLevel == 0">
+                and ci.pi_level is NULL
+            </if>
+            <if test="startTime != null and startTime != ''">
+                and cbi.create_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and cbi.create_time &lt;= #{endTime}
+            </if>
+            and cfa.status = 0 and cfa.account_type = 0
+        </where>
+        order by ci.create_time desc
+    </select>
+
+    <select id="customerStatementList" resultType="com.minigod.zero.customer.vo.CustomerOpenAccountVO" >
+        select
+            ci.id as custId,
+            CONCAT_WS('+',ci.area_code,ci.cell_phone) as phone,
+            cbi.client_name as name,
+            CONCAT_WS('+',cbi.phone_area,cbi.phone_number) as openPhone,
+            CONCAT(cbi.family_name_spell,cbi.given_name_spell) as enName,
+            case when cf.type = 1 then DATE_FORMAT(cf.date, '%Y-%m-%d') else DATE_FORMAT(cf.date, '%Y-%m')  end as statementTime,
+            cfa.account_id as accountId,
+            ci.risk_level as riskLevel,
+            ci.pi_level as  piLevel,
+            ci.status as status,
+            cbi.email as openEmail,
+            cf.status as statementStatus,
+            cf.error_msg as errorMsg,
+            cf.id as statementFileId,
+            cf.file_name as statementFileName,
+            case when cf.type = 1 then cf.url end as dailyStatement,
+            case when cf.type = 2 then cf.url end as monthlyStatement
+        from customer_file as cf
+        left join customer_info as ci on cf.cust_id = ci.id
+        left join customer_basic_info cbi on ci.id = cbi.cust_id
+        left join customer_financing_account cfa on ci.id = cfa.cust_id and cfa.status = 0
+        <where>
+            <if test="statementListDTO.startTime != null and statementListDTO.startTime != '' and statementListDTO.statementType != null and statementListDTO.statementType == 1">
+                and DATE_FORMAT(cf.date, '%Y-%m-%d') &gt;= #{statementListDTO.startTime}
+            </if>
+            <if test="statementListDTO.endTime != null and statementListDTO.endTime != '' and statementListDTO.statementType != null and statementListDTO.statementType == 1">
+                and DATE_FORMAT(cf.date, '%Y-%m-%d') &lt;= #{statementListDTO.endTime}
+            </if>
+
+            <if test="statementListDTO.startTime != null and statementListDTO.startTime != '' and statementListDTO.statementType != null and statementListDTO.statementType == 2">
+                and DATE_FORMAT(cf.date, '%Y-%m') &gt;= #{statementListDTO.startTime}
+            </if>
+            <if test="statementListDTO.endTime != null and statementListDTO.endTime != '' and statementListDTO.statementType != null and statementListDTO.statementType == 2">
+                and DATE_FORMAT(cf.date, '%Y-%m') &lt;= #{statementListDTO.endTime}
+            </if>
+            <if test="statementListDTO.statementType != null">
+                and cf.type = #{statementListDTO.statementType}
+            </if>
+            <if test="statementListDTO.statementStatus != null">
+                and cf.status = #{statementListDTO.statementStatus}
+            </if>
+
+            <if test="statementListDTO.keyword != null and statementListDTO.keyword != ''">
+                and (
+                    ci.id =#{statementListDTO.keyword}
+                    or cfa.account_id = #{statementListDTO.keyword}
+                    or ci.cell_phone = #{statementListDTO.keyword}
+                    or cbi.phone_number = #{statementListDTO.keyword}
+                    or cbi.client_name like concat('%',#{statementListDTO.keyword},'%')
+                    or cbi.given_name_spell like concat('%',#{statementListDTO.keyword},'%')
+                )
+            </if>
+        and cf.type in (1,2)
+        </where>
+        order by cf.create_time desc
+    </select>
+    <select id="selCashChangeBalanceList"
+            resultType="com.minigod.zero.customer.entity.CustomerTotalAssetsHistory">
+            select
+                id,
+                account_id,
+                cust_id,
+                statistical_time,
+                create_time,
+                is_deleted,
+                COALESCE(cny_assets, 0) AS cny_assets,
+                COALESCE(usd_assets, 0) AS usd_assets,
+                COALESCE(hkd_cash_assets, 0) AS hkd_cash_assets,
+                COALESCE(cny_cash_assets, 0) AS cny_cash_assets,
+                COALESCE(usd_cash_assets, 0) AS usd_cash_assets,
+                COALESCE(hkd_position_assets, 0) AS hkd_position_assets,
+                COALESCE(cny_position_assets, 0) AS cny_position_assets,
+                COALESCE(usd_position_assets, 0) AS usd_position_assets,
+                COALESCE(hkd_income_assets, 0) AS hkd_income_assets,
+                COALESCE(cny_income_assets, 0) AS cny_income_assets,
+                COALESCE(usd_income_assets, 0) AS usd_income_assets
+                from customer_total_assets_history
+            where cust_id = #{custId}
+                and statistical_time = #{date}
+
+    </select>
+
+    <select id="selectByPhoneAndTenantId" resultMap="BaseResultMap" parameterType="java.lang.Object">
+        select
+            <include refid="Base_Column_List"/>
+        from customer_info
+        where cell_phone=#{phone} and area_code = #{areaCode} and tenant_id = #{tenantId}
+    </select>
+    <select id="selCashBalanceList" resultType="com.minigod.zero.customer.entity.CustomerCashAssetsHistory">
+        select
+            *
+        from customer_cash_assets_history
+        where cust_id = #{custId}
+          and statistical_time  <![CDATA[ <= ]]>  #{date}
+        order by statistical_time desc
+        limit 1
+
+    </select>
+
+
+    <select id="queryFreezeCustomers" parameterType="java.lang.Object" resultType="com.minigod.zero.customer.vo.CustomerWhiteListVO">
+        select
+            ci.id as custId,
+            CONCAT_WS('+',ci.area_code,ci.cell_phone) as phone,
+            cbi.client_name as name,
+            CONCAT_WS('+',cbi.phone_area,cbi.phone_number) as openPhone,
+            CONCAT(cbi.family_name_spell,cbi.given_name_spell) as enName,
+            cbi.create_time as openAccountTime,
+            cfa.account_id as accountId,
+            ci.status as status,
+            cbi.email as openEmail
+        from  customer_info as ci
+        left join customer_financing_account cfa on ci.id = cfa.cust_id
+        left join customer_basic_info cbi on ci.id = cbi.cust_id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (
+                ci.id =#{keyword}
+                or ci.cell_phone = #{keyword}
+                or cbi.phone_number = #{keyword}
+                or cbi.client_name like concat('%',#{keyword},'%')
+                or cbi.given_name_spell like concat('%',#{keyword},'%')
+                )
+            </if>
+            and ci.status = 4
+        </where>
+        order by ci.create_time desc
+    </select>
+    <select id="hldHoldingHistoryList"
+            resultType="com.minigod.zero.customer.vo.HldHoldingHistoryStatementDailyVO">
+        select
+            t.id,
+            t2.isin  as hldCode,
+        t2.productId as productId,
+        t2.name as hldName,
+        t.currency,
+        COALESCE(t.totalQuantity , 0)  as quantity,
+        COALESCE(t2.nominalValue, 0) as nominalValue ,
+        COALESCE(t.totalQuantity, 0) * COALESCE(t2.nominalValue, 0) as faceAmount,
+        COALESCE(t.totalGainLoss, 0) as totalGainLoss,
+        COALESCE(t2.nominalValue, 100) as price,
+        COALESCE(t3.rate, 1) as rate,
+        (COALESCE(t.totalQuantity, 0) * COALESCE(t2.nominalValue, 0)) as hldMarket,
+               t.createTime
+        from customer_hld_holding_history t
+        INNER JOIN (
+        SELECT
+        fundCode,
+        MAX(createTime) AS MaxTransactionTime
+        FROM
+        customer_hld_holding_history
+        where   subAccountId = #{custStatementDTO.subAccountId}
+          and createTime  <![CDATA[ <= ]]> #{custStatementDTO.endDate}
+          and holdingType = 64
+        GROUP BY
+        fundCode
+        ) t5 ON t5.fundCode = t.fundCode AND t.createTime = t5.MaxTransactionTime
+
+        left join t_product t2 on t.fundCode = t2.productId
+        left join t_exch_rate t3 on t.currency = t3.srcCurrency and t3.dstCurrency = 'HKD'
+        left join t_market_reference_price t1 on t.fundCode = t1.productId
+
+    </select>
+    <select id="selHldOrderList" resultType="java.lang.String">
+        select t3.cust_id
+        from customer_hld_trading_transaction t
+                 left join customer_hld_capital_account as t2 on t.subAccountId = t2.sub_account
+                 left join customer_hld_trading_account as t3 on t2.trade_account = t3.trade_account
+        where t.type in (3000,3100)
+        and t.transactionDate between #{startTime}  and #{endTime}
+        and t3.cust_id is not null
+    </select>
+    <select id="selBondOrderList" resultType="java.lang.String">
+        select t3.cust_id
+        from customer_bond_trading_transaction t
+                 left join customer_bond_capital_account as t2 on t.subAccountId = t2.sub_account
+                 left join customer_bond_trading_account as t3 on t2.trade_account = t3.trade_account
+        where t.type in (3200,3300)
+        and t.transactionDate between #{startTime}  and #{endTime}
+        and t3.cust_id is not null
+    </select>
+    <select id="hldHoldingHistoryByFundCode" resultType="java.math.BigDecimal">
+        select
+            totalQuantity
+        from customer_hld_holding_history t
+        where t.fundCode = #{productId}
+          and t.createTime  <![CDATA[ <= ]]> #{custStatementDTO.startDate}
+          and t.subAccountId = #{custStatementDTO.subAccountId}
+          and t.holdingType = 64
+        order by t.createTime desc
+        limit 1
+    </select>
+    <select id="getAverageCost" resultType="java.math.BigDecimal">
+
+
+    </select>
+    <select id="selCashByCustList" resultType="java.lang.String">
+        SELECT a.cust_id
+        FROM customer_cash_assets_history a
+                 INNER JOIN (
+            SELECT cust_id, MAX(statistical_time) AS latest_time
+            FROM customer_cash_assets_history
+            where statistical_time  <![CDATA[ <= ]]> #{endTime}
+            GROUP BY cust_id
+        ) b ON a.cust_id = b.cust_id AND a.statistical_time = b.latest_time
+        WHERE a.hkd_assets > 0 OR a.usd_assets > 0 OR a.cny_assets > 0;
+    </select>
+    <select id="selHldOrderInfoList" resultType="com.minigod.zero.customer.dto.BrokerOrderInfoDTO">
+        select t3.cust_id as custId,
+               t.currency as currency,
+               t.fee as amount,
+               t.orderId as orderId,
+               COALESCE(t4.rate, 1) as rate
+        from customer_hld_trading_transaction t
+                 left join customer_hld_capital_account as t2 on t.subAccountId = t2.sub_account
+                 left join customer_hld_trading_account as t3 on t2.trade_account = t3.trade_account
+                 left join t_exch_rate t4 on t.currency = t4.srcCurrency and t4.dstCurrency = 'HKD'
+        <where>
+            <if test="orderInfoDTO.typeList != null and orderInfoDTO.typeList.size >0">
+                and t.type  IN
+                <foreach item="item" index="index" collection="orderInfoDTO.typeList" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="orderInfoDTO.startTime != null and orderInfoDTO.startTime != null">
+                and t.transactionDate &gt;= #{orderInfoDTO.startTime}
+            </if>
+            <if test="orderInfoDTO.endTime != null and orderInfoDTO.endTime != null">
+                and t.transactionDate &lt;= #{orderInfoDTO.endTime}
+            </if>
+            and t3.cust_id is not null
+        </where>
+
+
+    </select>
+    <select id="selBondOrderInfoList" resultType="com.minigod.zero.customer.dto.BrokerOrderInfoDTO">
+        select t3.cust_id as custId,
+               t.currency as currency,
+               t.fee as amount,
+               t.orderId as orderId,
+               COALESCE(t4.rate, 1) as rate
+        from customer_bond_trading_transaction t
+                 left join customer_bond_capital_account as t2 on t.subAccountId = t2.sub_account
+                 left join customer_bond_trading_account as t3 on t2.trade_account = t3.trade_account
+                 left join t_exch_rate t4 on t.currency = t4.srcCurrency and t4.dstCurrency = 'HKD'
+
+        <where>
+            <if test="orderInfoDTO.typeList != null and orderInfoDTO.typeList.size >0">
+                and t.type  IN
+                <foreach item="item" index="index" collection="orderInfoDTO.typeList" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="orderInfoDTO.startTime != null and orderInfoDTO.startTime != null">
+                and t.transactionDate &gt;= #{orderInfoDTO.startTime}
+            </if>
+            <if test="orderInfoDTO.endTime != null and orderInfoDTO.endTime != null">
+                and t.transactionDate &lt;= #{orderInfoDTO.endTime}
+            </if>
+            and t3.cust_id is not null
+        </where>
+    </select>
+    <select id="allCustomerList" resultType="com.minigod.zero.customer.vo.CustomerOpenAccountVO">
+        select
+        ci.id as custId,
+        CONCAT_WS('+',ci.area_code,ci.cell_phone) as phone,
+        ifnull(cbi.client_name,ci.nick_name) as name,
+        CONCAT_WS('+',cbi.phone_area,cbi.phone_number) as openPhone,
+        CONCAT(cbi.family_name_spell,cbi.given_name_spell) as enName,
+        cbi.create_time as openAccountTime,
+        ci.status as status,
+        ifnull(cbi.email,ci.cell_email) as openEmail,
+        cfa.account_id as accountId
+        from  customer_info as ci
+        left join customer_basic_info cbi on ci.id = cbi.cust_id
+        left join customer_financing_account cfa  on ci.id = cfa.cust_id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (ci.id =#{keyword}
+                or ci.cell_phone = #{keyword}
+                or cbi.phone_number = #{keyword}
+                or cbi.client_name like concat('%',#{keyword},'%')
+                or cbi.given_name_spell like concat('%',#{keyword},'%')
+                or cfa.account_id like concat('%',#{keyword},'%'))
+            </if>
+
+            <if test="startTime != null and startTime != ''">
+                and cbi.create_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and cbi.create_time &lt;= #{endTime}
+            </if>
+
+        </where>
+        order by ci.create_time desc
+    </select>
+
+    <update id="updateRiskLevel" parameterType="java.lang.Object">
+        update customer_info set risk_level=#{riskLevel} ,risk_expiry_date=#{expiryDate} where id = #{custId}
+    </update>
+
+    <update id="updateRiskLevel" parameterType="java.lang.Object">
+        update customer_info set risk_level=#{riskLevel} ,risk_expiry_date=#{expiryDate} where id = #{custId}
+    </update>
+
+    <update id="updateCustomerInfo">
+        update customer_info set cell_phone=#{cellPhone} where id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.PlatformMobileContentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="platformMobileContentResultMap" type="com.minigod.zero.platform.entity.PlatformMobileContentEntity">
+        <result column="id" property="id"/>
+        <result column="temp_code" property="tempCode"/>
+        <result column="cell_phone" property="cellPhone"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="discription" property="discription"/>
+        <result column="channel" property="channel"/>
+        <result column="send_status" property="sendStatus"/>
+        <result column="send_type" property="sendType"/>
+        <result column="timing" property="timing"/>
+        <result column="fail_cnt" property="failCnt"/>
+        <result column="retry_cnt" property="retryCnt"/>
+        <result column="send_time" property="sendTime"/>
+        <result column="receive_time" property="receiveTime"/>
+        <result column="opr_id" property="oprId"/>
+        <result column="opr_name" property="oprName"/>
+        <result column="msg_type" property="msgType"/>
+        <result column="lang" property="lang"/>
+        <result column="error_msg" property="errorMsg"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+
+    </resultMap>
+
+
+    <select id="selectPlatformMobileContentPage" resultMap="platformMobileContentResultMap">
+        select * from platform_mobile_content where status = 1 and is_deleted = 0
+        <if test="params.id != null">
+            and id = #{params.id}
+        </if>
+        <if test="params.sendStatus != null">
+            and send_status = #{params.sendStatus}
+        </if>
+        <if test="params.cellPhone != null  and params.cellPhone != ''">
+            and cell_phone like concat('%', #{params.cellPhone}, '%')
+        </if>
+        <if test="params.sendDateStart != null and params.sendDateEnd != null">
+            and create_time <![CDATA[ >= ]]> #{params.sendDateStart} and create_time <![CDATA[ <= ]]> #{params.sendDateEnd}
+        </if>
+        <if test="params.content != null and params.content != ''">
+            and content like concat('%', #{params.content}, '%')
+        </if>
+        <if test="params.sendType != null">
+            and send_type = #{params.sendType}
+        </if>
+        order by create_time desc
+    </select>
+
+    <select id="pageList" parameterType="java.lang.Object" resultMap="platformMobileContentResultMap">
+        select * from platform_mobile_content
+        <where>
+            <if test="startTime != null and startTime != ''">
+                and send_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and send_time &lt;= #{endTime}
+            </if>
+            <if test="phone != null and phone!= ''">
+                and  cell_phone like concat('%', #{phone}, '%')
+            </if>
+            <if test="sendStatus != null ">
+                and  send_status = #{sendStatus}
+            </if>
+            and tenant_id = #{tenantId}
+        </where>
+        order by create_time desc
+    </select>
+</mapper>

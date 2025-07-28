@@ -1,0 +1,8 @@
+${AnsiColor.BLUE}                     __  __ _       _  _____           _
+${AnsiColor.BLUE}                    |  \/  (_)     (_)/ ____|         | |
+${AnsiColor.BLUE}                    | \  / |_ _ __  _| |  __  ___   __| |
+${AnsiColor.BLUE}                    | |\/| | | '_ \| | | |_ |/ _ \ / _` |
+${AnsiColor.BLUE}                    | |  | | | | | | | |__| | (_) | (_| |
+${AnsiColor.BLUE}                    |_|  |_|_|_| |_|_|\_____|\___/ \__,_|
+
+${AnsiColor.BLUE}:: MiniGodX ${minigod.service.version} :: ${spring.application.name}:${AnsiColor.RED}${minigod.env}${AnsiColor.BLUE} :: Running SpringBoot ${spring-boot.version} :: ${AnsiColor.BRIGHT_BLACK}

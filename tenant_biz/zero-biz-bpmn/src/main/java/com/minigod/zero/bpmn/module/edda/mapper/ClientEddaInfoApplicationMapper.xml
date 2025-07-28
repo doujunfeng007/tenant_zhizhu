@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.edda.mapper.ClientEddaInfoApplicationMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.edda.entity.ClientEddaInfoApplicationEntity">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+        <result property="clientId" column="client_id" jdbcType="VARCHAR"/>
+        <result property="fundAccount" column="fund_account" jdbcType="VARCHAR"/>
+        <result property="eName" column="e_name" jdbcType="VARCHAR"/>
+        <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+        <result property="idType" column="id_type" jdbcType="VARCHAR"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="idCode" column="id_code" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="bankType" column="bank_type" jdbcType="INTEGER"/>
+        <result property="bankName" column="bank_name" jdbcType="VARCHAR"/>
+        <result property="bankCode" column="bank_code" jdbcType="VARCHAR"/>
+        <result property="bankId" column="bank_id" jdbcType="VARCHAR"/>
+        <result property="depositAccount" column="deposit_account" jdbcType="VARCHAR"/>
+        <result property="depositAccountName" column="deposit_account_name" jdbcType="VARCHAR"/>
+        <result property="depositAccountType" column="deposit_account_type" jdbcType="INTEGER"/>
+        <result property="bankIdKind" column="bank_id_kind" jdbcType="INTEGER"/>
+        <result property="bankIdNo" column="bank_id_no" jdbcType="VARCHAR"/>
+        <result property="benefitBank" column="benefit_bank" jdbcType="VARCHAR"/>
+        <result property="benefitBankCode" column="benefit_bank_code" jdbcType="VARCHAR"/>
+        <result property="benefitNo" column="benefit_no" jdbcType="VARCHAR"/>
+        <result property="benefitAccount" column="benefit_account" jdbcType="VARCHAR"/>
+        <result property="dataState" column="data_state" jdbcType="INTEGER"/>
+        <result property="eddaState" column="edda_state" jdbcType="INTEGER"/>
+        <result property="msgId" column="msg_id" jdbcType="VARCHAR"/>
+        <result property="ddaRef" column="dda_ref" jdbcType="VARCHAR"/>
+        <result property="reqTime" column="req_time" jdbcType="TIMESTAMP"/>
+        <result property="txnRefId" column="txn_ref_id" jdbcType="VARCHAR"/>
+        <result property="mandateId" column="mandate_id" jdbcType="VARCHAR"/>
+        <result property="amtCcy" column="amt_ccy" jdbcType="VARCHAR"/>
+        <result property="rejCorde" column="rej_corde" jdbcType="VARCHAR"/>
+        <result property="rejDescription" column="rej_description" jdbcType="VARCHAR"/>
+        <result property="effDate" column="eff_date" jdbcType="DATE"/>
+        <result property="expDate" column="exp_date" jdbcType="DATE"/>
+        <result property="maxAmt" column="max_amt" jdbcType="DECIMAL"/>
+        <result property="deleteTime" column="delete_time" jdbcType="TIMESTAMP"/>
+        <result property="deleteUser" column="delete_user" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+        <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+        <result property="deleTime" column="dele_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="birthday" column="birthday" jdbcType="VARCHAR"/>
+        <result property="bankIdKindStatus" column="bank_id_kind_status" jdbcType="INTEGER"/>
+        <result property="applicationTime" column="application_time" jdbcType="TIMESTAMP"/>
+        <result property="appIcon" column="app_icon" jdbcType="VARCHAR"/>
+        <result property="secDepositBankId" column="sec_deposit_bank_id" jdbcType="BIGINT"/>
+        <result property="bankIdQuick" column="bank_id_quick" jdbcType="VARCHAR"/>
+        <result property="chargeMoney" column="charge_money" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,application_id,client_id,
+        fund_account,e_name,c_name,
+        id_type,mobile,id_code,
+        email,bank_type,bank_name,
+        bank_code,bank_id,deposit_account,
+        deposit_account_name,deposit_account_type,bank_id_kind,
+        bank_id_no,benefit_bank,benefit_bank_code,
+        benefit_no,benefit_account,data_state,
+        edda_state,msg_id,dda_ref,
+        req_time,txn_ref_id,mandate_id,
+        amt_ccy,rej_corde,rej_description,
+        eff_date,exp_date,max_amt,
+        delete_time,delete_user,remark,
+        create_user,update_user,dele_time,
+        create_time,update_time,birthday,
+        bank_id_kind_status,application_time,app_icon,sec_deposit_bank_id,charge_money
+    </sql>
+</mapper>

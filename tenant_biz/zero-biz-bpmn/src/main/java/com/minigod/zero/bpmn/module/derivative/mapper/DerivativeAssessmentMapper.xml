@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.derivative.mapper.DerivativeAssessmentMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.derivative.entity.DerivativeAssessmentEntity">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="custId" column="cust_id" jdbcType="BIGINT"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+        <result property="optionItem" column="option_item" jdbcType="VARCHAR"/>
+        <result property="optionValue" column="option_value" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="UserRecordResultMap" type="com.minigod.zero.bpmn.module.derivative.vo.DerivativeUserRecordVO">
+        <result property="custId" column="cust_id" jdbcType="BIGINT"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+        <result property="clientNameSpell" column="client_name_spell" jdbcType="VARCHAR"/>
+        <result property="clientId" column="client_id" jdbcType="VARCHAR"/>
+        <result property="givenName" column="given_name" jdbcType="VARCHAR"/>
+        <result property="familyName" column="family_name" jdbcType="VARCHAR"/>
+        <result property="idNo" column="id_no" jdbcType="VARCHAR"/>
+        <result property="phoneNumber" column="phone_number" jdbcType="VARCHAR"/>
+        <result property="idKind" column="id_kind" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="phoneArea" column="phone_area" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="VARCHAR"/>
+        <result property="fundAccount" column="fund_account" jdbcType="VARCHAR"/>
+        <result property="accessWay" column="access_way" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,cust_id,tenant_id,
+        option_item,option_value,create_time,
+        update_time
+    </sql>
+
+    <sql id="User_Record_Column_List">
+        ass.cust_id,
+        ass.tenant_id,
+        acc.client_name,
+        acc.client_name_spell,
+        acc.given_name,
+        acc.family_name,
+        acc.id_no,
+        CASE acc.id_kind
+        WHEN 1 THEN '大陆居民身份证'
+        WHEN 2 THEN '香港居民身份证'
+        WHEN 3 THEN '护照'
+        ELSE '未知'
+            END AS id_kind,
+        CASE acc.sex
+        WHEN 0 THEN '男'
+        WHEN 1 THEN '女'
+        ELSE '未知'
+            END AS sex,
+        acc.phone_area,
+        acc.phone_number,
+        acc.email,
+        acc.client_id,
+        acc.fund_account,
+        CASE acc.open_account_access_way
+        WHEN 1 THEN '线上H5开户'
+        WHEN 2 THEN '线上APP开户'
+        WHEN 3 THEN '线下开户'
+        ELSE '未知'
+            END AS access_way,
+        ass.create_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from derivative_knowledge_assessment
+        where  id = #{id,jdbcType=BIGINT} and is_deleted = 0
+    </select>
+
+    <select id="selectByCustId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from derivative_knowledge_assessment
+        where  cust_id = #{custId,jdbcType=BIGINT} and is_deleted = 0
+    </select>
+
+    <select id="selectByPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from derivative_knowledge_assessment
+        <where>
+            <if test="query.custId != null and query.custId != ''">
+                and cust_id = #{query.custId}
+            </if>
+            and is_deleted = 0
+        </where>
+    </select>
+
+    <select id="selectDerivativeUserRecordByPage" resultMap="UserRecordResultMap">
+        select distinct
+        <include refid="User_Record_Column_List"/>
+        FROM
+        derivative_knowledge_assessment AS ass
+        LEFT JOIN customer_account_open_info AS acc
+            ON ass.cust_id = acc.user_id
+        <where>
+            <if test="query.custId != null and query.custId != ''">
+                and ass.cust_id = #{query.custId}
+            </if>
+            <if test="query.clientName != null and query.clientName != ''">
+                and acc.client_name like concat('%', concat(#{query.clientName}, '%'))
+            </if>
+            <if test="query.clientNameSpell != null and query.clientNameSpell != ''">
+                and acc.client_name_spell like concat('%', concat(#{query.clientNameSpell}, '%'))
+            </if>
+            <if test="query.giveName != null and query.giveName != ''">
+                and acc.given_name like concat('%', concat(#{query.giveName}, '%'))
+            </if>
+            <if test="query.familyName != null and query.familyName != ''">
+                and acc.family_name like concat('%', concat(#{query.familyName}, '%'))
+            </if>
+            <if test="query.idNo != null and query.idNo != ''">
+                and acc.id_no like concat('%', concat(#{query.idNo}, '%'))
+            </if>
+            <if test="query.phoneNumber != null and query.phoneNumber != ''">
+                and acc.phone_number = #{query.phoneNumber}
+            </if>
+            and ass.is_deleted = 0
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        update derivative_knowledge_assessment set is_deleted = 1
+        where  id = #{id,jdbcType=BIGINT} and is_deleted = 0
+    </delete>
+
+    <delete id="deleteByCustId" parameterType="java.lang.Long">
+        update derivative_knowledge_assessment set is_deleted = 1
+        where  cust_id = #{custId,jdbcType=BIGINT} and is_deleted = 0
+    </delete>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.bpmn.module.derivative.entity.DerivativeAssessmentEntity" useGeneratedKeys="true">
+        insert into derivative_knowledge_assessment
+        (cust_id,tenant_id
+        ,option_item,option_value,create_time
+        ,update_time)
+        values (#{custId,jdbcType=BIGINT},#{tenantId,jdbcType=VARCHAR}
+               ,#{optionItem,jdbcType=VARCHAR},#{optionValue,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}
+               ,#{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.bpmn.module.derivative.entity.DerivativeAssessmentEntity" useGeneratedKeys="true">
+        insert into derivative_knowledge_assessment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="custId != null">cust_id,</if>
+            <if test="tenantId != null">tenant_id,</if>
+            <if test="optionItem != null">option_item,</if>
+            <if test="optionValue != null">option_value,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="custId != null">#{custId,jdbcType=BIGINT},</if>
+            <if test="tenantId != null">#{tenantId,jdbcType=VARCHAR},</if>
+            <if test="optionItem != null">#{optionItem,jdbcType=VARCHAR},</if>
+            <if test="optionValue != null">#{optionValue,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <insert id="batchInsert" parameterType="map">
+        insert into derivative_knowledge_assessment
+        (cust_id,tenant_id ,option_item,option_value,create_time ,update_time)
+        values
+        <foreach collection="assessmentEntities" item="item" separator=",">
+            (#{item.custId,jdbcType=BIGINT},#{item.tenantId,jdbcType=VARCHAR}
+            ,#{item.optionItem,jdbcType=VARCHAR},#{item.optionValue,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP}
+            ,#{item.updateTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.bpmn.module.derivative.entity.DerivativeAssessmentEntity">
+        update derivative_knowledge_assessment
+        <set>
+            <if test="custId != null">
+                cust_id = #{custId,jdbcType=BIGINT},
+            </if>
+            <if test="tenantId != null">
+                tenant_id = #{tenantId,jdbcType=VARCHAR},
+            </if>
+            <if test="optionItem != null">
+                option_item = #{optionItem,jdbcType=VARCHAR},
+            </if>
+            <if test="optionValue != null">
+                option_value = #{optionValue,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.bpmn.module.derivative.entity.DerivativeAssessmentEntity">
+        update derivative_knowledge_assessment
+        set
+            cust_id =  #{custId,jdbcType=BIGINT},
+            tenant_id =  #{tenantId,jdbcType=VARCHAR},
+            option_item =  #{optionItem,jdbcType=VARCHAR},
+            option_value =  #{optionValue,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

@@ -1,0 +1,29 @@
+迁移的表
+	customer_bond_holding_records
+	customer_bond_holding_history
+	customer_bond_trading_transaction
+	customer_bond_trading_records
+
+	customer_hld_holding_history
+	customer_hld_trading_transaction
+	customer_hld_holding_records
+	customer_hld_trading_records
+	t_non_trading_day_config
+
+	t_exch_rate	1
+	t_market_reference_price
+	t_product	1
+	t_exch_rate_his
+	ta_t_daily_interest
+	ta_t_holding_history	1
+	ta_t_da_client
+
+-------------重新datax-------------
+	customer_hld_capital_account
+	customer_hld_trading_account
+
+customer_bond_capital_account
+customer_bond_trading_account
+
+organization_basic_info
+

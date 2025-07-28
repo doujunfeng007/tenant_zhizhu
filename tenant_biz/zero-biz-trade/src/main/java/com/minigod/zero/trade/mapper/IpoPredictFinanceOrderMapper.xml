@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.trade.mapper.IpoPredictFinanceOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="IpoPredictFinanceOrderResultMap" type="com.minigod.zero.trade.entity.IpoPredictFinanceOrderEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="predict_config_id" property="predictConfigId"/>
+        <result column="asset_id" property="assetId"/>
+        <result column="asset_name_predict" property="assetNamePredict"/>
+        <result column="fund_account" property="fundAccount"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="exchange_type" property="exchangeType"/>
+        <result column="apply_amount" property="applyAmount"/>
+        <result column="handling_charge" property="handlingCharge"/>
+        <result column="deposit_times" property="depositTimes"/>
+        <result column="deposit_amount" property="depositAmount"/>
+        <result column="order_type" property="orderType"/>
+        <result column="quantity_apply" property="quantityApply"/>
+        <result column="order_status" property="orderStatus"/>
+        <result column="reward_id" property="rewardId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="err_msg" property="errMsg"/>
+        <result column="is_delete" property="isDelete"/>
+    </resultMap>
+
+
+    <select id="selectIpoPredictFinanceOrderPage" resultMap="IpoPredictFinanceOrderResultMap">
+        select * from ipo_predict_finance_order where is_deleted = 0
+    </select>
+
+    <select id="getMaxPredictQueueAmount" resultType="Long">
+        SELECT IFNULL(SUM(deposit_amount),0) queueTotalAmt FROM ipo_predict_finance_order
+        WHERE  order_status IN(2,3,5) AND predict_config_id = #{predictConfigId}
+        <if test="orderTpye !=null">
+            and order_type = #{orderTpye}
+        </if>
+    </select>
+
+    <select id="getIpoPredictFinanceOrderByUserId" resultMap="IpoPredictFinanceOrderResultMap">
+        select * from ipo_predict_finance_order where is_deleted = 0
+        <if test="predictConfigId != null" >
+            and predict_config_id = #{predictConfigId}
+        </if>
+        <if test="custId != null" >
+            and cust_id = #{custId}
+        </if>
+        <if test="id != null" >
+            and id = #{id}
+        </if>
+    </select>
+
+</mapper>

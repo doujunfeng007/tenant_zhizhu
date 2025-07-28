@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpm.mapper.BpmAccountInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="acctInfoResultMap" type="com.minigod.zero.bpm.entity.BpmAccountInfoEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="author_email" property="authorEmail"/>
+        <result column="author_status" property="authorStatus"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="acct_type" property="acctType"/>
+        <result column="trade_auth" property="tradeAuth"/>
+        <result column="app_permission" property="appPermission"/>
+        <result column="is_current" property="isCurrent"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <select id="selectBpmAccountInfoPage" resultMap="acctInfoResultMap">
+        select * from bpm_account_info where is_deleted = 0
+    </select>
+
+    <select id="selectCurrentAcctInfo" resultType="com.minigod.zero.bpm.dto.BpmTradeAcctRespDto">
+        select m.trade_account,m.app_permission,m.acct_type, n.capital_account, n.account_type, m.author_status,m.cust_id from bpm_account_info m
+          left join (select trade_account, capital_account, account_type from bpm_capital_info where is_deleted = 0) n
+            on m.trade_account = n.trade_account where m.cust_id = #{custId} and m.is_current = 1 and m.status != 3 and m.is_deleted = 0
+    </select>
+
+    <select id="selectAcctInfo" resultType="com.minigod.zero.bpm.dto.BpmTradeAcctRespDto">
+        select m.trade_account,m.app_permission,m.acct_type, n.capital_account, n.account_type, m.author_status ,m.cust_id from bpm_account_info m
+        left join (select trade_account, capital_account, account_type from bpm_capital_info where is_deleted = 0) n
+        on m.trade_account = n.trade_account
+        <where>
+            <if test="tradeAccount != null and tradeAccount != ''">
+                and n.trade_account = #{tradeAccount}
+            </if>
+            <if test="fundAccount != null and fundAccount != ''">
+                and n.capital_account = #{fundAccount}
+            </if>
+           and m.is_current = 1 and m.status != 3 and m.is_deleted = 0
+        </where>
+
+    </select>
+
+    <select id="getCompanyUserRespDto" resultType="com.minigod.zero.bpm.dto.BpmSecuritiesRespDto">
+        SELECT
+            bai.cust_id,
+            bai.author_email as email,
+            ci.area_code as phone_area,
+            ci.cell_phone as phone_number,
+            bci.company_name as cust_name,
+            bci.company_name_en as cust_name_spell,
+            bci.north_trade,
+            bci.bcan_no,
+            bci.bcan_status,
+            bci.aecode
+        FROM
+            bpm_account_info bai
+                LEFT JOIN cust_info ci ON ( bai.cust_id = ci.id )
+                LEFT JOIN bpm_company_info bci ON ( bai.trade_account = bci.trade_account )
+        WHERE
+            bai.cust_id = #{custId}
+          AND bai.trade_account = #{tradeAccount}
+          and bai.status != 3
+          AND bai.is_current = 1
+    </select>
+</mapper>

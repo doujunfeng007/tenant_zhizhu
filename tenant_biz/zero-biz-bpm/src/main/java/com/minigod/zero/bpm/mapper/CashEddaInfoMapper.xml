@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpm.mapper.CashEddaInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="cashEddaInfoResultMap" type="com.minigod.zero.bpm.entity.CashEddaInfoEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="bank_type" property="bankType"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="fund_account" property="fundAccount"/>
+        <result column="bank_name" property="bankName"/>
+        <result column="bank_code" property="bankCode"/>
+        <result column="bank_id" property="bankId"/>
+        <result column="deposit_account" property="depositAccount"/>
+        <result column="deposit_account_name" property="depositAccountName"/>
+        <result column="deposit_account_type" property="depositAccountType"/>
+        <result column="bank_id_kind" property="bankIdKind"/>
+        <result column="bank_id_no" property="bankIdNo"/>
+        <result column="benefit_bank_core" property="benefitBankCore"/>
+        <result column="benefit_no" property="benefitNo"/>
+        <result column="benefit_account" property="benefitAccount"/>
+        <result column="edda_state" property="eddaState"/>
+        <result column="edda_fail_reason" property="eddaFailReason"/>
+        <result column="data_state" property="dataState"/>
+        <result column="delete_time" property="deleteTime"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="push_recved" property="pushRecved"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="err_cnt" property="errCnt"/>
+        <result column="bank_quota" property="bankQuota"/>
+        <result column="icon" property="icon"/>
+        <result column="mandate_id" property="mandateId"/>
+        <result column="otp_id" property="otpId"/>
+        <result column="mandate_status" property="mandateStatus"/>
+        <result column="sms_conform_count" property="smsConformCount"/>
+        <result column="sms_retry_count" property="smsRetryCount"/>
+        <result column="bank_phone" property="bankPhone"/>
+        <result column="phone_mask" property="phoneMask"/>
+    </resultMap>
+
+
+    <select id="selectCashEddaInfoPage" resultMap="cashEddaInfoResultMap">
+        select * from cash_edda_info where is_deleted = 0
+    </select>
+
+
+</mapper>

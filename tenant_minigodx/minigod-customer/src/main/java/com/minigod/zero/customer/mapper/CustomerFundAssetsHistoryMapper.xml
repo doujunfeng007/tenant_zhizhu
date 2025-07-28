@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerFundAssetsHistoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerFundAssetsHistory">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="custId" column="cust_id" jdbcType="BIGINT"/>
+            <result property="accountId" column="account_id" jdbcType="VARCHAR"/>
+            <result property="hkdMarketValue" column="hkd_market_value" jdbcType="DECIMAL"/>
+            <result property="cnyMarketValue" column="cny_market_value" jdbcType="DECIMAL"/>
+            <result property="usdMarketValue" column="usd_market_value" jdbcType="DECIMAL"/>
+            <result property="statisticalTime" column="statistical_time" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+            <result property="hkdIncome" column="hkd_income" jdbcType="DECIMAL"/>
+            <result property="cnyIncome" column="cny_income" jdbcType="DECIMAL"/>
+            <result property="usdIncome" column="usd_income" jdbcType="DECIMAL"/>
+            <result property="targetHkdMarketValue" column="target_hkd_market_value" jdbcType="DECIMAL"/>
+            <result property="targetCnyMarketValue" column="target_cny_market_value" jdbcType="DECIMAL"/>
+            <result property="targetUsdMarketValue" column="target_usd_market_value" jdbcType="DECIMAL"/>
+            <result property="targetHkdIncome" column="target_hkd_income" jdbcType="DECIMAL"/>
+            <result property="targetCnyIncome" column="target_cny_income" jdbcType="DECIMAL"/>
+            <result property="targetUsdIncome" column="target_usd_income" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,cust_id,account_id,
+        hkd_market_value,cny_market_value,usd_market_value,
+        statistical_time,create_time,is_deleted,
+        hkd_income,cny_income,usd_income,
+        target_hkd_market_value,target_cny_market_value,target_usd_market_value,
+        target_hkd_income,target_cny_income,target_usd_income
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_fund_assets_history
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selSumAssets" resultType="java.math.BigDecimal">
+        select sum(target_hkd_market_value) from customer_fund_assets_history
+        where cust_id = #{custId}
+          and statistical_time &gt;=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')
+          and statistical_time &lt;= DATE_FORMAT(#{endTime}, '%Y-%m-%d')
+    </select>
+    <select id="selSumQuarter" resultType="com.minigod.zero.customer.vo.CustAssetsQuarterVO">
+        select cust_id,sum(target_hkd_market_value) from customer_fund_assets_history
+        where  statistical_time &gt;=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')
+          and statistical_time &lt;= DATE_FORMAT(#{endTime}, '%Y-%m-%d')
+        group by cust_id
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from customer_fund_assets_history
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerFundAssetsHistory" useGeneratedKeys="true">
+        insert into customer_fund_assets_history
+        ( id,cust_id,account_id
+        ,hkd_market_value,cny_market_value,usd_market_value
+        ,statistical_time,create_time,is_deleted
+        ,hkd_income,cny_income,usd_income
+        ,target_hkd_market_value,target_cny_market_value,target_usd_market_value
+        ,target_hkd_income,target_cny_income,target_usd_income
+        )
+        values (#{id,jdbcType=INTEGER},#{custId,jdbcType=BIGINT},#{accountId,jdbcType=VARCHAR}
+        ,#{hkdMarketValue,jdbcType=DECIMAL},#{cnyMarketValue,jdbcType=DECIMAL},#{usdMarketValue,jdbcType=DECIMAL}
+        ,#{statisticalTime,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{isDeleted,jdbcType=INTEGER}
+        ,#{hkdIncome,jdbcType=DECIMAL},#{cnyIncome,jdbcType=DECIMAL},#{usdIncome,jdbcType=DECIMAL}
+        ,#{targetHkdMarketValue,jdbcType=DECIMAL},#{targetCnyMarketValue,jdbcType=DECIMAL},#{targetUsdMarketValue,jdbcType=DECIMAL}
+        ,#{targetHkdIncome,jdbcType=DECIMAL},#{targetCnyIncome,jdbcType=DECIMAL},#{targetUsdIncome,jdbcType=DECIMAL}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerFundAssetsHistory" useGeneratedKeys="true">
+        insert into customer_fund_assets_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="custId != null">cust_id,</if>
+                <if test="accountId != null">account_id,</if>
+                <if test="hkdMarketValue != null">hkd_market_value,</if>
+                <if test="cnyMarketValue != null">cny_market_value,</if>
+                <if test="usdMarketValue != null">usd_market_value,</if>
+                <if test="statisticalTime != null">statistical_time,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="isDeleted != null">is_deleted,</if>
+                <if test="hkdIncome != null">hkd_income,</if>
+                <if test="cnyIncome != null">cny_income,</if>
+                <if test="usdIncome != null">usd_income,</if>
+                <if test="targetHkdMarketValue != null">target_hkd_market_value,</if>
+                <if test="targetCnyMarketValue != null">target_cny_market_value,</if>
+                <if test="targetUsdMarketValue != null">target_usd_market_value,</if>
+                <if test="targetHkdIncome != null">target_hkd_income,</if>
+                <if test="targetCnyIncome != null">target_cny_income,</if>
+                <if test="targetUsdIncome != null">target_usd_income,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="custId != null">#{custId,jdbcType=BIGINT},</if>
+                <if test="accountId != null">#{accountId,jdbcType=VARCHAR},</if>
+                <if test="hkdMarketValue != null">#{hkdMarketValue,jdbcType=DECIMAL},</if>
+                <if test="cnyMarketValue != null">#{cnyMarketValue,jdbcType=DECIMAL},</if>
+                <if test="usdMarketValue != null">#{usdMarketValue,jdbcType=DECIMAL},</if>
+                <if test="statisticalTime != null">#{statisticalTime,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="isDeleted != null">#{isDeleted,jdbcType=INTEGER},</if>
+                <if test="hkdIncome != null">#{hkdIncome,jdbcType=DECIMAL},</if>
+                <if test="cnyIncome != null">#{cnyIncome,jdbcType=DECIMAL},</if>
+                <if test="usdIncome != null">#{usdIncome,jdbcType=DECIMAL},</if>
+                <if test="targetHkdMarketValue != null">#{targetHkdMarketValue,jdbcType=DECIMAL},</if>
+                <if test="targetCnyMarketValue != null">#{targetCnyMarketValue,jdbcType=DECIMAL},</if>
+                <if test="targetUsdMarketValue != null">#{targetUsdMarketValue,jdbcType=DECIMAL},</if>
+                <if test="targetHkdIncome != null">#{targetHkdIncome,jdbcType=DECIMAL},</if>
+                <if test="targetCnyIncome != null">#{targetCnyIncome,jdbcType=DECIMAL},</if>
+                <if test="targetUsdIncome != null">#{targetUsdIncome,jdbcType=DECIMAL},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.CustomerFundAssetsHistory">
+        update customer_fund_assets_history
+        <set>
+                <if test="custId != null">
+                    cust_id = #{custId,jdbcType=BIGINT},
+                </if>
+                <if test="accountId != null">
+                    account_id = #{accountId,jdbcType=VARCHAR},
+                </if>
+                <if test="hkdMarketValue != null">
+                    hkd_market_value = #{hkdMarketValue,jdbcType=DECIMAL},
+                </if>
+                <if test="cnyMarketValue != null">
+                    cny_market_value = #{cnyMarketValue,jdbcType=DECIMAL},
+                </if>
+                <if test="usdMarketValue != null">
+                    usd_market_value = #{usdMarketValue,jdbcType=DECIMAL},
+                </if>
+                <if test="statisticalTime != null">
+                    statistical_time = #{statisticalTime,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted,jdbcType=INTEGER},
+                </if>
+                <if test="hkdIncome != null">
+                    hkd_income = #{hkdIncome,jdbcType=DECIMAL},
+                </if>
+                <if test="cnyIncome != null">
+                    cny_income = #{cnyIncome,jdbcType=DECIMAL},
+                </if>
+                <if test="usdIncome != null">
+                    usd_income = #{usdIncome,jdbcType=DECIMAL},
+                </if>
+                <if test="targetHkdMarketValue != null">
+                    target_hkd_market_value = #{targetHkdMarketValue,jdbcType=DECIMAL},
+                </if>
+                <if test="targetCnyMarketValue != null">
+                    target_cny_market_value = #{targetCnyMarketValue,jdbcType=DECIMAL},
+                </if>
+                <if test="targetUsdMarketValue != null">
+                    target_usd_market_value = #{targetUsdMarketValue,jdbcType=DECIMAL},
+                </if>
+                <if test="targetHkdIncome != null">
+                    target_hkd_income = #{targetHkdIncome,jdbcType=DECIMAL},
+                </if>
+                <if test="targetCnyIncome != null">
+                    target_cny_income = #{targetCnyIncome,jdbcType=DECIMAL},
+                </if>
+                <if test="targetUsdIncome != null">
+                    target_usd_income = #{targetUsdIncome,jdbcType=DECIMAL},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.CustomerFundAssetsHistory">
+        update customer_fund_assets_history
+        set
+            cust_id =  #{custId,jdbcType=BIGINT},
+            account_id =  #{accountId,jdbcType=VARCHAR},
+            hkd_market_value =  #{hkdMarketValue,jdbcType=DECIMAL},
+            cny_market_value =  #{cnyMarketValue,jdbcType=DECIMAL},
+            usd_market_value =  #{usdMarketValue,jdbcType=DECIMAL},
+            statistical_time =  #{statisticalTime,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            is_deleted =  #{isDeleted,jdbcType=INTEGER},
+            hkd_income =  #{hkdIncome,jdbcType=DECIMAL},
+            cny_income =  #{cnyIncome,jdbcType=DECIMAL},
+            usd_income =  #{usdIncome,jdbcType=DECIMAL},
+            target_hkd_market_value =  #{targetHkdMarketValue,jdbcType=DECIMAL},
+            target_cny_market_value =  #{targetCnyMarketValue,jdbcType=DECIMAL},
+            target_usd_market_value =  #{targetUsdMarketValue,jdbcType=DECIMAL},
+            target_hkd_income =  #{targetHkdIncome,jdbcType=DECIMAL},
+            target_cny_income =  #{targetCnyIncome,jdbcType=DECIMAL},
+            target_usd_income =  #{targetUsdIncome,jdbcType=DECIMAL}
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

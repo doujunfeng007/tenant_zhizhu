@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.paycategory.mapper.PayeeCategoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.paycategory.entity.PayeeCategoryEntity">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="sequenceNo" column="sequence_no" jdbcType="INTEGER"/>
+            <result property="custId" column="cust_id" jdbcType="INTEGER"/>
+            <result property="accountId" column="account_id" jdbcType="INTEGER"/>
+            <result property="payWay" column="pay_way" jdbcType="INTEGER"/>
+            <result property="payeeCategory" column="payee_category" jdbcType="INTEGER"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="cash" column="cash" jdbcType="DECIMAL"/>
+            <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+            <result property="productCode" column="product_code" jdbcType="VARCHAR"/>
+            <result property="sellingAmount" column="selling_amount" jdbcType="DECIMAL"/>
+            <result property="payeeName" column="payee_name" jdbcType="VARCHAR"/>
+            <result property="receivableAmount" column="receivable_amount" jdbcType="DECIMAL"/>
+            <result property="payTime" column="pay_time" jdbcType="VARCHAR"/>
+            <result property="orderRemark" column="order_remark" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="orderSequenceNo" column="order_sequence_no" jdbcType="VARCHAR"/>
+            <result property="orderStatus" column="order_status" jdbcType="INTEGER"/>
+            <result property="payStatus" column="pay_status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        sequence_no,
+        cust_id,
+        account_id,
+        pay_way,
+        payee_category,
+        currency,
+        cash,
+        product_name,
+        product_code,
+        selling_amount,
+        payee_name,
+        receivable_amount,
+        pay_time,
+        order_remark,
+        create_time,
+        update_time,
+        order_status,
+        pay_status,
+        order_sequence_no,
+        benefit_no,
+        benefit_bank_name
+    </sql>
+    <resultMap id="queryPageListMap" type="com.minigod.zero.bpmn.module.paycategory.vo.PayCategoryQueryVO">
+        <id property="id" column="id" />
+        <result property="sequenceNo" column="sequence_no" jdbcType="INTEGER"/>
+        <result property="custId" column="cust_id" jdbcType="INTEGER"/>
+        <result property="accountId" column="account_id" jdbcType="INTEGER"/>
+        <result property="payWay" column="pay_way" jdbcType="INTEGER"/>
+        <result property="payeeCategory" column="payee_category" jdbcType="INTEGER"/>
+        <result property="currency" column="currency" jdbcType="VARCHAR"/>
+        <result property="cash" column="cash" jdbcType="DECIMAL"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="productCode" column="product_code" jdbcType="VARCHAR"/>
+        <result property="sellingAmount" column="selling_amount" jdbcType="DECIMAL"/>
+        <result property="payeeName" column="payee_name" jdbcType="VARCHAR"/>
+        <result property="receivableAmount" column="receivable_amount" jdbcType="DECIMAL"/>
+        <result property="payTime" column="pay_time" jdbcType="VARCHAR"/>
+        <result property="orderRemark" column="order_remark" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="orderSequenceNo" column="order_sequence_no" jdbcType="VARCHAR"/>
+        <result property="benefitBankName" column="benefit_bank_name" jdbcType="VARCHAR"/>
+        <result property="benefitNo" column="benefit_no" jdbcType="VARCHAR"/>
+        <result property="orderStatus" column="order_status" jdbcType="INTEGER"/>
+        <result property="payStatus" column="pay_status" jdbcType="INTEGER"/>
+        <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+        <result property="eName" column="e_name" jdbcType="VARCHAR"/>
+        <collection property="imagesList" ofType="String"
+                    select="selOrderImgById" column="id">
+        </collection>
+    </resultMap>
+
+    <select id="selOrderImgById" parameterType="java.lang.Long" resultType="java.lang.String">
+        select img_path as imgPath
+        from payee_category_img
+        where transact_id = #{id}
+    </select>
+    <select id="queryPageList" resultMap="queryPageListMap">
+        select
+        a.id,
+        a.sequence_no,
+        a.cust_id,
+        a.account_id,
+        a.pay_way,
+        a.payee_category,
+        a.currency,
+        a.cash,
+        a.product_name,
+        a.product_code,
+        a.selling_amount,
+        a.payee_name,
+        a.receivable_amount,
+        a.pay_time,
+        a.order_remark,
+        a.create_time,
+        a.update_time,
+        a.order_status,
+        a.pay_status,
+        a.order_sequence_no,
+        a.benefit_no,
+        a.benefit_bank_name,
+        b.client_name as c_name,
+        CONCAT(b.given_name_spell, b.family_name_spell) AS e_name
+
+        from payee_category as a
+        left join customer_account_open_info as b on a.cust_id = b.user_id
+
+        <where>
+            <if test="query.eName != null and query.eName!=''">
+                and CONCAT(b.given_name_spell, b.family_name_spell) like concat('%', #{query.eName}, '%')
+            </if>
+            <if test="query.cName != null and query.cName!=''">
+                and b.client_name like concat('%', #{query.cName}, '%')
+            </if>
+            <if test="query.currency != null and query.currency!=''">
+                and a.currency = #{query.currency}
+            </if>
+            <if test="query.payeeCategory != null and query.payeeCategory!=''">
+                and a.payee_category = #{query.payeeCategory}
+            </if>
+            <if test="query.payWay != null and query.payWay!=''">
+                and a.pay_Way = #{query.payWay}
+            </if>
+            <if test="query.payStatus != null and query.payStatus!=''">
+                and a.pay_status = #{query.payStatus}
+            </if>
+            <if test="query.startTime != null and query.startTime != ''">
+                and DATE_FORMAT(a.create_time,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{query.startTime},'%Y-%m-%d')
+            </if>
+            <if test="query.endTime != null and query.endTime != ''">
+                and DATE_FORMAT(a.create_time,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{query.endTime},'%Y-%m-%d')
+            </if>
+            AND a.order_status != 1
+        </where>
+        order by  a.create_time desc
+    </select>
+</mapper>

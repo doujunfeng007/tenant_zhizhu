@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.CustomerRealNameVerifyMapper">
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.CustomerRealNameVerify">
+        <id column="cust_id" jdbcType="BIGINT" property="custId"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="sequence" jdbcType="INTEGER" property="sequence"/>
+        <result column="verifie_err_count" jdbcType="TINYINT" property="verifyErrCount"/>
+        <result column="front_photo" jdbcType="VARCHAR" property="frontPhoto"/>
+        <result column="reverse_photo" jdbcType="VARCHAR" property="reversePhoto"/>
+        <result column="id_kind" jdbcType="VARCHAR" property="idKind"/>
+        <result column="id_card" jdbcType="VARCHAR" property="idCard"/>
+        <result column="gender" jdbcType="INTEGER" property="gender"/>
+        <result column="birthday" jdbcType="VARCHAR" property="birthday"/>
+        <result column="id_card_address" jdbcType="VARCHAR" property="idCardAddress"/>
+        <result column="id_card_valid_date_start" jdbcType="TIMESTAMP" property="idCardValidDateStart"/>
+        <result column="id_card_valid_date_end" jdbcType="TIMESTAMP" property="idCardValidDateEnd"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="lock_version" jdbcType="INTEGER" property="lockVersion"/>
+        <result column="issue_country" jdbcType="VARCHAR" property="issueCountry"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+        <result column="tenant_id" jdbcType="VARCHAR" property="tenantId"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        cust_id, real_name, sequence, verifie_err_count, front_photo, reverse_photo, id_kind,
+    id_card, gender, birthday, id_card_address, id_card_valid_date_start, id_card_valid_date_end,
+    create_time, update_time, lock_version, issue_country, is_deleted, tenant_id
+    </sql>
+
+    <insert id="insert" parameterType="com.minigod.zero.data.entity.CustomerRealNameVerify">
+        insert into customer_realname_verify
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="custId != null">cust_id,</if>
+            <if test="realName != null">real_name,</if>
+            <!-- Add other fields here -->
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="custId != null">#{custId,jdbcType=BIGINT},</if>
+            <if test="realName != null">#{realName,jdbcType=VARCHAR},</if>
+            <!-- Add other fields here -->
+        </trim>
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        delete
+        from customer_realname_verify
+        where cust_id = #{custId,jdbcType=BIGINT}
+    </delete>
+
+    <update id="update" parameterType="com.minigod.zero.data.entity.CustomerRealNameVerify">
+        update customer_realname_verify
+        <set>
+            <if test="realName != null">real_name = #{realName,jdbcType=VARCHAR},</if>
+            <!-- Add other fields here -->
+        </set>
+        where cust_id = #{custId,jdbcType=BIGINT}
+    </update>
+
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from customer_realname_verify
+        where cust_id = #{custId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from customer_realname_verify
+    </select>
+
+    <select id="statisticsByAge" resultType="com.minigod.zero.data.vo.CustomerRealNameVerifyAgeCountVO">
+        WITH total_count AS (
+            SELECT COUNT(*) AS total
+            FROM customer_realname_verify
+            WHERE is_deleted = 0
+        ),
+             age_groups AS (
+                 SELECT '20岁以下' as age_group, 1 as sort_order
+                 UNION ALL SELECT '20~30岁', 2
+                 UNION ALL SELECT '31~40岁', 3
+                 UNION ALL SELECT '41~50岁', 4
+                 UNION ALL SELECT '50岁以上', 5
+             ),
+             age_stats AS (
+                 SELECT
+                     CASE
+                         WHEN TIMESTAMPDIFF(YEAR, birthday, CURDATE()) - (DATE_FORMAT(CURDATE(), '%m%d')  &lt; DATE_FORMAT(birthday, '%m%d'))
+                             BETWEEN 0 AND 19 THEN '20岁以下'
+                         WHEN TIMESTAMPDIFF(YEAR, birthday, CURDATE()) - (DATE_FORMAT(CURDATE(), '%m%d')  &lt; DATE_FORMAT(birthday, '%m%d'))
+                             BETWEEN 20 AND 30 THEN '20~30岁'
+                         WHEN TIMESTAMPDIFF(YEAR, birthday, CURDATE()) - (DATE_FORMAT(CURDATE(), '%m%d')  &lt; DATE_FORMAT(birthday, '%m%d'))
+                             BETWEEN 31 AND 40 THEN '31~40岁'
+                         WHEN TIMESTAMPDIFF(YEAR, birthday, CURDATE()) - (DATE_FORMAT(CURDATE(), '%m%d')  &lt; DATE_FORMAT(birthday, '%m%d'))
+                             BETWEEN 41 AND 50 THEN '41~50岁'
+                         ELSE '50岁以上'
+                         END AS age_group,
+                     COUNT(*) AS count
+        FROM customer_realname_verify
+        WHERE is_deleted = 0
+        GROUP BY age_group
+            )
+        SELECT
+            ag.age_group AS ageGroup,
+            COALESCE(as_stats.count, 0) as count,
+    ROUND(COALESCE(as_stats.count, 0) * 100.0 / NULLIF(total_count.total, 0), 2) AS ratio
+        FROM age_groups ag
+            CROSS JOIN total_count
+            LEFT JOIN age_stats as_stats ON ag.age_group = as_stats.age_group
+        ORDER BY ag.sort_order
+    </select>
+
+    <select id="statisticsByGender" resultType="com.minigod.zero.data.vo.CustomerRealNameVerifyGenderCountVO">
+		 WITH total_count AS (
+            SELECT COUNT(*) AS total
+            FROM customer_realname_verify
+            WHERE is_deleted = 0
+        )
+        SELECT
+            CASE
+                WHEN gender = 0 THEN '男'
+                WHEN gender = 1 THEN '女'
+                ELSE '未知'
+            END AS gender,
+            COUNT(*) AS count,
+            ROUND(COUNT(*) * 100.0 / total_count.total, 2) AS ratio
+        FROM
+            customer_realname_verify, total_count
+        WHERE
+            is_deleted = 0
+        GROUP BY
+            gender, total_count.total
+        ORDER BY
+            gender DESC
+    </select>
+</mapper>

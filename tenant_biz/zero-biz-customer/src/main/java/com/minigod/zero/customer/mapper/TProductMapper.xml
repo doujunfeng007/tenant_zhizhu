@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.TProductMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.TProductEntity">
+            <id property="productid" column="productId" jdbcType="INTEGER"/>
+            <result property="isin" column="isin" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="fixinterestrate" column="fixInterestRate" jdbcType="DECIMAL"/>
+            <result property="buyingrate" column="buyingRate" jdbcType="DECIMAL"/>
+            <result property="sellingrate" column="sellingRate" jdbcType="DECIMAL"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="nominalvalue" column="nominalValue" jdbcType="DECIMAL"/>
+            <result property="appraisement" column="appraisement" jdbcType="DECIMAL"/>
+            <result property="unit" column="unit" jdbcType="DECIMAL"/>
+            <result property="issueamount" column="issueAmount" jdbcType="DECIMAL"/>
+            <result property="tradingunit" column="tradingUnit" jdbcType="DECIMAL"/>
+            <result property="issuedate" column="issueDate" jdbcType="TIMESTAMP"/>
+            <result property="maturitydate" column="maturityDate" jdbcType="TIMESTAMP"/>
+            <result property="risklevel" column="riskLevel" jdbcType="TINYINT"/>
+            <result property="interestcalculationdays" column="interestCalculationDays" jdbcType="INTEGER"/>
+            <result property="liquidationdate" column="liquidationDate" jdbcType="TIMESTAMP"/>
+            <result property="marketopentime" column="marketOpenTime" jdbcType="TIME"/>
+            <result property="closingtime" column="closingTime" jdbcType="TIME"/>
+            <result property="issuer" column="issuer" jdbcType="VARCHAR"/>
+            <result property="productdescription" column="productDescription" jdbcType="VARCHAR"/>
+            <result property="stamptax" column="stampTax" jdbcType="DECIMAL"/>
+            <result property="brokeragecharges" column="brokerageCharges" jdbcType="DECIMAL"/>
+            <result property="onsaletime" column="onSaleTime" jdbcType="TIMESTAMP"/>
+            <result property="limitorder" column="limitOrder" jdbcType="TINYINT"/>
+            <result property="type" column="type" jdbcType="TINYINT"/>
+            <result property="auditstatus" column="auditStatus" jdbcType="TINYINT"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="riskwarning" column="riskWarning" jdbcType="TINYINT"/>
+            <result property="creator" column="creator" jdbcType="VARCHAR"/>
+            <result property="lastupdatedby" column="lastUpdatedBy" jdbcType="VARCHAR"/>
+            <result property="synchstate" column="synchState" jdbcType="TINYINT"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="settlementdate" column="settlementDate" jdbcType="TIMESTAMP"/>
+            <result property="clearingvalue" column="clearingValue" jdbcType="DECIMAL"/>
+            <result property="listingtime" column="listingTime" jdbcType="TIMESTAMP"/>
+            <result property="customerform" column="customerForm" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        productId,isin,name,
+        fixInterestRate,buyingRate,sellingRate,
+        currency,nominalValue,appraisement,
+        unit,issueAmount,tradingUnit,
+        issueDate,maturityDate,riskLevel,
+        interestCalculationDays,liquidationDate,marketOpenTime,
+        closingTime,issuer,productDescription,
+        stampTax,brokerageCharges,onSaleTime,
+        limitOrder,type,auditStatus,
+        status,riskWarning,creator,
+        lastUpdatedBy,synchState,createTime,
+        updateTime,settlementDate,clearingValue,
+        listingTime,customerForm
+    </sql>
+</mapper>

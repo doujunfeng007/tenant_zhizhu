@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.biz.task.mapper.BpmAccountInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="acctInfoResultMap" type="com.minigod.zero.bpm.entity.BpmAccountInfoEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="author_email" property="authorEmail"/>
+        <result column="author_status" property="authorStatus"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="acct_type" property="acctType"/>
+        <result column="trade_auth" property="tradeAuth"/>
+        <result column="app_permission" property="appPermission"/>
+        <result column="is_current" property="isCurrent"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <select id="selectBpmAccountInfoPage" resultMap="acctInfoResultMap">
+        select *
+        from bpm_account_info
+        where is_deleted = 0
+    </select>
+
+    <select id="findOneByClientId"
+            resultType="com.minigod.zero.biz.task.vo.BpmAccountInfoVo"
+    >
+        SELECT s.cust_id as custId,cust_name as custName from bpm_account_info b left join bpm_securities_info s on b.cust_id = s.cust_id
+        where b.trade_account = #{clientId} order by s.update_time desc limit 1;
+    </select>
+</mapper>

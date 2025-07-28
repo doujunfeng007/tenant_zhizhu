@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.trade.mapper.IpoFinanceQueueOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="ipoFinanceQueueOrderResultMap" type="com.minigod.zero.trade.entity.IpoFinanceQueueOrderEntity">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="client_id" property="clientId"/>
+        <result column="fund_account" property="fundAccount"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="stock_code" property="stockCode"/>
+        <result column="exchange_type" property="exchangeType"/>
+        <result column="quantity_apply" property="quantityApply"/>
+        <result column="apply_amount" property="applyAmount"/>
+        <result column="handling_charge" property="handlingCharge"/>
+        <result column="finance_interest" property="financeInterest"/>
+        <result column="deposit_rate" property="depositRate"/>
+        <result column="deposit_amount" property="depositAmount"/>
+        <result column="frozen_amount" property="frozenAmount"/>
+        <result column="type" property="type"/>
+        <result column="order_status" property="orderStatus"/>
+        <result column="revert_serial_no" property="revertSerialNo"/>
+        <result column="init_date" property="initDate"/>
+        <result column="lock_version" property="lockVersion"/>
+        <result column="unique_id" property="uniqueId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="order_type" property="orderType"/>
+        <result column="manual_handling_fee" property="manualHandlingFee"/>
+        <result column="handling_fee_able" property="handlingFeeAble"/>
+        <result column="reward_id" property="rewardId"/>
+        <result column="predict_order_id" property="predictOrderId"/>
+    </resultMap>
+
+
+    <select id="selectIpoFinanceQueueOrderPage" resultMap="ipoFinanceQueueOrderResultMap">
+        select * from ipo_finance_queue_order where is_deleted = 0
+    </select>
+
+    <select id="findQueueOrderInfo" resultType="com.minigod.zero.trade.vo.IpoQueueInfoVO">
+        SELECT stock_code stockCode,COUNT(1) num,SUM(deposit_amount) queueTotalAmt FROM ipo_finance_queue_order WHERE order_status = 1 GROUP BY stock_code
+    </select>
+
+    <select id="getMaxQueueAmount" resultType="java.lang.Long" >
+        SELECT IFNULL(SUM(deposit_amount),0) queueTotalAmt FROM ipo_finance_queue_order WHERE order_status IN(1,2) AND stock_code = #{assetId}
+        <if test="orderType != null">
+            and order_type = #{orderType}
+        </if>
+    </select>
+</mapper>

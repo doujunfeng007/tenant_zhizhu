@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerRealnameVerifyMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerRealnameVerifyEntity">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="custId" column="cust_id" jdbcType="BIGINT"/>
+        <result property="realName" column="real_name" jdbcType="VARCHAR"/>
+        <result property="sequence" column="sequence" jdbcType="INTEGER"/>
+        <result property="verifieErrCount" column="verifie_err_count" jdbcType="TINYINT"/>
+        <result property="frontPhoto" column="front_photo" jdbcType="VARCHAR"/>
+        <result property="reversePhoto" column="reverse_photo" jdbcType="VARCHAR"/>
+        <result property="idKind" column="id_kind" jdbcType="CHAR"/>
+        <result property="idCard" column="id_card" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="INTEGER"/>
+        <result property="birthday" column="birthday" jdbcType="VARCHAR"/>
+        <result property="idCardAddress" column="id_card_address" jdbcType="VARCHAR"/>
+        <result property="idCardValidDateStart" column="id_card_valid_date_start" jdbcType="VARCHAR"/>
+        <result property="idCardValidDateEnd" column="id_card_valid_date_end" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="lockVersion" column="lock_version" jdbcType="INTEGER"/>
+        <result property="issueCountry" column="issue_country" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,cust_id,real_name,
+        sequence,verifie_err_count,front_photo,
+        reverse_photo,id_kind,id_card,
+        gender,birthday,id_card_address,
+        id_card_valid_date_start,id_card_valid_date_end,create_time,
+        update_time,lock_version,issue_country,
+        is_deleted,tenant_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_realname_verify
+        where  id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from customer_realname_verify
+        where  id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerRealnameVerifyEntity" useGeneratedKeys="true">
+        insert into customer_realname_verify
+        ( id,cust_id,real_name
+        ,sequence,verifie_err_count,front_photo
+        ,reverse_photo,id_kind,id_card
+        ,gender,birthday,id_card_address
+        ,id_card_valid_date_start,id_card_valid_date_end,create_time
+        ,update_time,lock_version,issue_country
+        ,is_deleted,tenant_id)
+        values (#{id,jdbcType=BIGINT},#{custId,jdbcType=BIGINT},#{realName,jdbcType=VARCHAR}
+               ,#{sequence,jdbcType=INTEGER},#{verifieErrCount,jdbcType=TINYINT},#{frontPhoto,jdbcType=VARCHAR}
+               ,#{reversePhoto,jdbcType=VARCHAR},#{idKind,jdbcType=CHAR},#{idCard,jdbcType=VARCHAR}
+               ,#{gender,jdbcType=INTEGER},#{birthday,jdbcType=VARCHAR},#{idCardAddress,jdbcType=VARCHAR}
+               ,#{idCardValidDateStart,jdbcType=VARCHAR},#{idCardValidDateEnd,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}
+               ,#{updateTime,jdbcType=TIMESTAMP},#{lockVersion,jdbcType=INTEGER},#{issueCountry,jdbcType=VARCHAR}
+               ,#{isDeleted,jdbcType=TINYINT},#{tenantId})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerRealnameVerifyEntity" useGeneratedKeys="true">
+        insert into customer_realname_verify
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="custId != null">cust_id,</if>
+            <if test="realName != null">real_name,</if>
+            <if test="sequence != null">sequence,</if>
+            <if test="verifieErrCount != null">verifie_err_count,</if>
+            <if test="frontPhoto != null">front_photo,</if>
+            <if test="reversePhoto != null">reverse_photo,</if>
+            <if test="idKind != null">id_kind,</if>
+            <if test="idCard != null">id_card,</if>
+            <if test="gender != null">gender,</if>
+            <if test="birthday != null">birthday,</if>
+            <if test="idCardAddress != null">id_card_address,</if>
+            <if test="idCardValidDateStart != null">id_card_valid_date_start,</if>
+            <if test="idCardValidDateEnd != null">id_card_valid_date_end,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="lockVersion != null">lock_version,</if>
+            <if test="issueCountry != null">issue_country,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="tenantId != null">tenant_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=BIGINT},</if>
+            <if test="custId != null">#{custId,jdbcType=BIGINT},</if>
+            <if test="realName != null">#{realName,jdbcType=VARCHAR},</if>
+            <if test="sequence != null">#{sequence,jdbcType=INTEGER},</if>
+            <if test="verifieErrCount != null">#{verifieErrCount,jdbcType=TINYINT},</if>
+            <if test="frontPhoto != null">#{frontPhoto,jdbcType=VARCHAR},</if>
+            <if test="reversePhoto != null">#{reversePhoto,jdbcType=VARCHAR},</if>
+            <if test="idKind != null">#{idKind,jdbcType=CHAR},</if>
+            <if test="idCard != null">#{idCard,jdbcType=VARCHAR},</if>
+            <if test="gender != null">#{gender,jdbcType=INTEGER},</if>
+            <if test="birthday != null">#{birthday,jdbcType=VARCHAR},</if>
+            <if test="idCardAddress != null">#{idCardAddress,jdbcType=VARCHAR},</if>
+            <if test="idCardValidDateStart != null">#{idCardValidDateStart,jdbcType=VARCHAR},</if>
+            <if test="idCardValidDateEnd != null">#{idCardValidDateEnd,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="lockVersion != null">#{lockVersion,jdbcType=INTEGER},</if>
+            <if test="issueCountry != null">#{issueCountry,jdbcType=VARCHAR},</if>
+            <if test="isDeleted != null">#{isDeleted,jdbcType=TINYINT},</if>
+            <if test="tenantId != null">#{tenantId},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.CustomerRealnameVerifyEntity">
+        update customer_realname_verify
+        <set>
+            <if test="custId != null">
+                cust_id = #{custId,jdbcType=BIGINT},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="sequence != null">
+                sequence = #{sequence,jdbcType=INTEGER},
+            </if>
+            <if test="verifieErrCount != null">
+                verifie_err_count = #{verifieErrCount,jdbcType=TINYINT},
+            </if>
+            <if test="frontPhoto != null">
+                front_photo = #{frontPhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="reversePhoto != null">
+                reverse_photo = #{reversePhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="idKind != null">
+                id_kind = #{idKind,jdbcType=CHAR},
+            </if>
+            <if test="idCard != null">
+                id_card = #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=INTEGER},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="idCardAddress != null">
+                id_card_address = #{idCardAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="idCardValidDateStart != null">
+                id_card_valid_date_start = #{idCardValidDateStart,jdbcType=VARCHAR},
+            </if>
+            <if test="idCardValidDateEnd != null">
+                id_card_valid_date_end = #{idCardValidDateEnd,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lockVersion != null">
+                lock_version = #{lockVersion,jdbcType=INTEGER},
+            </if>
+            <if test="issueCountry != null">
+                issue_country = #{issueCountry,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="tenantId != null">
+                tenant_id = #{tenantId},
+            </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.CustomerRealnameVerifyEntity">
+        update customer_realname_verify
+        set
+            cust_id =  #{custId,jdbcType=BIGINT},
+            real_name =  #{realName,jdbcType=VARCHAR},
+            sequence =  #{sequence,jdbcType=INTEGER},
+            verifie_err_count =  #{verifieErrCount,jdbcType=TINYINT},
+            front_photo =  #{frontPhoto,jdbcType=VARCHAR},
+            reverse_photo =  #{reversePhoto,jdbcType=VARCHAR},
+            id_kind =  #{idKind,jdbcType=CHAR},
+            id_card =  #{idCard,jdbcType=VARCHAR},
+            gender =  #{gender,jdbcType=INTEGER},
+            birthday =  #{birthday,jdbcType=VARCHAR},
+            id_card_address =  #{idCardAddress,jdbcType=VARCHAR},
+            id_card_valid_date_start =  #{idCardValidDateStart,jdbcType=VARCHAR},
+            id_card_valid_date_end =  #{idCardValidDateEnd,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            lock_version =  #{lockVersion,jdbcType=INTEGER},
+            issue_country =  #{issueCountry,jdbcType=VARCHAR},
+            is_deleted =  #{isDeleted,jdbcType=TINYINT},
+            tenant_id = #{tenantId},
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <select id="selectCustomerRealnameVerifyPage" resultMap="BaseResultMap">
+        select * from customer_realname_verify where is_deleted = 0
+    </select>
+
+    <select id="selectByCustIdAndIdCard" parameterType="java.lang.Object" resultMap="BaseResultMap">
+        select * from customer_realname_verify where is_deleted = 0 and cust_id=#{custId} and id_card = #{idCard}
+    </select>
+
+    <select id="selectByCustId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from customer_realname_verify where is_deleted = 0 and cust_id=#{custId}
+    </select>
+</mapper>

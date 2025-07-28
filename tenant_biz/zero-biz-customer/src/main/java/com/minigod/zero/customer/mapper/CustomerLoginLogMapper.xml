@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerLoginLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerLoginLogEntity">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="custId" column="cust_id" jdbcType="BIGINT"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+        <result property="action" column="action" jdbcType="TINYINT"/>
+        <result property="type" column="type" jdbcType="TINYINT"/>
+        <result property="loginType" column="login_type" jdbcType="TINYINT"/>
+        <result property="ip" column="ip" jdbcType="VARCHAR"/>
+        <result property="deviceCode" column="device_code" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="custName" column="cust_name" jdbcType="VARCHAR"/>
+        <result property="phoneNumber" column="phone_number" jdbcType="VARCHAR"/>
+        <result property="areaCode" column="area_code" jdbcType="VARCHAR"/>
+        <result property="appVersion" column="app_version" jdbcType="VARCHAR"/>
+        <result property="deviceModel" column="device_model" jdbcType="VARCHAR"/>
+        <result property="osType" column="os_type" jdbcType="TINYINT"/>
+        <result property="sourceType" column="source_type" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="countryCnName" column="country_cn_name" jdbcType="VARCHAR"/>
+        <result property="countryCode" column="country_code" jdbcType="VARCHAR"/>
+        <result property="regionCnName" column="region_cn_name" jdbcType="VARCHAR"/>
+        <result property="regionCode" column="region_code" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+        <result property="createDept" column="create_dept" jdbcType="INTEGER"/>
+        <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="visitorLoginLogResultMap" type="com.minigod.zero.customer.vo.CustomerLoginLogVO">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="action" property="action"/>
+        <result column="type" property="type"/>
+        <result column="login_type" property="loginType"/>
+        <result column="ip" property="ip"/>
+        <result column="device_code" property="deviceCode"/>
+        <result column="email" property="email"/>
+        <result column="cust_name" property="custName"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="area_code" property="areaCode"/>
+        <result column="app_version" property="appVersion"/>
+        <result column="device_model" property="deviceModel"/>
+        <result column="os_type" property="osType"/>
+        <result column="source_type" property="sourceType"/>
+        <result column="create_time" property="createTime"/>
+        <result column="country_cn_name" property="countryCnName"/>
+        <result column="country_code" property="countryCode"/>
+        <result column="region_cn_name" property="regionCnName"/>
+        <result column="region_code" property="regionCode"/>
+    </resultMap>
+
+    <select id="selectCustomerLoginLogPage" resultMap="BaseResultMap">
+        SELECT * FROM customer_login_log ORDER BY create_time DESC
+    </select>
+
+    <select id="selectVisitorLoginLogPage" resultMap="visitorLoginLogResultMap">
+        SELECT cll.* FROM customer_login_log AS cll
+        INNER JOIN customer_financing_account AS cfa
+        ON cll.cust_id = cfa.cust_id
+        WHERE cfa.status = 4 AND cll.type = 1
+        <if test="loginLog.custId != null and loginLog.custId != ''">
+            AND cll.cust_id LIKE concat('%',#{loginLog.custId},'%')
+        </if>
+        <if test="loginLog.areaCode != null and loginLog.areaCode != ''">
+            AND cll.area_code = #{loginLog.areaCode}
+        </if>
+        <if test="loginLog.phoneNumber != null and loginLog.phoneNumber != ''">
+            AND cll.phone_number LIKE concat('%',#{loginLog.phoneNumber},'%')
+        </if>
+        <if test="loginLog.loginType != null and loginLog.loginType != ''">
+            AND cll.login_type = #{loginLog.loginType}
+        </if>
+        <if test="loginLog.action != null or loginLog.action == 0">
+            AND cll.action =#{loginLog.action}
+        </if>
+        ORDER BY cll.create_time DESC
+    </select>
+
+    <select id="selectAccountUserLoginLogPage" resultMap="visitorLoginLogResultMap">
+        SELECT cll.* FROM customer_login_log AS cll
+        INNER JOIN customer_financing_account AS cfa
+        ON cll.cust_id = cfa.cust_id
+        WHERE cfa.status != 4 AND cll.type = 1
+        <if test="loginLog.custId != null and loginLog.custId != ''">
+            AND cll.cust_id LIKE concat('%',#{loginLog.custId},'%')
+        </if>
+        <if test="loginLog.areaCode != null and loginLog.areaCode != ''">
+            AND cll.area_code = #{loginLog.areaCode}
+        </if>
+        <if test="loginLog.phoneNumber != null and loginLog.phoneNumber != ''">
+            AND cll.phone_number LIKE concat('%',#{loginLog.phoneNumber},'%')
+        </if>
+        <if test="loginLog.loginType != null and loginLog.loginType != ''">
+            AND cll.login_type = #{loginLog.loginType}
+        </if>
+        <if test="loginLog.action != null or loginLog.action == 0">
+            AND cll.action =#{loginLog.action}
+        </if>
+        ORDER BY cll.create_time DESC
+    </select>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerLoginLogEntity" useGeneratedKeys="true">
+        insert into customer_login_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="custId != null">cust_id,</if>
+            <if test="tenantId != null">tenant_id,</if>
+            <if test="action != null">action,</if>
+            <if test="type != null">type,</if>
+            <if test="loginType != null">login_type,</if>
+            <if test="ip != null">ip,</if>
+            <if test="deviceCode != null">device_code,</if>
+            <if test="email != null">email,</if>
+            <if test="custName != null">cust_name,</if>
+            <if test="phoneNumber != null">phone_number,</if>
+            <if test="areaCode != null">area_code,</if>
+            <if test="appVersion != null">app_version,</if>
+            <if test="deviceModel != null">device_model,</if>
+            <if test="osType != null">os_type,</if>
+            <if test="sourceType != null">source_type,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="countryCnName != null">country_cn_name,</if>
+            <if test="countryCode != null">country_code,</if>
+            <if test="regionCnName != null">region_cn_name,</if>
+            <if test="regionCode != null">region_code,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createDept != null">create_dept,</if>
+            <if test="updateUser != null">update_user,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="status != null">status,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=BIGINT},</if>
+            <if test="custId != null">#{custId,jdbcType=BIGINT},</if>
+            <if test="tenantId != null">#{tenantId,jdbcType=VARCHAR},</if>
+            <if test="action != null">#{action,jdbcType=TINYINT},</if>
+            <if test="type != null">#{type,jdbcType=TINYINT},</if>
+            <if test="loginType != null">#{loginType,jdbcType=TINYINT},</if>
+            <if test="ip != null">#{ip,jdbcType=VARCHAR},</if>
+            <if test="deviceCode != null">#{deviceCode,jdbcType=VARCHAR},</if>
+            <if test="email != null">#{email,jdbcType=VARCHAR},</if>
+            <if test="custName != null">#{custName,jdbcType=VARCHAR},</if>
+            <if test="phoneNumber != null">#{phoneNumber,jdbcType=VARCHAR},</if>
+            <if test="areaCode != null">#{areaCode,jdbcType=VARCHAR},</if>
+            <if test="appVersion != null">#{appVersion,jdbcType=VARCHAR},</if>
+            <if test="deviceModel != null">#{deviceModel,jdbcType=VARCHAR},</if>
+            <if test="osType != null">#{osType,jdbcType=TINYINT},</if>
+            <if test="sourceType != null">#{sourceType,jdbcType=VARCHAR},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="countryCnName != null">#{countryCnName,jdbcType=VARCHAR},</if>
+            <if test="countryCode != null">#{countryCode,jdbcType=VARCHAR},</if>
+            <if test="regionCnName != null">#{regionCnName,jdbcType=VARCHAR},</if>
+            <if test="regionCode != null">#{regionCode,jdbcType=VARCHAR},</if>
+            <if test="isDeleted != null">#{isDeleted,jdbcType=TINYINT},</if>
+            <if test="createUser != null">#{createUser,jdbcType=BIGINT},</if>
+            <if test="createDept != null">#{createDept,jdbcType=INTEGER},</if>
+            <if test="updateUser != null">#{updateUser,jdbcType=BIGINT},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+
+
+</mapper>

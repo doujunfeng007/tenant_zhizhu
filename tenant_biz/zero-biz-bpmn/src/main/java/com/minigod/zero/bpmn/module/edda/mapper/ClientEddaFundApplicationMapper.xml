@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.edda.mapper.ClientEddaFundApplicationMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.edda.entity.ClientEddaFundApplicationEntity">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+            <result property="clientId" column="clien_id" jdbcType="VARCHAR"/>
+            <result property="fundAccount" column="fund_account" jdbcType="VARCHAR"/>
+            <result property="eName" column="e_name" jdbcType="VARCHAR"/>
+            <result property="cName" column="c_name" jdbcType="VARCHAR"/>
+            <result property="idType" column="id_type" jdbcType="VARCHAR"/>
+            <result property="idCode" column="id_code" jdbcType="VARCHAR"/>
+            <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="acctType" column="acct_type" jdbcType="VARCHAR"/>
+            <result property="depositType" column="deposit_type" jdbcType="INTEGER"/>
+            <result property="depositBank" column="deposit_bank" jdbcType="VARCHAR"/>
+            <result property="depositNo" column="deposit_no" jdbcType="VARCHAR"/>
+            <result property="depositAccount" column="deposit_account" jdbcType="VARCHAR"/>
+            <result property="depositBankCode" column="deposit_bank_code" jdbcType="VARCHAR"/>
+            <result property="depositBankId" column="deposit_bank_id" jdbcType="VARCHAR"/>
+            <result property="benefitBank" column="benefit_bank" jdbcType="VARCHAR"/>
+            <result property="benefitBankCode" column="benefit_bank_code" jdbcType="VARCHAR"/>
+            <result property="benefitNo" column="benefit_no" jdbcType="VARCHAR"/>
+            <result property="benefitAccount" column="benefit_account" jdbcType="VARCHAR"/>
+            <result property="depositBalance" column="deposit_balance" jdbcType="DECIMAL"/>
+            <result property="applicationTime" column="application_time" jdbcType="TIMESTAMP"/>
+            <result property="moneyType" column="money_type" jdbcType="VARCHAR"/>
+            <result property="bankState" column="bank_state" jdbcType="INTEGER"/>
+            <result property="sendStatus" column="send_status" jdbcType="INTEGER"/>
+            <result property="remittanceType" column="remittance_type" jdbcType="INTEGER"/>
+            <result property="swiftCode" column="swift_code" jdbcType="VARCHAR"/>
+            <result property="fundApplicationId" column="fund_application_id" jdbcType="VARCHAR"/>
+            <result property="msgId" column="msg_id" jdbcType="VARCHAR"/>
+            <result property="ddaRef" column="dda_ref" jdbcType="VARCHAR"/>
+            <result property="cusRef" column="cus_ref" jdbcType="VARCHAR"/>
+            <result property="reqTime" column="req_time" jdbcType="TIMESTAMP"/>
+            <result property="txnRefId" column="txn_ref_id" jdbcType="VARCHAR"/>
+            <result property="settlementAmt" column="settlement_amt" jdbcType="DECIMAL"/>
+            <result property="settlementDt" column="settlement_dt" jdbcType="DATE"/>
+            <result property="rejCorde" column="rej_corde" jdbcType="VARCHAR"/>
+            <result property="rejDescription" column="rej_description" jdbcType="VARCHAR"/>
+            <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+            <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="eddaInfoId" column="edda_info_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,application_id,clien_id,
+        fund_account,e_name,c_name,
+        id_type,id_code,mobile,
+        email,acct_type,deposit_type,
+        deposit_bank,deposit_no,deposit_account,
+        deposit_bank_code,deposit_bank_id,benefit_bank,
+        benefit_bank_code,benefit_no,benefit_account,
+        deposit_balance,application_time,amt_ccy,
+        bank_state,send_status,remittance_type,
+        swift_code,fund_application_id,msg_id,
+        dda_ref,cus_ref,req_time,
+        txn_ref_id,settlement_amt,settlement_dt,
+        rej_corde,rej_description,create_user,
+        update_user,create_time,update_time,edda_info_id
+    </sql>
+</mapper>

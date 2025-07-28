@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.minigod.zero.manage.mapper.SnActivityUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.minigod.zero.manage.entity.SnActivityUserEntity">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="channel" property="channel"/>
+        <result column="invite_code" property="inviteCode"/>
+        <result column="invite_identify" property="inviteIdentify"/>
+        <result column="register_time" property="registerTime"/>
+        <result column="email" property="email"/>
+        <result column="client_name" property="clientName"/>
+        <result column="icon_url" property="iconUrl"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="lock_version" property="lockVersion"/>
+        <result column="utm_source" property="utmSource"/>
+        <result column="utm_medium" property="utmMedium"/>
+        <result column="open_id" property="openId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, nick_name, channel, invite_code, invite_identify, register_time,
+        email, client_name, icon_url, phone_number, lock_version, utm_source, utm_medium,
+        open_id, create_time, update_time, create_user, update_user, is_deleted,
+        tenant_id, create_dept, status
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_activity_user
+        WHERE is_deleted = 0
+        <if test="channel != null and channel != ''">
+            AND channel = #{channel}
+        </if>
+        <if test="utmSource != null and utmSource != ''">
+            AND utm_source = #{utmSource}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 根据用户ID查询用户信息 -->
+    <select id="getByUserId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_activity_user
+        WHERE is_deleted = 0
+        AND user_id = #{userId}
+        LIMIT 1
+    </select>
+
+    <!-- 查询邀请人的下级用户列表 -->
+    <select id="queryInvitedUsers" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_activity_user
+        WHERE is_deleted = 0
+        AND invite_identify = #{inviteIdentify}
+        ORDER BY register_time DESC
+    </select>
+
+    <!-- 更新用户信息 -->
+    <update id="updateUserInfo">
+        UPDATE sn_activity_user
+        <set>
+            <if test="nickName != null">
+                nick_name = #{nickName},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="clientName != null">
+                client_name = #{clientName},
+            </if>
+            <if test="iconUrl != null">
+                icon_url = #{iconUrl},
+            </if>
+            <if test="phoneNumber != null">
+                phone_number = #{phoneNumber},
+            </if>
+            update_time = NOW(),
+            lock_version = lock_version + 1
+        </set>
+        WHERE id = #{id}
+        AND lock_version = #{lockVersion}
+        AND is_deleted = 0
+    </update>
+
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.cust.mapper.CustInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="custInfoResultMap" type="com.minigod.zero.cust.entity.CustInfoEntity">
+        <result column="id" property="id"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="signature" property="signature"/>
+        <result column="gender" property="gender"/>
+        <result column="cust_icon" property="custIcon"/>
+        <result column="cust_channel" property="custChannel"/>
+        <result column="inv_cust_id" property="invCustId"/>
+        <result column="vocation_id" property="vocationId"/>
+        <result column="cust_type" property="custType"/>
+        <result column="password" property="password"/>
+        <result column="privacy" property="privacy"/>
+        <result column="last_login_time" property="lastLoginTime"/>
+        <result column="last_login_ip" property="lastLoginIp"/>
+        <result column="last_city_id" property="lastCityId"/>
+        <result column="login_count" property="loginCount"/>
+        <result column="wechat_id" property="wechatId"/>
+        <result column="im_id" property="imId"/>
+        <result column="im_pwd" property="imPwd"/>
+        <result column="lock_time" property="lockTime"/>
+        <result column="lock_version" property="lockVersion"/>
+        <result column="cell_phone" property="cellPhone"/>
+        <result column="area_code" property="areaCode"/>
+        <result column="gesture_pwd" property="gesturePwd"/>
+        <result column="getsture_show_time" property="getstureShowTime"/>
+        <result column="reg_source_type" property="regSourceType"/>
+        <result column="reg_channel" property="regChannel"/>
+        <result column="robot_attention_status" property="robotAttentionStatus"/>
+        <result column="is_write_phone" property="isWritePhone"/>
+        <result column="accept_agreement" property="acceptAgreement"/>
+        <result column="cell_email" property="cellEmail"/>
+        <result column="is_agree" property="isAgree"/>
+        <result column="facebook_name" property="facebookName"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="cancel_time" property="cancelTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="author_id" property="authorId"/>
+        <result column="author_idno" property="authorIdno"/>
+        <result column="regist_type" property="registType"/>
+        <result column="trade_pwd" property="tradePwd"/>
+        <result column="bind_cust" property="bindCust"/>
+    </resultMap>
+
+    <select id="selectCustInfoPage" resultMap="custInfoResultMap">
+        select ci.* from cust_info ci
+        <if test="custInfo != null">
+            <if test="custInfo.tradeAccount != null">
+                left join bpm_account_info bai on bai.cust_id = ci.id
+            </if>
+        </if>
+        where ci.is_deleted = 0
+        <if test="custInfo != null">
+            <if test="custInfo.custId != null">
+                and ci.id = #{custInfo.custId}
+            </if>
+            <if test="custInfo.phoneNumber != null and custInfo.phoneNumber != ''">
+                and ci.cell_phone = #{custInfo.phoneNumber}
+            </if>
+            <if test="custInfo.email != null and custInfo.email != ''">
+                and ci.cell_email = #{custInfo.email}
+            </if>
+            <if test="custInfo.custType != null">
+                and ci.cust_type = #{custInfo.custType}
+            </if>
+            <if test="custInfo.tradeAccount != null">
+                and bai.trade_account = #{custInfo.tradeAccount}
+            </if>
+        </if>
+    </select>
+
+    <select id="getCustInfo" resultType="com.minigod.zero.cust.cache.CustInfo">
+        select c.id as cust_id, c.nick_name, c.cust_icon, c.password, c.cell_phone, c.area_code, c.cell_email, c.wechat_id, c.cust_type, c.bind_cust, c.status
+          from cust_info c  where c.id = #{custId} and c.is_deleted = 0 and c.status != 3
+    </select>
+
+    <select id="getCustContactInfo" resultType="com.minigod.zero.cust.vo.CustContactVO">
+        select c.id as cust_id, c.area_code as phone_area, c.cell_phone as phone_number, a.author_email as email
+          from cust_info c left join bpm_account_info a on c.id = a.cust_id
+         where c.id = #{custId} and a.trade_account = #{tradeAccount} and c.cust_type = 4 and c.is_deleted = 0 and c.status != 3
+    </select>
+
+	<select id="getCustContactInfo2fa" resultType="com.minigod.zero.cust.vo.CustContactVO">
+		select c.id as cust_id, c.area_code as phone_area, c.cell_phone as phone_number, a.author_email as email
+		from cust_info c left join bpm_account_info a on c.id = a.cust_id
+		where c.id = #{custId} and a.trade_account = #{tradeAccount} and c.cust_type != 4 and c.is_deleted = 0 and c.status != 3
+	</select>
+
+    <update id="esopAcctBind">
+        update cust_info set bind_cust = (select cust_id from bpm_account_info where trade_account = #{tradeAccount}) where id = #{custId};
+        update cust_info set bind_cust = #{custId}, password = (select t.password from (select password from cust_info where id = #{custId}) t)
+         where id = (select cust_id from bpm_account_info where trade_account = #{tradeAccount})
+    </update>
+
+    <update id="esopCustBind">
+        update cust_info set bind_cust = #{custId} where id = #{esopCust};
+        update cust_info set bind_cust = #{esopCust} where id = #{custId}
+    </update>
+
+
+    <select id="checkCustBindIsExit" resultType="java.lang.Integer">
+        select count(1) from cust_info where bind_cust=(select cust_id from  bpm_account_info where trade_account= #{tradeAccount})
+    </select>
+
+</mapper>

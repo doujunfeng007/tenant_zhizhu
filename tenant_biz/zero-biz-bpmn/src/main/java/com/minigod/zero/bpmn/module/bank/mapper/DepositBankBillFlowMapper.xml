@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.bank.mapper.DepositBankBillFlowMapper">
+    <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.bank.entity.DepositBankBillFlow">
+        <!--@mbg.generated-->
+        <!--@Table deposit_bank_bill_flow-->
+        <id     column="flow_id" property="id"/>
+        <result column="flow_reference_no" property="referenceNo"/>
+        <result column="flow_application_id" property="applicationId"/>
+        <result column="flow_credit_mount" property="creditMount"/>
+        <result column="flow_bank_name" property="bankName"/>
+        <result column="flow_acc_no" property="accNo"/>
+        <result column="flow_acc_name" property="accName"/>
+        <result column="flow_sub_acc_name" property="subAccName"/>
+        <result column="flow_sub_acc_no" property="subAccNo"/>
+        <result column="flow_currency" property="currency"/>
+        <result column="flow_value_date" property="valueDate"/>
+        <result column="flow_check_status" property="checkStatus"/>
+        <result column="flow_particulars" property="particulars"/>
+        <result column="flow_is_repeat" property="isRepeat"/>
+        <result column="flow_assign_drafter" property="assignDrafter"/>
+        <result column="flow_msg_id" property="msgId"/>
+        <result column="flow_customer_reference" property="customerReference"/>
+        <result column="flow_time_stamp" property="timeStamp"/>
+        <result column="flow_txn_type" property="txnType"/>
+        <result column="flow_sender_acc_name" property="senderAccName"/>
+        <result column="flow_sender_acc_no" property="senderAccNo"/>
+        <result column="flow_sender_bank_id" property="senderBankId"/>
+        <result column="flow_flow_source" property="flowSource"/>
+        <result column="flow_actual_money" property="actualMoney"/>
+        <result column="flow_are_charge_money" property="areChargeMoney"/>
+        <result column="flow_are_enq_status" property="areEnqStatus"/>
+        <result column="flow_are_time" property="areTime"/>
+        <result column="flow_processing_time" property="processingTime"/>
+        <result column="flow_account_balance" property="accountBalance"/>
+        <result column="flow_tenant_id" property="tenantId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        flow.id flow_id,
+        flow.reference_no flow_reference_no,
+        flow.application_id flow_application_id,
+        flow.credit_mount flow_credit_mount,
+        flow.bank_name flow_bank_name,
+        flow.acc_no flow_acc_no,
+        flow.acc_name flow_acc_name,
+        flow.sub_acc_name flow_sub_acc_name,
+        flow.sub_acc_no flow_sub_acc_no,
+        flow.currency flow_currency,
+        flow.value_date flow_value_date,
+        flow.check_status flow_check_status,
+        flow.particulars flow_particulars,
+        flow.is_repeat flow_is_repeat,
+        flow.assign_drafter flow_assign_drafter,
+        flow.msg_id flow_msg_id,
+        flow.customer_reference flow_customer_reference,
+        flow.time_stamp flow_time_stamp,
+        flow.txn_type flow_txn_type,
+        flow.sender_acc_name flow_sender_acc_name,
+        flow.sender_acc_no flow_sender_acc_no,
+        flow.sender_bank_id flow_sender_bank_id,
+        flow.flow_source flow_flow_source,
+        flow.actual_money flow_actual_money,
+        flow.are_charge_money flow_are_charge_money,
+        flow.are_enq_status flow_are_enq_status,
+        flow.are_time flow_are_time,
+        flow.processing_time flow_processing_time,
+        flow.account_balance flow_account_balance,
+        flow.tenant_id flow_tenant_id
+    </sql>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into deposit_bank_bill_flow
+        (reference_no,
+         application_id,
+         credit_mount,
+         bank_name,
+         acc_no,
+         acc_name,
+         sub_acc_name,
+         sub_acc_no,
+         currency,
+         value_date,
+         check_status,
+         particulars,
+         is_repeat,
+         assign_drafter,
+         msg_id,
+         customer_reference,
+         time_stamp,
+         txn_type,
+         sender_acc_name,
+         sender_acc_no,
+         sender_bank_id,
+         flow_source,
+         actual_money,
+         are_charge_money,
+         are_enq_status,
+         are_time,
+         processing_time,
+         account_balance,
+         tenant_id)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.referenceNo},
+             #{item.applicationId},
+             #{item.creditMount},
+             #{item.bankName},
+             #{item.accNo},
+             #{item.accName},
+             #{item.subAccName},
+             #{item.subAccNo},
+             #{item.currency},
+             #{item.valueDate},
+             #{item.checkStatus},
+             #{item.particulars},
+             #{item.isRepeat},
+             #{item.assignDrafter},
+             #{item.msgId},
+             #{item.customerReference},
+             #{item.timeStamp},
+             #{item.txnType},
+             #{item.senderAccName},
+             #{item.senderAccNo},
+             #{item.senderBankId},
+             #{item.flowSource},
+             #{item.actualMoney},
+             #{item.areChargeMoney},
+             #{item.areEnqStatus},
+             #{item.areTime},
+             #{item.processingTime},
+             #{item.accountBalance},
+             #{item.tenantId})
+        </foreach>
+    </insert>
+    <select id="selectBankBillByRefId" resultType="com.minigod.zero.bpmn.module.bank.entity.DepositBankBillFlow">
+        select *
+        from deposit_bank_bill_flow
+        where reference_no = #{refId}
+          and is_repeat = 0
+        limit 1
+    </select>
+</mapper>

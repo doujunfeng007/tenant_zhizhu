@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerIdentityInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerIdentityInfo">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="custId" column="cust_id" jdbcType="INTEGER"/>
+            <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+            <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="isDefault" column="is_default" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="createrName" column="creater_name" jdbcType="VARCHAR"/>
+            <result property="updaterName" column="updater_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,cust_id,role_id,
+        role_name,status,is_default,
+        create_time,update_time,creater_name,
+        updater_name
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_identity_info
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from customer_pc_role
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerIdentityInfo" useGeneratedKeys="true">
+        insert into customer_identity_info
+        ( id,cust_id,role_id
+        ,role_name,status,is_default
+        ,create_time,update_time,creater_name
+        ,updater_name)
+        values (#{id,jdbcType=INTEGER},#{custId,jdbcType=INTEGER},#{roleId,jdbcType=INTEGER}
+        ,#{roleName,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{isDefault,jdbcType=INTEGER}
+        ,#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{createrName,jdbcType=VARCHAR}
+        ,#{updaterName,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerIdentityInfo" useGeneratedKeys="true">
+        insert into customer_identity_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="custId != null">cust_id,</if>
+                <if test="roleId != null">role_id,</if>
+                <if test="roleName != null">role_name,</if>
+                <if test="status != null">status,</if>
+                <if test="isDefault != null">is_default,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="createrName != null">creater_name,</if>
+                <if test="updaterName != null">updater_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="custId != null">#{custId,jdbcType=INTEGER},</if>
+                <if test="roleId != null">#{roleId,jdbcType=INTEGER},</if>
+                <if test="roleName != null">#{roleName,jdbcType=VARCHAR},</if>
+                <if test="status != null">#{status,jdbcType=INTEGER},</if>
+                <if test="isDefault != null">#{isDefault,jdbcType=INTEGER},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="createrName != null">#{createrName,jdbcType=VARCHAR},</if>
+                <if test="updaterName != null">#{updaterName,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.CustomerIdentityInfo">
+        update customer_identity_info
+        <set>
+                <if test="custId != null">
+                    cust_id = #{custId,jdbcType=INTEGER},
+                </if>
+                <if test="roleId != null">
+                    role_id = #{roleId,jdbcType=INTEGER},
+                </if>
+                <if test="roleName != null">
+                    role_name = #{roleName,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=INTEGER},
+                </if>
+                <if test="isDefault != null">
+                    is_default = #{isDefault,jdbcType=INTEGER},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="createrName != null">
+                    creater_name = #{createrName,jdbcType=VARCHAR},
+                </if>
+                <if test="updaterName != null">
+                    updater_name = #{updaterName,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.CustomerIdentityInfo">
+        update customer_identity_info
+        set
+            cust_id =  #{custId,jdbcType=INTEGER},
+            role_id =  #{roleId,jdbcType=INTEGER},
+            role_name =  #{roleName,jdbcType=VARCHAR},
+            status =  #{status,jdbcType=INTEGER},
+            is_default =  #{isDefault,jdbcType=INTEGER},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            creater_name =  #{createrName,jdbcType=VARCHAR},
+            updater_name =  #{updaterName,jdbcType=VARCHAR}
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByCustIdAndRoleId" parameterType="java.lang.Object" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_identity_info
+        where  cust_id = #{custId} and role_id =#{roleId} and status = 0
+    </select>
+
+    <select id="selectByCustId" parameterType="java.lang.Object" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_identity_info
+        where  cust_id = #{custId} and status = 0
+    </select>
+
+    <update id="deleteDefaultRoleByCustId" parameterType="java.lang.Long">
+        update customer_identity_info set is_default = 0  where cust_id = #{custId}
+    </update>
+
+    <delete id="deleteRoleByCustId" parameterType="java.lang.Long">
+        update
+            customer_identity_info
+        set status = 1
+        where cust_id =
+              #{custId}
+    </delete>
+
+    <select id="selectDefaultRoleIdByCustId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from customer_identity_info where status = 0 and is_default =1 and cust_id = #{custId}
+    </select>
+</mapper>

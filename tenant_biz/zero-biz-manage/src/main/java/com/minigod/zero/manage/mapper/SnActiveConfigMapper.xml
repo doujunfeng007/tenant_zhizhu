@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.minigod.zero.manage.mapper.SnActiveConfigMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.minigod.zero.manage.entity.SnActiveConfigEntity">
+        <id column="id" property="id"/>
+        <result column="active_name" property="activeName"/>
+        <result column="active_type" property="activeType"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="remark" property="remark"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="create_dept" property="createDept"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, active_name, active_type, start_time, end_time, remark, status,
+        create_time, update_time, create_user, update_user, is_deleted, tenant_id, create_dept
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_active_config
+        WHERE is_deleted = 0
+        <if test="activeName != null and activeName != ''">
+            AND active_name LIKE CONCAT('%', #{activeName}, '%')
+        </if>
+        <if test="activeType != null">
+            AND active_type = #{activeType}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 查询有效的活动配置 -->
+    <select id="queryValidConfig" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_active_config
+        WHERE is_deleted = 0
+        AND status = 0
+        AND start_time &lt;= #{currentTime}
+        AND end_time &gt;= #{currentTime}
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 更新活动状态 -->
+    <update id="updateStatus">
+        UPDATE sn_active_config
+        SET status = #{status},
+            update_time = NOW()
+        WHERE id = #{id}
+          AND is_deleted = 0
+    </update>
+
+</mapper>

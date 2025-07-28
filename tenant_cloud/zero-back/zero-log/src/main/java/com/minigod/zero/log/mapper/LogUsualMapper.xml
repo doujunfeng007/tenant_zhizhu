@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.log.mapper.LogUsualMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="logUsualResultMap" type="com.minigod.zero.core.log.model.LogUsual">
+        <result column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="service_id" property="serviceId"/>
+        <result column="server_host" property="serverHost"/>
+        <result column="server_ip" property="serverIp"/>
+        <result column="env" property="env"/>
+        <result column="log_level" property="logLevel"/>
+        <result column="log_data" property="logData"/>
+        <result column="method" property="method"/>
+        <result column="request_uri" property="requestUri"/>
+        <result column="user_agent" property="userAgent"/>
+        <result column="method_name" property="methodName"/>
+        <result column="method_class" property="methodClass"/>
+        <result column="params" property="params"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+    <select id="selectLogPage" resultMap="logUsualResultMap">
+        SELECT `id`,
+        `tenant_id`,
+        `service_id`,
+        `server_host`,
+        `server_ip`,
+        `env`,
+        `log_level`,
+        `log_id`,
+        `log_data`,
+        `method`,
+        `request_uri`,
+        `remote_ip`,
+        `method_class`,
+        `method_name`,
+        `user_agent`,
+        `create_by`,
+        `create_time`
+        FROM zero_log_usual
+        <where>
+            <if test="log.logLevel != null and log.logLevel!=''">
+                and log_level = #{log.logLevel}
+            </if>
+            <if test="log.serviceId != null and log.serviceId!=''">
+                and service_id = #{log.serviceId}
+            </if>
+            <if test="log.method != null and log.method!=''">
+                and method = #{log.method}
+            </if>
+            <if test="log.methodClass != null and log.methodClass!=''">
+                and method_class = #{log.methodClass}
+            </if>
+            <if test="log.methodName != null and log.methodName!=''">
+                and method_name = #{log.methodName}
+            </if>
+            <if test="log.requestUri != null and log.requestUri!=''">
+                and request_uri like concat(concat('%', #{log.requestUri}),'%')
+            </if>
+            <if test="log.remoteIp != null and log.remoteIp!=''">
+                and remote_ip = #{log.remoteIp}
+            </if>
+            <if test="log.userAgent != null and log.userAgent!=''">
+                and user_agent like concat(concat('%',  #{log.userAgent}),'%')
+            </if>
+            <if test="log.logData != null and log.logData!=''">
+                and log_data like concat(concat('%', #{log.logData}),'%')
+            </if>
+            <if test="log.startTime != null and log.startTime!=''">
+                and create_time <![CDATA[ >= ]]> #{log.startTime}
+            </if>
+            <if test="log.endTime != null and log.endTime !=''">
+                and create_time <![CDATA[ <= ]]> #{log.endTime}
+            </if>
+        </where>
+        ORDER BY `create_time` DESC
+    </select>
+
+    <select id="selectLogList" resultMap="logUsualResultMap">
+        SELECT `id`,
+        `tenant_id`,
+        `service_id`,
+        `server_host`,
+        `server_ip`,
+        `env`,
+        `log_level`,
+        `log_id`,
+        `log_data`,
+        `method`,
+        `request_uri`,
+        `remote_ip`,
+        `method_class`,
+        `method_name`,
+        `user_agent`,
+        `create_by`,
+        `create_time`
+        FROM zero_log_usual
+        <where>
+            <if test="log.logLevel != null and log.logLevel!=''">
+                and log_level = #{log.logLevel}
+            </if>
+            <if test="log.serviceId != null and log.serviceId!=''">
+                and service_id = #{log.serviceId}
+            </if>
+            <if test="log.method != null and log.method!=''">
+                and method = #{log.method}
+            </if>
+            <if test="log.methodClass != null and log.methodClass!=''">
+                and method_class = #{log.methodClass}
+            </if>
+            <if test="log.methodName != null and log.methodName!=''">
+                and method_name = #{log.methodName}
+            </if>
+            <if test="log.requestUri != null and log.requestUri!=''">
+                and request_uri like concat(concat('%', #{log.requestUri}),'%')
+            </if>
+            <if test="log.remoteIp != null and log.remoteIp!=''">
+                and remote_ip = #{log.remoteIp}
+            </if>
+            <if test="log.userAgent != null and log.userAgent!=''">
+                and user_agent like concat(concat('%',  #{log.userAgent}),'%')
+            </if>
+            <if test="log.logData != null and log.logData!=''">
+                and log_data like concat(concat('%', #{log.logData}),'%')
+            </if>
+            <if test="log.startTime != null and log.startTime!=''">
+                and create_time <![CDATA[ >= ]]> #{log.startTime}
+            </if>
+            <if test="log.endTime != null and log.endTime !=''">
+                and create_time <![CDATA[ <= ]]> #{log.endTime}
+            </if>
+        </where>
+        -- 排序会导致大字段报内存溢出问题，所以先注释掉
+        -- ORDER BY `create_time` DESC
+    </select>
+
+    <select id="selectLogCount" resultType="java.lang.Long">
+        select count(0)
+        FROM zero_log_usual
+        <where>
+            <if test="log.logLevel != null and log.logLevel!=''">
+                and log_level = #{log.logLevel}
+            </if>
+            <if test="log.serviceId != null and log.serviceId!=''">
+                and service_id = #{log.serviceId}
+            </if>
+            <if test="log.method != null and log.method!=''">
+                and method = #{log.method}
+            </if>
+            <if test="log.methodClass != null and log.methodClass!=''">
+                and method_class = #{log.methodClass}
+            </if>
+            <if test="log.methodName != null and log.methodName!=''">
+                and method_name = #{log.methodName}
+            </if>
+            <if test="log.requestUri != null and log.requestUri!=''">
+                and request_uri like concat(concat('%', #{log.requestUri}),'%')
+            </if>
+            <if test="log.remoteIp != null and log.remoteIp!=''">
+                and remote_ip = #{log.remoteIp}
+            </if>
+            <if test="log.userAgent != null and log.userAgent!=''">
+                and user_agent like concat(concat('%',  #{log.userAgent}),'%')
+            </if>
+            <if test="log.logData != null and log.logData!=''">
+                and log_data like concat(concat('%', #{log.logData}),'%')
+            </if>
+            <if test="log.startTime != null and log.startTime!=''">
+                and create_time <![CDATA[ >= ]]> #{log.startTime}
+            </if>
+            <if test="log.endTime != null and log.endTime !=''">
+                and create_time <![CDATA[ <= ]]> #{log.endTime}
+            </if>
+        </where>
+        ORDER BY `create_time` DESC
+    </select>
+</mapper>

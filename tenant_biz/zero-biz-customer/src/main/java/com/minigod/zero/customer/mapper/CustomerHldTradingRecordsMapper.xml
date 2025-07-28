@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerHldTradingRecordsMapper">
+  <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerHldTradingRecordsEntity">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="sub_account_id" jdbcType="VARCHAR" property="subAccountId" />
+    <result column="submit_date" jdbcType="TIMESTAMP" property="submitDate" />
+    <result column="settled_date" jdbcType="TIMESTAMP" property="settledDate" />
+    <result column="confirmed_date" jdbcType="TIMESTAMP" property="confirmedDate" />
+    <result column="rejected_date" jdbcType="TIMESTAMP" property="rejectedDate" />
+    <result column="canceled_date" jdbcType="TIMESTAMP" property="canceledDate" />
+    <result column="hld_code" jdbcType="VARCHAR" property="hldCode" />
+    <result column="hld_name" jdbcType="VARCHAR" property="hldName" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="mode" jdbcType="INTEGER" property="mode" />
+    <result column="currency" jdbcType="VARCHAR" property="currency" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="business_amount" jdbcType="DECIMAL" property="businessAmount" />
+    <result column="business_balance" jdbcType="DECIMAL" property="businessBalance" />
+    <result column="business_price" jdbcType="DECIMAL" property="businessPrice" />
+    <result column="fee_count" jdbcType="DECIMAL" property="feeCount" />
+    <result column="sequence_no" jdbcType="INTEGER" property="sequenceNo" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="status_desc" jdbcType="VARCHAR" property="statusDesc" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_deleted" jdbcType="INTEGER" property="isDeleted" />
+    <result column="transaction_gain_loss" jdbcType="DECIMAL" property="transactionGainLoss" />
+  </resultMap>
+    <select id="selectTradingAppList" resultType="com.minigod.zero.customer.dto.CustomerHldTradingAppListDTO">
+        select
+        chtr.id,
+        chtr.submit_date as submitDate,
+        chtr.settled_date as settledDate,
+        chtr.confirmed_date as confirmedDate,
+        chtr.rejected_date as rejectedDate,
+        chtr.canceled_date as canceledDate,
+        chtr.status as status,
+        chtr.status_desc as statusDesc,
+        chtr.hld_code as hldCode,
+        chtr.hld_name as hldName,
+        chtr.type as type,
+        chtr.status as amount,
+        chtr.business_amount as businessAmount
+
+        from customer_hld_trading_records as chtr
+        left join customer_hld_capital_account as cfca on chtr.sub_account_id=cfca.sub_account
+        left join customer_hld_trading_account as cfta on cfca.trade_account=cfta.trade_account
+        where cfta.cust_id = #{userId}
+
+        <if test="time!=null">
+            and chtr.create_time > #{time}
+        </if>
+        <if test="type!=null and type!=''">
+            and chtr.type = #{type}
+        </if>
+        <if test="status!=null and status!=''">
+            and chtr.status = #{status}
+        </if>
+        <if test="type==null and type==''">
+            and (chtr.type = 1 or chtr.type = 2)
+        </if>
+        order by chtr.create_time desc
+
+    </select>
+    <select id="selectHldTradingBackList"
+            resultType="com.minigod.zero.customer.dto.CustomerHldTradingBackListDTO">
+        select
+        chhr.id,
+        chhr.sub_account_id as fundAccount,
+        cfta.trade_account as tradeAccount,
+        cfta.cust_id as custId,
+        chhr.hld_code as hldcode,
+        chhr.type as type,
+        chhr.currency as currency,
+        chhr.amount as amount,
+        chhr.business_amount as businessAmount,
+        chhr.business_balance as businessBalance,
+        chhr.business_price as businessPrice,
+        chhr.status as status,
+        chhr.status_desc as statusDesc,
+        chhr.create_time as createTime
+
+        from customer_hld_trading_records as chhr
+        left join customer_hld_capital_account as cfca on chhr.sub_account_id=cfca.sub_account
+        left join customer_hld_trading_account as cfta on cfca.trade_account=cfta.trade_account
+        <where>
+            <if test="custId != null">
+                and cfta.cust_id = #{custId}
+            </if>
+            <if test="tradeAccount!=null and tradeAccount!=''">
+                and cfca.trade_account = #{tradeAccount}
+            </if>
+            <if test="fundAccount!=null and fundAccount!=''">
+                and chhr.sub_account_id = #{fundAccount}
+            </if>
+            <if test="hldCode!=null and hldCode!=''">
+                and chhr.hld_code = #{hldCode}
+            </if>
+            <if test="tradeStartDate!=null and tradeEndDate!=null ">
+                and chhr.create_time between #{tradeStartDate}  and #{tradeEndDate}
+            </if>
+
+        </where>
+        order by chhr.create_time desc
+
+
+    </select>
+</mapper>

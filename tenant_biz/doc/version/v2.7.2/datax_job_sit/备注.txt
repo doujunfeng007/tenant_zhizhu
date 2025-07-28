@@ -1,0 +1,33 @@
+account_business_flow	全表
+client_edda_fund_application	增量
+client_edda_info_application	增量
+client_edda_info_image	增量
+client_fund_deposit_application	增量
+client_fund_deposit_image	增量
+client_fund_deposit_info	增量
+client_fund_refund_application	增量
+client_fund_withdraw_application	增量
+client_fund_withdraw_info	增量
+customer_basic_info	增量
+customer_bond_assets_history	全表
+customer_cash_assets_history	全表
+customer_financing_account	增量
+customer_fund_assets_history	全表
+customer_hld_assets_history	全表
+customer_info	增量
+customer_realname_verify	增量
+financing_account_amount	增量
+financing_account_amount_flows	全表
+sec_deposit_funds	增量
+t_account	增量
+t_exch_rate	全表
+t_holding_history
+t_order	增量
+t_product	增量
+t_sub_account	全表
+t_transaction	增量
+t_user_holding	增量
+professional_investor_pi_application
+professional_investor_pi_info
+customer_account_open_info
+customer_account_open_application

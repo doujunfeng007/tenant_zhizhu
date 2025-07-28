@@ -1,0 +1,21 @@
+添加字典:
+  1.corporationList-隶属机构集合
+      字典名:corporationList
+      键值:{}//很长.去dev环境获取
+
+
+  2.默认顶级经理人信息
+      字典名:top_manager
+      标签:message
+      键值:{"brokerId":0,"channlId":0}//请替换顶级经理人的信息
+
+  3.默认注册头像
+    字典名:icon
+        标签: http://203.86.123.80:32308/minigod-sit/upload/20240920/792467de3a58da8fd7e122c6c2aa4a63.jpg
+        键值: register_icon
+
+  4.邀请开户二维码链接
+    字典名:registerQrCodeUrl
+        标签: 邀请开户二维码链接1
+        键值: http://cloud-api.ifund.live:31076/open-account/index.html#/login
+

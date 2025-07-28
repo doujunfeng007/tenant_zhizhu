@@ -1,0 +1,6 @@
+message:
+  tenant: '000000'
+  smsEnable: true
+  emailEnable: true
+  pushEnable: true
+  enableVerification: true

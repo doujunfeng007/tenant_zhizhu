@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.CustomerBondHoldingRecordsMapper">
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.CustomerBondHoldingRecords">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="holdingId" column="holding_id" jdbcType="VARCHAR"/>
+        <result property="subAccountId" column="sub_account_id" jdbcType="VARCHAR"/>
+        <result property="bondCode" column="bond_code" jdbcType="VARCHAR"/>
+        <result property="bondName" column="bond_name" jdbcType="VARCHAR"/>
+        <result property="totalQuantity" column="total_quantity" jdbcType="DECIMAL"/>
+        <result property="availableQuantity" column="available_quantity" jdbcType="DECIMAL"/>
+        <result property="frozenQuantity" column="frozen_quantity" jdbcType="DECIMAL"/>
+        <result property="transitedQuantity" column="transited_quantity" jdbcType="DECIMAL"/>
+        <result property="withdrawQuantity" column="withdraw_quantity" jdbcType="DECIMAL"/>
+        <result property="averageCost" column="average_cost" jdbcType="DECIMAL"/>
+        <result property="dilutedCost" column="diluted_cost" jdbcType="DECIMAL"/>
+        <result property="currency" column="currency" jdbcType="VARCHAR"/>
+        <result property="totalFee" column="total_fee" jdbcType="DECIMAL"/>
+        <result property="realizedGainLoss" column="realized_gain_loss" jdbcType="DECIMAL"/>
+        <result property="createTime" column="create_time" jdbcType="DATE"/>
+        <result property="updateTime" column="update_time" jdbcType="DATE"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,holding_id,sub_account_id,
+        bond_code,bond_name,total_quantity,
+        available_quantity,frozen_quantity,transited_quantity,
+        withdraw_quantity,average_cost,diluted_cost,
+        currency,total_fee,realized_gain_loss,
+        create_time,update_time,is_deleted
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from customer_bond_holding_records
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from customer_bond_holding_records
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.minigod.zero.data.entity.CustomerBondHoldingRecords" useGeneratedKeys="true">
+        insert into customer_bond_holding_records
+        ( id, holding_id, sub_account_id
+        , bond_code, bond_name, total_quantity
+        , available_quantity, frozen_quantity, transited_quantity
+        , withdraw_quantity, average_cost, diluted_cost
+        , currency, total_fee, realized_gain_loss
+        , create_time, update_time, is_deleted)
+        values ( #{id,jdbcType=BIGINT}, #{holdingId,jdbcType=VARCHAR}, #{subAccountId,jdbcType=VARCHAR}
+               , #{bondCode,jdbcType=VARCHAR}, #{bondName,jdbcType=VARCHAR}, #{totalQuantity,jdbcType=DECIMAL}
+               , #{availableQuantity,jdbcType=DECIMAL}, #{frozenQuantity,jdbcType=DECIMAL}
+               , #{transitedQuantity,jdbcType=DECIMAL}
+               , #{withdrawQuantity,jdbcType=DECIMAL}, #{averageCost,jdbcType=DECIMAL}, #{dilutedCost,jdbcType=DECIMAL}
+               , #{currency,jdbcType=VARCHAR}, #{totalFee,jdbcType=DECIMAL}, #{realizedGainLoss,jdbcType=DECIMAL}
+               , #{createTime,jdbcType=DATE}, #{updateTime,jdbcType=DATE}, #{isDeleted,jdbcType=TINYINT})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.minigod.zero.data.entity.CustomerBondHoldingRecords" useGeneratedKeys="true">
+        insert into customer_bond_holding_records
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="holdingId != null">
+                holding_id,
+            </if>
+            <if test="subAccountId != null">
+                sub_account_id,
+            </if>
+            <if test="bondCode != null">
+                bond_code,
+            </if>
+            <if test="bondName != null">
+                bond_name,
+            </if>
+            <if test="totalQuantity != null">
+                total_quantity,
+            </if>
+            <if test="availableQuantity != null">
+                available_quantity,
+            </if>
+            <if test="frozenQuantity != null">
+                frozen_quantity,
+            </if>
+            <if test="transitedQuantity != null">
+                transited_quantity,
+            </if>
+            <if test="withdrawQuantity != null">
+                withdraw_quantity,
+            </if>
+            <if test="averageCost != null">
+                average_cost,
+            </if>
+            <if test="dilutedCost != null">
+                diluted_cost,
+            </if>
+            <if test="currency != null">
+                currency,
+            </if>
+            <if test="totalFee != null">
+                total_fee,
+            </if>
+            <if test="realizedGainLoss != null">
+                realized_gain_loss,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="holdingId != null">
+                #{holdingId,jdbcType=VARCHAR},
+            </if>
+            <if test="subAccountId != null">
+                #{subAccountId,jdbcType=VARCHAR},
+            </if>
+            <if test="bondCode != null">
+                #{bondCode,jdbcType=VARCHAR},
+            </if>
+            <if test="bondName != null">
+                #{bondName,jdbcType=VARCHAR},
+            </if>
+            <if test="totalQuantity != null">
+                #{totalQuantity,jdbcType=DECIMAL},
+            </if>
+            <if test="availableQuantity != null">
+                #{availableQuantity,jdbcType=DECIMAL},
+            </if>
+            <if test="frozenQuantity != null">
+                #{frozenQuantity,jdbcType=DECIMAL},
+            </if>
+            <if test="transitedQuantity != null">
+                #{transitedQuantity,jdbcType=DECIMAL},
+            </if>
+            <if test="withdrawQuantity != null">
+                #{withdrawQuantity,jdbcType=DECIMAL},
+            </if>
+            <if test="averageCost != null">
+                #{averageCost,jdbcType=DECIMAL},
+            </if>
+            <if test="dilutedCost != null">
+                #{dilutedCost,jdbcType=DECIMAL},
+            </if>
+            <if test="currency != null">
+                #{currency,jdbcType=VARCHAR},
+            </if>
+            <if test="totalFee != null">
+                #{totalFee,jdbcType=DECIMAL},
+            </if>
+            <if test="realizedGainLoss != null">
+                #{realizedGainLoss,jdbcType=DECIMAL},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=DATE},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=DATE},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.minigod.zero.data.entity.CustomerBondHoldingRecords">
+        update customer_bond_holding_records
+        <set>
+            <if test="holdingId != null">
+                holding_id = #{holdingId,jdbcType=VARCHAR},
+            </if>
+            <if test="subAccountId != null">
+                sub_account_id = #{subAccountId,jdbcType=VARCHAR},
+            </if>
+            <if test="bondCode != null">
+                bond_code = #{bondCode,jdbcType=VARCHAR},
+            </if>
+            <if test="bondName != null">
+                bond_name = #{bondName,jdbcType=VARCHAR},
+            </if>
+            <if test="totalQuantity != null">
+                total_quantity = #{totalQuantity,jdbcType=DECIMAL},
+            </if>
+            <if test="availableQuantity != null">
+                available_quantity = #{availableQuantity,jdbcType=DECIMAL},
+            </if>
+            <if test="frozenQuantity != null">
+                frozen_quantity = #{frozenQuantity,jdbcType=DECIMAL},
+            </if>
+            <if test="transitedQuantity != null">
+                transited_quantity = #{transitedQuantity,jdbcType=DECIMAL},
+            </if>
+            <if test="withdrawQuantity != null">
+                withdraw_quantity = #{withdrawQuantity,jdbcType=DECIMAL},
+            </if>
+            <if test="averageCost != null">
+                average_cost = #{averageCost,jdbcType=DECIMAL},
+            </if>
+            <if test="dilutedCost != null">
+                diluted_cost = #{dilutedCost,jdbcType=DECIMAL},
+            </if>
+            <if test="currency != null">
+                currency = #{currency,jdbcType=VARCHAR},
+            </if>
+            <if test="totalFee != null">
+                total_fee = #{totalFee,jdbcType=DECIMAL},
+            </if>
+            <if test="realizedGainLoss != null">
+                realized_gain_loss = #{realizedGainLoss,jdbcType=DECIMAL},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=DATE},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=DATE},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.CustomerBondHoldingRecords">
+        update customer_bond_holding_records
+        set holding_id         = #{holdingId,jdbcType=VARCHAR},
+            sub_account_id     = #{subAccountId,jdbcType=VARCHAR},
+            bond_code          = #{bondCode,jdbcType=VARCHAR},
+            bond_name          = #{bondName,jdbcType=VARCHAR},
+            total_quantity     = #{totalQuantity,jdbcType=DECIMAL},
+            available_quantity = #{availableQuantity,jdbcType=DECIMAL},
+            frozen_quantity    = #{frozenQuantity,jdbcType=DECIMAL},
+            transited_quantity = #{transitedQuantity,jdbcType=DECIMAL},
+            withdraw_quantity  = #{withdrawQuantity,jdbcType=DECIMAL},
+            average_cost       = #{averageCost,jdbcType=DECIMAL},
+            diluted_cost       = #{dilutedCost,jdbcType=DECIMAL},
+            currency           = #{currency,jdbcType=VARCHAR},
+            total_fee          = #{totalFee,jdbcType=DECIMAL},
+            realized_gain_loss = #{realizedGainLoss,jdbcType=DECIMAL},
+            create_time        = #{createTime,jdbcType=DATE},
+            update_time        = #{updateTime,jdbcType=DATE},
+            is_deleted         = #{isDeleted,jdbcType=TINYINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <select id="bondHoldingList" resultType="com.minigod.zero.data.vo.CustomerBondHoldingRecordsListVO">
+        select
+        cbhr.*,cfca.trade_account,cfca.fund_account
+        from customer_bond_holding_records as cbhr
+        left join customer_fund_capital_account as cfca on cbhr.sub_account_id=cfca.fund_account
+        left join customer_fund_trading_account as cfta on cfca.trade_account=cfta.trade_account
+        <where>
+            <if test="custId != null">
+                and cfta.cust_id = #{custId}
+            </if>
+            <if test="tradeAccount!=null and tradeAccount!=''">
+                and cfca.trade_account = #{tradeAccount}
+            </if>
+            <if test="fundAccount!=null and fundAccount!=''">
+                and cbhr.sub_account_id = #{fundAccount}
+            </if>
+        </where>
+        order by cbhr.create_time desc
+    </select>
+
+    <select id="selectBySubAccountList" resultMap="BaseResultMap" parameterType="java.util.List">
+        select * from customer_bond_holding_records
+        where sub_account_id in
+        <foreach item="item" index="index" collection="subAccountList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

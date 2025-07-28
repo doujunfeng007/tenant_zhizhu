@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.ProfessionalInvestorPIApplicationMapper">
+
+    <select id="countCustomerPIApply" resultType="java.util.Map">
+        -- 统计PI申请审批数(账户client_account以B打头的则认为是机构户提交的PI认证申请,不是B打头的就认定为是个人用户提交的PI认证申请)
+        SELECT type AS customer_type,
+               COALESCE(piApplyCount, 0) as piApplyCount
+        FROM (
+                 SELECT '机构' as type
+                 UNION ALL
+                 SELECT '个人'
+             ) t
+        LEFT JOIN (
+        SELECT
+            CASE
+                WHEN pipi.client_account LIKE 'B%' THEN '机构'
+                ELSE '个人'
+                END AS customer_type,
+            COUNT(pipa.application_id) AS piApplyCount
+        FROM professional_investor_pi_application as pipa
+                 LEFT JOIN professional_investor_pi_info as pipi
+                           ON pipa.application_id = pipi.application_id
+        WHERE pipa.status IN (0, 1, 2, 3)
+        GROUP BY CASE
+                     WHEN client_account LIKE 'B%' THEN '机构'
+                     ELSE '个人'
+                     END
+        ) stats ON t.type = stats.customer_type
+    </select>
+</mapper>

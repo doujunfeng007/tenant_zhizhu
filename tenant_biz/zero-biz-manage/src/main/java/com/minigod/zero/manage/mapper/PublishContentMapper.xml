@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.PublishContentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="publishContentResultMap" type="com.minigod.zero.manage.entity.PublishContentEntity">
+        <result column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="title_hant" property="titleHant"/>
+        <result column="title_en" property="titleEn"/>
+        <result column="content" property="content"/>
+        <result column="content_hant" property="contentHant"/>
+        <result column="content_en" property="contentEn"/>
+        <result column="resource_id" property="resourceId"/>
+        <result column="is_share" property="isShare"/>
+        <result column="is_common" property="isCommon"/>
+        <result column="sort_id" property="sortId"/>
+        <result column="clicks" property="clicks"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <select id="selectPublishContentPage" resultMap="publishContentResultMap">
+        select * from oms_publish_content
+        <where>
+            is_deleted = 0
+            <if test="params.resourceId != null">
+                and resource_id = #{params.resourceId}
+            </if>
+            <if test="params.title != null and params.title != ''">
+                and title like concat('%',#{params.title},'%')
+            </if>
+            <if test="params.titleHant != null and params.titleHant != ''">
+                and title_hant like concat('%',#{params.titleHant},'%')
+            </if>
+            <if test="params.titleEn != null and params.titleEn != ''">
+                and title_en like concat('%',#{params.titleEn},'%')
+            </if>
+            <if test="params.content != null and params.content != ''">
+                and content like concat('%',#{params.content},'%')
+            </if>
+            <if test="params.contentHant != null and params.contentHant != ''">
+                and content_hant like concat('%',#{params.contentHant},'%')
+            </if>
+            <if test="params.contentEn != null and params.contentEn != ''">
+                and content_en like concat('%',#{params.contentEn},'%')
+            </if>
+            <if test="params.isCommon != null">
+                and is_common = #{params.isCommon}
+            </if>
+            <if test="params.isShare != null">
+                and is_share = #{params.isShare}
+            </if>
+        </where>
+        order by sort_id asc
+    </select>
+
+
+</mapper>

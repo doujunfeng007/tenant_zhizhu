@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerFundTradingAccountMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="fundTransactionAccountResultMap" type="com.minigod.zero.customer.entity.CustomerFundTradingAccountEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="account_id" property="accountId"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="fund_account_type" property="fundAccountType"/>
+        <result column="fund_oper_type" property="fundOperType"/>
+        <result column="available_amount" property="availableAmount"/>
+        <result column="freeze_amount" property="freezeAmount"/>
+        <result column="currency" property="currency"/>
+        <result column="account_status" property="accountStatus"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="transited_amount" property="transitedAmount"/>
+        <result column="is_current" property="isCurrent"/>
+        <result property="riskLevel" column="risk_level" jdbcType="INTEGER"/>
+    </resultMap>
+
+
+    <select id="selectCustomerFundTransactionAccountPage" resultMap="fundTransactionAccountResultMap">
+        select * from customer_fund_trading_account where is_deleted = 0
+    </select>
+
+    <select id="selectByCustId" parameterType="java.lang.Long" resultMap="fundTransactionAccountResultMap">
+        select * from customer_fund_trading_account where cust_id = #{custId}
+    </select>
+
+    <update id="updateById" parameterType="com.minigod.zero.customer.vo.FundAccountBalanceVO">
+        update
+            set available_amount =#{item.availableAmount},freeze_amount = #{item.freezeAmount},available_amount = #{item.availableAmount}
+        where id = #{id}
+    </update>
+
+    <update id="freezeAvailableAmount" parameterType="java.lang.Object">
+        update customer_fund_trading_account set available_amount = available_amount - #{amount},freeze_amount= freeze_amount + #{amount} ,update_time  = now()
+        where id = #{id} and available_amount > #{amount}
+    </update>
+
+    <update id="reduceFreezeAmount" parameterType="java.lang.Object">
+        update customer_fund_trading_account set freeze_amount= freeze_amount - #{amount} ,update_time  = now()
+        where id = #{id} and freeze_amount >= #{amount}
+    </update>
+
+    <update id="freezeToAvailableAmount" parameterType="java.lang.Object">
+        update customer_fund_trading_account set available_amount = available_amount + #{amount},freeze_amount= freeze_amount - #{amount} ,update_time  = now()
+        where id = #{id} and freeze_amount > #{amount}
+    </update>
+
+
+    <select id="selectCurrentAccountByCustId" resultMap="fundTransactionAccountResultMap" parameterType="java.lang.Long">
+        select * from customer_fund_trading_account where is_deleted = 0 and is_current = 1 and cust_id = #{custId}
+    </select>
+
+    <update id="updateRiskLevelById" parameterType="java.lang.Object" >
+        update customer_fund_trading_account set risk_level = #{riskLevel} where id = #{id}
+    </update>
+</mapper>

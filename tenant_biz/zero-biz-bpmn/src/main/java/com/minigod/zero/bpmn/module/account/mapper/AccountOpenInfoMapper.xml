@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountOpenInfoMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_open_infoResultMap" type="com.minigod.zero.bpmn.module.account.entity.AccountOpenInfoEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="open_account_type" property="openAccountType"/>
+        <result column="open_account_access_way" property="openAccountAccessWay"/>
+        <result column="fund_account_type" property="fundAccountType"/>
+        <result column="source_channel_id" property="sourceChannelId"/>
+        <result column="user_id" property="userId"/>
+        <result column="inviter_id" property="inviterId"/>
+        <result column="client_id" property="clientId"/>
+        <result column="fund_account" property="fundAccount"/>
+        <result column="client_name" property="clientName"/>
+        <result column="family_name" property="familyName"/>
+        <result column="given_name" property="givenName"/>
+        <result column="client_name_spell" property="clientNameSpell"/>
+        <result column="id_kind" property="idKind"/>
+        <result column="id_no" property="idNo"/>
+        <result column="sex" property="sex"/>
+        <result column="birthday" property="birthday"/>
+        <result column="id_card_address" property="idCardAddress"/>
+        <result column="id_card_valid_date_start" property="idCardValidDateStart"/>
+        <result column="id_card_valid_date_end" property="idCardValidDateEnd"/>
+        <result column="is_pass_identity_authentication" property="isPassIdentityAuthentication"/>
+        <result column="bank_currency" property="bankCurrency"/>
+        <result column="bank_type" property="bankType"/>
+        <result column="bank_id" property="bankId"/>
+        <result column="bank_no" property="bankNo"/>
+        <result column="bank_account_name" property="bankAccountName"/>
+        <result column="other_bank_name" property="otherBankName"/>
+        <result column="nationality" property="nationality"/>
+        <result column="contact_republic_name" property="contactRepublicName"/>
+        <result column="contact_province_name" property="contactProvinceName"/>
+        <result column="contact_city_name" property="contactCityName"/>
+        <result column="contact_county_name" property="contactCountyName"/>
+        <result column="contact_detail_address" property="contactDetailAddress"/>
+        <result column="family_address" property="familyAddress"/>
+        <result column="contact_address" property="contactAddress"/>
+        <result column="email" property="email"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="profession_code" property="professionCode"/>
+        <result column="company_name" property="companyName"/>
+        <result column="company_address" property="companyAddress"/>
+        <result column="company_phone_number" property="companyPhoneNumber"/>
+        <result column="job_position" property="jobPosition"/>
+        <result column="capital_source" property="capitalSource"/>
+        <result column="annual_income" property="annualIncome"/>
+        <result column="annual_income_other" property="annualIncomeOther"/>
+        <result column="financing_institution_work_experience_type" property="financingInstitutionWorkExperienceType"/>
+        <result column="financing_institution_work_experience_type_other"
+                property="financingInstitutionWorkExperienceTypeOther"/>
+        <result column="is_traded_derivative_products" property="isTradedDerivativeProducts"/>
+        <result column="is_open_usa_stock_market" property="isOpenUsaStockMarket"/>
+        <result column="is_open_hk_stock_market" property="isOpenHkStockMarket"/>
+        <result column="is_aml_suspicious" property="isAmlSuspicious"/>
+        <result column="account_level" property="accountLevel"/>
+        <result column="initial_account_password" property="initialAccountPassword"/>
+        <result column="open_account_time" property="openAccountTime"/>
+        <result column="application_time" property="applicationTime"/>
+        <result column="signing_organization" property="signingOrganization"/>
+        <result column="address_type" property="addressType"/>
+        <result column="ca_sign_hash_code" property="caSignHashCode"/>
+        <result column="nation" property="nation"/>
+        <result column="record_status" property="recordStatus"/>
+        <result column="north_trade" property="northTrade"/>
+        <result column="fatca" property="fatca"/>
+        <result column="accept_risk" property="acceptRisk"/>
+        <result column="expiry_date" property="expiryDate"/>
+        <result column="other_nationality" property="otherNationality"/>
+        <result column="company_republic_name" property="companyRepublicName"/>
+        <result column="company_province_name" property="companyProvinceName"/>
+        <result column="company_city_name" property="companyCityName"/>
+        <result column="company_county_name" property="companyCountyName"/>
+        <result column="company_detail_address" property="companyDetailAddress"/>
+        <result column="family_republic_name" property="familyRepublicName"/>
+        <result column="family_province_name" property="familyProvinceName"/>
+        <result column="family_city_name" property="familyCityName"/>
+        <result column="family_county_name" property="familyCountyName"/>
+        <result column="family_detail_address" property="familyDetailAddress"/>
+        <result column="other_family_republic" property="otherFamilyRepublic"/>
+        <result column="other_company_republic" property="otherCompanyRepublic"/>
+        <result column="other_contact_republic" property="otherContactRepublic"/>
+        <result column="theUS_tax_number" property="theusTaxNumber"/>
+        <result column="given_name_spell" property="givenNameSpell"/>
+        <result column="family_name_spell" property="familyNameSpell"/>
+        <result column="lan" property="lan"/>
+        <result column="account_type" property="accountType"/>
+        <result column="family_phone" property="familyPhone"/>
+        <result column="education_level" property="educationLevel"/>
+        <result column="working_seniority" property="workingSeniority"/>
+        <result column="other_profession" property="otherProfession"/>
+        <result column="is_bankrupted" property="isBankrupted"/>
+        <result column="statement_receive_mode" property="statementReceiveMode"/>
+        <result column="trade_other_products_frequency" property="tradeOtherProductsFrequency"/>
+        <result column="contact_phone" property="contactPhone"/>
+        <result column="stock_trade_account" property="stockTradeAccount"/>
+        <result column="investment_horizon" property="investmentHorizon"/>
+        <result column="credit_quota" property="creditQuota"/>
+        <result column="credit_ratio" property="creditRatio"/>
+        <result column="capital_source_other" property="capitalSourceOther"/>
+        <result column="place_of_birth" property="placeOfBirth"/>
+        <result column="permanent_address" property="permanentAddress"/>
+        <result column="permanent_republic_name" property="permanentRepublicName"/>
+        <result column="other_permanent_republic" property="otherPermanentRepublic"/>
+        <result column="ongoing_capital_source" property="ongoingCapitalSource"/>
+        <result column="expected_capital_source" property="expectedCapitalSource"/>
+        <result column="ongoing_capital_source_other" property="ongoingCapitalSourceOther"/>
+        <result column="expected_capital_source_other" property="expectedCapitalSourceOther"/>
+        <result column="trade_frequency" property="tradeFrequency"/>
+        <result column="trade_frequency_other" property="tradeFrequencyOther"/>
+        <result column="is_accept_risks_associated" property="isAcceptRisksAssociated"/>
+        <result column="bank_address" property="bankAddress"/>
+        <result column="is_company_account" property="isCompanyAccount"/>
+        <result column="company_client_id" property="companyClientId"/>
+        <result column="tax_resident" property="taxResident"/>
+        <result column="bcan" property="bcan"/>
+        <result column="against_data_promotion" property="againstDataPromotion"/>
+        <result column="against_data_promotion_to_company" property="againstDataPromotionToCompany"/>
+        <result column="former_name" property="formerName"/>
+        <result column="appellation" property="appellation"/>
+        <result column="marital_status" property="maritalStatus"/>
+        <result column="company_email" property="companyEmail"/>
+        <result column="company_facsimile" property="companyFacsimile"/>
+        <result column="company_business_nature" property="companyBusinessNature"/>
+        <result column="net_asset" property="netAsset"/>
+        <result column="net_asset_other" property="netAssetOther"/>
+        <result column="trade_amount" property="tradeAmount"/>
+        <result column="trade_amount_other" property="tradeAmountOther"/>
+        <result column="ae_code" property="aeCode"/>
+        <result column="permanent_city_name" property="permanentCityName"/>
+        <result column="permanent_county_name" property="permanentCountyName"/>
+        <result column="permanent_detail_address" property="permanentDetailAddress"/>
+        <result column="permanent_province_name" property="permanentProvinceName"/>
+        <result column="id_card_city_name" property="idCardCityName"/>
+        <result column="id_card_county_name" property="idCardCountyName"/>
+        <result column="id_card_province_name" property="idCardProvinceName"/>
+        <result column="id_card_detail_address" property="idCardDetailAddress"/>
+        <result column="stock_types" property="stockTypes"/>
+        <result column="w8_agreement_time" property="w8AgreementTime"/>
+        <result column="self_agreement_time" property="selfAgreementTime"/>
+    </resultMap>
+    <resultMap id="account_open_infoResultMapVo" type="com.minigod.zero.bpmn.module.account.vo.AccountOpenInfoVO"
+               extends="account_open_infoResultMap">
+    </resultMap>
+
+    <select id="queryByApplicationId" resultMap="account_open_infoResultMapVo">
+        select *
+        from customer_account_open_info
+        where application_id = #{applicationId}
+    </select>
+
+    <select id="queryByEmail" resultMap="account_open_infoResultMapVo">
+        select *
+        from customer_account_open_info
+        where email = #{email} and user_id != #{userId} limit 1
+    </select>
+    <select id="queryByIdNo" resultMap="account_open_infoResultMapVo">
+        select *
+        from customer_account_open_info
+        where id_no = #{idNo} and user_id != #{userId} limit 1
+    </select>
+    <select id="queryByClientId" resultMap="account_open_infoResultMapVo">
+        select *
+        from customer_account_open_info
+        where client_id = #{clientId} order by application_time desc
+        limit 1
+    </select>
+    <select id="queryByUserId" resultMap="account_open_infoResultMapVo">
+        select *
+        from customer_account_open_info
+        where user_id = #{userId}
+        order by application_time desc
+            limit 1
+    </select>
+    <update id="updateClientId">
+        update
+            customer_account_open_info
+        set client_id = #{clientId},fund_account = #{clientId}
+        where application_id = #{applicationId}
+    </update>
+    <select id="selectByClientByIdKind" resultType="java.lang.String">
+        select client_id from
+        customer_account_open_info
+        <where>
+            <if test="idKind!=null">
+                <choose>
+                    <when test="idKind==1">
+                        client_id like concat("6","%")
+                    </when>
+                    <otherwise>
+                        client_id like concat("5","%")
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+    </select>
+    <delete id="deleteByApplicationId">
+        delete
+        from customer_account_open_info
+        where application_id = #{applicationId}
+    </delete>
+
+    <select id="queryList" resultMap="account_open_infoResultMap" parameterType="java.lang.Object">
+        select * from (
+            select id,user_id,application_time from customer_account_open_info group by user_id order by application_time desc
+        ) as cust
+        left join customer_account_open_info as caoi on caoi.id = cust.id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (
+                caoi.user_id = #{keyword}
+                    or caoi.phone_number = #{keyword}
+                    or caoi.client_id = #{keyword}
+                    or caoi.client_name like concat('%',#{keyword},'%')
+                    or caoi.given_name_spell like concat('%',#{keyword},'%')
+                    or caoi.email like concat('%',#{keyword},'%')
+                )
+            </if>
+            <if test="startTime != null and startTime != ''">
+                and caoi.application_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and caoi.application_time &lt;= #{endTime}
+            </if>
+        </where>
+        order by caoi.application_time desc
+    </select>
+
+    <select id="openAccountUserDetail" parameterType="java.lang.Long" resultMap="account_open_infoResultMap">
+        select * from customer_account_open_info
+        where user_id = #{userId} order by application_time desc limit 1
+    </select>
+    <select id="queryW8ApplicationId" resultType="java.lang.String">
+        SELECT customer_account_open_info.application_id
+        FROM customer_account_open_info
+        inner join customer_account_open_application on customer_account_open_info.application_id = customer_account_open_application.application_id
+        WHERE customer_account_open_application.application_status =8 and customer_account_open_info.application_id NOT IN (
+            SELECT application_id
+            FROM open_account_additional_file where file_type = #{fileType}
+        );
+
+    </select>
+    <select id="querySelfDeclareApplicationId" resultType="java.lang.String">
+    </select>
+    <select id="selW8ConfirmList"
+            resultType="com.minigod.zero.bpmn.module.account.entity.AccountOpenInfoEntity">
+        select aoi.* from customer_account_open_info as aoi
+        inner join customer_account_open_application as aoa on aoi.application_id = aoa.application_id
+        where aoa.application_status = 8
+          and (aoi.w8_agreement_time &lt;= DATE_SUB(CURDATE(), INTERVAL #{year} YEAR) or aoi.w8_agreement_time is null )
+    </select>
+    <select id="selSelfConfirmList"
+            resultType="com.minigod.zero.bpmn.module.account.entity.AccountOpenInfoEntity">
+        select aoi.* from customer_account_open_info as aoi
+                              inner join customer_account_open_application as aoa on aoi.application_id = aoa.application_id
+        where aoa.application_status = 8
+          and (aoi.self_agreement_time &lt;= DATE_SUB(CURDATE(), INTERVAL #{year} YEAR) or aoi.self_agreement_time is null)
+    </select>
+    <select id="queryByAppId" resultType="com.minigod.zero.bpmn.module.account.vo.AccountOpenInfoVO">
+        select * from customer_account_open_info where application_id = #{applicationId}
+    </select>
+
+    <update id="updateOpenAccountSuccess" parameterType="java.lang.Object" >
+        update
+            customer_account_open_info
+        set client_id = #{clientId},fund_account = #{clientId},open_account_time = now()
+        where application_id = #{applicationId}
+    </update>
+
+</mapper>

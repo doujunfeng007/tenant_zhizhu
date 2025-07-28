@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.TExchRateMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.TExchRate">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="srccurrency" column="srcCurrency" jdbcType="VARCHAR"/>
+            <result property="dstcurrency" column="dstCurrency" jdbcType="VARCHAR"/>
+            <result property="rate" column="rate" jdbcType="DECIMAL"/>
+            <result property="dataupdtime" column="dataUpdTime" jdbcType="TIMESTAMP"/>
+            <result property="recordupdtime" column="recordUpdTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,srcCurrency,dstCurrency,
+        rate,dataUpdTime,recordUpdTime
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_exch_rate
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_exch_rate
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.TExchRate" useGeneratedKeys="true">
+        insert into t_exch_rate
+        ( id,srcCurrency,dstCurrency
+        ,rate,dataUpdTime,recordUpdTime
+        )
+        values (#{id,jdbcType=INTEGER},#{srccurrency,jdbcType=VARCHAR},#{dstcurrency,jdbcType=VARCHAR}
+        ,#{rate,jdbcType=DECIMAL},#{dataupdtime,jdbcType=TIMESTAMP},#{recordupdtime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.TExchRate" useGeneratedKeys="true">
+        insert into t_exch_rate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="srccurrency != null">srcCurrency,</if>
+                <if test="dstcurrency != null">dstCurrency,</if>
+                <if test="rate != null">rate,</if>
+                <if test="dataupdtime != null">dataUpdTime,</if>
+                <if test="recordupdtime != null">recordUpdTime,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="srccurrency != null">#{srccurrency,jdbcType=VARCHAR},</if>
+                <if test="dstcurrency != null">#{dstcurrency,jdbcType=VARCHAR},</if>
+                <if test="rate != null">#{rate,jdbcType=DECIMAL},</if>
+                <if test="dataupdtime != null">#{dataupdtime,jdbcType=TIMESTAMP},</if>
+                <if test="recordupdtime != null">#{recordupdtime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.TExchRate">
+        update t_exch_rate
+        <set>
+                <if test="srccurrency != null">
+                    srcCurrency = #{srccurrency,jdbcType=VARCHAR},
+                </if>
+                <if test="dstcurrency != null">
+                    dstCurrency = #{dstcurrency,jdbcType=VARCHAR},
+                </if>
+                <if test="rate != null">
+                    rate = #{rate,jdbcType=DECIMAL},
+                </if>
+                <if test="dataupdtime != null">
+                    dataUpdTime = #{dataupdtime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="recordupdtime != null">
+                    recordUpdTime = #{recordupdtime,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.TExchRate">
+        update t_exch_rate
+        set
+            srcCurrency =  #{srccurrency,jdbcType=VARCHAR},
+            dstCurrency =  #{dstcurrency,jdbcType=VARCHAR},
+            rate =  #{rate,jdbcType=DECIMAL},
+            dataUpdTime =  #{dataupdtime,jdbcType=TIMESTAMP},
+            recordUpdTime =  #{recordupdtime,jdbcType=TIMESTAMP}
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        select * from t_exch_rate
+    </select>
+</mapper>

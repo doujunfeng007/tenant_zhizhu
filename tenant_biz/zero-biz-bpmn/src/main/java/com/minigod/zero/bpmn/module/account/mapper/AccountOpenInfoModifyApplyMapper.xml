@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountOpenInfoModifyApplyMapper">
+
+    <select id="getOpenInfoModifyPge" resultType="com.minigod.zero.bpmn.module.account.vo.AccountOpenInfoModifyApplyVO">
+        select ma.id,
+        ma.application_id,
+        oi.client_name,
+        oi.client_name_spell,
+        oi.sex,
+        oi.open_account_access_way,
+        oi.email,
+        ma.approve_status
+        from customer_open_info_modify_apply ma
+        left join customer_account_open_info oi on ma.application_id = oi.application_id
+        <where>
+            ma.is_deleted = 0
+            <if test="applyPageDTO.clientName !=null and applyPageDTO.clientName != '' ">
+                and oi.client_name like concat('%',#{applyPageDTO.clientName},'%')
+            </if>
+            <if test="applyPageDTO.clientNameSpell !=null and applyPageDTO.clientNameSpell != '' ">
+                and oi.client_name_spell like concat('%',#{applyPageDTO.clientNameSpell},'%')
+            </if>
+        </where>
+        order by ma.create_time desc
+    </select>
+</mapper>

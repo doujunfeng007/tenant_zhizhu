@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.stock.mapper.CustomerAccountStockApplicationMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.stock.entity.CustomerAccountStockApplicationEntity">
+        <id column="id" property="id" />
+        <result column="application_id" property="applicationId" />
+        <result column="application_title" property="applicationTitle" />
+        <result column="current_node" property="currentNode" />
+        <result column="last_approval_user" property="lastApprovalUser" />
+        <result column="last_approval_time" property="lastApprovalTime" />
+        <result column="approval_opinion" property="approvalOpinion" />
+        <result column="start_time" property="startTime" />
+        <result column="remark" property="remark" />
+        <result column="application_status" property="applicationStatus" />
+        <result column="assign_drafter" property="assignDrafter" />
+        <result column="flow_path" property="flowPath" />
+        <result column="instance_id" property="instanceId" />
+        <result column="definition_id" property="definitionId" />
+        <result column="process_instance_id" property="processInstanceId" />
+        <result column="task_id" property="taskId" />
+        <result column="deploy_id" property="deployId" />
+        <result column="create_user" property="createUser" />
+        <result column="update_user" property="updateUser" />
+        <result column="create_dept" property="createDept" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="status" property="status" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="tenant_id" property="tenantId" />
+    </resultMap>
+
+    <resultMap id="BaseResultMapVo" type="com.minigod.zero.bpmn.module.fundTrans.domain.vo.ClientFundTransApplicationVO" extends="BaseResultMap">
+        <association property="info" javaType="com.minigod.zero.bpmn.module.fundTrans.domain.vo.ClientFundTransInfoVO">
+            <id column="i_id" property="id" />
+            <result column="application_id" property="applicationId" />
+            <result column="tenant_id" property="tenantId" />
+            <result column="user_id" property="userId" />
+            <result column="client_id" property="clientId" />
+            <result column="client_name" property="clientName" />
+            <result column="client_name_spell" property="clientNameSpell" />
+            <result column="deposit_account" property="depositAccount" />
+            <result column="withdraw_account" property="withdrawAccount" />
+            <result column="deposit_business_type" property="depositBusinessType" />
+            <result column="withdraw_business_type" property="withdrawBusinessType" />
+            <result column="amount" property="amount" />
+            <result column="deposit_amount" property="depositAmount" />
+            <result column="withdraw_amount" property="withdrawAmount" />
+            <result column="fee" property="fee" />
+            <result column="status" property="status" />
+            <result column="remark" property="remark" />
+            <result column="currency" property="currency" />
+            <result column="create_time" property="createTime" />
+            <result column="update_time" property="updateTime" />
+            <result column="fail_reason" property="failReason" />
+        </association>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, application_id, application_title, current_node, last_approval_user, last_approval_time,
+        approval_opinion, start_time, remark, application_status, assign_drafter, flow_path,
+        instance_id, definition_id, process_instance_id, task_id, deploy_id, create_user,
+        update_user, create_dept, create_time, update_time, status, is_deleted, tenant_id
+    </sql>
+
+    <sql id="Application_Base_Column_List">
+        <!--@mbg.generated-->
+        a.id,a.application_id,a.application_title,a.`current_node`,a.last_approval_user,a.last_approval_time,
+        a.approval_opinion,a.start_time,a.remark,a.application_status,a.assign_drafter,a.flow_path,
+        a.instance_id,a.definition_id,a.process_instance_id,a.task_id,a.deploy_id,a.deploy_id,a.create_user,
+        a.update_user,a.create_dept,a.create_time,a.update_time,a.status,a.is_deleted,a.tenant_id
+    </sql>
+
+    <sql id="Info_Base_Column_List">
+        <!--@mbg.generated-->
+        i.id i_id ,i.application_id,i.open_account_type,i.fund_account_type,i.user_id,i.client_name,i.client_name_spell,
+        i.id_kind,i.id_no,i.phone_area,i.phone_number,i.is_open_usa_stock_market,i.is_open_hk_stock_market,
+        i.`is_open_cn_stock_market`,i.status,i.create_time,i.update_time,i.is_deleted
+    </sql>
+
+    <select id="queryApplicationId" resultMap="BaseResultMapVo">
+        select <include refid="Application_Base_Column_List" /> ,
+        <include refid="Info_Base_Column_List"/>
+        from customer_account_stock_application a
+        left join customer_account_stock_info i on a.application_id = i.application_id
+        where a.application_id  = #{applicationId}
+    </select>
+
+    <select id="selectCustomerAccountStockApplicationPage" resultMap="BaseResultMapVo">
+        select
+        <include refid="Application_Base_Column_List"/>,
+        <include refid="Info_Base_Column_List"/>
+        from customer_account_stock_application a
+                 left join customer_account_stock_info i on a.application_id = i.application_id
+        <where>
+            <if test="bo.userId != null">
+                and i.user_id = #{bo.userId}
+            </if>
+            <if test="bo.clientName != null and bo.clientName != ''">
+                and i.client_name like concat('%', #{bo.clientName}, '%')
+            </if>
+            <if test="bo.clientNameSpell != null and bo.clientNameSpell != ''">
+                and i.client_name_spell like concat('%', #{bo.clientNameSpell}, '%')
+            </if>
+            <if test="bo.idNo != null and bo.idNo != ''">
+                and i.id_no = #{bo.idNo}
+            </if>
+            <if test="bo.phoneNumber != null and bo.phoneNumber != ''">
+                and i.phone_number = #{bo.phoneNumber}
+            </if>
+            <if test="bo.applicationStatus != null">
+                and a.application_status = #{bo.applicationStatus}
+            </if>
+        </where>
+        order by a.application_id desc
+    </select>
+</mapper>

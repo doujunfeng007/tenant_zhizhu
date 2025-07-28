@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.bank.mapper.DbsCompanyDepositInfoMapper">
+  <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.bank.entity.DbsCompanyDepositInfo">
+    <!--@mbg.generated-->
+    <!--@Table dbs_company_deposit_info-->
+    <id column="id" property="id" />
+    <result column="company_name" property="companyName" />
+    <result column="company_account" property="companyAccount" />
+    <result column="tenant_id" property="tenantId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ` id`, company_name, company_account, tenant_id
+  </sql>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into dbs_company_deposit_info
+    (company_name, company_account, tenant_id)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.companyName}, #{item.companyAccount}, #{item.tenantId})
+    </foreach>
+  </insert>
+</mapper>

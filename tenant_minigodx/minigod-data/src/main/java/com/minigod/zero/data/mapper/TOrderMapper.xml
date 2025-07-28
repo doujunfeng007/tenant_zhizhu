@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.TOrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.TOrder">
+            <id property="orderid" column="orderId" jdbcType="INTEGER"/>
+            <result property="instructionid" column="instructionId" jdbcType="INTEGER"/>
+            <result property="nomineeorderid" column="nomineeOrderId" jdbcType="INTEGER"/>
+            <result property="subaccountid" column="subAccountId" jdbcType="VARCHAR"/>
+            <result property="fundcode" column="fundCode" jdbcType="VARCHAR"/>
+            <result property="fundisin" column="fundIsin" jdbcType="VARCHAR"/>
+            <result property="fundname" column="fundName" jdbcType="VARCHAR"/>
+            <result property="fundrisklevel" column="fundRiskLevel" jdbcType="INTEGER"/>
+            <result property="isprivate" column="isPrivate" jdbcType="TINYINT"/>
+            <result property="type" column="type" jdbcType="INTEGER"/>
+            <result property="mode" column="mode" jdbcType="INTEGER"/>
+            <result property="busitype" column="busiType" jdbcType="INTEGER"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="amount" column="amount" jdbcType="DECIMAL"/>
+            <result property="weight" column="weight" jdbcType="DECIMAL"/>
+            <result property="quantity" column="quantity" jdbcType="DECIMAL"/>
+            <result property="submitteddate" column="submittedDate" jdbcType="TIMESTAMP"/>
+            <result property="canceleddate" column="canceledDate" jdbcType="TIMESTAMP"/>
+            <result property="authorizeddate" column="authorizedDate" jdbcType="TIMESTAMP"/>
+            <result property="rejecteddate" column="rejectedDate" jdbcType="TIMESTAMP"/>
+            <result property="pooleddate" column="pooledDate" jdbcType="TIMESTAMP"/>
+            <result property="placeddate" column="placedDate" jdbcType="TIMESTAMP"/>
+            <result property="accepteddate" column="acceptedDate" jdbcType="TIMESTAMP"/>
+            <result property="confirmeddate" column="confirmedDate" jdbcType="TIMESTAMP"/>
+            <result property="settleddate" column="settledDate" jdbcType="TIMESTAMP"/>
+            <result property="expectedsettleddate" column="expectedSettledDate" jdbcType="TIMESTAMP"/>
+            <result property="effectivesettleddate" column="effectiveSettledDate" jdbcType="TIMESTAMP"/>
+            <result property="expireddate" column="expiredDate" jdbcType="TIMESTAMP"/>
+            <result property="estimatednav" column="estimatedNav" jdbcType="DECIMAL"/>
+            <result property="estimatedamount" column="estimatedAmount" jdbcType="DECIMAL"/>
+            <result property="estimatedquantity" column="estimatedQuantity" jdbcType="DECIMAL"/>
+            <result property="estimatedgainloss" column="estimatedGainLoss" jdbcType="DECIMAL"/>
+            <result property="estimatedasofday" column="estimatedAsOfDay" jdbcType="TIMESTAMP"/>
+            <result property="transactioncurrency" column="transactionCurrency" jdbcType="VARCHAR"/>
+            <result property="transactionamount" column="transactionAmount" jdbcType="DECIMAL"/>
+            <result property="transactionnetamount" column="transactionNetAmount" jdbcType="DECIMAL"/>
+            <result property="transactionquantity" column="transactionQuantity" jdbcType="DECIMAL"/>
+            <result property="transactionnav" column="transactionNav" jdbcType="DECIMAL"/>
+            <result property="transactiongainloss" column="transactionGainLoss" jdbcType="DECIMAL"/>
+            <result property="transactionfee" column="transactionFee" jdbcType="DECIMAL"/>
+            <result property="transactionstamptax" column="transactionStampTax" jdbcType="DECIMAL"/>
+            <result property="transactionbrokerage" column="transactionBrokerage" jdbcType="DECIMAL"/>
+            <result property="yfffee" column="yffFee" jdbcType="DECIMAL"/>
+            <result property="yffrate" column="yffRate" jdbcType="DECIMAL"/>
+            <result property="agentfee" column="agentFee" jdbcType="DECIMAL"/>
+            <result property="fundhousefee" column="fundHouseFee" jdbcType="DECIMAL"/>
+            <result property="fundfee" column="fundFee" jdbcType="DECIMAL"/>
+            <result property="performancefee" column="performanceFee" jdbcType="DECIMAL"/>
+            <result property="stamptax" column="stampTax" jdbcType="DECIMAL"/>
+            <result property="brokerage" column="brokerage" jdbcType="DECIMAL"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="tastatus" column="taStatus" jdbcType="INTEGER"/>
+            <result property="statusdesc" column="statusDesc" jdbcType="VARCHAR"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        orderId,instructionId,nomineeOrderId,
+        subAccountId,fundCode,fundIsin,
+        fundName,fundRiskLevel,isPrivate,
+        type,mode,busiType,
+        currency,amount,weight,
+        quantity,submittedDate,canceledDate,
+        authorizedDate,rejectedDate,pooledDate,
+        placedDate,acceptedDate,confirmedDate,
+        settledDate,expectedSettledDate,effectiveSettledDate,
+        expiredDate,estimatedNav,estimatedAmount,
+        estimatedQuantity,estimatedGainLoss,estimatedAsOfDay,
+        transactionCurrency,transactionAmount,transactionNetAmount,
+        transactionQuantity,transactionNav,transactionGainLoss,
+        transactionFee,transactionStampTax,transactionBrokerage,
+        yffFee,yffRate,agentFee,
+        fundHouseFee,fundFee,performanceFee,
+        stampTax,brokerage,status,
+        taStatus,statusDesc,createTime,
+        updateTime
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_order
+        where  orderId = #{orderid,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_order
+        where  orderId = #{orderid,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="orderId" keyProperty="orderid" parameterType="com.minigod.zero.data.entity.TOrder" useGeneratedKeys="true">
+        insert into t_order
+        ( orderId,instructionId,nomineeOrderId
+        ,subAccountId,fundCode,fundIsin
+        ,fundName,fundRiskLevel,isPrivate
+        ,type,mode,busiType
+        ,currency,amount,weight
+        ,quantity,submittedDate,canceledDate
+        ,authorizedDate,rejectedDate,pooledDate
+        ,placedDate,acceptedDate,confirmedDate
+        ,settledDate,expectedSettledDate,effectiveSettledDate
+        ,expiredDate,estimatedNav,estimatedAmount
+        ,estimatedQuantity,estimatedGainLoss,estimatedAsOfDay
+        ,transactionCurrency,transactionAmount,transactionNetAmount
+        ,transactionQuantity,transactionNav,transactionGainLoss
+        ,transactionFee,transactionStampTax,transactionBrokerage
+        ,yffFee,yffRate,agentFee
+        ,fundHouseFee,fundFee,performanceFee
+        ,stampTax,brokerage,status
+        ,taStatus,statusDesc,createTime
+        ,updateTime)
+        values (#{orderid,jdbcType=INTEGER},#{instructionid,jdbcType=INTEGER},#{nomineeorderid,jdbcType=INTEGER}
+        ,#{subaccountid,jdbcType=VARCHAR},#{fundcode,jdbcType=VARCHAR},#{fundisin,jdbcType=VARCHAR}
+        ,#{fundname,jdbcType=VARCHAR},#{fundrisklevel,jdbcType=INTEGER},#{isprivate,jdbcType=TINYINT}
+        ,#{type,jdbcType=INTEGER},#{mode,jdbcType=INTEGER},#{busitype,jdbcType=INTEGER}
+        ,#{currency,jdbcType=VARCHAR},#{amount,jdbcType=DECIMAL},#{weight,jdbcType=DECIMAL}
+        ,#{quantity,jdbcType=DECIMAL},#{submitteddate,jdbcType=TIMESTAMP},#{canceleddate,jdbcType=TIMESTAMP}
+        ,#{authorizeddate,jdbcType=TIMESTAMP},#{rejecteddate,jdbcType=TIMESTAMP},#{pooleddate,jdbcType=TIMESTAMP}
+        ,#{placeddate,jdbcType=TIMESTAMP},#{accepteddate,jdbcType=TIMESTAMP},#{confirmeddate,jdbcType=TIMESTAMP}
+        ,#{settleddate,jdbcType=TIMESTAMP},#{expectedsettleddate,jdbcType=TIMESTAMP},#{effectivesettleddate,jdbcType=TIMESTAMP}
+        ,#{expireddate,jdbcType=TIMESTAMP},#{estimatednav,jdbcType=DECIMAL},#{estimatedamount,jdbcType=DECIMAL}
+        ,#{estimatedquantity,jdbcType=DECIMAL},#{estimatedgainloss,jdbcType=DECIMAL},#{estimatedasofday,jdbcType=TIMESTAMP}
+        ,#{transactioncurrency,jdbcType=VARCHAR},#{transactionamount,jdbcType=DECIMAL},#{transactionnetamount,jdbcType=DECIMAL}
+        ,#{transactionquantity,jdbcType=DECIMAL},#{transactionnav,jdbcType=DECIMAL},#{transactiongainloss,jdbcType=DECIMAL}
+        ,#{transactionfee,jdbcType=DECIMAL},#{transactionstamptax,jdbcType=DECIMAL},#{transactionbrokerage,jdbcType=DECIMAL}
+        ,#{yfffee,jdbcType=DECIMAL},#{yffrate,jdbcType=DECIMAL},#{agentfee,jdbcType=DECIMAL}
+        ,#{fundhousefee,jdbcType=DECIMAL},#{fundfee,jdbcType=DECIMAL},#{performancefee,jdbcType=DECIMAL}
+        ,#{stamptax,jdbcType=DECIMAL},#{brokerage,jdbcType=DECIMAL},#{status,jdbcType=INTEGER}
+        ,#{tastatus,jdbcType=INTEGER},#{statusdesc,jdbcType=VARCHAR},#{createtime,jdbcType=TIMESTAMP}
+        ,#{updatetime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="orderId" keyProperty="orderid" parameterType="com.minigod.zero.data.entity.TOrder" useGeneratedKeys="true">
+        insert into t_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="orderid != null">orderId,</if>
+                <if test="instructionid != null">instructionId,</if>
+                <if test="nomineeorderid != null">nomineeOrderId,</if>
+                <if test="subaccountid != null">subAccountId,</if>
+                <if test="fundcode != null">fundCode,</if>
+                <if test="fundisin != null">fundIsin,</if>
+                <if test="fundname != null">fundName,</if>
+                <if test="fundrisklevel != null">fundRiskLevel,</if>
+                <if test="isprivate != null">isPrivate,</if>
+                <if test="type != null">type,</if>
+                <if test="mode != null">mode,</if>
+                <if test="busitype != null">busiType,</if>
+                <if test="currency != null">currency,</if>
+                <if test="amount != null">amount,</if>
+                <if test="weight != null">weight,</if>
+                <if test="quantity != null">quantity,</if>
+                <if test="submitteddate != null">submittedDate,</if>
+                <if test="canceleddate != null">canceledDate,</if>
+                <if test="authorizeddate != null">authorizedDate,</if>
+                <if test="rejecteddate != null">rejectedDate,</if>
+                <if test="pooleddate != null">pooledDate,</if>
+                <if test="placeddate != null">placedDate,</if>
+                <if test="accepteddate != null">acceptedDate,</if>
+                <if test="confirmeddate != null">confirmedDate,</if>
+                <if test="settleddate != null">settledDate,</if>
+                <if test="expectedsettleddate != null">expectedSettledDate,</if>
+                <if test="effectivesettleddate != null">effectiveSettledDate,</if>
+                <if test="expireddate != null">expiredDate,</if>
+                <if test="estimatednav != null">estimatedNav,</if>
+                <if test="estimatedamount != null">estimatedAmount,</if>
+                <if test="estimatedquantity != null">estimatedQuantity,</if>
+                <if test="estimatedgainloss != null">estimatedGainLoss,</if>
+                <if test="estimatedasofday != null">estimatedAsOfDay,</if>
+                <if test="transactioncurrency != null">transactionCurrency,</if>
+                <if test="transactionamount != null">transactionAmount,</if>
+                <if test="transactionnetamount != null">transactionNetAmount,</if>
+                <if test="transactionquantity != null">transactionQuantity,</if>
+                <if test="transactionnav != null">transactionNav,</if>
+                <if test="transactiongainloss != null">transactionGainLoss,</if>
+                <if test="transactionfee != null">transactionFee,</if>
+                <if test="transactionstamptax != null">transactionStampTax,</if>
+                <if test="transactionbrokerage != null">transactionBrokerage,</if>
+                <if test="yfffee != null">yffFee,</if>
+                <if test="yffrate != null">yffRate,</if>
+                <if test="agentfee != null">agentFee,</if>
+                <if test="fundhousefee != null">fundHouseFee,</if>
+                <if test="fundfee != null">fundFee,</if>
+                <if test="performancefee != null">performanceFee,</if>
+                <if test="stamptax != null">stampTax,</if>
+                <if test="brokerage != null">brokerage,</if>
+                <if test="status != null">status,</if>
+                <if test="tastatus != null">taStatus,</if>
+                <if test="statusdesc != null">statusDesc,</if>
+                <if test="createtime != null">createTime,</if>
+                <if test="updatetime != null">updateTime,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="orderid != null">#{orderid,jdbcType=INTEGER},</if>
+                <if test="instructionid != null">#{instructionid,jdbcType=INTEGER},</if>
+                <if test="nomineeorderid != null">#{nomineeorderid,jdbcType=INTEGER},</if>
+                <if test="subaccountid != null">#{subaccountid,jdbcType=VARCHAR},</if>
+                <if test="fundcode != null">#{fundcode,jdbcType=VARCHAR},</if>
+                <if test="fundisin != null">#{fundisin,jdbcType=VARCHAR},</if>
+                <if test="fundname != null">#{fundname,jdbcType=VARCHAR},</if>
+                <if test="fundrisklevel != null">#{fundrisklevel,jdbcType=INTEGER},</if>
+                <if test="isprivate != null">#{isprivate,jdbcType=TINYINT},</if>
+                <if test="type != null">#{type,jdbcType=INTEGER},</if>
+                <if test="mode != null">#{mode,jdbcType=INTEGER},</if>
+                <if test="busitype != null">#{busitype,jdbcType=INTEGER},</if>
+                <if test="currency != null">#{currency,jdbcType=VARCHAR},</if>
+                <if test="amount != null">#{amount,jdbcType=DECIMAL},</if>
+                <if test="weight != null">#{weight,jdbcType=DECIMAL},</if>
+                <if test="quantity != null">#{quantity,jdbcType=DECIMAL},</if>
+                <if test="submitteddate != null">#{submitteddate,jdbcType=TIMESTAMP},</if>
+                <if test="canceleddate != null">#{canceleddate,jdbcType=TIMESTAMP},</if>
+                <if test="authorizeddate != null">#{authorizeddate,jdbcType=TIMESTAMP},</if>
+                <if test="rejecteddate != null">#{rejecteddate,jdbcType=TIMESTAMP},</if>
+                <if test="pooleddate != null">#{pooleddate,jdbcType=TIMESTAMP},</if>
+                <if test="placeddate != null">#{placeddate,jdbcType=TIMESTAMP},</if>
+                <if test="accepteddate != null">#{accepteddate,jdbcType=TIMESTAMP},</if>
+                <if test="confirmeddate != null">#{confirmeddate,jdbcType=TIMESTAMP},</if>
+                <if test="settleddate != null">#{settleddate,jdbcType=TIMESTAMP},</if>
+                <if test="expectedsettleddate != null">#{expectedsettleddate,jdbcType=TIMESTAMP},</if>
+                <if test="effectivesettleddate != null">#{effectivesettleddate,jdbcType=TIMESTAMP},</if>
+                <if test="expireddate != null">#{expireddate,jdbcType=TIMESTAMP},</if>
+                <if test="estimatednav != null">#{estimatednav,jdbcType=DECIMAL},</if>
+                <if test="estimatedamount != null">#{estimatedamount,jdbcType=DECIMAL},</if>
+                <if test="estimatedquantity != null">#{estimatedquantity,jdbcType=DECIMAL},</if>
+                <if test="estimatedgainloss != null">#{estimatedgainloss,jdbcType=DECIMAL},</if>
+                <if test="estimatedasofday != null">#{estimatedasofday,jdbcType=TIMESTAMP},</if>
+                <if test="transactioncurrency != null">#{transactioncurrency,jdbcType=VARCHAR},</if>
+                <if test="transactionamount != null">#{transactionamount,jdbcType=DECIMAL},</if>
+                <if test="transactionnetamount != null">#{transactionnetamount,jdbcType=DECIMAL},</if>
+                <if test="transactionquantity != null">#{transactionquantity,jdbcType=DECIMAL},</if>
+                <if test="transactionnav != null">#{transactionnav,jdbcType=DECIMAL},</if>
+                <if test="transactiongainloss != null">#{transactiongainloss,jdbcType=DECIMAL},</if>
+                <if test="transactionfee != null">#{transactionfee,jdbcType=DECIMAL},</if>
+                <if test="transactionstamptax != null">#{transactionstamptax,jdbcType=DECIMAL},</if>
+                <if test="transactionbrokerage != null">#{transactionbrokerage,jdbcType=DECIMAL},</if>
+                <if test="yfffee != null">#{yfffee,jdbcType=DECIMAL},</if>
+                <if test="yffrate != null">#{yffrate,jdbcType=DECIMAL},</if>
+                <if test="agentfee != null">#{agentfee,jdbcType=DECIMAL},</if>
+                <if test="fundhousefee != null">#{fundhousefee,jdbcType=DECIMAL},</if>
+                <if test="fundfee != null">#{fundfee,jdbcType=DECIMAL},</if>
+                <if test="performancefee != null">#{performancefee,jdbcType=DECIMAL},</if>
+                <if test="stamptax != null">#{stamptax,jdbcType=DECIMAL},</if>
+                <if test="brokerage != null">#{brokerage,jdbcType=DECIMAL},</if>
+                <if test="status != null">#{status,jdbcType=INTEGER},</if>
+                <if test="tastatus != null">#{tastatus,jdbcType=INTEGER},</if>
+                <if test="statusdesc != null">#{statusdesc,jdbcType=VARCHAR},</if>
+                <if test="createtime != null">#{createtime,jdbcType=TIMESTAMP},</if>
+                <if test="updatetime != null">#{updatetime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.TOrder">
+        update t_order
+        <set>
+                <if test="instructionid != null">
+                    instructionId = #{instructionid,jdbcType=INTEGER},
+                </if>
+                <if test="nomineeorderid != null">
+                    nomineeOrderId = #{nomineeorderid,jdbcType=INTEGER},
+                </if>
+                <if test="subaccountid != null">
+                    subAccountId = #{subaccountid,jdbcType=VARCHAR},
+                </if>
+                <if test="fundcode != null">
+                    fundCode = #{fundcode,jdbcType=VARCHAR},
+                </if>
+                <if test="fundisin != null">
+                    fundIsin = #{fundisin,jdbcType=VARCHAR},
+                </if>
+                <if test="fundname != null">
+                    fundName = #{fundname,jdbcType=VARCHAR},
+                </if>
+                <if test="fundrisklevel != null">
+                    fundRiskLevel = #{fundrisklevel,jdbcType=INTEGER},
+                </if>
+                <if test="isprivate != null">
+                    isPrivate = #{isprivate,jdbcType=TINYINT},
+                </if>
+                <if test="type != null">
+                    type = #{type,jdbcType=INTEGER},
+                </if>
+                <if test="mode != null">
+                    mode = #{mode,jdbcType=INTEGER},
+                </if>
+                <if test="busitype != null">
+                    busiType = #{busitype,jdbcType=INTEGER},
+                </if>
+                <if test="currency != null">
+                    currency = #{currency,jdbcType=VARCHAR},
+                </if>
+                <if test="amount != null">
+                    amount = #{amount,jdbcType=DECIMAL},
+                </if>
+                <if test="weight != null">
+                    weight = #{weight,jdbcType=DECIMAL},
+                </if>
+                <if test="quantity != null">
+                    quantity = #{quantity,jdbcType=DECIMAL},
+                </if>
+                <if test="submitteddate != null">
+                    submittedDate = #{submitteddate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="canceleddate != null">
+                    canceledDate = #{canceleddate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="authorizeddate != null">
+                    authorizedDate = #{authorizeddate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="rejecteddate != null">
+                    rejectedDate = #{rejecteddate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="pooleddate != null">
+                    pooledDate = #{pooleddate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="placeddate != null">
+                    placedDate = #{placeddate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="accepteddate != null">
+                    acceptedDate = #{accepteddate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="confirmeddate != null">
+                    confirmedDate = #{confirmeddate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="settleddate != null">
+                    settledDate = #{settleddate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="expectedsettleddate != null">
+                    expectedSettledDate = #{expectedsettleddate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="effectivesettleddate != null">
+                    effectiveSettledDate = #{effectivesettleddate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="expireddate != null">
+                    expiredDate = #{expireddate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="estimatednav != null">
+                    estimatedNav = #{estimatednav,jdbcType=DECIMAL},
+                </if>
+                <if test="estimatedamount != null">
+                    estimatedAmount = #{estimatedamount,jdbcType=DECIMAL},
+                </if>
+                <if test="estimatedquantity != null">
+                    estimatedQuantity = #{estimatedquantity,jdbcType=DECIMAL},
+                </if>
+                <if test="estimatedgainloss != null">
+                    estimatedGainLoss = #{estimatedgainloss,jdbcType=DECIMAL},
+                </if>
+                <if test="estimatedasofday != null">
+                    estimatedAsOfDay = #{estimatedasofday,jdbcType=TIMESTAMP},
+                </if>
+                <if test="transactioncurrency != null">
+                    transactionCurrency = #{transactioncurrency,jdbcType=VARCHAR},
+                </if>
+                <if test="transactionamount != null">
+                    transactionAmount = #{transactionamount,jdbcType=DECIMAL},
+                </if>
+                <if test="transactionnetamount != null">
+                    transactionNetAmount = #{transactionnetamount,jdbcType=DECIMAL},
+                </if>
+                <if test="transactionquantity != null">
+                    transactionQuantity = #{transactionquantity,jdbcType=DECIMAL},
+                </if>
+                <if test="transactionnav != null">
+                    transactionNav = #{transactionnav,jdbcType=DECIMAL},
+                </if>
+                <if test="transactiongainloss != null">
+                    transactionGainLoss = #{transactiongainloss,jdbcType=DECIMAL},
+                </if>
+                <if test="transactionfee != null">
+                    transactionFee = #{transactionfee,jdbcType=DECIMAL},
+                </if>
+                <if test="transactionstamptax != null">
+                    transactionStampTax = #{transactionstamptax,jdbcType=DECIMAL},
+                </if>
+                <if test="transactionbrokerage != null">
+                    transactionBrokerage = #{transactionbrokerage,jdbcType=DECIMAL},
+                </if>
+                <if test="yfffee != null">
+                    yffFee = #{yfffee,jdbcType=DECIMAL},
+                </if>
+                <if test="yffrate != null">
+                    yffRate = #{yffrate,jdbcType=DECIMAL},
+                </if>
+                <if test="agentfee != null">
+                    agentFee = #{agentfee,jdbcType=DECIMAL},
+                </if>
+                <if test="fundhousefee != null">
+                    fundHouseFee = #{fundhousefee,jdbcType=DECIMAL},
+                </if>
+                <if test="fundfee != null">
+                    fundFee = #{fundfee,jdbcType=DECIMAL},
+                </if>
+                <if test="performancefee != null">
+                    performanceFee = #{performancefee,jdbcType=DECIMAL},
+                </if>
+                <if test="stamptax != null">
+                    stampTax = #{stamptax,jdbcType=DECIMAL},
+                </if>
+                <if test="brokerage != null">
+                    brokerage = #{brokerage,jdbcType=DECIMAL},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=INTEGER},
+                </if>
+                <if test="tastatus != null">
+                    taStatus = #{tastatus,jdbcType=INTEGER},
+                </if>
+                <if test="statusdesc != null">
+                    statusDesc = #{statusdesc,jdbcType=VARCHAR},
+                </if>
+                <if test="createtime != null">
+                    createTime = #{createtime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updatetime != null">
+                    updateTime = #{updatetime,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   orderId = #{orderid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.TOrder">
+        update t_order
+        set
+            instructionId =  #{instructionid,jdbcType=INTEGER},
+            nomineeOrderId =  #{nomineeorderid,jdbcType=INTEGER},
+            subAccountId =  #{subaccountid,jdbcType=VARCHAR},
+            fundCode =  #{fundcode,jdbcType=VARCHAR},
+            fundIsin =  #{fundisin,jdbcType=VARCHAR},
+            fundName =  #{fundname,jdbcType=VARCHAR},
+            fundRiskLevel =  #{fundrisklevel,jdbcType=INTEGER},
+            isPrivate =  #{isprivate,jdbcType=TINYINT},
+            type =  #{type,jdbcType=INTEGER},
+            mode =  #{mode,jdbcType=INTEGER},
+            busiType =  #{busitype,jdbcType=INTEGER},
+            currency =  #{currency,jdbcType=VARCHAR},
+            amount =  #{amount,jdbcType=DECIMAL},
+            weight =  #{weight,jdbcType=DECIMAL},
+            quantity =  #{quantity,jdbcType=DECIMAL},
+            submittedDate =  #{submitteddate,jdbcType=TIMESTAMP},
+            canceledDate =  #{canceleddate,jdbcType=TIMESTAMP},
+            authorizedDate =  #{authorizeddate,jdbcType=TIMESTAMP},
+            rejectedDate =  #{rejecteddate,jdbcType=TIMESTAMP},
+            pooledDate =  #{pooleddate,jdbcType=TIMESTAMP},
+            placedDate =  #{placeddate,jdbcType=TIMESTAMP},
+            acceptedDate =  #{accepteddate,jdbcType=TIMESTAMP},
+            confirmedDate =  #{confirmeddate,jdbcType=TIMESTAMP},
+            settledDate =  #{settleddate,jdbcType=TIMESTAMP},
+            expectedSettledDate =  #{expectedsettleddate,jdbcType=TIMESTAMP},
+            effectiveSettledDate =  #{effectivesettleddate,jdbcType=TIMESTAMP},
+            expiredDate =  #{expireddate,jdbcType=TIMESTAMP},
+            estimatedNav =  #{estimatednav,jdbcType=DECIMAL},
+            estimatedAmount =  #{estimatedamount,jdbcType=DECIMAL},
+            estimatedQuantity =  #{estimatedquantity,jdbcType=DECIMAL},
+            estimatedGainLoss =  #{estimatedgainloss,jdbcType=DECIMAL},
+            estimatedAsOfDay =  #{estimatedasofday,jdbcType=TIMESTAMP},
+            transactionCurrency =  #{transactioncurrency,jdbcType=VARCHAR},
+            transactionAmount =  #{transactionamount,jdbcType=DECIMAL},
+            transactionNetAmount =  #{transactionnetamount,jdbcType=DECIMAL},
+            transactionQuantity =  #{transactionquantity,jdbcType=DECIMAL},
+            transactionNav =  #{transactionnav,jdbcType=DECIMAL},
+            transactionGainLoss =  #{transactiongainloss,jdbcType=DECIMAL},
+            transactionFee =  #{transactionfee,jdbcType=DECIMAL},
+            transactionStampTax =  #{transactionstamptax,jdbcType=DECIMAL},
+            transactionBrokerage =  #{transactionbrokerage,jdbcType=DECIMAL},
+            yffFee =  #{yfffee,jdbcType=DECIMAL},
+            yffRate =  #{yffrate,jdbcType=DECIMAL},
+            agentFee =  #{agentfee,jdbcType=DECIMAL},
+            fundHouseFee =  #{fundhousefee,jdbcType=DECIMAL},
+            fundFee =  #{fundfee,jdbcType=DECIMAL},
+            performanceFee =  #{performancefee,jdbcType=DECIMAL},
+            stampTax =  #{stamptax,jdbcType=DECIMAL},
+            brokerage =  #{brokerage,jdbcType=DECIMAL},
+            status =  #{status,jdbcType=INTEGER},
+            taStatus =  #{tastatus,jdbcType=INTEGER},
+            statusDesc =  #{statusdesc,jdbcType=VARCHAR},
+            createTime =  #{createtime,jdbcType=TIMESTAMP},
+            updateTime =  #{updatetime,jdbcType=TIMESTAMP}
+        where   orderId = #{orderid,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="selectProductAsset" resultType="com.minigod.zero.data.vo.ProductAssetVO" >
+        SELECT * from (
+                  select
+                      p.isin as productCode,
+                      p.currency as currency,
+                      SUM(uh.totalGainLoss)/10000 as accumulateGainLoss
+                  from t_product as p
+                  LEFT JOIN (
+                      select * from t_user_holding where holdingType in (64,65)
+                  ) as uh on uh.fundCode = p.productId
+                  where p.type in (64,65)
+                  GROUP BY  p.productId
+            ) as holding
+            left join (
+                select
+                    p.isin as productCode,
+                    SUM(o.transactionAmount)/10000 as accumulatedTransactionAmount,
+                    COUNT(DISTINCT o.subAccountId) as accumulateBuyers,
+                    p.issueDate as issueDate
+                from t_product as p
+                 LEFT JOIN (
+                    select * from t_order where type in (1,11) and status in (300,310,510,730)
+                ) as o on o.fundCode = p.productId
+                where p.type in (64,65)
+                GROUP BY  p.productId
+        ) as order1 on order1.productCode = holding.productCode
+        order by order1.accumulatedTransactionAmount desc
+    </select>
+</mapper>

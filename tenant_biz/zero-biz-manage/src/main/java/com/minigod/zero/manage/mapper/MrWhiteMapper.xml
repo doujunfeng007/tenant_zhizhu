@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.MrWhiteMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="mrWhiteResultMap" type="com.minigod.zero.manage.entity.MrWhiteEntity">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="status" property="status"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_user_name" property="updateUserName"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+
+    <select id="selectMrWhitePage" resultType="com.minigod.zero.manage.vo.MrWhiteVO">
+        select * from oms_mr_white where is_deleted = 0
+        <if test="null != mrWhite.custId">
+            and user_id = #{mrWhite.custId}
+        </if>
+        <if test="null != mrWhite.status">
+            and status = #{mrWhite.status}
+        </if>
+        order by update_time desc;
+    </select>
+
+
+</mapper>

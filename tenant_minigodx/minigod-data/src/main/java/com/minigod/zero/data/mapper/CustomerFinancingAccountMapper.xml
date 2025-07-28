@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.CustomerFinancingAccountMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.CustomerFinancingAccountEntity">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="custId" column="cust_id" jdbcType="BIGINT"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+        <result property="accountId" column="account_id" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="accountType" column="account_type" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="transitedAmount" column="transited_amount" jdbcType="DECIMAL"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="updatePwdTime" column="update_pwd_time" jdbcType="TIMESTAMP"/>
+        <result property="activationTime" column="activation_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,cust_id,tenant_id,
+        account_id,password,account_type,
+        status,create_time,update_time,
+        transited_amount,is_deleted,update_pwd_time,
+        activation_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from customer_financing_account
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from customer_financing_account
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="com.minigod.zero.data.entity.CustomerFinancingAccountEntity" useGeneratedKeys="true">
+        insert into customer_financing_account
+        ( id, cust_id, tenant_id
+        , account_id, password, account_type
+        , status, create_time, update_time
+        , transited_amount, is_deleted, update_pwd_time
+        , activation_time)
+        values ( #{id,jdbcType=BIGINT}, #{custId,jdbcType=BIGINT}, #{tenantId,jdbcType=VARCHAR}
+               , #{accountId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{accountType,jdbcType=INTEGER}
+               , #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+               , #{transitedAmount,jdbcType=DECIMAL}, #{isDeleted,jdbcType=TINYINT}, #{updatePwdTime,jdbcType=TIMESTAMP}
+               , #{activationTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.minigod.zero.data.entity.CustomerFinancingAccountEntity" useGeneratedKeys="true">
+        insert into customer_financing_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="custId != null">cust_id,</if>
+            <if test="tenantId != null">tenant_id,</if>
+            <if test="accountId != null">account_id,</if>
+            <if test="password != null">password,</if>
+            <if test="accountType != null">account_type,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="transitedAmount != null">transited_amount,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="updatePwdTime != null">update_pwd_time,</if>
+            <if test="activationTime != null">activation_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=BIGINT},</if>
+            <if test="custId != null">#{custId,jdbcType=BIGINT},</if>
+            <if test="tenantId != null">#{tenantId,jdbcType=VARCHAR},</if>
+            <if test="accountId != null">#{accountId,jdbcType=VARCHAR},</if>
+            <if test="password != null">#{password,jdbcType=VARCHAR},</if>
+            <if test="accountType != null">#{accountType,jdbcType=INTEGER},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="transitedAmount != null">#{transitedAmount,jdbcType=DECIMAL},</if>
+            <if test="isDeleted != null">#{isDeleted,jdbcType=TINYINT},</if>
+            <if test="updatePwdTime != null">#{updatePwdTime,jdbcType=TIMESTAMP},</if>
+            <if test="activationTime != null">#{activationTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.CustomerFinancingAccountEntity">
+        update customer_financing_account
+        <set>
+            <if test="custId != null">
+                cust_id = #{custId,jdbcType=BIGINT},
+            </if>
+            <if test="tenantId != null">
+                tenant_id = #{tenantId,jdbcType=VARCHAR},
+            </if>
+            <if test="accountId != null">
+                account_id = #{accountId,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="accountType != null">
+                account_type = #{accountType,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="transitedAmount != null">
+                transited_amount = #{transitedAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="updatePwdTime != null">
+                update_pwd_time = #{updatePwdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="activationTime != null">
+                activation_time = #{activationTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.CustomerFinancingAccountEntity">
+        update customer_financing_account
+        set cust_id          = #{custId,jdbcType=BIGINT},
+            tenant_id        = #{tenantId,jdbcType=VARCHAR},
+            account_id       = #{accountId,jdbcType=VARCHAR},
+            password         = #{password,jdbcType=VARCHAR},
+            account_type     = #{accountType,jdbcType=INTEGER},
+            status           = #{status,jdbcType=INTEGER},
+            create_time      = #{createTime,jdbcType=TIMESTAMP},
+            update_time      = #{updateTime,jdbcType=TIMESTAMP},
+            transited_amount = #{transitedAmount,jdbcType=DECIMAL},
+            is_deleted       = #{isDeleted,jdbcType=TINYINT},
+            update_pwd_time  = #{updatePwdTime,jdbcType=TIMESTAMP},
+            activation_time  = #{activationTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="getAccountStatistics" resultType="com.minigod.zero.data.vo.CustomerAccountStatisticsVO">
+        SELECT cr.account_type,
+               cr.registeredCount,
+               cr.openedCount,
+               cr.depositedCount,
+               cr.tradingCount,
+               ROUND((cr.openedCount / NULLIF(cr.registeredCount, 0)) * 100,2)  AS registerToOpenRate, -- 开户用户数(入金的+开户的)/注册用户数(注册的+开户的+入金的) = 注册用户到开户用户的转化率
+               ROUND((cr.depositedCount / NULLIF(cr.openedCount, 0)) * 100,2)   AS openToDepositRate,                     -- 入金用户数转化率(入金用户数/开户用户数)
+               ROUND((cr.tradingCount / NULLIF(cr.depositedCount, 0)) * 100,2)  AS tradingRate,                          -- 交易用户数转化率(交易数/入金用户数)
+               ROUND((cr.tradingCount / NULLIF(cr.registeredCount, 0)) * 100,2) AS totalConversionRate                  -- 整体转化率(交易用户数/注册用户数)
+        FROM (SELECT "个人户、机构户类型"                                                                                                   as account_type,   -- 用户类型(机构户+个人户)
+                     SUM(CASE WHEN status = 4 THEN 1 ELSE 0 END) + SUM(CASE WHEN status = 5 THEN 1 ELSE 0 END) +
+                     SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END)                                                                            as registeredCount,    -- 注册用户数
+                     SUM(CASE WHEN status = 5 THEN 1 ELSE 0 END) +
+                     SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END)                                AS openedCount,         -- 开户用户数(入金用户+预批用户)
+                     (SELECT COUNT( DISTINCT client_id) FROM sec_deposit_funds WHERE `state`=3) AS depositedCount,  -- 入金用户数
+                     (SELECT COUNT(result.extAccountId) FROM (SELECT DISTINCT acc.extAccountId
+                                                              FROM (SELECT DISTINCT tt.subAccountId, t.accountId, t.extAccountId
+                                                                    FROM t_transaction AS tt
+                                                                             LEFT JOIN t_sub_account AS tsa ON tsa.subAccountId = tt.subAccountId
+                                                                             LEFT JOIN t_account AS t ON t.accountId = tsa.accountId
+                                                                    WHERE t.extAccountId IS NOT NULL) AS acc) AS result) AS tradingCount         -- 交易用户数
+              FROM customer_financing_account) AS cr
+    </select>
+    <select id="getCustomerTotalCount" resultType="com.minigod.zero.data.vo.CustomerTotalCountVO">
+        -- 统计已经注册的客户数、开户用户数、入金用户数（status状态值：5.预批户 4.注册户 0.正常户）
+        SELECT
+            SUM(CASE WHEN status = 4 THEN 1 ELSE 0 END) + SUM(CASE WHEN status = 5 THEN 1 ELSE 0 END) +
+            SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END)                                AS registeredCount,     -- 注册用户数
+            SUM(CASE WHEN status = 5 THEN 1 ELSE 0 END) 							   AS preApprovedCount,    -- 预批户用户数
+            SUM(CASE WHEN status = 5 THEN 1 ELSE 0 END) +
+            SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END)                                AS openedCount,         -- 开户用户数(入金用户+预批用户)
+            -- SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END)                             AS depositedCount       -- 入金用户数
+            (SELECT COUNT( DISTINCT client_id) FROM sec_deposit_funds WHERE `state`=3) AS depositedCount       -- 入金用户数
+        FROM customer_financing_account
+    </select>
+
+    <select id="selectByCustId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select * from customer_financing_account where cust_id =#{custId}
+    </select>
+</mapper>

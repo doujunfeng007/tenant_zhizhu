@@ -1,0 +1,22 @@
+jack:  重启zero-bpmn  zero-oms  zero-platform  zero-gateway
+        重启zero-system 2.8.1分支
+--------------------------------------
+---------------zero-gateway-prd.yaml   ----------------
+已有前缀  后面添加该值
+zero:
+  secure:
+    skipUrl:
+      # sendcloud邮件回调地址
+      - /back/receive_from_email_callback
+      - /back/receive_from_sms_callback
+
+-----------------------------------
+# 在sendcloud后台 新增邮件回调地址配置
+https://www.sendcloud.net/sendSetting/webhook
+-http://cloud-api.ifund.live:31075/api/zero-platform/back/receive_from_sendcloud_callback   ------需要prd地址
+
+-----------------
+
+生产 更新zero-starter-sms
+
+------------------

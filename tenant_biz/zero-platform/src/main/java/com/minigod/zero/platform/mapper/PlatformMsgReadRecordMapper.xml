@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.platform.mapper.PlatformMsgReadRecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="msgReadRecordResultMap" type="com.minigod.zero.platform.entity.PlatformMsgReadRecordEntity">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="msg_code" property="msgCode"/>
+        <result column="msg_child_code" property="msgChildCode"/>
+        <result column="read_version" property="readVersion"/>
+        <result column="unread_num" property="unreadNum"/>
+        <result column="lock_version" property="lockVersion"/>
+        <result column="client_type" property="clientType"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <select id="selectPlatformMsgReadRecordPage" resultMap="msgReadRecordResultMap">
+        select * from platform_msg_read_record where is_deleted = 0
+    </select>
+
+    <update id="update" parameterType="com.minigod.zero.platform.entity.PlatformMsgReadRecordEntity">
+        update platform_msg_read_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="msgCode != null">
+                msg_code = #{msgCode},
+            </if>
+            <if test="msgChildCode != null">
+                msg_child_code = #{msgChildCode},
+            </if>
+            <if test="readVersion != null">
+                read_version = #{readVersion},
+            </if>
+            <if test="unreadNum != null">
+                unread_num = #{unreadNum},
+            </if>
+            <if test="lockVersion != null">
+                lock_version = #{lockVersion},
+            </if>
+            <if test="clientType != null">
+                client_type = #{clientType},
+            </if>
+            <if test="updateUser != null">update_user =
+                #{updateUser},
+            </if>
+            <if test="updateTime != null">update_time =
+                #{updateTime},
+            </if>
+            <if test="status != null">`status` =
+                #{status},
+            </if>
+            <if test="isDeleted != null">is_deleted =
+                #{isDeleted},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <insert id="saveMsgReadRecords" parameterType="java.util.List">
+        INSERT INTO
+        platform_msg_read_record(
+        id,
+        user_id,
+        msg_code,
+        msg_child_code,
+        read_version,
+        unread_num,
+        lock_version,
+        client_type,
+        create_user,
+        create_dept,
+        create_time,
+        update_user,
+        update_time,
+        `status`,
+        is_deleted
+        )
+        VALUES
+        <foreach collection="lstMsgReadRecords" item="msgReadRecord" index="index" separator=",">
+        (
+        #{msgReadRecord.id},
+        #{msgReadRecord.userId},
+        #{msgReadRecord.msgCode},
+        #{msgReadRecord.msgChildCode},
+        #{msgReadRecord.readVersion},
+        #{msgReadRecord.unreadNum},
+        #{msgReadRecord.lockVersion},
+        #{msgReadRecord.clientType},
+        #{msgReadRecord.createUser},
+        #{msgReadRecord.createDept},
+        #{msgReadRecord.createTime},
+        #{msgReadRecord.updateUser},
+        #{msgReadRecord.updateTime},
+        #{msgReadRecord.status},
+        #{msgReadRecord.isDeleted}
+        )
+        </foreach>
+    </insert>
+
+
+    <select id="selectByParam" parameterType="com.minigod.zero.platform.entity.PlatformMsgReadRecordEntity"
+            resultMap="msgReadRecordResultMap">
+        select * from platform_msg_read_record
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="msgCode != null and msgCode != ''">
+                and msg_code =#{msgCode}
+            </if>
+            <if test="clientType != null">
+                and client_type =#{clientType}
+            </if>
+        </where>
+    </select>
+
+</mapper>

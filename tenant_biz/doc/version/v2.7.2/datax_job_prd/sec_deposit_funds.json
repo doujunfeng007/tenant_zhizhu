@@ -1,0 +1,152 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "mysqlreader",
+          "parameter": {
+            "username": "BGiv1Nj/RkA62kCvYRpURw==",
+            "password": "jJ1jarzC1lh43N/bEGp/Fw==",
+            "column": [
+              "`id`",
+              "`currency`",
+              "`bank_type`",
+              "`client_id`",
+              "`bank_name`",
+              "`bank_code`",
+              "`fund_account`",
+              "`fund_account_name`",
+              "`deposit_money`",
+              "`inviter`",
+              "`remarks`",
+              "`state`",
+              "`user_id`",
+              "`is_find`",
+              "`charge_money`",
+              "`back_person`",
+              "`back_reason`",
+              "`info`",
+              "`created_time`",
+              "`modify_time`",
+              "`receiving_account`",
+              "`receiving_account_name`",
+              "`receiving_bank_code`",
+              "`receiving_address`",
+              "`receiving_bank_name_cn`",
+              "`receiving_bank_name_en`",
+              "`receiving_bank_address`",
+              "`swift_code`",
+              "`is_reward`",
+              "`act_id`",
+              "`remittance_bank_name`",
+              "`remittance_bank_account`",
+              "`remittance_account_name_en`",
+              "`remittance_bank_code`",
+              "`remittance_bank_id`",
+              "`pushrecved`",
+              "`application_id`",
+              "`err_cnt`",
+              "`edda_application_id`",
+              "`settlement_amt`",
+              "`settlement_dt`",
+              "`banksec_application_id`",
+              "`txn_ref_id`",
+              "`bank_account_category`",
+              "`is_cancel`",
+              "`tenant_id`",
+              "`support_type`",
+              "`remittance_swift_code`"
+            ],
+            "where": "created_time >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY) OR modify_time >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY )",
+            "splitPk": "",
+            "connection": [
+              {
+                "table": [
+                  "sec_deposit_funds"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://10.10.1.20:13049/zero_bpmn?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "username": "x23iAGFtBmYzhTgDDjvFPg==",
+            "password": "sTO8zolMP4HE+FE4/Q/juOlJhAfkZyhMvpevvHYrEc8=",
+            "column": [
+              "`id`",
+              "`currency`",
+              "`bank_type`",
+              "`client_id`",
+              "`bank_name`",
+              "`bank_code`",
+              "`fund_account`",
+              "`fund_account_name`",
+              "`deposit_money`",
+              "`inviter`",
+              "`remarks`",
+              "`state`",
+              "`user_id`",
+              "`is_find`",
+              "`charge_money`",
+              "`back_person`",
+              "`back_reason`",
+              "`info`",
+              "`created_time`",
+              "`modify_time`",
+              "`receiving_account`",
+              "`receiving_account_name`",
+              "`receiving_bank_code`",
+              "`receiving_address`",
+              "`receiving_bank_name_cn`",
+              "`receiving_bank_name_en`",
+              "`receiving_bank_address`",
+              "`swift_code`",
+              "`is_reward`",
+              "`act_id`",
+              "`remittance_bank_name`",
+              "`remittance_bank_account`",
+              "`remittance_account_name_en`",
+              "`remittance_bank_code`",
+              "`remittance_bank_id`",
+              "`pushrecved`",
+              "`application_id`",
+              "`err_cnt`",
+              "`edda_application_id`",
+              "`settlement_amt`",
+              "`settlement_dt`",
+              "`banksec_application_id`",
+              "`txn_ref_id`",
+              "`bank_account_category`",
+              "`is_cancel`",
+              "`tenant_id`",
+              "`support_type`",
+              "`remittance_swift_code`"
+            ],
+            "writeMode": "update",
+            "connection": [
+              {
+                "table": [
+                  "sec_deposit_funds"
+                ],
+                "jdbcUrl": "jdbc:mysql://10.10.1.20:13049/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

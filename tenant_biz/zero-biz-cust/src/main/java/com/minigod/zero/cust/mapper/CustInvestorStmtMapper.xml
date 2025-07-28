@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.cust.mapper.CustInvestorStmtMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="custInvestorStmtResultMap" type="com.minigod.zero.cust.entity.CustInvestorStmtEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="post_type" property="postType"/>
+        <result column="company_name" property="companyName"/>
+        <result column="vocation" property="vocation"/>
+        <result column="post_level" property="postLevel"/>
+        <result column="investor_type" property="investorType"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+
+    <select id="selectCustInvestorStmtPage" resultType="com.minigod.zero.cust.vo.CustInvestorStmtVO">
+        select * from cust_investor_stmt
+        <where>
+            <if test="params.id != null">
+                and id = #{params.id}
+            </if>
+            <if test="params.custId != null">
+                and cust_id = #{params.custId}
+            </if>
+            <if test="params.postType != null">
+                and post_type = #{params.postType}
+            </if>
+            <if test="params.companyName != null and params.companyName != ''">
+                and company_name = #{params.companyName}
+            </if>
+            <if test="params.vocation != null">
+                and vocation = #{params.vocation}
+            </if>
+            <if test="params.postLevel != null">
+                and post_level = #{params.postLevel}
+            </if>
+            <if test="params.investorType != null">
+                and investor_type = #{params.investorType}
+            </if>
+            <if test="params.createTime != null">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.updateTime != null">
+                and update_time = #{params.updateTime}
+            </if>
+            <if test="params.createUser != null">
+                and create_user = #{params.createUser}
+            </if>
+            <if test="params.updateUser != null">
+                and update_user = #{params.updateUser}
+            </if>
+            <if test="params.isDeleted != null">
+                and is_deleted = #{params.isDeleted}
+            </if>
+            <if test="params.status != null">
+                and status = #{params.status}
+            </if>
+            <if test="params.createDept != null">
+                and create_dept = #{params.createDept}
+            </if>
+            <if test="params.custIds != null and params.custIds.size > 0">
+                and cust_id in
+                <foreach collection="params.custIds" item="custId" open="(" separator="," close=")">
+                    #{custId}
+                </foreach>
+            </if>
+        </where>
+        order by update_time desc
+    </select>
+
+
+</mapper>

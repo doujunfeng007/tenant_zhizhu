@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountRiskEvaluationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="acctRiskEvaluationResultMap" type="com.minigod.zero.bpmn.module.account.entity.AccountRiskEvaluationEntity">
+        <result column="id" property="id"/>
+        <result column="questionnaire_id" property="questionnaireId"/>
+        <result column="cust_id" property="custId"/>
+        <result column="subjective_score" property="subjectiveScore"/>
+        <result column="risk_score" property="riskScore"/>
+        <result column="objective_score" property="objectiveScore"/>
+        <result column="option_data" property="optionData"/>
+        <result column="risk_type" property="riskType"/>
+        <result column="expiry_date" property="expiryDate"/>
+        <result column="is_push" property="isPush"/>
+        <result column="retest_sts" property="retestSts"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="selectAcctRiskEvaluationPage" parameterType="com.minigod.zero.bpmn.module.account.dto.AccountRiskEvaluationDTO" resultMap="acctRiskEvaluationResultMap">
+        SELECT id,
+               questionnaire_id,
+               cust_id,
+               subjective_score,
+               risk_score,
+               objective_score,
+               option_data,
+               risk_type,
+               expiry_date,
+               is_push,
+               retest_sts,
+               create_time,
+               update_time
+        FROM acct_risk_evaluation
+        <where>
+            <if test="acctRiskEvaluation.custId!='' and acctRiskEvaluation.custId!=null">
+                AND cust_id = #{acctRiskEvaluation.custId}
+            </if>
+            AND is_deleted = 0
+        </where>
+        ORDER BY update_time DESC
+    </select>
+
+    <select id="selectNewRiskLevelByCustId" parameterType="java.lang.Long" resultMap="acctRiskEvaluationResultMap">
+        SELECT id,
+               questionnaire_id,
+               cust_id,
+               subjective_score,
+               risk_score,
+               objective_score,
+               option_data,
+               risk_type,
+               expiry_date,
+               is_push,
+               retest_sts,
+               create_time,
+               update_time
+        FROM acct_risk_evaluation
+        WHERE is_deleted = 0
+          AND cust_id = #{custId}
+        ORDER BY create_time DESC limit 1
+    </select>
+
+
+</mapper>

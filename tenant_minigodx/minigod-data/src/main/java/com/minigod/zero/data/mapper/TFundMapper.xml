@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.TFundMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.TFund">
+            <id property="productid" column="productId" jdbcType="BIGINT"/>
+            <result property="afbcode" column="afbCode" jdbcType="VARCHAR"/>
+            <result property="productcode" column="productCode" jdbcType="VARCHAR"/>
+            <result property="isin" column="isin" jdbcType="VARCHAR"/>
+            <result property="mstarid" column="mstarId" jdbcType="VARCHAR"/>
+            <result property="performanceid" column="performanceId" jdbcType="VARCHAR"/>
+            <result property="mstarfundid" column="mstarFundId" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="legalname" column="legalName" jdbcType="VARCHAR"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="custodiancurrency" column="custodianCurrency" jdbcType="VARCHAR"/>
+            <result property="sedol" column="sedol" jdbcType="VARCHAR"/>
+            <result property="citicode" column="citiCode" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="TINYINT"/>
+            <result property="mstarcategoryid" column="mstarCategoryId" jdbcType="VARCHAR"/>
+            <result property="risklevel" column="riskLevel" jdbcType="TINYINT"/>
+            <result property="domicile" column="domicile" jdbcType="VARCHAR"/>
+            <result property="launchdate" column="launchDate" jdbcType="VARCHAR"/>
+            <result property="fundsize" column="fundSize" jdbcType="VARCHAR"/>
+            <result property="fundsizecurrency" column="fundSizeCurrency" jdbcType="VARCHAR"/>
+            <result property="fundsizeenddate" column="fundSizeEndDate" jdbcType="DATE"/>
+            <result property="incometype" column="incomeType" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="branding" column="branding" jdbcType="VARCHAR"/>
+            <result property="brandingid" column="brandingId" jdbcType="INTEGER"/>
+            <result property="companyid" column="companyId" jdbcType="INTEGER"/>
+            <result property="investmentstrategyen" column="investmentStrategyEn" jdbcType="VARCHAR"/>
+            <result property="investmentstrategycn" column="investmentStrategyCn" jdbcType="VARCHAR"/>
+            <result property="investmentstrategytw" column="investmentStrategyTw" jdbcType="VARCHAR"/>
+            <result property="recommenden" column="recommendEn" jdbcType="VARCHAR"/>
+            <result property="recommendcn" column="recommendCn" jdbcType="VARCHAR"/>
+            <result property="recommendtw" column="recommendTw" jdbcType="VARCHAR"/>
+            <result property="primarybenchmarkid" column="primaryBenchmarkId" jdbcType="VARCHAR"/>
+            <result property="primarybenchmarkname" column="primaryBenchmarkName" jdbcType="VARCHAR"/>
+            <result property="primarybenchmarkweight" column="primaryBenchmarkWeight" jdbcType="VARCHAR"/>
+            <result property="purchasesettlementdays" column="purchaseSettlementDays" jdbcType="INTEGER"/>
+            <result property="repurchasesettlementdays" column="rePurchaseSettlementDays" jdbcType="INTEGER"/>
+            <result property="daystosettlementtype" column="daysToSettlementType" jdbcType="VARCHAR"/>
+            <result property="dividendtype" column="dividendType" jdbcType="TINYINT"/>
+            <result property="dividendfrequency" column="dividendFrequency" jdbcType="TINYINT"/>
+            <result property="dividendyield" column="dividendYield" jdbcType="DECIMAL"/>
+            <result property="dividendyieldenddate" column="dividendYieldEndDate" jdbcType="DATE"/>
+            <result property="annualmanagementfee" column="annualManagementFee" jdbcType="DECIMAL"/>
+            <result property="actualmanagementfee" column="actualManagementFee" jdbcType="DECIMAL"/>
+            <result property="maxmanagementfee" column="maxManagementFee" jdbcType="DECIMAL"/>
+            <result property="subscriptionfee" column="subscriptionFee" jdbcType="DECIMAL"/>
+            <result property="redemptionfee" column="redemptionFee" jdbcType="DECIMAL"/>
+            <result property="performancefee" column="performanceFee" jdbcType="DECIMAL"/>
+            <result property="gainsfee" column="gainsFee" jdbcType="DECIMAL"/>
+            <result property="distributionfee" column="distributionFee" jdbcType="DECIMAL"/>
+            <result property="depositfee" column="depositFee" jdbcType="DECIMAL"/>
+            <result property="administrationfee" column="administrationFee" jdbcType="DECIMAL"/>
+            <result property="totalfee" column="totalFee" jdbcType="DECIMAL"/>
+            <result property="hascorporateaction" column="hasCorporateAction" jdbcType="TINYINT"/>
+            <result property="hasdividend" column="hasDividend" jdbcType="TINYINT"/>
+            <result property="hasbreakdown" column="hasBreakdown" jdbcType="TINYINT"/>
+            <result property="hasdocument" column="hasDocument" jdbcType="TINYINT"/>
+            <result property="piflag" column="piFlag" jdbcType="TINYINT"/>
+            <result property="trackingerror12months" column="trackingError12Months" jdbcType="VARCHAR"/>
+            <result property="distributionrate" column="distributionRate" jdbcType="VARCHAR"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="lastupdatedby" column="lastUpdatedBy" jdbcType="VARCHAR"/>
+            <result property="privatedatamarket" column="privateDataMarket" jdbcType="VARCHAR"/>
+            <result property="dastatus" column="daStatus" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        productId,afbCode,productCode,
+        isin,mstarId,performanceId,
+        mstarFundId,name,legalName,
+        currency,custodianCurrency,sedol,
+        citiCode,type,mstarCategoryId,
+        riskLevel,domicile,launchDate,
+        fundSize,fundSizeCurrency,fundSizeEndDate,
+        incomeType,status,branding,
+        brandingId,companyId,investmentStrategyEn,
+        investmentStrategyCn,investmentStrategyTw,recommendEn,
+        recommendCn,recommendTw,primaryBenchmarkId,
+        primaryBenchmarkName,primaryBenchmarkWeight,purchaseSettlementDays,
+        rePurchaseSettlementDays,daysToSettlementType,dividendType,
+        dividendFrequency,dividendYield,dividendYieldEndDate,
+        annualManagementFee,actualManagementFee,maxManagementFee,
+        subscriptionFee,redemptionFee,performanceFee,
+        gainsFee,distributionFee,depositFee,
+        administrationFee,totalFee,hasCorporateAction,
+        hasDividend,hasBreakdown,hasDocument,
+        piFlag,trackingError12Months,distributionRate,
+        createTime,updateTime,lastUpdatedBy,
+        privateDataMarket,daStatus
+    </sql>
+</mapper>

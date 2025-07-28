@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.withdraw.mapper.ClientBankInfoMapper">
+
+    <resultMap type="com.minigod.zero.bpmn.module.withdraw.entity.ClientBankInfo" id="ClientBankInfoResult">
+        <result property="id" column="id"/>
+        <result property="bankCode" column="bank_code"/>
+        <result property="bankName" column="bank_name"/>
+        <result property="bankNameEn" column="bank_name_en"/>
+        <result property="swiftCode" column="swift_code"/>
+        <result property="bankId" column="bank_id"/>
+        <result property="bankAreaType" column="bank_area_type"/>
+        <result property="withdrawType" column="withdraw_type"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUser" column="create_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUser" column="update_user"/>
+<result property="isDeleted" column="is_deleted"/>
+ <result property="createDept" column="create_dept"/>
+ <result property="status" column="status"/>
+    </resultMap>
+
+</mapper>

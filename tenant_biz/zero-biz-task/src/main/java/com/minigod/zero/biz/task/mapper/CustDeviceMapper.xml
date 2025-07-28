@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.biz.task.mapper.CustDeviceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="CustDeviceResultMap" type="com.minigod.zero.cust.entity.CustDeviceEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="guest_flag" property="guestFlag"/>
+        <result column="device_type" property="deviceType"/>
+        <result column="device_model" property="deviceModel"/>
+        <result column="os_type" property="osType"/>
+        <result column="os_version" property="osVersion"/>
+        <result column="app_version" property="appVersion"/>
+        <result column="device_name" property="deviceName"/>
+        <result column="device_code" property="deviceCode"/>
+        <result column="open_token" property="openToken"/>
+        <result column="open_code" property="openCode"/>
+        <result column="channel" property="channel"/>
+        <result column="auth_flag" property="authFlag"/>
+        <result column="push_config" property="pushConfig"/>
+        <result column="config_update_time" property="configUpdateTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="lang" property="lang"/>
+    </resultMap>
+
+</mapper>

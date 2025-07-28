@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.deposit.mapper.SecDepositFundsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="baseResultMap" type="com.minigod.zero.bpmn.module.deposit.entity.SecDepositFundsEntity">
+        <result column="id" property="id"/>
+        <result column="currency" property="currency"/>
+        <result column="bank_type" property="bankType"/>
+        <result column="client_id" property="clientId"/>
+        <result column="bank_name" property="bankName"/>
+        <result column="bank_code" property="bankCode"/>
+        <result column="deposit_money" property="depositMoney"/>
+        <result column="inviter" property="inviter"/>
+        <result column="remarks" property="remarks"/>
+        <result column="state" property="state"/>
+        <result column="user_id" property="userId"/>
+        <result column="is_find" property="isFind"/>
+        <result column="charge_money" property="chargeMoney"/>
+        <result column="back_person" property="backPerson"/>
+        <result column="back_reason" property="backReason"/>
+        <result column="info" property="info"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="modify_time" property="modifyTime"/>
+        <result column="swift_code" property="swiftCode"/>
+        <result column="is_reward" property="isReward"/>
+        <result column="act_id" property="actId"/>
+        <result column="remittance_bank_name" property="remittanceBankName"/>
+        <result column="remittance_bank_account" property="remittanceBankAccount"/>
+        <result column="remittance_account_name_en" property="remittanceAccountNameEn"/>
+        <result column="pushrecved" property="pushrecved"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="err_cnt" property="errCnt"/>
+        <result column="remittance_bank_id" property="remittanceBankId"/>
+        <result column="edda_application_id" property="eddaApplicationId"/>
+        <result column="settlement_amt" property="settlementAmt"/>
+        <result column="settlement_dt" property="settlementDt"/>
+        <result column="banksec_application_id" property="banksecApplicationId"/>
+        <result column="txn_ref_id" property="txnRefId"/>
+        <result column="bank_account_category" property="bankAccountCategory"/>
+        <result column="is_cancel" property="isCancel"/>
+        <result column="tenant_id" property="tenantId"/>
+    </resultMap>
+
+
+    <select id="selectSecDepositFundsPage" resultMap="baseResultMap">
+        select * from sec_deposit_funds
+    </select>
+    <select id="allDepositFunds" resultType="com.minigod.zero.bpmn.module.deposit.vo.MoneySumVO">
+        select
+            coalesce(sum(if(currency = 1,deposit_money,0)),0)  `hk`,
+            coalesce(sum(if(currency = 2,deposit_money,0)),0) `dollar`
+        from sec_deposit_funds where state = 3 and currency in (1,2)
+                                 and user_id = #{param1} and tenant_id = #{param2}
+    </select>
+
+
+    <select id="queryPage" parameterType="java.lang.Object" resultType="com.minigod.zero.bpmn.module.deposit.vo.DepositRecordVO">
+        select
+            sdf.application_id as applicationId,
+            cfda.status as status,
+            sdf.user_id as custId,
+            sdf.client_id as clientId,
+            sdf.fund_account_name as custName,
+            sdf.support_type as remittanceType,
+            sdf.remittance_bank_name as remittanceBankName,
+            sdf.bank_type as bankType,
+            sdf.remittance_bank_account as remittanceAccount,
+            sdf.fund_account_name as remittanceAccountName,
+            sdf.deposit_money as depositBalance,
+            sdf.currency as moneyType,
+            sdf.receiving_bank_name_cn as receivingBankName,
+            sdf.receiving_account as receivingAccount,
+            sdf.receiving_account_name as receivingAccountName,
+            sdf.swift_code as swiftCode,
+            cfda.create_time as  applicationTime,
+            sdf.settlement_dt as settlementDt,
+            sdf.settlement_amt as settlementAmt,
+            cfda.assign_drafter as assignDrafter
+        from sec_deposit_funds as sdf
+        left join client_fund_deposit_application as cfda on cfda.application_id = sdf.application_id
+        <where>
+            <if test="applicationQuery.applicationId != null and applicationQuery.applicationId !=''">
+                and sdf.application_id = #{applicationQuery.applicationId}
+            </if>
+            <if test="applicationQuery.customerWord != null and applicationQuery.customerWord != ''">
+                and (
+                    sdf.client_id = #{applicationQuery.customerWord}
+                    or sdf.user_id = #{applicationQuery.customerWord}
+                    or sdf.fund_account_name = #{applicationQuery.customerWord}
+                )
+            </if>
+            <if test="applicationQuery.remittanceWord != null and applicationQuery.remittanceWord != ''">
+                and (
+                    sdf.remittance_bank_name = #{applicationQuery.remittanceWord}
+                    or sdf.remittance_bank_account = #{applicationQuery.remittanceWord}
+                )
+            </if>
+            <if test="applicationQuery.remittanceBankName != null and applicationQuery.remittanceBankName != ''">
+                and sdf.remittance_bank_name LIKE concat('%',#{applicationQuery.remittanceBankName},'%')
+            </if>
+            <if test="applicationQuery.remittanceAccount != null and applicationQuery.remittanceAccount != ''">
+                and sdf.remittance_bank_account LIKE concat('%',#{applicationQuery.remittanceAccount},'%')
+            </if>
+            <if test="applicationQuery.applicationStatus != null">
+                and cfda.status = #{applicationQuery.applicationStatus}
+            </if>
+            <if test="applicationQuery.remittanceType != null">
+                and sdf.support_type = #{applicationQuery.remittanceType}
+            </if>
+            <if test="applicationQuery.moneyType != null">
+                and sdf.currency = #{applicationQuery.moneyType}
+            </if>
+            <if test="applicationQuery.clientName != null and applicationQuery.clientName != ''">
+                and sdf.fund_account_name LIKE concat('%',#{applicationQuery.clientName},'%')
+            </if>
+            <if test="applicationQuery.beginApplicationDate != null and applicationQuery.beginApplicationDate != ''">
+                and sdf.created_time &gt;= #{applicationQuery.beginApplicationDate}
+            </if>
+            <if test="applicationQuery.endApplicationDate != null and applicationQuery.endApplicationDate != ''">
+                and sdf.created_time &lt;= #{applicationQuery.endApplicationDate}
+            </if>
+        </where>
+        order by sdf.created_time desc
+    </select>
+
+    <select id="queryReportPage" parameterType="java.lang.Object" resultType="com.minigod.zero.bpmn.module.report.vo.DepositAndWithdrawalFundsReportVO">
+        select * from (
+          select
+                 sdf.application_id                                                          as applicationId,
+                 sdf.created_time                                                            as createTime,
+                 sdf.client_id                                                               as clientId,
+                 sdf.fund_account_name                                                       as clientName,
+                 sdf.support_type                                                            as supportType,
+                 case   when sdf.currency = 1 then 'HKD'
+                        when sdf.currency = 2 then 'USD'
+                        when sdf.currency = 3 then 'CNY'
+                        else sdf.currency end                                                as currency,
+                 sdf.deposit_money                                                           as amount,
+                 case when support_type = 6 then '系统' else cfda.last_approval_user end as operatorName,
+                 case when support_type = 6 then ceifa.bank_state else cfda.status end       as status,
+                 1                                                                           as type
+          from sec_deposit_funds as sdf
+          left join client_fund_deposit_application as cfda on cfda.application_id = sdf.application_id
+          left join client_edda_fund_application as ceifa on ceifa.application_id = sdf.application_id
+          <where>
+            <if test="startTime != null and startTime !=''">
+                and sdf.created_time &gt;= STR_TO_DATE(#{startTime},'%Y-%m-%d %H:%i:%s')
+            </if>
+            <if test="endTime != null and endTime !=''">
+                and sdf.created_time &lt;= STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')
+            </if>
+            <if test="clientId != null and clientId != ''">
+                and sdf.client_id = #{clientId}
+            </if>
+            <if test="currency != null and currency != ''">
+                and sdf.currency = #{currency}
+            </if>
+
+
+          </where>
+          union all
+          select
+                 cfwa.application_id                                                         as applicationId,
+                 cfwa.create_time                                                            as createTime,
+                 cfwi.client_id                                                              as clientId,
+                 cfwi.client_name                                                            as clientName,
+                 cfwi.transfer_type                                                          as supportType,
+                 cfwi.ccy                                                                    as currency,
+                 cfwi.actual_amount                                                          as amount,
+                 cfwa.last_approval_user                                                     as operatorName,
+                 cfwa.status                                                                 as status,
+                 2                                                                           as type
+          from client_fund_withdraw_application as cfwa
+          left join client_fund_withdraw_info as cfwi on cfwi.application_id = cfwa.application_id
+        <where>
+            <if test="startTime != null and startTime !=''">
+                and cfwa.create_time &gt;= STR_TO_DATE(#{startTime},'%Y-%m-%d %H:%i:%s')
+            </if>
+            <if test="endTime != null and endTime !=''">
+                and cfwa.create_time &lt;= STR_TO_DATE(#{endTime},'%Y-%m-%d %H:%i:%s')
+            </if>
+            <if test="clientId != null and clientId != ''">
+                and cfwi.client_id = #{clientId}
+            </if>
+            <if test="currency != null and currency == 1">
+                and cfwi.ccy    = 'HKD'
+            </if>
+            <if test="currency != null and currency == 2">
+                and cfwi.ccy    = 'USD'
+            </if>
+            <if test="currency != null and currency == 3">
+                and cfwi.ccy    = 'CNY'
+            </if>
+            <if test="withdrawalStatus != null">
+                and cfwa.status = #{withdrawalStatus}
+            </if>
+
+        </where>
+        ) as result
+        <where>
+            <if test="applicationIdList != null">
+                and result.applicationId in (
+                    <foreach collection="applicationIdList" item="applicationId" separator=",">
+                        #{applicationId}
+                    </foreach>
+                )
+            </if>
+
+            <if test="withdrawalStatus != null">
+                and result.status = #{withdrawalStatus}
+            </if>
+            <if test="depositStatus != null">
+                and result.status = #{depositStatus}
+            </if>
+            <if test="type != null">
+                and result.type = #{type}
+            </if>
+        </where>
+        order by result.createTime desc
+    </select>
+
+
+    <select id="queryDepositRecordDetail" parameterType="java.lang.Object" resultType="com.minigod.zero.bpmn.module.deposit.vo.DepositRecordVO">
+        select
+            cfda.application_id as applicationId,
+            cfda.status as status,
+            sdf.user_id as custId,
+            sdf.client_id as clientId,
+            sdf.fund_account_name as custName,
+            sdf.support_type as remittanceType,
+            sdf.remittance_bank_name as remittanceBankName,
+            sdf.bank_type as bankType,
+            sdf.remittance_bank_account as remittanceAccount,
+            sdf.fund_account_name as remittanceAccountName,
+            sdf.deposit_money as depositBalance,
+            sdf.currency as moneyType,
+            sdf.receiving_bank_name_cn as receivingBankName,
+            sdf.receiving_account as receivingAccount,
+            sdf.receiving_account_name as receivingAccountName,
+            sdf.swift_code as swiftCode,
+            cfda.create_time as  applicationTime,
+            sdf.settlement_dt as settlementDt,
+            sdf.settlement_amt as settlementAmt,
+            cfda.deploy_id as deployId,
+            cfda.instance_id as instanceId,
+            cfda.definition_id as definitionId
+        from sec_deposit_funds as sdf
+        left join client_fund_deposit_application as cfda on cfda.application_id = sdf.application_id
+        where cfda.application_id = #{applicationId}
+    </select>
+
+
+    <update id="updateSettlementTimeByApplicationId" parameterType="java.lang.Object">
+        update sec_deposit_funds set settlement_dt  = #{time} where application_id = #{applicationId}
+    </update>
+</mapper>

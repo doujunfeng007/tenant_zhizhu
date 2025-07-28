@@ -1,0 +1,10 @@
+#服务器端口
+server:
+  port: 8002
+
+#数据源配置
+spring:
+  datasource:
+    url: ${zero.datasource.dev.url}
+    username: ${zero.datasource.dev.username}
+    password: ${zero.datasource.dev.password}

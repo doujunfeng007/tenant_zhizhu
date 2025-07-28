@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.withdraw.mapper.BankBranchInfoMapper">
+
+    <resultMap type="com.minigod.zero.bpmn.module.withdraw.entity.BankBranchInfo" id="BankBranchInfoResult">
+                <result property="id" column="id"/>
+                <result property="branchCode" column="branch_code"/>
+                <result property="branchName" column="branch_name"/>
+                <result property="address" column="address"/>
+                <result property="status" column="status"/>
+                <result property="createTime" column="create_time"/>
+                <result property="createUser" column="create_user"/>
+                <result property="updateTime" column="update_time"/>
+                <result property="updateUser" column="update_user"/>
+<result property="isDeleted" column="is_deleted"/>
+ <result property="createDept" column="create_dept"/>
+ <result property="status" column="status"/>
+    </resultMap>
+
+
+    <sql id="selectBankBranchInfoVo">
+        select id, branch_code, branch_name, address, status, create_time, create_user, update_time, update_user from bank_branch_info
+    </sql>
+
+    <select id="selectBankBranchInfoList" parameterType="BankBranchInfo" resultMap="BankBranchInfoResult">
+        <include refid="selectBankBranchInfoVo"/>
+        <where>
+            <if test="branchCode != null  and branchCode != ''"> and branch_code = #{branchCode}</if>
+            <if test="branchName != null  and branchName != ''"> and branch_name like concat('%', #{branchName}, '%')</if>
+            <if test="address != null  and address != ''"> and address = like concat('%', #{address}, '%')</if>
+            <if test="status != null "> and status = #{status}</if>
+        </where>
+    </select>
+
+    <select id="selectBankBranchInfoByid" parameterType="Long" resultMap="BankBranchInfoResult">
+            <include refid="selectBankBranchInfoVo"/>
+            where id = #{id}
+    </select>
+
+    <insert id="insertBankBranchInfo" parameterType="BankBranchInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into bank_branch_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="branchCode != null and branchCode != ''">branch_code,</if>
+                    <if test="branchName != null and branchName != ''">branch_name,</if>
+                    <if test="address != null and address != ''">address,</if>
+                    <if test="status != null">status,</if>
+                    <if test="createTime != null">create_time,</if>
+                    <if test="createUser != null">create_user,</if>
+                    <if test="updateTime != null">update_time,</if>
+                    <if test="updateUser != null">update_user,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="branchCode != null and branchCode != ''">#{branchCode},</if>
+                    <if test="branchName != null and branchName != ''">#{branchName},</if>
+                    <if test="address != null and address != ''">#{address},</if>
+                    <if test="status != null">#{status},</if>
+                    <if test="createTime != null">#{createTime},</if>
+                    <if test="createUser != null">#{createUser},</if>
+                    <if test="updateTime != null">#{updateTime},</if>
+                    <if test="updateUser != null">#{updateUser},</if>
+        </trim>
+    </insert>
+
+    <update id="updateBankBranchInfo" parameterType="BankBranchInfo">
+        update bank_branch_info
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="branchCode != null and branchCode != ''">branch_code = #{branchCode},</if>
+                    <if test="branchName != null and branchName != ''">branch_name = #{branchName},</if>
+                    <if test="address != null and address != ''">address = #{address},</if>
+                    <if test="status != null">status = #{status},</if>
+                    <if test="createTime != null">create_time = #{createTime},</if>
+                    <if test="createUser != null">create_user = #{createUser},</if>
+                    <if test="updateTime != null">update_time = #{updateTime},</if>
+                    <if test="updateUser != null">update_user = #{updateUser},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBankBranchInfoByid" parameterType="Long">
+        delete from bank_branch_info where id = #{id}
+    </delete>
+
+    <delete id="deleteBankBranchInfoByids" parameterType="String">
+        delete from bank_branch_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+</mapper>

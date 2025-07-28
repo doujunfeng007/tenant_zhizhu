@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.PlatformSysMsgMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="platformSysMsgResultMap" type="com.minigod.zero.platform.entity.PlatformSysMsgEntity">
+        <result column="id" property="id"/>
+        <result column="msg_type" property="msgType"/>
+        <result column="msg_level" property="msgLevel"/>
+        <result column="temp_code" property="tempCode"/>
+        <result column="title" property="title"/>
+        <result column="title_en" property="titleEn"/>
+        <result column="title_hant" property="titleHant"/>
+        <result column="content" property="content"/>
+        <result column="content_hant" property="contentHant"/>
+        <result column="content_en" property="contentEn"/>
+        <result column="client_type" property="clientType"/>
+        <result column="msg_group" property="msgGroup"/>
+        <result column="target_id" property="targetId"/>
+        <result column="send_type" property="sendType"/>
+        <result column="send_way" property="sendWay"/>
+        <result column="send_time" property="sendTime"/>
+        <result column="send_status" property="sendStatus"/>
+        <result column="retry_cnt" property="retryCnt"/>
+        <result column="opr_id" property="oprId"/>
+        <result column="opr_name" property="oprName"/>
+        <result column="url" property="url"/>
+        <result column="upd_version" property="updVersion"/>
+        <result column="pop_flag" property="popFlag"/>
+        <result column="pop_invalid_time" property="popInvalidTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <select id="selectPlatformSysMsgPage" resultMap="platformSysMsgResultMap">
+        select * from platform_sys_msg where is_deleted = 0
+    </select>
+
+    <insert id="saveSysMsgBatch" parameterType="java.util.List">
+        INSERT INTO
+        platform_sys_msg(
+        id,
+        msg_type,
+        msg_level,
+        temp_code,
+        title,
+        title_en,
+        title_hant,
+        content,
+        content_hant,
+        content_en,
+        client_type,
+        msg_group,
+        target_id,
+        send_type,
+        send_way,
+        send_time,
+        send_status,
+        retry_cnt,
+        opr_id,
+        opr_name,
+        url,
+        upd_version,
+        pop_flag,
+        pop_invalid_time,
+        update_user,
+        update_time,
+        `status`,
+        is_deleted
+        )
+        VALUES
+        <foreach collection="sysMsgs" item="sysMsg" index="index" separator=",">
+            (
+            #{sysMsg.id},
+            #{sysMsg.msgType},
+            #{sysMsg.msgLevel},
+            #{sysMsg.tempCode},
+            #{sysMsg.title},
+            #{sysMsg.titleEn},
+            #{sysMsg.titleHant},
+            #{sysMsg.content},
+            #{sysMsg.contentHant},
+            #{sysMsg.contentEn},
+            #{sysMsg.clientType},
+            #{sysMsg.msgGroup},
+            #{sysMsg.targetId},
+            #{sysMsg.sendType},
+            #{sysMsg.sendWay},
+            #{sysMsg.sendTime},
+            #{sysMsg.sendStatus},
+            #{sysMsg.retryCnt},
+            #{sysMsg.oprId},
+            #{sysMsg.oprName},
+            #{sysMsg.url},
+            #{sysMsg.updVersion},
+            #{sysMsg.popFlag},
+            #{sysMsg.popInvalidTime},
+            #{sysMsg.updateUser},
+            #{sysMsg.updateTime},
+            #{sysMsg.status},
+            #{sysMsg.isDeleted}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

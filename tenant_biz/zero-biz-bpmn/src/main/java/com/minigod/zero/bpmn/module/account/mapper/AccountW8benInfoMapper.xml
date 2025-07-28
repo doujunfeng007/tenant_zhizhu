@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountW8benInfoMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_w8ben_infoResultMap" type="com.minigod.zero.bpmn.module.account.entity.AccountW8benInfoEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="w8_individual_name" property="w8IndividualName"/>
+        <result column="w8_citizenship_country" property="w8CitizenshipCountry"/>
+        <result column="w8_permanent_residence_address" property="w8PermanentResidenceAddress"/>
+        <result column="w8_permanent_residence_address_country" property="w8PermanentResidenceAddressCountry"/>
+        <result column="w8_permanent_residence_province_city_county" property="w8PermanentResidenceProvinceCityCounty"/>
+        <result column="w8_foreign_tax_identifying_number" property="w8ForeignTaxIdentifyingNumber"/>
+        <result column="w8_birth_day" property="w8BirthDay"/>
+        <result column="w8_treat_benefits" property="w8TreatBenefits"/>
+        <result column="w8_treat_benefits_country" property="w8TreatBenefitsCountry"/>
+        <result column="w8_mailing_address_country" property="w8MailingAddressCountry"/>
+        <result column="w8_mailing_address_province_city_county" property="w8MailingAddressProvinceCityCounty"/>
+        <result column="w8_mailing_address" property="w8MailingAddress"/>
+        <result column="tax_compliance_one" property="taxComplianceOne"/>
+        <result column="tax_compliance_two" property="taxComplianceTwo"/>
+    </resultMap>
+    <resultMap id="account_w8ben_infoResultMapVo" type="com.minigod.zero.bpmn.module.account.vo.AccountW8benInfoVO"
+               extends="account_w8ben_infoResultMap">
+    </resultMap>
+    <select id="queryByApplicationId" resultMap="account_w8ben_infoResultMapVo">
+        select *
+        from open_account_w8ben_info
+        where application_id = #{applicationId}
+    </select>
+    <delete id="deleteByApplicationId">
+        delete
+        from open_account_w8ben_info
+        where application_id = #{applicationId}
+    </delete>
+</mapper>

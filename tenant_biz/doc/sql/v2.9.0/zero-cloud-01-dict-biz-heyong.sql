@@ -1,0 +1,12 @@
+SELECT *FROM zero_cloud.zero_dict_biz WHERE `code`='WITHDRAW_TRANSFER_TYPE' AND tenant_id='000000';
+
+DELETE FROM zero_cloud.zero_dict_biz WHERE `code`='WITHDRAW_TRANSFER_TYPE' AND tenant_id='000000';
+
+
+INSERT INTO `zero_cloud`.`zero_dict_biz` (`id`, `tenant_id`, `parent_id`, `code`, `dict_key`, `dict_value`, `dict_key_hk`, `dict_value_hk`, `dict_key_en`, `dict_value_en`, `sort`, `remark`, `is_sealed`, `is_deleted`) VALUES (1792916751305311115, '000000', 0, 'WITHDRAW_TRANSFER_TYPE', '-1', '出金转账方式', '-1', '出金转账方式', '-1', 'Withdrawal and transfer methods', 0, '出金转账方式', 0, 0);
+INSERT INTO `zero_cloud`.`zero_dict_biz` (`id`, `tenant_id`, `parent_id`, `code`, `dict_key`, `dict_value`, `dict_key_hk`, `dict_value_hk`, `dict_key_en`, `dict_value_en`, `sort`, `remark`, `is_sealed`, `is_deleted`) VALUES (1792916859329611116, '000000', 1792916751305311115, 'WITHDRAW_TRANSFER_TYPE', '1', '电汇至香港以外银行', '1', '電匯至香港以外銀行', '1', 'TT Transfer to Overseas Bank', 1, NULL, 0, 0);
+INSERT INTO `zero_cloud`.`zero_dict_biz` (`id`, `tenant_id`, `parent_id`, `code`, `dict_key`, `dict_value`, `dict_key_hk`, `dict_value_hk`, `dict_key_en`, `dict_value_en`, `sort`, `remark`, `is_sealed`, `is_deleted`) VALUES (1792916931857511117, '000000', 1792916751305311115, 'WITHDRAW_TRANSFER_TYPE', '2', '香港银行普通转账', '2', '香港銀行普通轉賬', '2', 'Normal Transfer', 2, NULL, 0, 0);
+INSERT INTO `zero_cloud`.`zero_dict_biz` (`id`, `tenant_id`, `parent_id`, `code`, `dict_key`, `dict_value`, `dict_key_hk`, `dict_value_hk`, `dict_key_en`, `dict_value_en`, `sort`, `remark`, `is_sealed`, `is_deleted`) VALUES (1792916977491511118, '000000', 1792916751305311115, 'WITHDRAW_TRANSFER_TYPE', '3', '香港银行本地转账', '3', '香港銀行本地轉賬', '3', 'RTGS/CHATS payment', 3, NULL, 0, 0);
+INSERT INTO `zero_cloud`.`zero_dict_biz` (`id`, `tenant_id`, `parent_id`, `code`, `dict_key`, `dict_value`, `dict_key_hk`, `dict_value_hk`, `dict_key_en`, `dict_value_en`, `sort`, `remark`, `is_sealed`, `is_deleted`) VALUES (1792917035582611119, '000000', 1792916751305311115, 'WITHDRAW_TRANSFER_TYPE', '4', '支票', '4', '支票', '4', 'Cheque', 4, NULL, 0, 0);
+INSERT INTO `zero_cloud`.`zero_dict_biz` (`id`, `tenant_id`, `parent_id`, `code`, `dict_key`, `dict_value`, `dict_key_hk`, `dict_value_hk`, `dict_key_en`, `dict_value_en`, `sort`, `remark`, `is_sealed`, `is_deleted`) VALUES (1792917307641911120, '000000', 1792916751305311115, 'WITHDRAW_TRANSFER_TYPE', '5', 'FPSID', '5', 'FPSID', '5', 'FPSID', 5, NULL, 0, 0);
+

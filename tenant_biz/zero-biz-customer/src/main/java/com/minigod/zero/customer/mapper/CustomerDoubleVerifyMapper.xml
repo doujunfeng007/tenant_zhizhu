@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerDoubleVerifyMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerDoubleVerify">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="custId" column="cust_id" jdbcType="BIGINT"/>
+            <result property="lastDatetime" column="last_datetime" jdbcType="TIMESTAMP"/>
+            <result property="equipmentNum" column="equipment_num" jdbcType="VARCHAR"/>
+            <result property="selectedType" column="selected_type" jdbcType="TINYINT"/>
+            <result property="createUser" column="create_user" jdbcType="BIGINT"/>
+            <result property="createDept" column="create_dept" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateUser" column="update_user" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,cust_id,last_datetime,
+        equipment_num,selected_type,create_user,
+        create_dept,create_time,update_user,
+        update_time,status,is_deleted
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_double_verify
+        where  id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from customer_double_verify
+        where  id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerDoubleVerify" useGeneratedKeys="true">
+        insert into customer_double_verify
+        ( id,cust_id,last_datetime
+        ,equipment_num,selected_type,create_user
+        ,create_dept,create_time,update_user
+        ,update_time,status,is_deleted
+        )
+        values (#{id,jdbcType=BIGINT},#{custId,jdbcType=BIGINT},#{lastDatetime,jdbcType=TIMESTAMP}
+        ,#{equipmentNum,jdbcType=VARCHAR},#{selectedType,jdbcType=TINYINT},#{createUser,jdbcType=BIGINT}
+        ,#{createDept,jdbcType=BIGINT},#{createTime,jdbcType=TIMESTAMP},#{updateUser,jdbcType=BIGINT}
+        ,#{updateTime,jdbcType=TIMESTAMP},#{status,jdbcType=TINYINT},#{isDeleted,jdbcType=TINYINT}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerDoubleVerify" useGeneratedKeys="true">
+        insert into customer_double_verify
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="custId != null">cust_id,</if>
+                <if test="lastDatetime != null">last_datetime,</if>
+                <if test="equipmentNum != null">equipment_num,</if>
+                <if test="selectedType != null">selected_type,</if>
+                <if test="createUser != null">create_user,</if>
+                <if test="createDept != null">create_dept,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateUser != null">update_user,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="status != null">status,</if>
+                <if test="isDeleted != null">is_deleted,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="custId != null">#{custId,jdbcType=BIGINT},</if>
+                <if test="lastDatetime != null">#{lastDatetime,jdbcType=TIMESTAMP},</if>
+                <if test="equipmentNum != null">#{equipmentNum,jdbcType=VARCHAR},</if>
+                <if test="selectedType != null">#{selectedType,jdbcType=TINYINT},</if>
+                <if test="createUser != null">#{createUser,jdbcType=BIGINT},</if>
+                <if test="createDept != null">#{createDept,jdbcType=BIGINT},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateUser != null">#{updateUser,jdbcType=BIGINT},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="status != null">#{status,jdbcType=TINYINT},</if>
+                <if test="isDeleted != null">#{isDeleted,jdbcType=TINYINT},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.CustomerDoubleVerify">
+        update customer_double_verify
+        <set>
+                <if test="custId != null">
+                    cust_id = #{custId,jdbcType=BIGINT},
+                </if>
+                <if test="lastDatetime != null">
+                    last_datetime = #{lastDatetime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="equipmentNum != null">
+                    equipment_num = #{equipmentNum,jdbcType=VARCHAR},
+                </if>
+                <if test="selectedType != null">
+                    selected_type = #{selectedType,jdbcType=TINYINT},
+                </if>
+                <if test="createUser != null">
+                    create_user = #{createUser,jdbcType=BIGINT},
+                </if>
+                <if test="createDept != null">
+                    create_dept = #{createDept,jdbcType=BIGINT},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateUser != null">
+                    update_user = #{updateUser,jdbcType=BIGINT},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=TINYINT},
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted,jdbcType=TINYINT},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.CustomerDoubleVerify">
+        update customer_double_verify
+        set
+            cust_id =  #{custId,jdbcType=BIGINT},
+            last_datetime =  #{lastDatetime,jdbcType=TIMESTAMP},
+            equipment_num =  #{equipmentNum,jdbcType=VARCHAR},
+            selected_type =  #{selectedType,jdbcType=TINYINT},
+            create_user =  #{createUser,jdbcType=BIGINT},
+            create_dept =  #{createDept,jdbcType=BIGINT},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_user =  #{updateUser,jdbcType=BIGINT},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            status =  #{status,jdbcType=TINYINT},
+            is_deleted =  #{isDeleted,jdbcType=TINYINT}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="findUserDoubleVerifyRecord" parameterType="java.lang.Object" resultMap="BaseResultMap">
+        select * from customer_double_verify
+        where cust_id = #{custId} and equipment_num = #{deviceCode} and status = 1 and is_deleted = 0
+    </select>
+
+    <select id="verifyWtForward"  parameterType="java.lang.Object" resultMap="BaseResultMap">
+        select * from customer_double_verify
+        where cust_id = #{custId} and equipment_num = #{deviceCode} and status = 1 and is_deleted = 0 and last_datetime &gt; now()
+    </select>
+
+    <update id="updateByCustIdSelective" parameterType="com.minigod.zero.customer.entity.CustomerDoubleVerify">
+        update customer_double_verify
+        <set>
+            <if test="lastDatetime != null">
+                last_datetime = #{lastDatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="equipmentNum != null">
+                equipment_num = #{equipmentNum,jdbcType=VARCHAR},
+            </if>
+            <if test="selectedType != null">
+                selected_type = #{selectedType,jdbcType=TINYINT},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="createDept != null">
+                create_dept = #{createDept,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+        </set>
+        where   cust_id = #{custId,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByCustIdAndDeviceCode" parameterType="java.lang.Object">
+        update customer_double_verify set is_deleted=1,update_time = now() where cust_id = #{custId} and equipment_num=#{deviceCode}
+    </update>
+</mapper>

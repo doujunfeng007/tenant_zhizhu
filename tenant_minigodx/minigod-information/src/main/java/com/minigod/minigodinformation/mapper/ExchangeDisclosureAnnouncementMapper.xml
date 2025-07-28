@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.minigodinformation.mapper.ExchangeDisclosureAnnouncementMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.minigodinformation.entity.ExchangeDisclosureAnnouncement">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="type" column="type" jdbcType="INTEGER"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="time" column="time" jdbcType="TIMESTAMP"/>
+            <result property="custId" column="cust_id" jdbcType="VARCHAR"/>
+            <result property="custName" column="cust_name" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+            <result property="rejectedCause" column="rejected_cause" jdbcType="VARCHAR"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+            <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,type,title,
+        content,time,cust_id,
+        cust_name,status,application_id,
+        rejected_cause,is_deleted,create_user,
+        create_time,update_user,update_time
+    </sql>
+    <resultMap id="getClientPageListResultMap" type="com.minigod.minigodinformation.vo.ClientInfAnnListVO">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="time" column="time" jdbcType="TIMESTAMP"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="announcementType" column="announcement_type" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="getClientPageList" resultMap="getClientPageListResultMap" resultType="com.minigod.minigodinformation.vo.ClientInfAnnListVO">
+        SELECT *
+        FROM (
+        SELECT
+        da.id, da.time, da.title, da.content,2 as announcement_type
+        from exchange_disclosure_announcement as da
+        WHERE da.is_deleted = 0 AND da.status = 5
+        UNION ALL
+        SELECT
+        ea.id, ea.time, ea.title, ea.content, 1 as announcement_type
+        FROM exchange_announcement AS ea
+        WHERE ea.is_deleted = 0 AND ea.status = 5
+        ) AS combined_results
+        <where>
+
+            <if test="query.startTime != null">
+                and combined_results.time &gt;= #{query.startTime}
+            </if>
+            <if test="query.endTime != null">
+                and combined_results.time &lt;= #{query.endTime}
+            </if>
+        </where>
+        order by combined_results.time desc
+    </select>
+    <select id="selProductById" resultType="com.minigod.minigodinformation.vo.AnnouncementProductVO">
+        select
+            product_id,product_name,product_isin
+        from exchange_disclosure_announcement_product
+        where announcement_id = #{id}
+    </select>
+    <select id="selFileById" resultType="java.lang.String">
+        select file_url
+        from exchange_disclosure_announcement_file
+        where announcement_id = #{id}
+    </select>
+    <resultMap id="getClientInfoByIdResultMap" type="com.minigod.minigodinformation.vo.ClientAnnInfoVO">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="time" column="time" jdbcType="TIMESTAMP"/>
+        <result property="custId" column="cust_id" jdbcType="VARCHAR"/>
+        <result property="custName" column="cust_name" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+        <result property="rejectedCause" column="rejected_cause" jdbcType="VARCHAR"/>
+        <collection property="productList" ofType="com.minigod.minigodinformation.vo.AnnouncementProductVO"
+                    select="selProductById" column="id"/>
+        <collection property="files" ofType="String"
+                    select="selFileById" column="id"/>
+    </resultMap>
+
+    <select id="getClientInfoById" resultType="com.minigod.minigodinformation.vo.ClientAnnInfoVO">
+        select
+            da.id,da.type,da.title,da.content,da.time,da.cust_id,da.cust_name,da.status,
+            da.create_user,da.create_time,da.update_user,da.update_time,da.application_id,da.rejected_cause
+        from exchange_disclosure_announcement as da
+        where da.id = #{id} and da.is_deleted = 0
+    </select>
+    <resultMap id="getClientAnnouncementPageListResultMap" type="com.minigod.minigodinformation.vo.ClientAnnListVO">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="time" column="time" jdbcType="TIMESTAMP"/>
+        <result property="custName" column="cust_name" jdbcType="VARCHAR"/>
+        <collection property="productList" ofType="com.minigod.minigodinformation.vo.AnnouncementProductVO"
+                    select="selProductById" column="id"/>
+        <collection property="files" ofType="String"
+                    select="selFileById" column="id"/>
+    </resultMap>
+    <select id="getClientAnnouncementPageList" resultMap="getClientAnnouncementPageListResultMap"
+            resultType="com.minigod.minigodinformation.vo.ClientAnnListVO">
+        select
+        da.id,da.type,da.time,da.cust_name,da.title,da.content
+        from exchange_disclosure_announcement as da
+        <where>
+            da.is_deleted = 0
+            <if test="query.typeList != null and query.typeList.size() > 0">
+                and da.type in
+                <foreach collection="query.typeList" item="type" separator="," open="(" close=")">
+                    #{type}
+                </foreach>
+            </if>
+            <if test="query.title != null and query.title != ''">
+                and da.title like concat('%',#{query.title},'%')
+            </if>
+            <if test="query.startTime != null">
+                and da.time &gt;= #{query.startTime}
+            </if>
+            <if test="query.endTime != null">
+                and da.time &lt;= #{query.endTime}
+            </if>
+            <if test="query.productId != null and query.productId != ''">
+                and da.id IN (
+                SELECT DISTINCT announcement_id
+                FROM exchange_disclosure_announcement_product
+                WHERE product_isin LIKE CONCAT('%', #{query.productId}, '%')
+                AND is_deleted = 0)
+            </if>
+
+        </where>
+        order by da.create_time desc
+
+    </select>
+
+    <resultMap id="selByIdResultMap" type="com.minigod.minigodinformation.vo.ClientAnnouncementInfoVO">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="time" column="time" jdbcType="TIMESTAMP"/>
+        <result property="custId" column="cust_id" jdbcType="VARCHAR"/>
+        <result property="custName" column="cust_name" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+        <result property="rejectedCause" column="rejected_cause" jdbcType="VARCHAR"/>
+        <collection property="productList" ofType="com.minigod.minigodinformation.vo.AnnouncementProductVO"
+                    select="selProductById" column="id"/>
+        <collection property="files" ofType="String"
+                    select="selFileById" column="id"/>
+    </resultMap>
+    <select id="selById" resultMap="selByIdResultMap" resultType="com.minigod.minigodinformation.vo.ClientAnnouncementInfoVO">
+        select
+            da.id,da.type,da.title,da.content,da.time,da.cust_id,da.cust_name,da.status,
+            da.create_user,da.create_time,da.update_user,da.update_time,da.application_id,da.rejected_cause
+        from exchange_disclosure_announcement as da
+        where da.id = #{id} and da.is_deleted = 0
+    </select>
+</mapper>

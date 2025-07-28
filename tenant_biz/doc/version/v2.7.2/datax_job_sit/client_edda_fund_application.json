@@ -1,0 +1,142 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "mysqlreader",
+          "parameter": {
+            "username": "BGiv1Nj/RkA62kCvYRpURw==",
+            "password": "jJ1jarzC1lh43N/bEGp/Fw==",
+            "column": [
+              "`id`",
+              "`application_id`",
+              "`client_id`",
+              "`fund_account`",
+              "`bank_state`",
+              "`deposit_balance`",
+              "`e_name`",
+              "`c_name`",
+              "`id_type`",
+              "`id_code`",
+              "`mobile`",
+              "`email`",
+              "`acct_type`",
+              "`deposit_type`",
+              "`deposit_bank`",
+              "`deposit_no`",
+              "`deposit_account`",
+              "`deposit_bank_code`",
+              "`deposit_bank_id`",
+              "`benefit_bank`",
+              "`benefit_bank_code`",
+              "`benefit_no`",
+              "`benefit_account`",
+              "`application_time`",
+              "`money_type`",
+              "`send_status`",
+              "`remittance_type`",
+              "`swift_code`",
+              "`fund_application_id`",
+              "`msg_id`",
+              "`dda_ref`",
+              "`cus_ref`",
+              "`req_time`",
+              "`txn_ref_id`",
+              "`settlement_amt`",
+              "`settlement_dt`",
+              "`rej_corde`",
+              "`rej_description`",
+              "`create_user`",
+              "`update_user`",
+              "`create_time`",
+              "`update_time`",
+              "`edda_info_id`"
+            ],
+            "splitPk": "",
+            "where": "create_time >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY) OR update_time >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY )",
+            "connection": [
+              {
+                "table": [
+                  "client_edda_fund_application"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://203.86.123.168:43436/zero_bpmn?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "username": "x23iAGFtBmYzhTgDDjvFPg==",
+            "password": "sTO8zolMP4HE+FE4/Q/juOlJhAfkZyhMvpevvHYrEc8=",
+            "column": [
+              "`id`",
+              "`application_id`",
+              "`client_id`",
+              "`fund_account`",
+              "`bank_state`",
+              "`deposit_balance`",
+              "`e_name`",
+              "`c_name`",
+              "`id_type`",
+              "`id_code`",
+              "`mobile`",
+              "`email`",
+              "`acct_type`",
+              "`deposit_type`",
+              "`deposit_bank`",
+              "`deposit_no`",
+              "`deposit_account`",
+              "`deposit_bank_code`",
+              "`deposit_bank_id`",
+              "`benefit_bank`",
+              "`benefit_bank_code`",
+              "`benefit_no`",
+              "`benefit_account`",
+              "`application_time`",
+              "`money_type`",
+              "`send_status`",
+              "`remittance_type`",
+              "`swift_code`",
+              "`fund_application_id`",
+              "`msg_id`",
+              "`dda_ref`",
+              "`cus_ref`",
+              "`req_time`",
+              "`txn_ref_id`",
+              "`settlement_amt`",
+              "`settlement_dt`",
+              "`rej_corde`",
+              "`rej_description`",
+              "`create_user`",
+              "`update_user`",
+              "`create_time`",
+              "`update_time`",
+              "`edda_info_id`"
+            ],
+            "writeMode": "update",
+            "connection": [
+              {
+                "table": [
+                  "client_edda_fund_application"
+                ],
+                "jdbcUrl": "jdbc:mysql://203.86.123.168:43436/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

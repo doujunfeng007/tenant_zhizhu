@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.CustomOpenImgMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="custom_open_imgResultMap" type="com.minigod.zero.bpmn.module.account.entity.CustomOpenImgEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.AppEntityMapper.AppBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="location_key" property="locationKey"/>
+        <result column="location_type" property="locationType"/>
+        <result column="url" property="url"/>
+        <result column="is_error" property="isError"/>
+    </resultMap>
+
+</mapper>

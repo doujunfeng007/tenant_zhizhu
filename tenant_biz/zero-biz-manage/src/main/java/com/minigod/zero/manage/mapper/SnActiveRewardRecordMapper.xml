@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.minigod.zero.manage.mapper.SnActiveRewardRecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.minigod.zero.manage.entity.SnActiveRewardRecordEntity">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="nickname" property="nickname"/>
+        <result column="inviter" property="inviter"/>
+        <result column="active_type" property="activeType"/>
+        <result column="sn_active_config_id" property="snActiveConfigId"/>
+        <result column="active_name" property="activeName"/>
+        <result column="sn_active_config_item_id" property="snActiveConfigItemId"/>
+        <result column="active_item_name" property="activeItemName"/>
+        <result column="open_account_id" property="openAccountId"/>
+        <result column="client_id" property="clientId"/>
+        <result column="open_account_datetime" property="openAccountDatetime"/>
+        <result column="deposit_id" property="depositId"/>
+        <result column="deposit_money" property="depositMoney"/>
+        <result column="deposit_datetime" property="depositDatetime"/>
+        <result column="transfer_stock_id" property="transferStockId"/>
+        <result column="transfer_money" property="transferMoney"/>
+        <result column="transfer_stock_datetime" property="transferStockDateTime"/>
+        <result column="reward_money" property="rewardMoney"/>
+        <result column="commission_type" property="commissionType"/>
+        <result column="commission_day" property="commissionDay"/>
+        <result column="reward_type" property="rewardType"/>
+        <result column="reward_status" property="rewardStatus"/>
+        <result column="confirm_end_datetime" property="confirmEndDatetime"/>
+        <result column="confirm_datetime" property="confirmDatetime"/>
+        <result column="cash_draw_id" property="cashDrawId"/>
+        <result column="use_datetime" property="useDatetime"/>
+        <result column="expire_datetime" property="expireDatetime"/>
+        <result column="source_type" property="sourceType"/>
+        <result column="package_id" property="packageId"/>
+        <result column="opr_id" property="oprId"/>
+        <result column="opr_name" property="oprName"/>
+        <result column="opr_reason" property="oprReason"/>
+        <result column="plan_id" property="planId"/>
+        <result column="asset_id" property="assetId"/>
+        <result column="quantity" property="quantity"/>
+        <result column="total_cost" property="totalCost"/>
+        <result column="invalid_remind" property="invalidRemind"/>
+        <result column="reward_condition" property="rewardCondition"/>
+        <result column="reward_points" property="rewardPoints"/>
+        <result column="exchange_code_id" property="exchangeCodeId"/>
+        <result column="card_type" property="cardType"/>
+        <result column="card_status" property="cardStatus"/>
+        <result column="trade_status" property="tradeStatus"/>
+        <result column="trade_time" property="tradeTime"/>
+        <result column="commission_start_time" property="commissionStartTime"/>
+        <result column="commission_end_time" property="commissionEndTime"/>
+        <result column="actual_commission_start_time" property="actualCommissionStartTime"/>
+        <result column="actual_commission_end_time" property="actualCommissionEndTime"/>
+        <result column="is_gold_luckiest" property="isGoldLuckiest"/>
+        <result column="actual_free_amount" property="actualFreeAmount"/>
+        <result column="lock_version" property="lockVersion"/>
+        <result column="stocks_open_day" property="stocksOpenDay"/>
+        <result column="have_remind_for_three_day" property="haveRemindForThreeDay"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        , user_id, nickname, inviter, active_type, sn_active_config_id, active_name,
+        sn_active_config_item_id, active_item_name, open_account_id, client_id, open_account_datetime,
+        deposit_id, deposit_money, deposit_datetime, transfer_stock_id, transfer_money,
+        transfer_stock_datetime, reward_money, commission_type, commission_day, reward_type,
+        reward_status, confirm_end_datetime, confirm_datetime, cash_draw_id, use_datetime,
+        expire_datetime, source_type, package_id, opr_id, opr_name, opr_reason, plan_id,
+        asset_id, quantity, total_cost, invalid_remind, reward_condition, reward_points,
+        exchange_code_id, card_type, card_status, trade_status, trade_time,
+        commission_start_time, commission_end_time, actual_commission_start_time,
+        actual_commission_end_time, is_gold_luckiest, actual_free_amount, lock_version,
+        stocks_open_day, have_remind_for_three_day, create_time, update_time, create_user,
+        update_user, is_deleted, tenant_id, create_dept, status
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_active_reward_record
+        WHERE is_deleted = 0
+        <if test="userId != null">
+            AND user_id = #{userId}
+        </if>
+        <if test="rewardType != null">
+            AND reward_type = #{rewardType}
+        </if>
+        <if test="rewardStatus != null">
+            AND reward_status = #{rewardStatus}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 查询用户未过期的奖励 -->
+    <select id="queryValidRewards" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_active_reward_record
+        WHERE is_deleted = 0
+        AND user_id = #{userId}
+        AND reward_type = #{rewardType}
+        AND reward_status IN (0, 1, 4)
+        AND (expire_datetime IS NULL OR expire_datetime > NOW())
+        ORDER BY create_time DESC
+    </select>
+    <!-- 分页查询发放给用户的奖品列表 -->
+    <select id="queryGiveOutList" resultType="com.minigod.zero.manage.vo.RewardGiveOutVO">
+        SELECT  record.*,usr.channel,plan.reward_valid_day
+        FROM `sn_active_reward_record` AS record
+        LEFT JOIN `sn_activity_user` AS usr
+                  ON record.user_id=usr.user_id
+        LEFT JOIN `operate_act_plan` AS plan
+                  ON record.plan_id=plan.id
+        <where>
+            record.is_deleted = 0
+            <if test="searchReqVO.id !=null and searchReqVO.id != '' ">
+                and record.id = #{searchReqVO.id}
+            </if>
+            <if test="searchReqVO.userId !=null and searchReqVO.userId != '' ">
+                and record.user_id = #{searchReqVO.userId}
+            </if>
+            <if test="searchReqVO.rewardStatus !=null and searchReqVO.rewardStatus != '' ">
+                and record.reward_status = #{searchReqVO.rewardStatus}
+            </if>
+            <if test="searchReqVO.activeItemName !=null and searchReqVO.activeItemName != '' ">
+                and record.active_item_name like concat('%',#{searchReqVO.activeItemName},'%')
+            </if>
+            <if test="searchReqVO.phoneNumber !=null and searchReqVO.phoneNumber != '' ">
+                and usr.phone_number like concat('%',#{searchReqVO.phoneNumber},'%')
+            </if>
+            <if test="searchReqVO.channel !=null and searchReqVO.channel != '' ">
+                and usr.channel like concat('%',#{searchReqVO.channel},'%')
+            </if>
+            <if test="searchReqVO.startTime !=null and searchReqVO.startTime != '' ">
+                and record.create_time &gt;= #{searchReqVO.startTime}
+            </if>
+            <if test="searchReqVO.endTime !=null and searchReqVO.endTime != '' ">
+                and record.create_time &lt;= #{searchReqVO.endTime}
+            </if>
+        </where>
+        ORDER BY record.create_time DESC
+    </select>
+
+    <!-- 更新奖励状态 -->
+    <update id="updateRewardStatus">
+        UPDATE sn_active_reward_record
+        SET reward_status = #{newStatus},
+            update_time   = NOW(),
+            lock_version  = lock_version + 1
+        WHERE id = #{id}
+          AND reward_status = #{oldStatus}
+          AND is_deleted = 0
+    </update>
+
+    <!-- 批量更新过期奖励状态 -->
+    <update id="batchUpdateExpiredStatus">
+        UPDATE sn_active_reward_record
+        SET reward_status = #{rewardStatus},
+            update_time   = NOW()
+        WHERE is_deleted = 0
+          AND expire_datetime &lt; NOW()
+          AND reward_status IN (0, 1, 4)
+    </update>
+
+</mapper>

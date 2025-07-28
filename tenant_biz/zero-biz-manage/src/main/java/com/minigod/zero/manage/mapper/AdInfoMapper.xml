@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.AdInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="adInfoResultMap" type="com.minigod.zero.manage.entity.AdInfoEntity">
+        <result column="id" property="id"/>
+        <result column="position_code" property="positionCode"/>
+        <result column="position_second_type" property="positionSecondType"/>
+        <result column="language_type" property="languageType"/>
+        <result column="ad_code" property="adCode"/>
+        <result column="group_id" property="groupId"/>
+        <result column="ad_flag" property="adFlag"/>
+        <result column="img" property="img"/>
+        <result column="url" property="url"/>
+        <result column="link_type" property="linkType"/>
+        <result column="ad_desc" property="adDesc"/>
+        <result column="to_im" property="toIm"/>
+        <result column="popup_button" property="popupButton"/>
+        <result column="popup_url" property="popupUrl"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="priority" property="priority"/>
+        <result column="activity_num" property="activityNum"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="bananer_img" property="bananerImg"/>
+        <result column="mask_channel" property="maskChannel"/>
+        <result column="bottom_tab" property="bottomTab"/>
+        <result column="is_need_header" property="isNeedHeader"/>
+        <result column="phone_area" property="phoneArea"/>
+        <result column="ip_area" property="ipArea"/>
+        <result column="application_market" property="applicationMarket"/>
+        <result column="is_login_show" property="isLoginShow"/>
+        <result column="substart_time" property="substartTime"/>
+        <result column="subend_time" property="subendTime"/>
+        <result column="is_refresh" property="isRefresh"/>
+        <result column="show_frequency" property="showFrequency"/>
+        <result column="show_type" property="showType"/>
+        <result column="show_user" property="showUser"/>
+        <result column="white_channel" property="whiteChannel"/>
+        <result column="is_show_in_activity" property="isShowInActivity"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="tenant_id" property="tenantId"/>
+    </resultMap>
+
+
+    <select id="selectAdInfoPage" resultType="com.minigod.zero.manage.vo.AdInfoVO">
+        select * from oms_ad_info where is_deleted = 0
+        <if test="adInfo.adDesc != null and adInfo.adDesc !=''">
+            and ad_desc like concat(concat('%', #{adInfo.adDesc}),'%')
+        </if>
+        <if test="adInfo.positionCode != null">
+            and position_code = #{adInfo.positionCode}
+        </if>
+        <if test="null != adInfo.tenantId and adInfo.tenantId !='' ">
+            and tenant_id = #{adInfo.tenantId}
+        </if>
+        order by create_time desc
+    </select>
+
+
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.fundTrans.mapper.ClientFundTransApplicationMapper">
+  <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.fundTrans.domain.ClientFundTransApplication">
+    <id column="id" property="id" />
+    <result column="application_id" property="applicationId" />
+    <result column="application_title" property="applicationTitle" />
+    <result column="status" property="status" />
+    <result column="current_node" property="currentNode" />
+    <result column="last_approval_user" property="lastApprovalUser" />
+    <result column="approval_opinion" property="approvalOpinion" />
+    <result column="approval_time" property="approvalTime" />
+    <result column="callback_status" property="callbackStatus" />
+    <result column="application_status" property="applicationStatus" />
+    <result column="is_back" property="isBack" />
+    <result column="assign_drafter" property="assignDrafter" />
+    <result column="flow_path" property="flowPath" />
+    <result column="fire_aid" property="fireAid" />
+    <result column="instance_id" property="instanceId" />
+    <result column="definition_id" property="definitionId" />
+    <result column="process_instance_id" property="processInstanceId" />
+    <result column="task_id" property="taskId" />
+    <result column="deploy_id" property="deployId" />
+    <result column="create_time" property="createTime" />
+    <result column="create_user" property="createUser" />
+    <result column="update_time" property="updateTime" />
+    <result column="update_user" property="updateUser" />
+    <result column="tenant_id" property="tenantId" />
+    <result column="create_dept" property="createDept" />
+    <result column="is_deleted" property="isDeleted" />
+  </resultMap>
+  <resultMap id="BaseResultMapVo" type="com.minigod.zero.bpmn.module.fundTrans.domain.vo.ClientFundTransApplicationVO" extends="BaseResultMap">
+    <association property="info" javaType="com.minigod.zero.bpmn.module.fundTrans.domain.vo.ClientFundTransInfoVO">
+      <id column="i_id" property="id" />
+      <result column="application_id" property="applicationId" />
+      <result column="tenant_id" property="tenantId" />
+      <result column="user_id" property="userId" />
+      <result column="client_id" property="clientId" />
+      <result column="client_name" property="clientName" />
+      <result column="client_name_spell" property="clientNameSpell" />
+      <result column="deposit_account" property="depositAccount" />
+      <result column="withdraw_account" property="withdrawAccount" />
+      <result column="deposit_business_type" property="depositBusinessType" />
+      <result column="withdraw_business_type" property="withdrawBusinessType" />
+      <result column="amount" property="amount" />
+      <result column="deposit_amount" property="depositAmount" />
+      <result column="withdraw_amount" property="withdrawAmount" />
+      <result column="fee" property="fee" />
+      <result column="status" property="status" />
+      <result column="remark" property="remark" />
+      <result column="currency" property="currency" />
+      <result column="create_time" property="createTime" />
+      <result column="update_time" property="updateTime" />
+      <result column="fail_reason" property="failReason" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    a.id,a.application_id,a.application_title,a.`status`,a.current_node,a.last_approval_user,
+    a.approval_opinion,a.approval_time,a.callback_status,a.application_status,a.is_back,a.assign_drafter,
+    a.flow_path,a.fire_aid,a.instance_id,a.definition_id,a.process_instance_id,a.task_id,a.deploy_id,
+    a.create_time,a.create_user,a.update_time,a.update_user,a.tenant_id,a.create_dept,a.is_deleted
+  </sql>
+  <sql id="Info_Base_Column_List">
+    <!--@mbg.generated-->
+    i.id i_id ,i.application_id,i.tenant_id,i.user_id,i.client_id,i.client_name,i.client_name_spell,
+    i.deposit_account,i.withdraw_account,i.deposit_business_type,i.withdraw_business_type,i.amount,i.deposit_amount,i.withdraw_amount,i.fee,
+    i.`status`,i.remark,i.currency,i.create_time,i.update_time,i.fail_reason
+  </sql>
+
+
+  <select id="selectFundTransApplicationPage" resultMap="BaseResultMapVo">
+    select <include refid="Base_Column_List" /> ,
+    <include refid="Info_Base_Column_List"/>
+    from client_fund_trans_application a
+    left join client_fund_trans_info i on a.application_id = i.application_id
+    <where>
+      <if test="bo.userId!=null">
+        and i.user_id = #{bo.userId}
+      </if>
+    </where>
+    order by a.application_id desc
+  </select>
+  <select id="queryApplicationId" resultMap="BaseResultMapVo">
+    select <include refid="Base_Column_List" /> ,
+    <include refid="Info_Base_Column_List"/>
+    from client_fund_trans_application a
+    left join client_fund_trans_info i on a.application_id = i.application_id
+    where a.application_id  = #{applicationId}
+  </select>
+</mapper>

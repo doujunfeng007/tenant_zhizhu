@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.SysDocumentMapper">
+
+    <resultMap type="com.minigod.zero.manage.entity.SysDocumentEntity" id="SysDocumentResult">
+        <result property="id"    column="id"    />
+        <result property="docTitle"    column="doc_title"    />
+        <result property="lang"    column="lang"    />
+        <result property="docKey"    column="doc_key"    />
+        <result property="docContent"    column="doc_content"    />
+        <result property="status"    column="status"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateUser"    column="update_user"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectSysDocumentVo">
+        select id, doc_title, doc_key, doc_content, status, create_user, create_time, update_user, update_time,lang from oms_sys_doc
+    </sql>
+
+    <select id="selectSysDocumentList" resultMap="SysDocumentResult">
+        <include refid="selectSysDocumentVo"/>
+        <where>
+            <if test="params.docTitle != null  and params.docTitle != ''"> and doc_title = #{params.docTitle}</if>
+            <if test="params.lang != null  and params.lang != ''"> and lang = #{params.lang}</if>
+            <if test="params.docKey != null  and params.docKey != ''"> and doc_key = #{params.docKey}</if>
+            <if test="params.docContent != null  and params.docContent != ''"> and doc_content = #{params.docContent}</if>
+        </where>
+    </select>
+
+    <select id="selectSysDocumentById" parameterType="Long" resultMap="SysDocumentResult">
+        <include refid="selectSysDocumentVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="findDocumentByKey"  parameterType="String" resultMap="SysDocumentResult">
+        <include refid="selectSysDocumentVo"/>
+        where doc_key = #{docKey} and lang = #{lang}
+    </select>
+
+    <insert id="insertSysDocument" useGeneratedKeys="true" keyProperty="id">
+        insert into oms_sys_doc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="docTitle != null  and docTitle != ''">doc_title,</if>
+            <if test="docKey != null  and docKey != ''">doc_key,</if>
+            <if test="docContent != null  and docContent != ''">doc_content,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="createUser != null  and createUser != ''">create_user,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateUser != null  and updateUser != ''">update_user,</if>
+            <if test="lang != null  and lang != ''">lang,</if>
+            <if test="updateTime != null ">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="docTitle != null  and docTitle != ''">#{docTitle},</if>
+            <if test="docKey != null  and docKey != ''">#{docKey},</if>
+            <if test="docContent != null  and docContent != ''">#{docContent},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="createUser != null  and createUser != ''">#{createUser},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateUser != null  and updateUser != ''">#{updateUser},</if>
+            <if test="lang != null ">#{lang},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysDocument">
+        update oms_sys_doc
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="docTitle != null  and docTitle != ''">doc_title = #{docTitle},</if>
+            <if test="docKey != null  and docKey != ''">doc_key = #{docKey},</if>
+            <if test="docContent != null  and docContent != ''">doc_content = #{docContent},</if>
+            <if test="status != null  and status != ''">status = #{status},</if>
+            <if test="createUser != null  and createUser != ''">create_user = #{createUser},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateUser != null  and updateUser != ''">update_user = #{updateUser},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="lang != null ">lang = #{lang},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysDocumentById" parameterType="Integer">
+        delete from oms_sys_doc where id = #{id}
+    </delete>
+
+    <delete id="deleteSysDocumentByIds" parameterType="String">
+        delete from oms_sys_doc where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

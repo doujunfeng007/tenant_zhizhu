@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="false" debug="false">
+
+    <!-- 自定义参数监听 -->
+    <contextListener class="com.minigod.zero.core.log.listener.LoggerStartupListener"/>
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+
+    <property name="rootPath" value="./data/logs/${springAppName}"/>
+
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+    <!-- 彩色日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 生成日志文件 -->
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件输出的文件名 -->
+            <FileNamePattern>${rootPath}/info-%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!-- 日志在磁盘上保留天数 -->
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%n%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{traceId}] [%logger{50}] %n%-5level %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 打印日志级别 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!-- 日志文件最大的大小 -->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>100MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <!-- 生成日志文件 -->
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件输出的文件名 -->
+            <FileNamePattern>${rootPath}/error-%d{yyyy-MM-dd}.log</FileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%n%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{traceId}] [%logger{50}] %n%-5level [%file : %line] %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 打印日志级别 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!-- 日志文件最大的大小 -->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>100MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+
+    <!-- 生成行情日志文件 -->
+    <appender name="mkttsc" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 日志文件输出的文件名 -->
+            <FileNamePattern>${rootPath}/mkttsc-%d{yyyyMMdd-HH}.%i.log</FileNamePattern>
+            <maxFileSize>1000MB</maxFileSize>
+            <maxHistory>168</maxHistory>
+            <totalSizeCap>30GB</totalSizeCap><!--归档文件总大小30G-->
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%n%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{traceId}] [%logger{50}] %n%-5level [%file : %line] %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 打印日志级别 -->
+        <!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+        <!--            <level>ALL</level>-->
+        <!--            <onMatch>ACCEPT</onMatch>-->
+        <!--            <onMismatch>DENY</onMismatch>-->
+        <!--        </filter>-->
+    </appender>
+
+
+    <!-- 异步输出日志，避免每次都进行磁盘IO操作，TPS提升并不明显 -->
+    <appender name="ASYNC-INFO" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>500</queueSize>
+        <appender-ref ref="INFO" />
+    </appender>
+
+    <if condition='property("ELK_MODE").toUpperCase().contains("TRUE")'>
+        <then>
+            <!-- 推送日志至elk -->
+            <appender name="STDOUT_LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+                <destination>${DESTINATION}</destination>
+                <!-- 日志输出编码 -->
+                <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+                    <providers>
+                        <timestamp>
+                            <timeZone>UTC</timeZone>
+                        </timestamp>
+                        <pattern>
+                            <pattern>
+                                {
+                                "traceId": "%X{traceId}",
+                                "requestId": "%X{requestId}",
+                                "accountId": "%X{accountId}",
+                                "tenantId": "%X{tenantId}",
+                                "logLevel": "%level",
+                                "serviceName": "${springAppName:-SpringApp}",
+                                "pid": "${PID:-}",
+                                "thread": "%thread",
+                                "class": "%logger{40}",
+                                "line":"%L",
+                                "message": "%message"
+                                }
+                            </pattern>
+                        </pattern>
+                        <mdc/>
+                        <stackTrace/>
+                    </providers>
+                </encoder>
+            </appender>
+        </then>
+    </if>
+
+    <!-- 日志输出级别 -->
+    <root level="DEBUG">
+        <appender-ref ref="${STDOUT_APPENDER}"/>
+        <appender-ref ref="ASYNC-INFO"/>
+        <appender-ref ref="ERROR"/>
+    </root>
+
+    <logger name="net.sf.ehcache" level="INFO"/>
+    <logger name="druid.sql" level="INFO"/>
+
+
+    <!-- MyBatis log configure -->
+    <logger name="com.apache.ibatis" level="INFO"/>
+    <logger name="org.mybatis.spring" level="INFO"/>
+    <logger name="java.sql.Connection" level="INFO"/>
+    <logger name="java.sql.Statement" level="INFO"/>
+    <logger name="java.sql.PreparedStatement" level="INFO"/>
+
+    <!-- 减少部分debug日志 -->
+    <logger name="druid.sql" level="INFO"/>
+    <logger name="org.apache.shiro" level="INFO"/>
+    <logger name="org.mybatis.spring" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework.context" level="WARN"/>
+    <logger name="org.springframework.beans" level="WARN"/>
+    <logger name="com.baomidou.mybatisplus" level="INFO"/>
+    <logger name="org.apache.ibatis.io" level="INFO"/>
+    <logger name="org.apache.velocity" level="INFO"/>
+    <logger name="org.eclipse.jetty" level="INFO"/>
+    <logger name="io.undertow" level="INFO"/>
+    <logger name="org.xnio.nio" level="INFO"/>
+    <logger name="org.thymeleaf" level="INFO"/>
+    <logger name="springfox.documentation" level="INFO"/>
+    <logger name="org.hibernate.validator" level="INFO"/>
+    <logger name="com.netflix.loadbalancer" level="INFO"/>
+    <logger name="com.netflix.hystrix" level="INFO"/>
+    <logger name="com.netflix.zuul" level="INFO"/>
+    <logger name="de.codecentric" level="INFO"/>
+    <!-- cache INFO -->
+    <logger name="net.sf.ehcache" level="INFO"/>
+    <logger name="org.springframework.cache" level="INFO"/>
+    <!-- cloud -->
+    <logger name="org.apache.http" level="INFO"/>
+    <logger name="com.netflix.discovery" level="INFO"/>
+    <logger name="com.netflix.eureka" level="INFO"/>
+    <!-- 业务日志 -->
+    <Logger name="com.minigod.zero" level="INFO"/>
+    <Logger name="com.minigod.zero.core.tenant" level="INFO"/>
+    <Logger name="com.minigod.zero.core.version" level="INFO"/>
+    <Logger name="com.hundsun" level="DEBUG"/>
+    <!-- 减少nacos日志 -->
+    <logger name="com.alibaba.nacos" level="INFO"/>
+    <!-- 行情日志 -->
+    <logger name="com.minigod.zero.mkttsc" additivity="false" level="DEBUG">
+        <appender-ref ref="mkttsc"/>
+    </logger>
+</configuration>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerPackageMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerPackage">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="custId" column="cust_id" jdbcType="BIGINT"/>
+            <result property="packageId" column="package_id" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,cust_id,package_id,
+        status,create_time,tenant_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_package
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from customer_package
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerPackage" useGeneratedKeys="true">
+        insert into customer_package
+        ( id,cust_id,package_id
+        ,status,create_time,tenant_id
+        )
+        values (#{id,jdbcType=INTEGER},#{custId,jdbcType=BIGINT},#{packageId,jdbcType=INTEGER}
+        ,#{status,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},#{tenantId,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerPackage" useGeneratedKeys="true">
+        insert into customer_package
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="custId != null">cust_id,</if>
+                <if test="packageId != null">package_id,</if>
+                <if test="status != null">status,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="tenantId != null">tenant_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="custId != null">#{custId,jdbcType=BIGINT},</if>
+                <if test="packageId != null">#{packageId,jdbcType=INTEGER},</if>
+                <if test="status != null">#{status,jdbcType=INTEGER},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="tenantId != null">#{tenantId,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.CustomerPackage">
+        update customer_package
+        <set>
+                <if test="custId != null">
+                    cust_id = #{custId,jdbcType=BIGINT},
+                </if>
+                <if test="packageId != null">
+                    package_id = #{packageId,jdbcType=INTEGER},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=INTEGER},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="tenantId != null">
+                    tenant_id = #{tenantId,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.CustomerPackage">
+        update customer_package
+        set
+            cust_id =  #{custId,jdbcType=BIGINT},
+            package_id =  #{packageId,jdbcType=INTEGER},
+            status =  #{status,jdbcType=INTEGER},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            tenant_id =  #{tenantId,jdbcType=VARCHAR}
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByPackageId" parameterType="java.lang.Object" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from customer_package
+        where package_id = #{packageId}
+    </select>
+
+    <update id="deleteByCustomerId" parameterType="java.lang.Object">
+        update customer_package set status = 1,update_time = now() where cust_id = #{custId}
+    </update>
+
+</mapper>

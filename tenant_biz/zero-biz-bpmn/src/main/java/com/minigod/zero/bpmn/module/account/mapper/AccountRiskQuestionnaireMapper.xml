@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountRiskQuestionnaireMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_risk_disclosureResultMap"
+               type="com.minigod.zero.bpmn.module.account.entity.AccountRiskQuestionnaireEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="questionnaire_name" property="questionnaireName"/>
+        <result column="questionnaire_desc" property="questionnaireDesc"/>
+        <result column="questionnaire_type" property="questionnaireType"/>
+        <result column="lang" property="lang"/>
+
+    </resultMap>
+    <select id="selectAcctRiskQuestionnairePage" parameterType="com.minigod.zero.bpmn.module.account.dto.AccountRiskQuestionnaireDTO" resultMap="account_risk_disclosureResultMap">
+        SELECT id,
+        questionnaire_name,
+        questionnaire_type,
+        questionnaire_desc,
+        lang,
+        create_time,
+        create_user,
+        update_time,
+        update_user,
+        is_deleted,
+        tenant_id,
+        create_dept,
+        status
+        FROM acct_risk_questionnaire
+        <where>
+            <if test="riskQuestionnaire.questionnaireType != null and riskQuestionnaire.questionnaireType != ''">
+                AND questionnaire_type = #{riskQuestionnaire.questionnaireType}
+            </if>
+            <if test="riskQuestionnaire.questionnaireName != null and riskQuestionnaire.questionnaireName != ''">
+                AND questionnaire_name LIKE CONCAT('%',#{riskQuestionnaire.questionnaireName},'%')
+            </if>
+            <if test="riskQuestionnaire.questionnaireDesc != null and riskQuestionnaire.questionnaireDesc != ''">
+                AND questionnaire_desc LIKE CONCAT('%',#{riskQuestionnaire.questionnaireDesc},'%')
+            </if>
+            <if test="riskQuestionnaire.lang != null and riskQuestionnaire.lang != ''">
+                AND LOWER(lang) = #{riskQuestionnaire.lang}
+            </if>
+            AND is_deleted = 0
+        </where>
+        ORDER BY create_time DESC
+    </select>
+</mapper>

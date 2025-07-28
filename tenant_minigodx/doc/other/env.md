@@ -1,0 +1,29 @@
+## 环境变量
+#### 环境划分
+
+> dev（开发）、sit（SIT测试）、uat（UAT测试）、prd（生产），默认dev
+#### 添加环境变量
+
+##### java命令行：
+
+```
+java -jar gateWay.jar --spring.profiles.active=dev
+```
+
+##### JAVA_OPS
+
+```
+set JAVA_OPTS="-Dspring.profiles.active=sit"
+```
+
+##### 标注方式（代码层面，junit单元测试非常实用）
+
+```
+@ActiveProfiles({"junittest","productprofile"})
+```
+
+##### ENV方式
+
+```
+系统环境变量SPRING_PROFILES_ACTIVE（注意：是大写）
+```

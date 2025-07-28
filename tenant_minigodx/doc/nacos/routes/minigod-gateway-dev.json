@@ -1,0 +1,28 @@
+[
+  {
+    "id": "desk-route",
+    "order": 0,
+    "predicates": [
+      {
+        "name": "Path",
+        "args": {
+          "pattern": "/minigod-desk/**"
+        }
+      }
+    ],
+    "filters": [],
+    "uri": "lb://minigod-desk-me"
+  },
+  {
+    "id": "example-route",
+    "order": 0,
+    "predicates": [{
+      "name": "Path",
+      "args": {
+        "pattern": "/example"
+      }
+    }],
+    "filters": [],
+    "uri": "http://www.example.com"
+  }
+]

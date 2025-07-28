@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.cust.mapper.CustFundAcctInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="bpmFundAcctInfoResultMap" type="com.minigod.zero.bpm.entity.BpmFundAcctInfoEntity">
+        <result column="id" property="id"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="fund_account_main" property="fundAccountMain"/>
+        <result column="fund_account" property="fundAccount"/>
+        <result column="fund_account_type" property="fundAccountType"/>
+        <result column="fund_oper_type" property="fundOperType"/>
+        <result column="account_status" property="accountStatus"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+
+</mapper>

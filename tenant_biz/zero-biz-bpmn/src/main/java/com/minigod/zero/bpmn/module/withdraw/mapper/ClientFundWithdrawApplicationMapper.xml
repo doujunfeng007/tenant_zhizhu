@@ -1,0 +1,1134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.withdraw.mapper.ClientFundWithdrawApplicationMapper">
+
+    <!-- 包含取款申请流程信息 -->
+    <resultMap type="com.minigod.zero.bpmn.module.withdraw.entity.ClientFundWithdrawApplication" id="ClientFundWithdrawApplicationResult">
+        <result property="id" column="id"/>
+        <result property="applicationId" column="application_id"/>
+        <result property="applicationTitle" column="application_title"/>
+        <result property="status" column="status"/>
+        <result property="currentNode" column="current_node"/>
+        <result property="lastApprovalUser" column="last_approval_user"/>
+        <result property="approvalOpinion" column="approval_opinion"/>
+        <result property="approvalTime" column="approval_time"/>
+        <result property="callbackStatus" column="callback_status"/>
+        <result property="applicationStatus" column="application_status"/>
+        <result property="isBack" column="is_back"/>
+        <result property="assignDrafter" column="assign_drafter"/>
+        <result property="flowPath" column="flow_path"/>
+        <result property="fireAid" column="fire_aid"/>
+        <result property="instanceId" column="instance_id"/>
+        <result property="definitionId" column="definition_id"/>
+        <result property="processInstanceId" column="process_instance_id"/>
+        <result property="taskId" column="task_id"/>
+        <result property="deployId" column="deploy_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUser" column="create_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUser" column="update_user"/>
+<result property="isDeleted" column="is_deleted"/>
+ <result property="createDept" column="create_dept"/>
+ <result property="status" column="status"/>
+
+    </resultMap>
+
+    <!-- 包含取款申请信息 -->
+    <resultMap id="InfoExtentdResult"
+               type="com.minigod.zero.bpmn.module.withdraw.vo.ClientFundWithdrawApplicationVo"
+               extends="ClientFundWithdrawApplicationResult">
+        <result property="info.clientId" column="client_id"/>
+        <result property="info.fundAccount" column="fund_account"/>
+        <result property="info.entrustTime" column="entrust_time"/>
+        <result property="info.idType" column="id_type"/>
+        <result property="info.idCode" column="id_code"/>
+        <result property="info.custName" column="client_name"/>
+        <result property="info.custEname" column="client_name_spell"/>
+        <result property="info.bankAcctType" column="bank_acct_type"/>
+        <result property="info.sex" column="sex"/>
+        <result property="info.mobile" column="mobile"/>
+        <result property="info.transferType" column="transfer_type"/>
+        <result property="info.ccy" column="ccy"/>
+        <result property="info.withdrawAmount" column="withdraw_amount"/>
+        <result property="info.frozenBalance" column="frozen_balance"/>
+        <result property="info.drawableBalance" column="drawable_balance"/>
+        <result property="info.deductWay" column="deduct_way"/>
+        <result property="info.chargeFee" column="charge_fee"/>
+        <result property="info.actualAmount" column="actual_amount"/>
+        <result property="info.initDate" column="init_date"/>
+        <result property="info.refundedAmount" column="refunded_amount"/>
+        <result property="info.refundedDate" column="refunded_date"/>
+        <result property="info.recvAccountType" column="recv_account_type"/>
+        <result property="info.recvBankCode" column="recv_bank_code"/>
+        <result property="info.recvBankId" column="recv_bank_id"/>
+        <result property="info.recvBankName" column="recv_bank_name"/>
+        <result property="info.recvBankAcct" column="recv_bank_acct"/>
+        <result property="info.recvBankAcctName" column="recv_bank_acct_name"/>
+        <result property="info.recvBankType" column="recv_bank_type"/>
+        <result property="info.recvSwiftCode" column="recv_swift_code"/>
+        <result property="info.recvContactAddress" column="recv_contact_address"/>
+        <result property="info.recvBankBranchName" column="recv_bank_branch_name"/>
+        <result property="info.recvBankBranchCode" column="recv_bank_branch_code"/>
+        <result property="info.payWay" column="pay_way"/>
+        <result property="info.payType" column="pay_type"/>
+        <result property="info.payBankCode" column="pay_bank_code"/>
+        <result property="info.payBankName" column="pay_bank_name"/>
+        <result property="info.payAccountName" column="pay_account_name"/>
+        <result property="info.payBankAcct" column="pay_bank_acct"/>
+        <result property="info.bankState" column="bank_state"/>
+        <result property="info.txnRefId" column="bank_ref_id"/>
+        <result property="info.bankRtCode" column="bank_rt_code"/>
+        <result property="info.bankMsg" column="bank_rt_msg"/>
+        <result property="info.remittanceId" column="remittance_id"/>
+        <result property="info.thirdRecvFlag" column="third_recv_flag"/>
+        <result property="info.thirdRecvReal" column="third_recv_real"/>
+        <result property="info.thirdRecvReason" column="third_recv_reason"/>
+        <result property="info.gtBusinessStep" column="gt_business_step"/>
+        <result property="info.gtDealStatus" column="gt_deal_status"/>
+        <result property="info.gtDealDate" column="gt_deal_date"/>
+        <result property="info.gtRtCode" column="gt_rt_code"/>
+        <result property="info.gtMsg" column="gt_msg"/>
+        <result property="info.exportStatus" column="export_status"/>
+        <result property="info.exportDate" column="export_date"/>
+        <result property="info.printStatus" column="print_status"/>
+        <result property="info.printDate" column="print_date"/>
+        <result property="info.applySource" column="apply_source"/>
+        <result property="info.custRemark" column="cust_remark"/>
+        <result property="info.remark" column="remark"/>
+        <result property="info.freeFeeFlag" column="free_fee_flag"/>
+        <result property="info.bankReference" column="bank_reference"/>
+        <result property="info.userId" column="user_id"/>
+        <result column="real_name nick_name" property="nickName"/>
+    </resultMap>
+
+    <!-- 包含海外汇款信息 -->
+    <resultMap id="AllDetailResult"
+               type="com.minigod.zero.bpmn.module.withdraw.vo.ClientFundWithdrawApplicationVo"
+               extends="InfoExtentdResult">
+        <result property="telegram.bankCode" column="bank_code"/>
+        <result property="telegram.bankName" column="bank_name"/>
+        <result property="telegram.bankAcct" column="bank_acct"/>
+        <result property="telegram.nationality" column="nationality"/>
+        <result property="telegram.provinceId" column="province_id"/>
+        <result property="telegram.provinceName" column="province_name"/>
+        <result property="telegram.cityId" column="city_id"/>
+        <result property="telegram.cityName" column="city_name"/>
+        <result property="telegram.swiftCode" column="swift_code"/>
+        <result property="telegram.isVisible" column="is_visible"/>
+        <result property="telegram.country" column="country"/>
+        <result property="telegram.address" column="address"/>
+    </resultMap>
+
+    <!-- 包含退款信息 -->
+    <resultMap id="AllDetailRefundResult"
+               type="com.minigod.zero.bpmn.module.withdraw.vo.ClientFundWithdrawApplicationVo"
+               extends="AllDetailResult">
+        <association property="refund" javaType="com.minigod.zero.bpmn.module.withdraw.vo.ClientFundRefundApplicationVo">
+            <result property="applicationId" column="f_application_id"/>
+            <result property="refundAmount" column="refund_amount"/>
+            <result property="refundBankFee" column="refund_bank_fee"/>
+            <result property="netRefundAmount" column="net_refund_amount"/>
+            <result property="refundType" column="refund_type"/>
+            <result property="gtBusinessStep" column="f_gt_business_step"/>
+            <result property="gtDealStatus" column="f_gt_deal_status"/>
+            <result property="gtDealDate" column="f_gt_deal_date"/>
+            <result property="gtRtCode" column="f_gt_rt_code"/>
+            <result property="gtMsg" column="f_gt_msg"/>
+            <result property="refundReason" column="refund_reason"/>
+            <result property="status" column="f_status"/>
+            <result property="applicationStatus" column="f_application_status"/>
+            <result property="taskId" column="f_task_id"/>
+        </association>
+
+    </resultMap>
+
+    <!-- 银行取款总计 -->
+    <resultMap id="BankSummaryInfoVo"
+               type="com.minigod.zero.bpmn.module.withdraw.vo.WithdrawlBankSummaryVo">
+
+        <result property="payBankCode" column="pay_bank_code"/>
+        <result property="ccy" column="ccy"/>
+        <result property="transferType" column="transfer_type"/>
+        <result property="dealedCount" column="dealed_count"/>
+        <result property="dealedAmount" column="dealed_amount"/>
+
+    </resultMap>
+
+    <sql id="selectAllRelUserVoSQL">
+        select c.id, c.application_id, c.status, c.current_node, c.last_approval_user, c.approval_opinion, c.approval_time, c.application_status,  c.assign_drafter, c.instance_id, c.definition_id, c.process_instance_id, c.task_id, c.create_time, c.create_user, c.update_time, c.update_user,
+               u.real_name nick_name,
+               i.client_id, i.fund_account, i.entrust_time, i.id_kind, i.id_node, i.client_name, i.client_name_spell, i.bank_acct_type, i.sex, i.mobile, i.transfer_type,
+               i.ccy, i.withdraw_amount, i.frozen_balance, i.drawable_balance, i.deduct_way, i.charge_fee, i.actual_amount, i.init_date, i.refunded_amount, i.refunded_date,
+               i.recv_account_type, i.recv_bank_code, i.recv_bank_id, i.recv_bank_name, i.recv_bank_acct, i.recv_bank_acct_name, i.recv_swift_code, i.recv_contact_address,
+               i.recv_bank_branch_name, i.recv_bank_branch_code, i.pay_way, i.pay_type, i.pay_bank_code, i.pay_bank_name, i.pay_account_name, i.pay_bank_acct, i.bank_state,
+               i.bank_ref_id, i.bank_rt_code, i.bank_rt_msg, i.remittance_id, i.third_recv_flag, i.third_recv_real, i.third_recv_reason, i.gt_business_step, i.gt_deal_status,
+               i.gt_deal_date, i.export_status, i.export_date, i.print_status, i.print_date, i.apply_source, i.cust_remark, i.remark, i.free_fee_flag,i.user_id,
+               t.bank_code, t.bank_name, t.bank_acct, t.nationality, t.province_id, t.province_name, t.city_id, t.city_name, t.swift_code, t.is_visible, t.country, t.address
+        from client_fund_withdraw_application c
+        left join client_fund_withdraw_info i on i.application_id = c.application_id
+        left join client_teltransfer_info t on t.application_id = c.application_id
+        left join zero_cloud.zero_user u on c.assign_drafter = u.id
+    </sql>
+
+    <select id="queryPageList" resultMap="AllDetailResult">
+        <include refid="selectAllRelUserVoSQL"/>
+        <where>
+            <if test="query.applicationId != null  and query.applicationId != ''"> and c.application_id = #{query.applicationId}</if>
+            <if test="query.applicationTitle != null  and query.applicationTitle != ''"> and c.application_title = #{query.applicationTitle}</if>
+            <if test="query.status != null "> and c.status = #{query.status}</if>
+            <if test="query.currentNode != null  and query.currentNode != ''"> and c.current_node = #{query.currentNode}</if>
+            <if test="query.lastApprovalUser != null  and query.lastApprovalUser != ''"> and c.last_approval_user = #{query.lastApprovalUser}</if>
+            <if test="query.approvalOpinion != null  and query.approvalOpinion != ''"> and c.approval_opinion = #{query.approvalOpinion}</if>
+            <if test="query.approvalTime != null "> and c.approval_time &lt;= #{query.approvalTime}</if>
+            <if test="query.callbackStatus != null "> and c.callback_status = #{query.callbackStatus}</if>
+            <if test="query.applicationStatus != null "> and c.application_status = #{query.applicationStatus}</if>
+            <if test="query.isBack != null "> and c.is_back = #{query.isBack}</if>
+            <if test="query.assignDrafter != null  and query.assignDrafter != ''"> and c.assign_drafter = #{query.assignDrafter}</if>
+            <if test="query.flowPath != null  and query.flowPath != ''"> and c.flow_path = #{query.flowPath}</if>
+            <if test="query.fireAid != null "> and c.fire_aid = #{query.fireAid}</if>
+            <if test="query.instanceId != null  and query.instanceId != ''"> and c.instance_id = #{query.instanceId}</if>
+            <if test="query.definitionId != null  and query.definitionId != ''"> and c.definition_id = #{query.definitionId}</if>
+            <if test="query.processInstanceId != null  and query.processInstanceId != ''"> and c.process_instance_id = #{query.processInstanceId}</if>
+            <if test="query.taskId != null  and query.taskId != ''"> and c.task_id = #{query.taskId}</if>
+            <if test="query.deployId != null  and query.deployId != ''"> and c.deploy_id = #{query.deployId}</if>
+            <if test="query.assignStatus!=null">
+                <choose>
+                    <when test="query.assignStatus == 1">
+                        and c.assign_drafter is NOT NULL
+                    </when>
+                    <when test=" query.assignStatus == 2">
+                        and c.assign_drafter is NULL
+                    </when>
+                </choose>
+            </if>
+            <if test="query.acceptType == null and query.applicationStatusList !=null and query.applicationStatusList.size() > 0">
+                and c.application_status in
+                <foreach collection="query.applicationStatusList" item="applicationStatus" open="(" close=")" separator=",">
+                    #{applicationStatus}
+                </foreach>
+            </if>
+            <!-- 客户信息查询条件 -->
+            <if test="query.info.clientId != null  and query.info.clientId != ''"> and i.client_id = #{query.info.clientId}</if>
+            <if test="query.info.fundAccount != null  and query.info.fundAccount != ''"> and i.fund_account = #{query.info.fundAccount}</if>
+            <if test="query.info.recvBankCode != null  and query.info.recvBankCode != ''"> and i.recv_bank_code = #{query.info.recvBankCode}</if>
+            <if test="query.info.recvBankName != null  and query.info.recvBankName != ''"> and i.recv_bank_name like concat('%', #{query.info.recvBankName}, '%')</if>
+            <if test="query.info.transferType != null "> and i.transfer_type = #{query.info.transferType}</if>
+            <if test="query.info.ccy != null and query.info.ccy != ''"> and i.ccy = #{query.info.ccy}</if>
+            <if test="query.info.applySource != null "> and i.apply_source = #{query.info.applySource}</if>
+            <if test="query.info.payBankCode != null and query.info.payBankCode != ''"> and i.pay_bank_code = #{query.info.payBankCode}</if>
+            <if test="query.info.bankState != null "> and i.bank_state = #{query.info.bankState}</if>
+            <if test="query.info.gtDealStatus != null "> and i.gt_deal_status = #{query.info.gtDealStatus}</if>
+            <if test="query.info.callbackStatus != null "> and i.callback_status = #{query.info.callbackStatus}</if>
+            <if test="query.info.gtBusinessStep != null "> and i.gt_business_step = #{query.info.gtBusinessStep}</if>
+            <if test="query.info.entrustTime != null ">
+                and date_format(i.entrust_time,'%Y%m%d') = date_format(#{query.info.entrustTime},'%Y%m%d')
+            </if>
+            <if test="query.nonBackend != null "> and i.apply_source != #{query.nonBackend}</if>
+            <if test="query.applicationIdList !=null and query.applicationIdList.size() > 0">
+                and c.application_id in
+                <foreach collection="query.applicationIdList" item="applicationId" open="(" close=")" separator=",">
+                    #{applicationId}
+                </foreach>
+            </if>
+            <if test="query.transferTypeList !=null and query.transferTypeList.size() > 0">
+                and i.transfer_type in
+                <foreach collection="query.transferTypeList" item="transferType" open="(" close=")" separator=",">
+                    #{transferType}
+                </foreach>
+            </if>
+            <if test="query.beginCreateTime != null and query.beginCreateTime != ''"><!-- 开始时间检索 -->
+                and date_format(c.create_time,'%Y%m%d') &gt;= date_format(#{query.beginCreateTime},'%Y%m%d')
+            </if>
+            <if test="query.endCreateTime != null and query.endCreateTime != ''"><!-- 结束时间检索 -->
+                and date_format(c.create_time,'%Y%m%d') &lt;= date_format(#{query.endCreateTime},'%Y%m%d')
+            </if>
+            <if test="query.deadlineTime != null and query.deadlineTime != ''"><!-- 结束时间检索 -->
+                and date_format(c.create_time,'%Y-%m-%d %H:%i:%S') &lt;= date_format(#{query.endCreateTime},'%Y-%m-%d %H:%i:%S')
+            </if>
+            <if test="query.nonTransfer != null ">
+                and i.transfer_type != #{query.nonTransfer}
+            </if>
+            <if test="query.acceptType != null and query.acceptType == 1">
+                and (c.application_status in
+                <foreach collection="query.applicationStatusList" item="applicationStatus" open="(" close=")" separator=",">
+                    #{applicationStatus}
+                </foreach>
+                or (c.application_status = 1 and i.transfer_type != 1 and i.apply_source != 3))
+            </if>
+            <if test="query.tenantId !=null and query.tenantId !=''">
+              and  c.tenant_id = #{query.tenantId}
+            </if>
+            <if test="query.startTime != null and query.startTime != ''"><!-- 开始时间检索 -->
+                and date_format(i.entrust_time,'%Y%m%d') &gt;= date_format(#{startTime},'%Y%m%d')
+            </if>
+            <if test="query.endTime != null and query.endTime != ''"><!-- 结束时间检索 -->
+                and date_format(i.entrust_time,'%Y%m%d') &lt;= date_format(#{startTime},'%Y%m%d')
+            </if>
+            <if test="query.keyword != null and query.keyword != ''">
+                and (
+                    i.client_id = #{query.keyword} or i.client_name = #{query.keyword} or i.client_name_spell = #{query.keyword}
+                )
+            </if>
+        </where>
+        order by c.create_time desc
+    </select>
+
+    <sql id="AllDetailResultVoSQL">
+        select c.id, c.application_id, c.status, c.current_node, c.last_approval_user, c.approval_opinion, c.approval_time, c.application_status,  c.assign_drafter, c.instance_id, c.definition_id, c.process_instance_id, c.task_id, c.create_time, c.create_user, c.update_time, c.update_user,
+               u.real_name nick_name,
+               i.client_id, i.fund_account, i.entrust_time, i.id_kind, i.id_node, i.client_name, i.client_name_spell, i.bank_acct_type, i.sex, i.mobile, i.transfer_type, i.transfer_type,
+               i.ccy, i.withdraw_amount, i.frozen_balance, i.drawable_balance, i.deduct_way, i.charge_fee, i.actual_amount, i.init_date, i.refunded_amount, i.refunded_date,
+               i.recv_account_type, i.recv_bank_code, i.recv_bank_id, i.recv_bank_name, i.recv_bank_acct, i.recv_bank_acct_name,i.recv_bank_type, i.recv_swift_code, i.recv_contact_address,
+               i.recv_bank_branch_name, i.recv_bank_branch_code, i.pay_way, i.pay_type, i.pay_bank_code, i.pay_bank_name, i.pay_account_name, i.pay_bank_acct, i.bank_state,
+               i.bank_ref_id, i.bank_rt_code, i.bank_rt_msg, i.remittance_id, i.third_recv_flag, i.third_recv_real, i.third_recv_reason, i.gt_business_step, i.gt_deal_status,
+               i.gt_deal_date, i.export_status, i.export_date, i.print_status, i.print_date, i.apply_source, i.cust_remark, i.remark, i.free_fee_flag,
+               t.bank_code, t.bank_name, t.bank_acct, t.nationality, t.province_id, t.province_name, t.city_id, t.city_name, t.swift_code, t.is_visible, t.country, t.address
+        from client_fund_withdraw_application c
+                 left join client_fund_withdraw_info i on i.application_id = c.application_id
+                 left join client_teltransfer_info t on t.application_id = c.application_id
+                 left join zero_cloud.zero_user u on c.assign_drafter = u.id
+    </sql>
+
+    <select id="queryDetailPageList" resultMap="AllDetailResult">
+        <include refid="AllDetailResultVoSQL"/>
+        <where>
+            <if test="query.applicationId != null  and query.applicationId != ''"> and c.application_id = #{query.applicationId}</if>
+            <if test="query.applicationTitle != null  and query.applicationTitle != ''"> and c.application_title = #{query.applicationTitle}</if>
+            <if test="query.status != null "> and c.status = #{query.status}</if>
+            <if test="query.currentNode != null  and query.currentNode != ''"> and c.current_node = #{query.currentNode}</if>
+            <if test="query.lastApprovalUser != null  and query.lastApprovalUser != ''"> and c.last_approval_user = #{query.lastApprovalUser}</if>
+            <if test="query.approvalOpinion != null  and query.approvalOpinion != ''"> and c.approval_opinion = #{query.approvalOpinion}</if>
+            <if test="query.approvalTime != null "> and c.approval_time = #{query.approvalTime}</if>
+            <if test="query.callbackStatus != null "> and c.callback_status = #{query.callbackStatus}</if>
+            <if test="query.applicationStatus != null "> and c.application_status = #{query.applicationStatus}</if>
+            <if test="query.isBack != null "> and c.is_back = #{query.isBack}</if>
+            <if test="query.assignDrafter != null  and query.assignDrafter != ''"> and c.assign_drafter = #{query.assignDrafter}</if>
+            <if test="query.flowPath != null  and query.flowPath != ''"> and c.flow_path = #{query.flowPath}</if>
+            <if test="query.fireAid != null "> and c.fire_aid = #{query.fireAid}</if>
+            <if test="query.instanceId != null  and query.instanceId != ''"> and c.instance_id = #{query.instanceId}</if>
+            <if test="query.definitionId != null  and query.definitionId != ''"> and c.definition_id = #{query.definitionId}</if>
+            <if test="query.processInstanceId != null  and query.processInstanceId != ''"> and c.process_instance_id = #{query.processInstanceId}</if>
+            <if test="query.taskId != null  and query.taskId != ''"> and c.task_id = #{query.taskId}</if>
+            <if test="query.deployId != null  and query.deployId != ''"> and c.deploy_id = #{query.deployId}</if>
+            <if test="query.assignStatus!=null">
+                <choose>
+                    <when test="query.assignStatus == 1">
+                        and c.assign_drafter is NOT NULL
+                    </when>
+                    <when test=" query.assignStatus == 2">
+                        and c.assign_drafter is NULL
+                    </when>
+                </choose>
+            </if>
+            <if test="query.applicationStatusList !=null and query.applicationStatusList.size() > 0">
+                and c.application_status in
+                <foreach collection="query.applicationStatusList" item="applicationStatus" open="(" close=")" separator=",">
+                    #{applicationStatus}
+                </foreach>
+            </if>
+            <!-- 客户信息查询条件 -->
+            <if test="query.info.clientId != null  and query.info.clientId != ''"> and i.client_id = #{query.info.clientId}</if>
+            <if test="query.info.userId != null "> and i.user_id = #{query.info.userId}</if>
+            <if test="query.info.fundAccount != null  and query.info.fundAccount != ''"> and i.fund_account = #{query.info.fundAccount}</if>
+            <if test="query.info.recvBankCode != null  and query.info.recvBankCode != ''"> and i.recv_bank_code = #{query.info.recvBankCode}</if>
+            <if test="query.info.recvBankName != null  and query.info.recvBankName != ''"> and i.recv_bank_name like concat('%', #{query.info.recvBankName}, '%')</if>
+            <if test="query.info.transferType != null "> and i.transfer_type = #{query.info.transferType}</if>
+            <if test="query.info.ccy != null and query.info.ccy != ''"> and i.ccy = #{query.info.ccy}</if>
+            <if test="query.nonBackend != null "> and i.apply_source != #{query.nonBackend}</if>
+            <if test="query.applicationIdList !=null and query.applicationIdList.size() > 0">
+                and c.application_id in
+                <foreach collection="query.applicationIdList" item="applicationId" open="(" close=")" separator=",">
+                    #{applicationId}
+                </foreach>
+            </if>
+            <if test="query.transferTypeList !=null and query.transferTypeList.size() > 0">
+                and i.transfer_type in
+                <foreach collection="query.transferTypeList" item="transferType" open="(" close=")" separator=",">
+                    #{transferType}
+                </foreach>
+            </if>
+            <if test="query.beginCreateTime != null and query.beginCreateTime != ''"><!-- 开始时间检索 -->
+                and date_format(c.create_time,'%Y%m%d') &gt;= date_format(#{query.beginCreateTime},'%Y%m%d')
+            </if>
+            <if test="query.endCreateTime != null and query.endCreateTime != ''"><!-- 结束时间检索 -->
+                and date_format(c.create_time,'%Y%m%d') &lt;= date_format(#{query.endCreateTime},'%Y%m%d')
+            </if>
+        </where>
+        order by c.create_time desc
+    </select>
+    <select id="queryDetailList" resultMap="AllDetailResult">
+        <include refid="AllDetailResultVoSQL"/>
+        <where>
+            <if test="query.applicationId != null  and query.applicationId != ''"> and c.application_id = #{query.applicationId}</if>
+            <if test="query.applicationTitle != null  and query.applicationTitle != ''"> and c.application_title = #{query.applicationTitle}</if>
+            <if test="query.status != null "> and c.status = #{query.status}</if>
+            <if test="query.currentNode != null  and query.currentNode != ''"> and c.current_node = #{query.currentNode}</if>
+            <if test="query.lastApprovalUser != null  and query.lastApprovalUser != ''"> and c.last_approval_user = #{query.lastApprovalUser}</if>
+            <if test="query.approvalOpinion != null  and query.approvalOpinion != ''"> and c.approval_opinion = #{query.approvalOpinion}</if>
+            <if test="query.approvalTime != null "> and c.approval_time = #{query.approvalTime}</if>
+            <if test="query.callbackStatus != null "> and c.callback_status = #{query.callbackStatus}</if>
+            <if test="query.applicationStatus != null "> and c.application_status = #{query.applicationStatus}</if>
+            <if test="query.isBack != null "> and c.is_back = #{query.isBack}</if>
+            <if test="query.assignDrafter != null  and query.assignDrafter != ''"> and c.assign_drafter = #{query.assignDrafter}</if>
+            <if test="query.flowPath != null  and query.flowPath != ''"> and c.flow_path = #{query.flowPath}</if>
+            <if test="query.fireAid != null "> and c.fire_aid = #{query.fireAid}</if>
+            <if test="query.instanceId != null  and query.instanceId != ''"> and c.instance_id = #{query.instanceId}</if>
+            <if test="query.definitionId != null  and query.definitionId != ''"> and c.definition_id = #{query.definitionId}</if>
+            <if test="query.processInstanceId != null  and query.processInstanceId != ''"> and c.process_instance_id = #{query.processInstanceId}</if>
+            <if test="query.taskId != null  and query.taskId != ''"> and c.task_id = #{query.taskId}</if>
+            <if test="query.deployId != null  and query.deployId != ''"> and c.deploy_id = #{query.deployId}</if>
+            <if test="query.assignStatus!=null">
+                <choose>
+                    <when test="query.assignStatus == 1">
+                        and c.assign_drafter is NOT NULL
+                    </when>
+                    <when test=" query.assignStatus == 2">
+                        and c.assign_drafter is NULL
+                    </when>
+                </choose>
+            </if>
+            <if test="query.applicationStatusList !=null and query.applicationStatusList.size() > 0">
+                and c.application_status in
+                <foreach collection="query.applicationStatusList" item="applicationStatus" open="(" close=")" separator=",">
+                    #{applicationStatus}
+                </foreach>
+            </if>
+            <!-- 客户信息查询条件 -->
+            <if test="query.info.clientId != null  and query.info.clientId != ''"> and i.client_id = #{query.info.clientId}</if>
+            <if test="query.info.fundAccount != null  and query.info.fundAccount != ''"> and i.fund_account = #{query.info.fundAccount}</if>
+            <if test="query.info.recvBankCode != null  and query.info.recvBankCode != ''"> and i.recv_bank_code = #{query.info.recvBankCode}</if>
+            <if test="query.info.recvBankName != null  and query.info.recvBankName != ''"> and i.recv_bank_name like concat('%', #{query.info.recvBankName}, '%')</if>
+            <if test="query.info.transferType != null "> and i.transfer_type = #{query.info.transferType}</if>
+            <if test="query.info.ccy != null and query.info.ccy != ''"> and i.ccy = #{query.info.ccy}</if>
+            <if test="query.nonBackend != null "> and i.apply_source != #{query.nonBackend}</if>
+            <if test="query.applicationIdList !=null and query.applicationIdList.size() > 0">
+                and c.application_id in
+                <foreach collection="query.applicationIdList" item="applicationId" open="(" close=")" separator=",">
+                    #{applicationId}
+                </foreach>
+            </if>
+            <if test="query.transferTypeList !=null and query.transferTypeList.size() > 0">
+                and i.transfer_type in
+                <foreach collection="query.transferTypeList" item="transferType" open="(" close=")" separator=",">
+                    #{transferType}
+                </foreach>
+            </if>
+            <if test="query.beginCreateTime != null and query.beginCreateTime != ''"><!-- 开始时间检索 -->
+                and date_format(c.create_time,'%Y%m%d') &gt;= date_format(#{query.beginCreateTime},'%%Y%m%d')
+            </if>
+            <if test="query.endCreateTime != null and query.endCreateTime != ''"><!-- 结束时间检索 -->
+                and date_format(c.create_time,'%Y%m%d') &lt;= date_format(#{query.endCreateTime},'%Y%m%d')
+            </if>
+        </where>
+        order by c.create_time desc
+    </select>
+
+
+
+    <!-- 退款申请列表 -->
+    <sql id="selectAllRelRefundSQL">
+        select c.id, c.application_id, c.status, c.current_node, c.last_approval_user, c.approval_opinion, c.approval_time, c.application_status,  c.assign_drafter, c.instance_id, c.definition_id, c.process_instance_id, c.task_id, c.create_time, c.create_user, c.update_time, c.update_user,
+               u.real_name nick_name,
+               i.client_id, i.fund_account, i.entrust_time, i.id_kind, i.id_node, i.client_name, i.client_name_spell, i.bank_acct_type, i.sex, i.mobile, i.transfer_type,
+               i.ccy, i.withdraw_amount, i.frozen_balance, i.drawable_balance, i.deduct_way, i.charge_fee, i.actual_amount, i.init_date, i.refunded_amount, i.refunded_date,
+               i.recv_account_type, i.recv_bank_code, i.recv_bank_id, i.recv_bank_name, i.recv_bank_acct, i.recv_bank_acct_name, i.recv_swift_code, i.recv_contact_address,
+               i.recv_bank_branch_name, i.recv_bank_branch_code, i.pay_way, i.pay_type, i.pay_bank_code, i.pay_bank_name, i.pay_account_name, i.pay_bank_acct, i.bank_state,
+               i.bank_ref_id, i.bank_rt_code, i.bank_rt_msg, i.remittance_id, i.third_recv_flag, i.third_recv_real, i.third_recv_reason, i.gt_business_step, i.gt_deal_status,
+               i.gt_deal_date, i.gt_rt_code, i.gt_rt_msg, i.export_status, i.export_date, i.print_status, i.print_date, i.apply_source, i.cust_remark, i.remark, i.free_fee_flag,i.bank_reference,
+               f.refund_amount, f.refund_bank_fee, f.net_refund_amount, f.refund_type, f.gt_business_step f_gt_business_step, f.gt_deal_status f_gt_deal_status, f.gt_deal_date f_gt_deal_date,
+               f.refund_reason, f.status f_status, f.application_id f_application_id, f.application_status f_application_status, f.gt_rt_code f_gt_rt_code, f.gt_msg f_gt_msg, f.task_id f_task_id,
+        t.bank_code, t.bank_name, t.bank_acct, t.nationality, t.province_id, t.province_name, t.city_id, t.city_name, t.swift_code, t.is_visible, t.country, t.address
+        from client_fund_withdraw_application c
+                 left join client_fund_withdraw_info i on i.application_id = c.application_id
+                 left join client_teltransfer_info t on t.application_id = c.application_id
+                 left join
+                 (
+                   select * from client_fund_refund_application r
+                   <where>
+                       <if test="query.refundAuditFlag == null and query.refundApplicationStatusList !=null and query.refundApplicationStatusList.size() > 0">
+                           <foreach collection="query.refundApplicationStatusList" item="refundApplicationStatus" open="AND (" close=")" separator="or">
+                               <choose>
+                                   <when test="refundApplicationStatus == null">
+                                       r.application_status is NULL
+                                   </when>
+                                   <when test="refundApplicationStatus != null">
+                                       r.application_status = #{refundApplicationStatus}
+                                   </when>
+                               </choose>
+                           </foreach>
+                       </if>
+                   </where>
+                 ) f on f.withdraw_application_id = c.application_id
+                 left join zero_cloud.zero_user u on c.assign_drafter = u.id
+    </sql>
+
+    <select id="queryRefundPageList" resultMap="AllDetailRefundResult">
+        <include refid="selectAllRelRefundSQL"/>
+        <where>
+            <if test="query.applicationId != null  and query.applicationId != ''"> and c.application_id = #{query.applicationId}</if>
+            <if test="query.applicationTitle != null  and query.applicationTitle != ''"> and c.application_title = #{query.applicationTitle}</if>
+            <if test="query.status != null "> and c.status = #{query.status}</if>
+            <if test="query.currentNode != null  and query.currentNode != ''"> and c.current_node = #{query.currentNode}</if>
+            <if test="query.lastApprovalUser != null  and query.lastApprovalUser != ''"> and c.last_approval_user = #{query.lastApprovalUser}</if>
+            <if test="query.approvalOpinion != null  and query.approvalOpinion != ''"> and c.approval_opinion = #{query.approvalOpinion}</if>
+            <if test="query.approvalTime != null "> and c.approval_time = #{query.approvalTime}</if>
+            <if test="query.callbackStatus != null "> and c.callback_status = #{query.callbackStatus}</if>
+            <if test="query.applicationStatus != null "> and c.application_status = #{query.applicationStatus}</if>
+            <if test="query.isBack != null "> and c.is_back = #{query.isBack}</if>
+            <if test="query.assignDrafter != null  and query.assignDrafter != ''"> and c.assign_drafter = #{query.assignDrafter}</if>
+            <if test="query.flowPath != null  and query.flowPath != ''"> and c.flow_path = #{query.flowPath}</if>
+            <if test="query.fireAid != null "> and c.fire_aid = #{query.fireAid}</if>
+            <if test="query.instanceId != null  and query.instanceId != ''"> and c.instance_id = #{query.instanceId}</if>
+            <if test="query.definitionId != null  and query.definitionId != ''"> and c.definition_id = #{query.definitionId}</if>
+            <if test="query.processInstanceId != null  and query.processInstanceId != ''"> and c.process_instance_id = #{query.processInstanceId}</if>
+            <if test="query.taskId != null  and query.taskId != ''"> and c.task_id = #{query.taskId}</if>
+            <if test="query.deployId != null  and query.deployId != ''"> and c.deploy_id = #{query.deployId}</if>
+            <if test="query.assignStatus!=null">
+                <choose>
+                    <when test="query.assignStatus == 1">
+                        and c.assign_drafter is NOT NULL
+                    </when>
+                    <when test=" query.assignStatus == 2">
+                        and c.assign_drafter is NULL
+                    </when>
+                </choose>
+            </if>
+            <if test="query.applicationStatusList !=null and query.applicationStatusList.size() > 0">
+                and c.application_status in
+                <foreach collection="query.applicationStatusList" item="applicationStatus" open="(" close=")" separator=",">
+                    #{applicationStatus}
+                </foreach>
+            </if>
+            <!-- 客户信息查询条件 -->
+            <if test="query.info.clientId != null  and query.info.clientId != ''"> and i.client_id = #{query.info.clientId}</if>
+            <if test="query.info.fundAccount != null  and query.info.fundAccount != ''"> and i.fund_account = #{query.info.fundAccount}</if>
+            <if test="query.info.recvBankCode != null  and query.info.recvBankCode != ''"> and i.recv_bank_code = #{query.info.recvBankCode}</if>
+            <if test="query.info.recvBankName != null  and query.info.recvBankName != ''"> and i.recv_bank_name like concat('%', #{query.info.recvBankName}, '%')</if>
+            <if test="query.info.transferType != null "> and i.transfer_type = #{query.info.transferType}</if>
+            <if test="query.info.ccy != null and query.info.ccy != ''"> and i.ccy = #{query.info.ccy}</if>
+            <if test="query.info.applySource != null "> and i.apply_source = #{query.info.applySource}</if>
+            <if test="query.info.bankState != null "> and i.bank_state = #{query.info.bankState}</if>
+            <if test="query.info.gtDealStatus != null ">
+                and (i.gt_deal_status = #{query.info.gtDealStatus} or f.gt_deal_status = #{query.info.gtDealStatus})
+            </if>
+            <if test="query.applicationIdList !=null and query.applicationIdList.size() > 0">
+                and c.application_id in
+                <foreach collection="query.applicationIdList" item="applicationId" open="(" close=")" separator=",">
+                    #{applicationId}
+                </foreach>
+            </if>
+            <if test="query.transferTypeList !=null and query.transferTypeList.size() > 0">
+                and i.transfer_type in
+                <foreach collection="query.transferTypeList" item="transferType" open="(" close=")" separator=",">
+                    #{transferType}
+                </foreach>
+            </if>
+            <if test="query.beginCreateTime != null and query.beginCreateTime != ''"><!-- 开始时间检索 -->
+                and date_format(c.create_time,'%Y%m%d') &gt;= date_format(#{query.beginCreateTime},'%Y%m%d')
+            </if>
+            <if test="query.endCreateTime != null and query.endCreateTime != ''"><!-- 结束时间检索 -->
+                and date_format(c.create_time,'%Y%m%d') &lt;= date_format(#{query.endCreateTime},'%Y%m%d')
+            </if>
+            <!-- 退款审核 -->
+            <if test="query.refundAuditFlag != null and query.refundAuditFlag == 1 and query.refundApplicationStatusList !=null and query.refundApplicationStatusList.size() > 0">
+                <foreach collection="query.refundApplicationStatusList" item="refundApplicationStatus" open="AND (" close=")" separator="or">
+                   f.application_status = #{refundApplicationStatus}
+                </foreach>
+            </if>
+
+        </where>
+        order by c.create_time desc
+    </select>
+     <select id="queryByApplicationId" resultMap="AllDetailRefundResult">
+        <include refid="selectAllRelRefundSQL"/>
+        <where>
+            <if test="query.applicationId != null  and query.applicationId != ''"> and c.application_id = #{query.applicationId}</if>
+            <if test="query.applicationTitle != null  and query.applicationTitle != ''"> and c.application_title = #{query.applicationTitle}</if>
+            <if test="query.status != null "> and c.status = #{query.status}</if>
+            <if test="query.currentNode != null  and query.currentNode != ''"> and c.current_node = #{query.currentNode}</if>
+            <if test="query.lastApprovalUser != null  and query.lastApprovalUser != ''"> and c.last_approval_user = #{query.lastApprovalUser}</if>
+            <if test="query.approvalOpinion != null  and query.approvalOpinion != ''"> and c.approval_opinion = #{query.approvalOpinion}</if>
+            <if test="query.approvalTime != null "> and c.approval_time = #{query.approvalTime}</if>
+            <if test="query.callbackStatus != null "> and c.callback_status = #{query.callbackStatus}</if>
+            <if test="query.applicationStatus != null "> and c.application_status = #{query.applicationStatus}</if>
+            <if test="query.isBack != null "> and c.is_back = #{query.isBack}</if>
+            <if test="query.assignDrafter != null  and query.assignDrafter != ''"> and c.assign_drafter = #{query.assignDrafter}</if>
+            <if test="query.flowPath != null  and query.flowPath != ''"> and c.flow_path = #{query.flowPath}</if>
+            <if test="query.fireAid != null "> and c.fire_aid = #{query.fireAid}</if>
+            <if test="query.instanceId != null  and query.instanceId != ''"> and c.instance_id = #{query.instanceId}</if>
+            <if test="query.definitionId != null  and query.definitionId != ''"> and c.definition_id = #{query.definitionId}</if>
+            <if test="query.processInstanceId != null  and query.processInstanceId != ''"> and c.process_instance_id = #{query.processInstanceId}</if>
+            <if test="query.taskId != null  and query.taskId != ''"> and c.task_id = #{query.taskId}</if>
+            <if test="query.deployId != null  and query.deployId != ''"> and c.deploy_id = #{query.deployId}</if>
+            <if test="query.assignStatus!=null">
+                <choose>
+                    <when test="query.assignStatus == 1">
+                        and c.assign_drafter is NOT NULL
+                    </when>
+                    <when test=" query.assignStatus == 2">
+                        and c.assign_drafter is NULL
+                    </when>
+                </choose>
+            </if>
+            <if test="query.applicationStatusList !=null and query.applicationStatusList.size() > 0">
+                and c.application_status in
+                <foreach collection="query.applicationStatusList" item="applicationStatus" open="(" close=")" separator=",">
+                    #{applicationStatus}
+                </foreach>
+            </if>
+            <!-- 客户信息查询条件 -->
+            <if test="query.info.clientId != null  and query.info.clientId != ''"> and i.client_id = #{query.info.clientId}</if>
+            <if test="query.info.fundAccount != null  and query.info.fundAccount != ''"> and i.fund_account = #{query.info.fundAccount}</if>
+            <if test="query.info.recvBankCode != null  and query.info.recvBankCode != ''"> and i.recv_bank_code = #{query.info.recvBankCode}</if>
+            <if test="query.info.recvBankName != null  and query.info.recvBankName != ''"> and i.recv_bank_name like concat('%', #{query.info.recvBankName}, '%')</if>
+            <if test="query.info.transferType != null "> and i.transfer_type = #{query.info.transferType}</if>
+            <if test="query.info.ccy != null and query.info.ccy != ''"> and i.ccy = #{query.info.ccy}</if>
+            <if test="query.info.applySource != null "> and i.apply_source = #{query.info.applySource}</if>
+            <if test="query.info.bankState != null "> and i.bank_state = #{query.info.bankState}</if>
+            <if test="query.info.gtDealStatus != null ">
+                and (i.gt_deal_status = #{query.info.gtDealStatus} or f.gt_deal_status = #{query.info.gtDealStatus})
+            </if>
+            <if test="query.applicationIdList !=null and query.applicationIdList.size() > 0">
+                and c.application_id in
+                <foreach collection="query.applicationIdList" item="applicationId" open="(" close=")" separator=",">
+                    #{applicationId}
+                </foreach>
+            </if>
+            <if test="query.transferTypeList !=null and query.transferTypeList.size() > 0">
+                and i.transfer_type in
+                <foreach collection="query.transferTypeList" item="transferType" open="(" close=")" separator=",">
+                    #{transferType}
+                </foreach>
+            </if>
+            <if test="query.beginCreateTime != null and query.beginCreateTime != ''"><!-- 开始时间检索 -->
+                and date_format(c.create_time,'%Y%m%d') &gt;= date_format(#{query.beginCreateTime},'%Y%m%d')
+            </if>
+            <if test="query.endCreateTime != null and query.endCreateTime != ''"><!-- 结束时间检索 -->
+                and date_format(c.create_time,'%Y%m%d') &lt;= date_format(#{query.endCreateTime},'%Y%m%d')
+            </if>
+            <!-- 退款审核 -->
+            <if test="query.refundAuditFlag != null and query.refundAuditFlag == 1 and query.refundApplicationStatusList !=null and query.refundApplicationStatusList.size() > 0">
+                <foreach collection="query.refundApplicationStatusList" item="refundApplicationStatus" open="AND (" close=")" separator="or">
+                   f.application_status = #{refundApplicationStatus}
+                </foreach>
+            </if>
+        </where>
+        order by c.create_time desc
+    </select>
+
+    <select id="queryBankSummaryReportInfo" resultMap="BankSummaryInfoVo">
+        select i.pay_bank_code,i.ccy,i.transfer_type,count(1) dealed_count,sum(i.actual_amount) dealed_amount
+        from client_fund_withdraw_application c
+        left join client_fund_withdraw_info i on i.application_id = c.application_id
+        <where>
+            <if test="applicationStatusList !=null and applicationStatusList.size() > 0">
+                and c.application_status in
+                <foreach collection="applicationStatusList" item="applicationStatus" open="(" close=")" separator=",">
+                    #{applicationStatus}
+                </foreach>
+            </if>
+            <if test="createTime != null"><!-- 开始时间检索 -->
+                and date_format(c.create_time,'%Y%m%d') = date_format(#{createTime},'%Y%m%d')
+            </if>
+            <if test="beginCreateTime != null and beginCreateTime != ''"><!-- 开始时间检索 -->
+                and date_format(c.create_time,'%Y%m%d') &gt;= date_format(#{beginCreateTime},'%Y%m%d')
+            </if>
+            <if test="endCreateTime != null and endCreateTime != ''"><!-- 结束时间检索 -->
+                and date_format(c.create_time,'%Y%m%d') &lt;= date_format(#{endCreateTime},'%Y%m%d')
+            </if>
+        </where>
+        GROUP BY i.pay_bank_code,i.ccy,i.transfer_type
+    </select>
+
+
+    <sql id="selectClientFundWithdrawApplicationVo">
+        select id, application_id, application_title, status, current_node, last_approval_user, approval_opinion, approval_time, callback_status, application_status, is_back, assign_drafter, flow_path, fire_aid, instance_id, definition_id, process_instance_id, task_id, deploy_id, create_time, create_user, update_time, update_user from client_fund_withdraw_application
+    </sql>
+
+    <select id="selectClientFundWithdrawApplicationList" parameterType="ClientFundWithdrawApplication" resultMap="ClientFundWithdrawApplicationResult">
+        <include refid="selectClientFundWithdrawApplicationVo"/>
+        <where>
+            <if test="applicationId != null  and applicationId != ''"> and application_id = #{applicationId}</if>
+            <if test="applicationTitle != null  and applicationTitle != ''"> and application_title = #{applicationTitle}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="currentNode != null  and currentNode != ''"> and current_node = #{currentNode}</if>
+            <if test="lastApprovalUser != null  and lastApprovalUser != ''"> and last_approval_user = #{lastApprovalUser}</if>
+            <if test="approvalOpinion != null  and approvalOpinion != ''"> and approval_opinion = #{approvalOpinion}</if>
+            <if test="approvalTime != null "> and approval_time = #{approvalTime}</if>
+            <if test="callbackStatus != null "> and callback_status = #{callbackStatus}</if>
+            <if test="applicationStatus != null "> and application_status = #{applicationStatus}</if>
+            <if test="isBack != null "> and is_back = #{isBack}</if>
+            <if test="assignDrafter != null  and assignDrafter != ''"> and assign_drafter = #{assignDrafter}</if>
+            <if test="flowPath != null  and flowPath != ''"> and flow_path = #{flowPath}</if>
+            <if test="fireAid != null "> and fire_aid = #{fireAid}</if>
+            <if test="instanceId != null  and instanceId != ''"> and instance_id = #{instanceId}</if>
+            <if test="definitionId != null  and definitionId != ''"> and definition_id = #{definitionId}</if>
+            <if test="processInstanceId != null  and processInstanceId != ''"> and process_instance_id = #{processInstanceId}</if>
+            <if test="taskId != null  and taskId != ''"> and task_id = #{taskId}</if>
+            <if test="deployId != null  and deployId != ''"> and deploy_id = #{deployId}</if>
+        </where>
+    </select>
+
+    <select id="selectClientFundWithdrawApplicationByid" parameterType="Long" resultMap="ClientFundWithdrawApplicationResult">
+        <include refid="selectClientFundWithdrawApplicationVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertClientFundWithdrawApplication" parameterType="ClientFundWithdrawApplication" useGeneratedKeys="true" keyProperty="id">
+        insert into client_fund_withdraw_application
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="applicationId != null and applicationId != ''">application_id,</if>
+            <if test="applicationTitle != null and applicationTitle != ''">application_title,</if>
+            <if test="status != null">status,</if>
+            <if test="currentNode != null and currentNode != ''">current_node,</if>
+            <if test="lastApprovalUser != null and lastApprovalUser != ''">last_approval_user,</if>
+            <if test="approvalOpinion != null and approvalOpinion != ''">approval_opinion,</if>
+            <if test="approvalTime != null">approval_time,</if>
+            <if test="callbackStatus != null">callback_status,</if>
+            <if test="applicationStatus != null">application_status,</if>
+            <if test="isBack != null">is_back,</if>
+            <if test="assignDrafter != null and assignDrafter != ''">assign_drafter,</if>
+            <if test="flowPath != null and flowPath != ''">flow_path,</if>
+            <if test="fireAid != null">fire_aid,</if>
+            <if test="instanceId != null and instanceId != ''">instance_id,</if>
+            <if test="definitionId != null and definitionId != ''">definition_id,</if>
+            <if test="processInstanceId != null and processInstanceId != ''">process_instance_id,</if>
+            <if test="taskId != null and taskId != ''">task_id,</if>
+            <if test="deployId != null and deployId != ''">deploy_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateUser != null">update_user,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="applicationId != null and applicationId != ''">#{applicationId},</if>
+            <if test="applicationTitle != null and applicationTitle != ''">#{applicationTitle},</if>
+            <if test="status != null">#{status},</if>
+            <if test="currentNode != null and currentNode != ''">#{currentNode},</if>
+            <if test="lastApprovalUser != null and lastApprovalUser != ''">#{lastApprovalUser},</if>
+            <if test="approvalOpinion != null and approvalOpinion != ''">#{approvalOpinion},</if>
+            <if test="approvalTime != null">#{approvalTime},</if>
+            <if test="callbackStatus != null">#{callbackStatus},</if>
+            <if test="applicationStatus != null">#{applicationStatus},</if>
+            <if test="isBack != null">#{isBack},</if>
+            <if test="assignDrafter != null and assignDrafter != ''">#{assignDrafter},</if>
+            <if test="flowPath != null and flowPath != ''">#{flowPath},</if>
+            <if test="fireAid != null">#{fireAid},</if>
+            <if test="instanceId != null and instanceId != ''">#{instanceId},</if>
+            <if test="definitionId != null and definitionId != ''">#{definitionId},</if>
+            <if test="processInstanceId != null and processInstanceId != ''">#{processInstanceId},</if>
+            <if test="taskId != null and taskId != ''">#{taskId},</if>
+            <if test="deployId != null and deployId != ''">#{deployId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateUser != null">#{updateUser},</if>
+        </trim>
+    </insert>
+
+    <update id="updateClientFundWithdrawApplication" parameterType="com.minigod.zero.bpmn.module.withdraw.entity.ClientFundWithdrawApplication">
+        update client_fund_withdraw_application
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="applicationId != null and applicationId != ''">application_id = #{applicationId},</if>
+            <if test="applicationTitle != null and applicationTitle != ''">application_title = #{applicationTitle},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="currentNode != null and currentNode != ''">current_node = #{currentNode},</if>
+            <if test="lastApprovalUser != null and lastApprovalUser != ''">last_approval_user = #{lastApprovalUser},</if>
+            <if test="approvalOpinion != null and approvalOpinion != ''">approval_opinion = #{approvalOpinion},</if>
+            <if test="approvalTime != null">approval_time = #{approvalTime},</if>
+            <if test="callbackStatus != null">callback_status = #{callbackStatus},</if>
+            <if test="applicationStatus != null">application_status = #{applicationStatus},</if>
+            <if test="isBack != null">is_back = #{isBack},</if>
+            <if test="assignDrafter != null and assignDrafter != ''">assign_drafter = #{assignDrafter},</if>
+            <if test="flowPath != null and flowPath != ''">flow_path = #{flowPath},</if>
+            <if test="fireAid != null">fire_aid = #{fireAid},</if>
+            <if test="instanceId != null and instanceId != ''">instance_id = #{instanceId},</if>
+            <if test="definitionId != null and definitionId != ''">definition_id = #{definitionId},</if>
+            <if test="processInstanceId != null and processInstanceId != ''">process_instance_id = #{processInstanceId},</if>
+            <if test="taskId != null and taskId != ''">task_id = #{taskId},</if>
+            <if test="deployId != null and deployId != ''">deploy_id = #{deployId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
+        </trim>
+        <where>
+            <if test="id != null"> and id = #{id}</if>
+            <if test="applicationId != null and applicationId != ''"> and application_id = #{applicationId}</if>
+        </where>
+    </update>
+
+    <delete id="deleteClientFundWithdrawApplicationByid" parameterType="Long">
+        delete from client_fund_withdraw_application where id = #{id}
+    </delete>
+
+    <delete id="deleteClientFundWithdrawApplicationByids" parameterType="String">
+        delete from client_fund_withdraw_application where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="withdrawalPageList" parameterType="com.minigod.zero.bpmn.module.withdraw.bo.WithdrawInfoDTO"
+            resultType="com.minigod.zero.bpmn.module.withdraw.vo.WithdrawInfoVO">
+        select
+            cfwa.application_id as applicationId,
+            cfwi.client_id      as clientId,
+            cfwi.client_name_spell as custEname,
+            cfwi.client_name       as custName,
+            cfwi.mobile            as mobile,
+            cfwi.withdraw_amount   as withdrawAmount,
+            cfwi.actual_amount     as actualAmount,
+            cfwi.charge_fee        as chargeFee,
+            cfwi.drawable_balance  as drawableBalance,
+            cfwi.drawable_balance - cfwi.actual_amount as remainBalance,
+            cfwi.transfer_type     as transferType,
+            cfwi.deduct_way        as deductWay,
+            cfwi.ccy               as currency,
+            cti.country            as country,
+            cti.province_name      as provinceName,
+            cti.city_name          as cityName,
+            cfwi.recv_bank_acct    as recvBankAcct,
+            cfwi.recv_bank_acct_name as recvBankAcctName,
+            cfwi.recv_bank_name    as recvBankName,
+            cfwi.recv_bank_id      as recvBankId,
+            cfwi.pay_bank_name     as payBankName,
+            cfwi.pay_account_name  as payAccountName,
+            cfwi.pay_bank_acct as payBankAcct,
+            cfwi.status            as status,
+            cfwa.create_time       as createTime,
+            cfwa.instance_id       as instanceId,
+            cfwa.definition_id     as definitionId,
+            cfwa.process_instance_id  as processInstanceId,
+            cfwi.entrust_time      as entrustTime,
+            cfra.refund_amount     as refundAmount,
+            cfra.refund_bank_fee   as refundBankFee,
+            cfra.net_refund_amount as netRefundAmount,
+            cfra.refund_type       as refundType,
+            cfra.refund_reason     as refundReason,
+            cfra.approval_time     as refundedDate,
+            case when cfra.status = 2 then 1 else 0 end as isRefund,
+            cfwi.recv_swift_code    as  recvSwiftCode,
+            cfwi.cust_remark        as custRemark,
+            cfwa.task_id            as taskId
+        from client_fund_withdraw_application as cfwa
+        left join client_fund_withdraw_info cfwi on cfwa.application_id = cfwi.application_id
+        left join client_teltransfer_info as cti on cti.application_id = cfwi.application_id
+        left join client_fund_refund_application as cfra on cfwi.application_id = cfra.withdraw_application_id
+        <where>
+            <if test="param.applicationId !=null and param.applicationId != ''">
+                and cfwa.application_id = #{param.applicationId}
+            </if>
+            <if test="param.clientId != null and param.clientId != ''">
+                and cfwi.client_id = #{param.clientId}
+            </if>
+            <if test="param.payBankCode != null and param.payBankCode != ''">
+                and cfwi.pay_bank_code = #{param.payBankCode}
+            </if>
+            <if test="param.applicationStatus != null">
+                and cfwa.application_status = #{param.applicationStatus}
+            </if>
+            <if test="param.applicationStatusList != null">
+                and cfwa.application_status in
+                <foreach item="item" index="index" collection="param.applicationStatusList" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="param.startTime != null and param.startTime != ''">
+                and cfwi.entrust_time &gt;= #{param.startTime}
+            </if>
+            <if test="param.endTime != null and param.endTime != ''">
+                and cfwi.entrust_time &lt;= #{param.endTime}
+            </if>
+            <if test="param.currency != null and param.currency != ''">
+                and cfwi.ccy = #{param.currency}
+            </if>
+            <if test="param.recvBankCode != null and param.recvBankCode != ''">
+                and cfwi.recv_bank_code = #{param.recvBankCode}
+            </if>
+            <if test="param.transferType != null">
+                and cfwi.transfer_type = #{param.transferType}
+            </if>
+            <if test="param.status != null">
+                and cfwi.status = #{param.status}
+            </if>
+            <if test="param.keyword != null and param.keyword != '' ">
+                and (   cfwi.client_id = #{param.keyword}
+                        or cfwi.client_name_spell LIKE concat('%',concat(#{param.keyword},'%'))
+                        or cfwi.client_name LIKE concat('%',concat(#{param.keyword},'%'))
+                        or cfwi.mobile LIKE concat('%',concat(#{param.keyword},'%'))
+                    )
+            </if>
+            <if test="param.applySource != null">
+                and cfwi.apply_source = #{param.applySource}
+            </if>
+            <if test="param.tenantId != null and param.tenantId !=''">
+                and cfwi.tenant_id = #{param.tenantId}
+            </if>
+            <if test="param.approvalTime != null and param.approvalTime != ''">
+                and cfwa.approval_time = #{approvalTime}
+            </if>
+            <if test="param.acceptType != null and param.acceptType == 1">
+                and (cfwa.application_status in
+                <foreach collection="param.applicationStatusList" item="applicationStatus" open="(" close=")" separator=",">
+                    #{applicationStatus}
+                </foreach>
+                or (cfwa.application_status = 1 and cfwi.transfer_type != 1 and cfwi.apply_source != 3))
+            </if>
+        </where>
+        order by cfwa.create_time desc
+    </select>
+
+
+    <select id="withdrawalRefundPageList" parameterType="com.minigod.zero.bpmn.module.withdraw.bo.WithdrawInfoDTO"
+            resultType="com.minigod.zero.bpmn.module.withdraw.vo.WithdrawRefundVO">
+        select
+        cfra.application_id as applicationId,
+            cfwi.client_id      as clientId,
+            cfwi.client_name_spell as custEname,
+            cfwi.client_name       as custName,
+            cfwi.mobile            as mobile,
+            cfwi.withdraw_amount   as withdrawAmount,
+            cfwi.actual_amount     as actualAmount,
+            cfwi.charge_fee        as chargeFee,
+            cfwi.drawable_balance  as drawableBalance,
+            cfwi.drawable_balance - cfwi.actual_amount as remainBalance,
+            cfwi.transfer_type     as transferType,
+            cfwi.deduct_way        as deductWay,
+            cfwi.ccy               as currency,
+            cfwi.recv_bank_acct    as recvBankAcct,
+            cfwi.recv_bank_acct_name as recvBankAcctName,
+            cfwi.recv_bank_name    as recvBankName,
+            cfwi.status            as status,
+            cfra.create_time       as createTime,
+            cfra.instance_id       as instanceId,
+            cfra.definition_id     as definitionId,
+            cfra.process_instance_id  as processInstanceId,
+            cfra.refund_amount     as refundAmount,
+            cfra.refund_bank_fee   as refundBankFee,
+            cfra.net_refund_amount as netRefundAmount,
+            cfra.refund_type       as refundType,
+            cfra.refund_reason     as refundReason,
+            cfwi.recv_swift_code    as  recvSwiftCode,
+            cfwi.cust_remark        as custRemark,
+            cfra.task_id            as taskId,
+            cfwi.application_id as withdrawApplicationId
+        from client_fund_refund_application as cfra
+        left join client_fund_withdraw_info cfwi on cfwi.application_id = cfra.withdraw_application_id
+        <where>
+            <if test="param.clientId != null and param.clientId != ''">
+                and cfwi.client_id = #{param.clientId}
+            </if>
+            <if test="param.applicationStatus != null ">
+                and cfwi.status = #{param.applicationStatus}
+            </if>
+            <if test="param.applicationStatusList != null">
+                and cfra.application_status in
+                <foreach item="item" index="index" collection="param.applicationStatusList" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="param.startTime != null and param.startTime != ''">
+                and cfra.create_time &gt;= #{param.startTime}
+            </if>
+            <if test="param.endTime != null and param.endTime != ''">
+                and cfra.create_time &lt;= #{param.endTime}
+            </if>
+            <if test="param.currency != null and param.currency != ''">
+                and cfwi.ccy = #{param.currency}
+            </if>
+            <if test="param.recvBankCode != null and param.recvBankCode != ''">
+                and cfwi.recv_bank_code = #{param.recvBankCode}
+            </if>
+            <if test="param.status != null">
+                and cfwi.status = #{param.status}
+            </if>
+            <if test="param.tenantId != null and param.tenantId !=''">
+                and cfwi.tenant_id = #{param.tenantId}
+            </if>
+            <if test="param.keyword != null and param.keyword != '' ">
+                and (   cfwi.client_id = #{param.keyword}
+                or cfwi.client_name_spell LIKE concat('%',concat(#{param.keyword},'%'))
+                or cfwi.client_name LIKE concat('%',concat(#{param.keyword},'%'))
+                or cfwi.mobile LIKE concat('%',concat(#{param.keyword},'%'))
+                )
+            </if>
+        </where>
+        order by cfra.create_time desc
+    </select>
+
+
+    <select id="withdrawalFailPageList" parameterType="com.minigod.zero.bpmn.module.withdraw.bo.WithdrawInfoDTO"
+            resultType="com.minigod.zero.bpmn.module.withdraw.vo.WithdrawRefundVO">
+        select
+        cfwi.application_id as applicationId,
+            cfwi.client_id      as clientId,
+            cfwi.client_name_spell as custEname,
+            cfwi.client_name       as custName,
+            cfwi.mobile            as mobile,
+            cfwi.withdraw_amount   as withdrawAmount,
+            cfwi.actual_amount     as actualAmount,
+            cfwi.charge_fee        as chargeFee,
+            cfwi.drawable_balance  as drawableBalance,
+            cfwi.drawable_balance - cfwi.actual_amount as remainBalance,
+            cfwi.transfer_type     as transferType,
+            cfwi.deduct_way        as deductWay,
+            cfwi.ccy               as currency,
+            cfwi.recv_bank_acct    as recvBankAcct,
+            cfwi.recv_bank_acct_name as recvBankAcctName,
+            cfwi.recv_bank_name    as recvBankName,
+            cfwi.recv_swift_code    as  recvSwiftCode,
+            cfwi.bank_reference    as  bankReference,
+            cfwi.status            as status,
+            cfwi.pay_way           as payWay,
+            cfwi.pay_type          as payType,
+            cfra.create_time       as createTime,
+            cfra.instance_id       as instanceId,
+            cfra.definition_id     as definitionId,
+            cfra.process_instance_id  as processInstanceId,
+            cfra.refund_amount     as refundAmount,
+            cfra.refund_bank_fee   as refundBankFee,
+            cfra.net_refund_amount as netRefundAmount,
+            cfra.refund_type       as refundType,
+            cfra.refund_reason     as refundReason,
+            cfra.task_id            as taskId
+
+        from client_fund_withdraw_info cfwi
+        left join client_fund_refund_application as cfra on cfwi.application_id = cfra.withdraw_application_id
+        <where>
+            <if test="param.clientId != null and param.clientId != ''">
+                and cfwi.client_id = #{param.clientId}
+            </if>
+            <if test="param.applicationStatus != null ">
+                and cfwi.status = #{param.applicationStatus}
+            </if>
+            <if test="param.applicationStatusList != null">
+                and cfwi.status in
+                <foreach item="item" index="index" collection="param.applicationStatusList" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="param.startTime != null and param.startTime != ''">
+                and cfra.create_time &gt;= #{param.startTime}
+            </if>
+            <if test="param.endTime != null and param.endTime != ''">
+                and cfra.create_time &lt;= #{param.endTime}
+            </if>
+            <if test="param.currency != null and param.currency != ''">
+                and cfwi.ccy = #{param.currency}
+            </if>
+            <if test="param.recvBankCode != null and param.recvBankCode != ''">
+                and cfwi.recv_bank_code = #{param.recvBankCode}
+            </if>
+            <if test="param.status != null">
+                and cfwi.status = #{param.status}
+            </if>
+            <if test="param.tenantId != null and param.tenantId !=''">
+                and cfwi.tenant_id = #{param.tenantId}
+            </if>
+            <if test="param.keyword != null and param.keyword != '' ">
+                and (   cfwi.client_id = #{param.keyword}
+                or cfwi.client_name_spell LIKE concat('%',concat(#{param.keyword},'%'))
+                or cfwi.client_name LIKE concat('%',concat(#{param.keyword},'%'))
+                or cfwi.mobile LIKE concat('%',concat(#{param.keyword},'%'))
+                )
+            </if>
+        </where>
+        ORDER BY cfra.create_time, cfwi.application_id  DESC
+    </select>
+
+
+    <select id="withdrawalDetail" parameterType="java.lang.Object"
+            resultType="com.minigod.zero.bpmn.module.withdraw.vo.WithdrawDetailVO">
+        select
+            cfwi.application_id as applicationId,
+            cfwi.client_id      as clientId,
+            cfwi.client_name_spell as custEname,
+            cfwi.client_name       as custName,
+            cfwi.mobile            as mobile,
+            cfwi.withdraw_amount   as withdrawAmount,
+            cfwi.actual_amount     as actualAmount,
+            cfwi.charge_fee        as chargeFee,
+            cfwi.drawable_balance  as drawableBalance,
+            cfwi.drawable_balance - cfwi.actual_amount as remainBalance,
+            cfwi.transfer_type     as transferType,
+            cfwi.deduct_way        as deductWay,
+            cfwi.ccy               as currency,
+            cti.country            as country,
+            cti.province_name      as provinceName,
+            cti.city_name          as cityName,
+            cfwi.recv_bank_acct    as recvBankAcct,
+            cfwi.recv_bank_acct_name as recvBankAcctName,
+            cfwi.recv_bank_name    as recvBankName,
+            cfwi.recv_bank_id      as recvBankId,
+            cfwi.pay_bank_name     as payBankName,
+            cfwi.pay_account_name  as payAccountName,
+            cfwi.pay_bank_acct     as payBankAcct,
+            cfwi.status            as status,
+            cfwa.create_time       as createTime,
+            cfwa.instance_id       as instanceId,
+            cfwa.definition_id     as definitionId,
+            cfwa.process_instance_id  as processInstanceId,
+            cfwi.entrust_time      as entrustTime,
+            cfra.refund_amount     as refundAmount,
+            cfra.refund_bank_fee   as refundBankFee,
+            cfra.net_refund_amount as netRefundAmount,
+            cfra.refund_type       as refundType,
+            cfra.refund_reason     as refundReason,
+            case when cfra.status = 2 then 1 else 0 end as isRefund,
+            cfwi.recv_swift_code    as  recvSwiftCode,
+            cfwi.cust_remark        as custRemark,
+            cfwa.task_id            as taskId,
+            cfwi.third_recv_flag    as thirdRecvFlag,
+            cfwi.third_recv_real    as thirdRecvReal,
+            cfwi.third_recv_reason  as thirdRecvReason
+        from client_fund_withdraw_application as cfwa
+        left join client_fund_withdraw_info cfwi on cfwa.application_id = cfwi.application_id
+        left join client_teltransfer_info as cti on cti.application_id = cfwi.application_id
+        left join client_fund_refund_application as cfra on cfwi.application_id = cfra.withdraw_application_id
+        where cfwa.application_id = #{applicationId}
+    </select>
+
+    <select id="withdrawalRefundDetail" parameterType="java.lang.Object"
+            resultType="com.minigod.zero.bpmn.module.withdraw.vo.WithdrawDetailVO">
+        select
+            cfwi.application_id as applicationId,
+            cfwi.client_id      as clientId,
+            cfwi.client_name_spell as custEname,
+            cfwi.client_name       as custName,
+            cfwi.mobile            as mobile,
+            cfwi.withdraw_amount   as withdrawAmount,
+            cfwi.actual_amount     as actualAmount,
+            cfwi.charge_fee        as chargeFee,
+            cfwi.drawable_balance  as drawableBalance,
+            cfwi.drawable_balance - cfwi.actual_amount as remainBalance,
+            cfwi.transfer_type     as transferType,
+            cfwi.deduct_way        as deductWay,
+            cfwi.ccy               as currency,
+            cfwi.recv_bank_acct    as recvBankAcct,
+            cfwi.recv_bank_acct_name as recvBankAcctName,
+            cfwi.recv_bank_name    as recvBankName,
+            cfwi.status            as status,
+            cfra.create_time       as createTime,
+            cfra.instance_id       as instanceId,
+            cfra.definition_id     as definitionId,
+            cfra.process_instance_id  as processInstanceId,
+            cfra.refund_amount     as refundAmount,
+            cfra.refund_bank_fee   as refundBankFee,
+            cfra.net_refund_amount as netRefundAmount,
+            cfra.refund_type       as refundType,
+            cfra.refund_reason     as refundReason,
+            cfwi.recv_swift_code    as  recvSwiftCode,
+            cfwi.cust_remark        as custRemark,
+            cfra.task_id            as taskId,
+            cfwi.third_recv_flag    as thirdRecvFlag,
+            cfwi.third_recv_real    as thirdRecvReal,
+            cfwi.third_recv_reason  as thirdRecvReason
+        from client_fund_refund_application as cfra
+        left join client_fund_withdraw_info cfwi on cfwi.application_id = cfra.withdraw_application_id
+        where cfra.application_id = #{applicationId}
+    </select>
+
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.system.mapper.ZeroRoleSettingMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.system.entity.ZeroRoleSetting">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+            <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+            <result property="sort" column="sort" jdbcType="INTEGER"/>
+            <result property="roleAlias" column="role_alias" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,parent_id,role_name,
+        sort,role_alias
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from zero_role_setting
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from zero_role_setting
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.system.entity.ZeroRoleSetting" useGeneratedKeys="true">
+        insert into zero_role_setting
+        ( id,parent_id,role_name
+        ,sort,role_alias)
+        values (#{id,jdbcType=BIGINT},#{parentId,jdbcType=BIGINT},#{roleName,jdbcType=VARCHAR}
+        ,#{sort,jdbcType=INTEGER},#{roleAlias,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.system.entity.ZeroRoleSetting" useGeneratedKeys="true">
+        insert into zero_role_setting
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="parentId != null">parent_id,</if>
+                <if test="roleName != null">role_name,</if>
+                <if test="sort != null">sort,</if>
+                <if test="roleAlias != null">role_alias,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="parentId != null">#{parentId,jdbcType=BIGINT},</if>
+                <if test="roleName != null">#{roleName,jdbcType=VARCHAR},</if>
+                <if test="sort != null">#{sort,jdbcType=INTEGER},</if>
+                <if test="roleAlias != null">#{roleAlias,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.system.entity.ZeroRoleSetting">
+        update zero_role_setting
+        <set>
+                <if test="parentId != null">
+                    parent_id = #{parentId,jdbcType=BIGINT},
+                </if>
+                <if test="roleName != null">
+                    role_name = #{roleName,jdbcType=VARCHAR},
+                </if>
+                <if test="sort != null">
+                    sort = #{sort,jdbcType=INTEGER},
+                </if>
+                <if test="roleAlias != null">
+                    role_alias = #{roleAlias,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.system.entity.ZeroRoleSetting">
+        update zero_role_setting
+        set
+            parent_id =  #{parentId,jdbcType=BIGINT},
+            role_name =  #{roleName,jdbcType=VARCHAR},
+            sort =  #{sort,jdbcType=INTEGER},
+            role_alias =  #{roleAlias,jdbcType=VARCHAR}
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="roleQueryPage" parameterType="java.lang.Object" resultMap="BaseResultMap">
+        select * from zero_role_setting
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (role_name = #{keyword} or role_alias = #{keyword} )
+            </if>
+        </where>
+        order by sort desc
+    </select>
+
+    <select id="getAll"  resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from zero_role_setting order by sort desc
+    </select>
+</mapper>

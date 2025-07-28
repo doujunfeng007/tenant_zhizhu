@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.withdraw.mapper.ClientBankInfoOsMapper">
+  <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.withdraw.entity.ClientBankInfoOs">
+    <!--@mbg.generated-->
+    <!--@Table client_bank_info_os-->
+    <result column="id" property="id" />
+    <result column="bank_code" property="bankCode" />
+    <result column="bank_name" property="bankName" />
+    <result column="bank_name_en" property="bankNameEn" />
+    <result column="status" property="status" />
+    <result column="deposit" property="deposit" />
+    <result column="create_time" property="createTime" />
+    <result column="create_user" property="createUser" />
+    <result column="update_time" property="updateTime" />
+    <result column="update_user" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, bank_code, bank_name, bank_name_en, `status`, deposit, create_time, create_user,
+    update_time, update_user
+  </sql>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into client_bank_info_os
+    (id, bank_code, bank_name, bank_name_en, `status`, deposit, create_time, create_user,
+      update_time, update_user)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id}, #{item.bankCode}, #{item.bankName}, #{item.bankNameEn}, #{item.status},
+        #{item.deposit}, #{item.createTime}, #{item.createUser}, #{item.updateTime}, #{item.updateUser}
+        )
+    </foreach>
+  </insert>
+
+    <resultMap id="ClientBankInfoOsResult" type="com.minigod.zero.bpmn.module.withdraw.entity.ClientBankInfoOs">
+                <result column="id" property="id" />
+                <result column="bank_code" property="bankCode" />
+                <result column="bank_name" property="bankName" />
+                <result column="bank_name_en" property="bankNameEn" />
+                <result column="status" property="status" />
+                <result column="deposit" property="deposit" />
+                <result column="create_time" property="createTime" />
+                <result column="create_user" property="createUser" />
+                <result column="update_time" property="updateTime" />
+                <result column="update_user" property="updateUser" />
+<result column="is_deleted" property="isDeleted" />
+ <result column="create_dept" property="createDept" />
+ <result column="status" property="status" />
+    </resultMap>
+
+
+    <sql id="selectClientBankInfoOsVo">
+        select id, bank_code, bank_name, bank_name_en, status, deposit, create_time, create_user, update_time, update_user from client_bank_info_os
+    </sql>
+
+    <select id="selectClientBankInfoOsList" parameterType="ClientBankInfoOs" resultMap="ClientBankInfoOsResult">
+        <include refid="selectClientBankInfoOsVo" />
+        <where>
+                        <if test="bankCode != null  and bankCode != ''"> and bank_code = #{bankCode}</if>
+                        <if test="bankName != null  and bankName != ''"> and bank_name like concat('%', #{bankName}, '%')</if>
+                        <if test="bankNameEn != null  and bankNameEn != ''"> and bank_name_en = #{bankNameEn}</if>
+                        <if test="status != null "> and status = #{status}</if>
+                        <if test="deposit != null "> and deposit = #{deposit}</if>
+        </where>
+    </select>
+
+    <select id="selectClientBankInfoOsByid" parameterType="Long" resultMap="ClientBankInfoOsResult">
+            <include refid="selectClientBankInfoOsVo" />
+            where id = #{id}
+    </select>
+
+    <insert id="insertClientBankInfoOs" keyProperty="id" parameterType="ClientBankInfoOs" useGeneratedKeys="true">
+        insert into client_bank_info_os
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="bankCode != null and bankCode != ''">bank_code,</if>
+                    <if test="bankName != null and bankName != ''">bank_name,</if>
+                    <if test="bankNameEn != null and bankNameEn != ''">bank_name_en,</if>
+                    <if test="status != null">status,</if>
+                    <if test="deposit != null">deposit,</if>
+                    <if test="createTime != null">create_time,</if>
+                    <if test="createUser != null">create_user,</if>
+                    <if test="updateTime != null">update_time,</if>
+                    <if test="updateUser != null">update_user,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="bankCode != null and bankCode != ''">#{bankCode},</if>
+                    <if test="bankName != null and bankName != ''">#{bankName},</if>
+                    <if test="bankNameEn != null and bankNameEn != ''">#{bankNameEn},</if>
+                    <if test="status != null">#{status},</if>
+                    <if test="deposit != null">#{deposit},</if>
+                    <if test="createTime != null">#{createTime},</if>
+                    <if test="createUser != null">#{createUser},</if>
+                    <if test="updateTime != null">#{updateTime},</if>
+                    <if test="updateUser != null">#{updateUser},</if>
+        </trim>
+    </insert>
+
+    <update id="updateClientBankInfoOs" parameterType="ClientBankInfoOs">
+        update client_bank_info_os
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="bankCode != null and bankCode != ''">bank_code = #{bankCode},</if>
+                    <if test="bankName != null and bankName != ''">bank_name = #{bankName},</if>
+                    <if test="bankNameEn != null and bankNameEn != ''">bank_name_en = #{bankNameEn},</if>
+                    <if test="status != null">status = #{status},</if>
+                    <if test="deposit != null">deposit = #{deposit},</if>
+                    <if test="createTime != null">create_time = #{createTime},</if>
+                    <if test="createUser != null">create_user = #{createUser},</if>
+                    <if test="updateTime != null">update_time = #{updateTime},</if>
+                    <if test="updateUser != null">update_user = #{updateUser},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteClientBankInfoOsByid" parameterType="Long">
+        delete from client_bank_info_os where id = #{id}
+    </delete>
+
+    <delete id="deleteClientBankInfoOsByids" parameterType="String">
+        delete from client_bank_info_os where id in
+        <foreach close=")" collection="array" item="id" open="(" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+
+</mapper>

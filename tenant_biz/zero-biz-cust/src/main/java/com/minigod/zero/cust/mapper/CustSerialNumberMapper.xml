@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.cust.mapper.CustSerialNumberMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="serialNumberManageResultMap" type="com.minigod.zero.cust.entity.CustSerialNumberEntity">
+        <result column="id" property="id"/>
+        <result column="table_name" property="tableName"/>
+        <result column="start_number" property="startNumber"/>
+        <result column="end_number" property="endNumber"/>
+        <result column="now_number" property="nowNumber"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+
+    <select id="selectCustSerialNumberManagePage" resultMap="serialNumberManageResultMap">
+        select * from cust_serial_number_manage where is_deleted = 0
+    </select>
+
+
+</mapper>

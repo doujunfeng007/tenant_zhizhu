@@ -1,0 +1,96 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+                    "name": "mysqlreader",
+          "parameter": {
+            "username": "X3saU2xIvqh/xJ2natkJRQ==",
+            "password": "bDLTlVUgOz6kcv+kvsVSS6vBjgKzpK/rW8CQFZqbmPQ=",
+            "column": [
+              "`holdingId`",
+              "`subAccountId`",
+              "`fundCode`",
+              "`holdingType`",
+              "`totalQuantity`",
+              "`availableQuantity`",
+              "`frozenQuantity`",
+              "`transitedQuantity`",
+              "`withdrawQuantity`",
+              "`averageCost`",
+              "`dilutedCost`",
+              "`currency`",
+              "`accumulatedBuyAmount`",
+              "`accumulatedCashDividends`",
+              "`realizedGainLoss`",
+              "`totalGainLoss`",
+              "`totalFee`",
+              "`flowId`",
+              "`createTime`",
+              "`updateTime`"
+            ],
+            "where": "createTime >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY) OR updateTime >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 5 DAY )",
+            "splitPk": "",
+            "connection": [
+              {
+                "table": [
+                  "t_user_holding"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://203.86.123.168:43436/c_tradedb?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "username": "x23iAGFtBmYzhTgDDjvFPg==",
+            "password": "sTO8zolMP4HE+FE4/Q/juOlJhAfkZyhMvpevvHYrEc8=",
+            "column": [
+              "`holdingId`",
+              "`subAccountId`",
+              "`fundCode`",
+              "`holdingType`",
+              "`totalQuantity`",
+              "`availableQuantity`",
+              "`frozenQuantity`",
+              "`transitedQuantity`",
+              "`withdrawQuantity`",
+              "`averageCost`",
+              "`dilutedCost`",
+              "`currency`",
+              "`accumulatedBuyAmount`",
+              "`accumulatedCashDividends`",
+              "`realizedGainLoss`",
+              "`totalGainLoss`",
+              "`totalFee`",
+              "`flowId`",
+              "`createTime`",
+              "`updateTime`"
+            ],
+            "writeMode": "update",
+            "connection": [
+              {
+                "table": [
+                  "t_user_holding"
+                ],
+                "jdbcUrl": "jdbc:mysql://203.86.123.168:43436/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

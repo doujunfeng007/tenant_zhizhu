@@ -1,0 +1,83 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://webservice.g3sb.afe.com" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://webservice.g3sb.afe.com">
+    <wsdl:documentation> Please Type your service description here </wsdl:documentation>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://webservice.g3sb.afe.com">
+            <xs:element name="messageTransfer">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="args1" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="args2" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="args3" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="messageTransferResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="messageTransferRequest">
+        <wsdl:part name="parameters" element="ns:messageTransfer"/>
+    </wsdl:message>
+    <wsdl:message name="messageTransferResponse">
+        <wsdl:part name="parameters" element="ns:messageTransferResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="GeneralServicePortType">
+        <wsdl:operation name="messageTransfer">
+            <wsdl:input message="ns:messageTransferRequest" wsaw:Action="urn:messageTransfer"/>
+            <wsdl:output message="ns:messageTransferResponse" wsaw:Action="urn:messageTransferResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="GeneralServiceSoap11Binding" type="ns:GeneralServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="messageTransfer">
+            <soap:operation soapAction="urn:messageTransfer" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="GeneralServiceSoap12Binding" type="ns:GeneralServicePortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="messageTransfer">
+            <soap12:operation soapAction="urn:messageTransfer" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="GeneralServiceHttpBinding" type="ns:GeneralServicePortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="messageTransfer">
+            <http:operation location="messageTransfer"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="GeneralService">
+        <wsdl:port name="GeneralServiceHttpSoap11Endpoint" binding="ns:GeneralServiceSoap11Binding">
+            <soap:address location="http://218.189.34.216:8080/g3sb_webservice/services/GeneralService.GeneralServiceHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="GeneralServiceHttpSoap12Endpoint" binding="ns:GeneralServiceSoap12Binding">
+            <soap12:address location="http://218.189.34.216:8080/g3sb_webservice/services/GeneralService.GeneralServiceHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="GeneralServiceHttpEndpoint" binding="ns:GeneralServiceHttpBinding">
+            <http:address location="http://218.189.34.216:8080/g3sb_webservice/services/GeneralService.GeneralServiceHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

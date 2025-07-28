@@ -1,0 +1,28 @@
+#服务器端口
+server:
+  port: 19010
+
+#数据源配置
+spring:
+  datasource:
+    url: ${zero.datasource.dev.url}
+    username: ${zero.datasource.dev.username}
+    password: ${zero.datasource.dev.password}
+
+#使用柜台 hs-恒生,icbca-工银
+trade:
+  type: "hs"
+  bondRatio:
+    #警示值
+    warn: "0.8"
+    #追收值
+    recovery: "1"
+    #平仓值
+    closePosition: "1.2"
+  #交易时是否检查股票是否IPO阶段 true-检查，false-不检查
+  check:
+    ipo: "false"
+
+fund:
+  api:
+    url: "http://10.9.68.161:16003/v1/wm-trade/intranet/asset/info"

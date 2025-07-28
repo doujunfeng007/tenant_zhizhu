@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.margincredit.mapper.IncreaseCreditLimitApplicationMapper">
+  <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.margincredit.entity.IncreaseCreditLimitApplicationEntity">
+    <!--@mbg.generated-->
+    <!--@Table increase_credit_limit_application-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="application_id" jdbcType="VARCHAR" property="applicationId" />
+    <result column="application_title" jdbcType="VARCHAR" property="applicationTitle" />
+    <result column="current_node" jdbcType="VARCHAR" property="currentNode" />
+    <result column="last_approval_user" jdbcType="VARCHAR" property="lastApprovalUser" />
+    <result column="last_approval_time" jdbcType="TIMESTAMP" property="lastApprovalTime" />
+    <result column="approval_opinion" jdbcType="VARCHAR" property="approvalOpinion" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="application_status" jdbcType="INTEGER" property="applicationStatus" />
+    <result column="assign_drafter" jdbcType="VARCHAR" property="assignDrafter" />
+    <result column="flow_path" jdbcType="LONGVARCHAR" property="flowPath" />
+    <result column="fire_aid" jdbcType="INTEGER" property="fireAid" />
+    <result column="instance_id" jdbcType="VARCHAR" property="instanceId" />
+    <result column="definition_id" jdbcType="VARCHAR" property="definitionId" />
+    <result column="process_instance_id" jdbcType="VARCHAR" property="processInstanceId" />
+    <result column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="deploy_id" jdbcType="VARCHAR" property="deployId" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    <result column="create_dept" jdbcType="BIGINT" property="createDept" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_deleted" jdbcType="INTEGER" property="isDeleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, application_id, application_title, current_node, last_approval_user, last_approval_time,
+    approval_opinion, start_time, remark, application_status, assign_drafter, flow_path,
+    fire_aid, instance_id, definition_id, process_instance_id, task_id, deploy_id, create_user,
+    update_user, create_dept, create_time, update_time, `status`, is_deleted
+  </sql>
+
+    <select id="queryPageList" resultType="com.minigod.zero.bpmn.module.margincredit.vo.IncreaseCreditLimitApplicationVO">
+        select a.*,i.client_name,i.client_name_spell,i.trade_account,i.fund_account,
+        i.current_line_credit,i.apply_quota,i.credit_rating,i.use_line_credit,i.apply_type from
+        increase_credit_limit_application
+        a
+        left join
+        increase_credit_limit
+        i on a.application_id = i.application_id
+        left join
+        zero_cloud.zero_user
+        u on a.assign_drafter = u.id
+        <where>
+            <if test="query.applicationId!='' and query.applicationId!=null">
+                and a.application_id like concat('%',concat(#{query.applicationId},'%'))
+            </if>
+            <if test="query.applicationStatus!=null and query.applicationStatus!=''">
+                and a.application_status = #{query.applicationStatus}
+            </if>
+            <if test="query.clientName!=null and query.clientName!=''">
+                and (
+                i.client_name like concat('%',concat(#{query.clientName},'%'))
+                or
+                i.client_name_spell like concat('%',concat(#{query.clientName},'%'))
+                )
+            </if>
+            <if test="query.tradeAccount!=null and query.tradeAccount!=''">
+                and i.trade_account like concat('%',concat(#{query.tradeAccount},'%'))
+            </if>
+            <if test="query.fundAccount!=null and query.fundAccount!=''">
+                and i.fund_account like concat('%',concat(#{query.fundAccount},'%'))
+            </if>
+
+            <if test="query.assignDrafterStatus!=null">
+                <choose>
+                    <when test="query.assignDrafterStatus == 1">
+                        and a.assign_drafter is NOT NULL
+                    </when>
+                    <when test=" query.assignDrafterStatus == 2">
+                        and a.assign_drafter is NULL
+                    </when>
+                </choose>
+            </if>
+            <if test="query.startTime!=null and query.startTime!=''">
+                and a.create_time <![CDATA[ >= ]]>  #{query.startTime}
+            </if>
+
+            <if test="query.endTime!=null and query.endTime!=''">
+                and a.create_time <![CDATA[ <= ]]>  #{query.endTime}
+            </if>
+
+            <if test="query.isCheck != null ">
+                and a.application_status  in (2,3)
+            </if>
+            and i.is_deleted =0  and i.tenant_id =#{query.tenantId}
+
+        </where>
+        ORDER BY a.create_time DESC
+    </select>
+
+
+    <update id="addAssignDrafter">
+        update
+        increase_credit_limit_application
+        set assign_drafter = #{userId}
+        where application_id = #{applicationId}
+    </update>
+
+    <update id="clearAssignDrafter">
+        update
+        increase_credit_limit_application
+        set assign_drafter = NULL
+        where application_id = #{applicationId}
+    </update>
+
+    <select id="queryByApplicationId" resultMap="BaseResultMap">
+        select *
+        from increase_credit_limit_application
+        where application_id = #{applicationId}
+    </select>
+
+
+
+
+
+    <select id="queryListByStatus" resultType="com.minigod.zero.bpmn.module.margincredit.entity.IncreaseCreditLimitApplicationEntity">
+        select a.* from
+        increase_credit_limit_application
+        a
+        left join
+        increase_credit_limit
+        i on a.application_id = i.application_id
+        <where>
+
+
+            <if test="custId != null ">
+                and i.cust_id  =#{custId}
+            </if>
+            <if test="applicationStatus != null  and applicationStatus.size() > 0">
+                and a.application_status in
+                <foreach item="status" collection="applicationStatus" open="(" separator="," close=")">
+                    #{status}
+                </foreach>
+            </if>
+
+
+        </where>
+        ORDER BY a.create_time DESC
+    </select>
+
+
+
+</mapper>

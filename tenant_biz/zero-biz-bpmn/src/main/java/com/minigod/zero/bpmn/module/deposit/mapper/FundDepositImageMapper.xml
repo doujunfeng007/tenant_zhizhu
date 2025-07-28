@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.deposit.mapper.FundDepositImageMapper">
+    <resultMap id="BaseResultMap" type="com.minigod.zero.bpmn.module.deposit.entity.FundDepositImage">
+        <!--@mbg.generated-->
+        <!--@Table client_fund_deposit_image-->
+        <id column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="image_type" property="imageType"/>
+        <result column="file_name" property="fileName"/>
+        <result column="file_storage_name" property="fileStorageName"/>
+        <result column="ext_name" property="extName"/>
+        <result column="storage_path" property="storagePath"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="remark" property="remark"/>
+        <result column="tenant_id" property="tenantId"/>
+    </resultMap>
+    <resultMap id="BaseResultMapVo" type="com.minigod.zero.bpmn.module.deposit.vo.FundDepositImageVO">
+        <id     column="img_id" property="id"/>
+        <result column="img_application_id" property="applicationId"/>
+        <result column="img_image_type" property="imageType"/>
+        <result column="img_file_name" property="fileName"/>
+        <result column="img_file_storage_name" property="fileStorageName"/>
+        <result column="img_ext_name" property="extName"/>
+        <result column="img_storage_path" property="storagePath"/>
+        <result column="img_create_user" property="createUser"/>
+        <result column="img_update_user" property="updateUser"/>
+        <result column="img_create_time" property="createTime"/>
+        <result column="img_update_time" property="updateTime"/>
+        <result column="img_remark" property="remark"/>
+        <result column="img_tenant_id" property="tenantId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        img.id img_id,
+        img.application_id img_application_id,
+        img.image_type img_image_type,
+        img.file_name img_file_name,
+        img.file_storage_name img_file_storage_name,
+        img.ext_name img_ext_name,
+        img.storage_path img_storage_path,
+        img.create_user img_create_user,
+        img.update_user img_update_user,
+        img.create_time img_create_time,
+        img.update_time img_update_time,
+        img.remark img_remark,
+        img.tenant_id img_tenant_id
+    </sql>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into client_fund_deposit_image
+        (application_id, image_type, file_name, file_storage_name, ext_name, storage_path,
+        create_user, update_user, create_time, update_time, remark, tenant_id)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.applicationId}, #{item.imageType}, #{item.fileName}, #{item.fileStorageName},
+            #{item.extName}, #{item.storagePath}, #{item.createUser}, #{item.updateUser}, #{item.createTime},
+            #{item.updateTime}, #{item.remark}, #{item.tenantId})
+        </foreach>
+    </insert>
+    <select id="queryByApplicationId" resultType="com.minigod.zero.bpmn.module.deposit.vo.FundDepositImageVO">
+        select * from client_fund_deposit_image where application_id = #{applicationId} order by create_time desc
+    </select>
+</mapper>

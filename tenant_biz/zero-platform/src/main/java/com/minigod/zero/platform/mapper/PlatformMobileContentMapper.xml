@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.platform.mapper.PlatformMobileContentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="informCommonTemplateResultMap" type="com.minigod.zero.platform.entity.PlatformMobileContentEntity">
+        <result column="id" property="id"/>
+        <result column="temp_code" property="tempCode"/>
+        <result column="cell_phone" property="cellPhone"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="discription" property="discription"/>
+        <result column="channel" property="channel"/>
+        <result column="send_status" property="sendStatus"/>
+        <result column="send_type" property="sendType"/>
+        <result column="timing" property="timing"/>
+        <result column="fail_cnt" property="failCnt"/>
+        <result column="retry_cnt" property="retryCnt"/>
+        <result column="send_time" property="sendTime"/>
+        <result column="receive_time" property="receiveTime"/>
+        <result column="opr_id" property="oprId"/>
+        <result column="opr_name" property="oprName"/>
+        <result column="msg_type" property="msgType"/>
+        <result column="lang" property="lang"/>
+        <result column="error_msg" property="errorMsg"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createUser" column="create_user"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="createDept" column="create_dept"/>
+        <result column="msg_id" property="msgId"/>
+    </resultMap>
+
+    <insert id="saveBatchInformMobileContent" parameterType="java.util.List">
+        INSERT INTO
+        platform_mobile_content(
+        id,
+        temp_code,
+        cell_phone,
+        title,
+        content,
+        discription,
+        channel,
+        send_status,
+        send_type,
+        timing,
+        fail_cnt,
+        retry_cnt,
+        send_time,
+        receive_time,
+        opr_id,
+        opr_name,
+        msg_type,
+        lang,
+        error_msg,
+        status,
+        create_time,
+        update_time,
+        create_user,
+        update_user,
+        is_deleted,
+        create_dept,msg_id
+        )
+        VALUES
+        <foreach collection="list" item="platformMobileContentEntity" index="index" separator=",">
+        (
+        #{platformMobileContentEntity.id},
+        #{platformMobileContentEntity.tempCode},
+        #{platformMobileContentEntity.cellPhone},
+        #{platformMobileContentEntity.title},
+        #{platformMobileContentEntity.content},
+        #{platformMobileContentEntity.discription},
+        #{platformMobileContentEntity.channel},
+        #{platformMobileContentEntity.sendStatus},
+        #{platformMobileContentEntity.sendType},
+        #{platformMobileContentEntity.timing},
+        #{platformMobileContentEntity.failCnt},
+        #{platformMobileContentEntity.retryCnt},
+        #{platformMobileContentEntity.sendTime},
+        #{platformMobileContentEntity.receiveTime},
+        #{platformMobileContentEntity.oprId},
+        #{platformMobileContentEntity.oprName},
+        #{platformMobileContentEntity.msgType},
+        #{platformMobileContentEntity.lang},
+        #{platformMobileContentEntity.errorMsg},
+        #{platformMobileContentEntity.status},
+        #{platformMobileContentEntity.createTime},
+        #{platformMobileContentEntity.updateTime},
+        #{platformMobileContentEntity.createUser},
+        #{platformMobileContentEntity.updateUser},
+        #{platformMobileContentEntity.isDeleted},
+        #{platformMobileContentEntity.createDept},#{msgId}
+        )
+        </foreach>
+    </insert>
+
+    <select id="selectById" resultType="com.minigod.zero.platform.entity.PlatformMobileContentEntity">
+        select * from platform_mobile_content where id = #{id};
+    </select>
+
+    <select id="updateByMsgId" parameterType="com.minigod.zero.platform.entity.PlatformMobileContentEntity">
+        update platform_mobile_content
+        set send_status = #{sendStatus} ,sms_id = #{smsId},error_msg = #{errorMsg},channel = #{channel}
+        where msg_id = #{msgId}
+    </select>
+</mapper>

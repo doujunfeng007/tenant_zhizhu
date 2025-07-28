@@ -1,0 +1,6 @@
+knife4j:
+  cloud:
+    routes:
+      - name: 工作台模块
+        uri: https://zero.xxxx.cn #网关地址
+        location: /zero-desk/v2/api-docs

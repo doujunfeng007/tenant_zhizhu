@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountIdentityConfirmMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_identity_confirmResultMap"
+               type="com.minigod.zero.bpmn.module.account.entity.AccountIdentityConfirmEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="is_employed" property="isEmployed"/>
+        <result column="is_illegal" property="isIllegal"/>
+        <result column="is_executive" property="isExecutive"/>
+        <result column="employed_relation" property="employedRelation"/>
+        <result column="illegal_detail" property="illegalDetail"/>
+        <result column="is_have_lineal_relatives" property="isHaveLinealRelatives"/>
+        <result column="lineal_relatives_job_time" property="linealRelativesJobTime"/>
+        <result column="is_mate_have_account" property="isMateHaveAccount"/>
+        <result column="mate_account" property="mateAccount"/>
+        <result column="lineal_relatives_name" property="linealRelativesName"/>
+        <result column="executive_company_code" property="executiveCompanyCode"/>
+        <result column="employed_name" property="employedName"/>
+        <result column="customer_relations" property="customerRelations"/>
+        <result column="executive_company_name" property="executiveCompanyName"/>
+        <result column="is_stock_right_more35" property="isStockRightMore35"/>
+        <result column="is_register_employee" property="isRegisterEmployee"/>
+        <result column="lineal_relatives_job" property="linealRelativesJob"/>
+        <result column="is_beneficial_owner" property="isBeneficialOwner"/>
+        <result column="is_account_ultimately_responsible" property="isAccountUltimatelyResponsible"/>
+        <result column="account" property="account"/>
+        <result property="centerCode" column="center_code"/>
+        <result property="organizationName" column="organization_name"/>
+    </resultMap>
+    <resultMap type="com.minigod.zero.bpmn.module.account.vo.AccountIdentityConfirmVO"
+               id="account_identity_confirmResultMapVO" extends="account_identity_confirmResultMap">
+    </resultMap>
+    <select id="queryByApplicationId" resultMap="account_identity_confirmResultMapVO">
+        select *
+        from open_account_identity_confirm
+        where application_id = #{applicationId}
+    </select>
+    <delete id="deleteByApplicationId">
+        delete
+        from open_account_identity_confirm
+        where application_id = #{applicationId}
+    </delete>
+</mapper>

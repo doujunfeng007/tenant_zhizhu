@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountRiskDisclosureMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_risk_disclosureResultMap"
+               type="com.minigod.zero.bpmn.module.account.entity.AccountRiskDisclosureEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="user_id" property="userId"/>
+        <result column="client_id" property="clientId"/>
+        <result column="acceptable_range" property="acceptableRange"/>
+        <result column="fluctuation_range" property="fluctuationRange"/>
+        <result column="products_invested" property="productsInvested"/>
+        <result column="investment_horizon" property="investmentHorizon"/>
+        <result column="solutions" property="solutions"/>
+        <result column="attention_frequency" property="attentionFrequency"/>
+        <result column="total_gearing_ratio" property="totalGearingRatio"/>
+        <result column="support_years" property="supportYears"/>
+        <result column="total_risk_core" property="totalRiskCore"/>
+    </resultMap>
+</mapper>

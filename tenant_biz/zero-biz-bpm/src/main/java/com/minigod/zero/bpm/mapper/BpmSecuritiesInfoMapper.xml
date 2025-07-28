@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpm.mapper.BpmSecuritiesInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="bpmSecuritiesInfoResultMap" type="com.minigod.zero.bpm.entity.BpmSecuritiesInfoEntity">
+        <result column="id" property="id"/>
+        <result column="appointment_id" property="appointmentId"/>
+        <result column="open_account_type" property="openAccountType"/>
+        <result column="open_account_access_way" property="openAccountAccessWay"/>
+        <result column="open_account_time" property="openAccountTime"/>
+        <result column="cust_id" property="custId"/>
+        <result column="inviter_id" property="inviterId"/>
+        <result column="client_status" property="clientStatus"/>
+        <result column="organ_flag" property="organFlag"/>
+        <result column="source_channel_id" property="sourceChannelId"/>
+        <result column="cust_name" property="custName"/>
+        <result column="family_name" property="familyName"/>
+        <result column="given_name" property="givenName"/>
+        <result column="cust_name_spell" property="custNameSpell"/>
+        <result column="id_kind" property="idKind"/>
+        <result column="id_card" property="idCard"/>
+        <result column="gender" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="id_card_address" property="idCardAddress"/>
+        <result column="id_card_valid_date_start" property="idCardValidDateStart"/>
+        <result column="id_card_valid_date_end" property="idCardValidDateEnd"/>
+        <result column="identity_similarity_percent" property="identitySimilarityPercent"/>
+        <result column="is_pass_identity_authentication" property="isPassIdentityAuthentication"/>
+        <result column="bank_type" property="bankType"/>
+        <result column="bank_id" property="bankId"/>
+        <result column="bank_no" property="bankNo"/>
+        <result column="bank_account_name" property="bankAccountName"/>
+        <result column="other_bank_name" property="otherBankName"/>
+        <result column="nationality" property="nationality"/>
+        <result column="is_american_green_card_holder" property="isAmericanGreenCardHolder"/>
+        <result column="contact_province_name" property="contactProvinceName"/>
+        <result column="contact_city_name" property="contactCityName"/>
+        <result column="contact_county_name" property="contactCountyName"/>
+        <result column="contact_detail_address" property="contactDetailAddress"/>
+        <result column="family_address" property="familyAddress"/>
+        <result column="contact_address" property="contactAddress"/>
+        <result column="email" property="email"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="profession_code" property="professionCode"/>
+        <result column="other_profession" property="otherProfession"/>
+        <result column="profession_type" property="professionType"/>
+        <result column="company_name" property="companyName"/>
+        <result column="company_address" property="companyAddress"/>
+        <result column="company_phone_number" property="companyPhoneNumber"/>
+        <result column="job_position" property="jobPosition"/>
+        <result column="industry_range" property="industryRange"/>
+        <result column="capital_source" property="capitalSource"/>
+        <result column="annual_income" property="annualIncome"/>
+        <result column="net_capital" property="netCapital"/>
+        <result column="invest_target" property="investTarget"/>
+        <result column="invest_target_other" property="investTargetOther"/>
+        <result column="stocks_investment_experience_type" property="stocksInvestmentExperienceType"/>
+        <result column="warrants_investment_experience_type" property="warrantsInvestmentExperienceType"/>
+        <result column="futures_investment_experience_type" property="futuresInvestmentExperienceType"/>
+        <result column="is_know_derivative_products" property="isKnowDerivativeProducts"/>
+        <result column="derivative_products_study_type" property="derivativeProductsStudyType"/>
+        <result column="derivative_products_study_type_other" property="derivativeProductsStudyTypeOther"/>
+        <result column="financing_institution_work_experience_type" property="financingInstitutionWorkExperienceType"/>
+        <result column="financing_institution_work_experience_type_other" property="financingInstitutionWorkExperienceTypeOther"/>
+        <result column="is_traded_derivative_products" property="isTradedDerivativeProducts"/>
+        <result column="is_open_usa_stock_market" property="isOpenUsaStockMarket"/>
+        <result column="is_open_hk_stock_market" property="isOpenHkStockMarket"/>
+        <result column="is_allow_derivatives_transaction" property="isAllowDerivativesTransaction"/>
+        <result column="is_allow_provide_privacy" property="isAllowProvidePrivacy"/>
+        <result column="is_aml_suspicious" property="isAmlSuspicious"/>
+        <result column="address_id" property="addressId"/>
+        <result column="cancel_date" property="cancelDate"/>
+        <result column="record_status" property="recordStatus"/>
+        <result column="north_trade" property="northTrade"/>
+        <result column="fatca" property="fatca"/>
+        <result column="accept_risk" property="acceptRisk"/>
+        <result column="other_nationality" property="otherNationality"/>
+        <result column="contact_republic_name" property="contactRepublicName"/>
+        <result column="company_republic_name" property="companyRepublicName"/>
+        <result column="company_province_name" property="companyProvinceName"/>
+        <result column="company_city_name" property="companyCityName"/>
+        <result column="company_county_name" property="companyCountyName"/>
+        <result column="company_detail_address" property="companyDetailAddress"/>
+        <result column="family_republic_name" property="familyRepublicName"/>
+        <result column="family_province_name" property="familyProvinceName"/>
+        <result column="family_city_name" property="familyCityName"/>
+        <result column="family_county_name" property="familyCountyName"/>
+        <result column="family_detail_address" property="familyDetailAddress"/>
+        <result column="other_family_republic" property="otherFamilyRepublic"/>
+        <result column="other_company_republic" property="otherCompanyRepublic"/>
+        <result column="other_contact_republic" property="otherContactRepublic"/>
+        <result column="given_name_spell" property="givenNameSpell"/>
+        <result column="family_name_spell" property="familyNameSpell"/>
+        <result column="theUS_tax_number" property="theusTaxNumber"/>
+        <result column="room_code" property="roomCode"/>
+        <result column="freelance_code" property="freelanceCode"/>
+        <result column="freelance_other" property="freelanceOther"/>
+        <result column="bcan_no" property="bcanNo"/>
+        <result column="bcan_status" property="bcanStatus"/>
+        <result column="fund_risk_rank" property="fundRiskRank"/>
+        <result column="credit_amount" property="creditAmount"/>
+        <result column="credit_ratio" property="creditRatio"/>
+        <result column="credit_expire_date" property="creditExpireDate"/>
+        <result column="address_type" property="addressType"/>
+        <result column="nation" property="nation"/>
+        <result column="signing_organization" property="signingOrganization"/>
+        <result column="review_time" property="reviewTime"/>
+        <result column="rca_review" property="rcaReview"/>
+        <result column="san_review" property="sanReview"/>
+        <result column="nationality_review" property="nationalityReview"/>
+        <result column="address_review" property="addressReview"/>
+        <result column="address_compose_review" property="addressComposeReview"/>
+        <result column="profession_review" property="professionReview"/>
+        <result column="pep_review" property="pepReview"/>
+        <result column="cancel_oper" property="cancelOper"/>
+        <result column="trade_fee" property="tradeFee"/>
+        <result column="service_fee" property="serviceFee"/>
+        <result column="fund_investment_experience_type" property="fundInvestmentExperienceType"/>
+        <result column="wealth_source" property="wealthSource"/>
+        <result column="account_level" property="accountLevel"/>
+        <result column="client_type" property="clientType"/>
+        <result column="is_fund_unilateral_account" property="isFundUnilateralAccount"/>
+        <result column="aecode" property="aecode"/>
+        <result column="issue_country" property="issueCountry"/>
+        <result column="other_issue_country" property="otherIssueCountry"/>
+        <result column="birth_place" property="birthPlace"/>
+        <result column="other_birth_place" property="otherBirthPlace"/>
+        <result column="employ_years" property="employYears"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="stock_trade_account" property="stockTradeAccount"/>
+    </resultMap>
+
+
+    <select id="selectBpmSecuritiesInfoPage" resultMap="bpmSecuritiesInfoResultMap">
+        select *
+        from bpm_securities_info
+        where is_deleted = 0
+    </select>
+
+    <select id="selectBpmSecuritiesInfo" resultMap="bpmSecuritiesInfoResultMap">
+        SELECT * FROM bpm_securities_info WHERE client_status != '3'
+        <if test="custId != null">
+            and `cust_id` = #{custId}
+        </if>
+        <if test="custName != null and custName !=''">
+            and `cust_name` = #{custName}
+        </if>
+        <if test="openAccountTime != null and openAccountTime!=''">
+            and `open_account_time` = #{openAccountTime}
+        </if>
+        <if test="openAccountStartTime != null">
+            and `open_account_time` <![CDATA[ >= ]]>  #{openAccountStartTime}
+        </if>
+        <if test="openAccountEndTime != null">
+            and `open_account_time` <![CDATA[ <= ]]>  #{openAccountEndTime}
+        </if>
+        <if test="sourceChannelId != null and sourceChannelId!=''">
+            and `source_channel_id` = #{sourceChannelId}
+        </if>
+        <if test="inviterId != null and inviterId!=''">
+            and `inviter_id` = #{inviterId}
+        </if>
+        <if test="birthday != null and birthday!=''">
+            and `birthday` = #{birthday}
+        </if>
+        <if test="batchCustIdList != null and batchCustIdList.size >0">
+            AND `cust_id` IN
+            <foreach item="item" index="index" collection="batchCustIdList" open="(" separator="," close=")">
+                #{batchCustIdList[${index}]}
+            </foreach>
+        </if>
+        order by `open_account_time` asc
+    </select>
+
+
+    <select id="selectCustAcctInfo" resultType="com.minigod.zero.bpm.vo.CacheAcctInfoVO">
+        select c.id as cust_id, m.trade_account, n.capital_account, f.fund_account
+        from cust_info c
+                 left join (select cust_id, trade_account
+                            from bpm_account_info
+                            where is_current = 1 and status = 0 and is_deleted = 0) m
+                           on c.id = m.cust_id
+                 left join (select trade_account, capital_account
+                            from bpm_capital_info
+                            where is_current = 1 and status = 1 and is_deleted = 0) n
+                           on m.trade_account = n.trade_account
+                 left join (select trade_account, fund_account from bpm_fund_acct_info where account_status = 0) f
+                           on m.trade_account = f.trade_account
+        where c.id = #{custId}
+    </select>
+
+    <select id="findByTradeAccountOrCustId" resultType="com.minigod.zero.bpm.vo.CacheAcctInfoVO">
+        select c.cust_id, c.id_kind, c.id_card, c.cust_name, c.cust_name_spell, m.trade_account, n.capital_account,
+        m.status
+        from bpm_securities_info c left join (select cust_id, trade_account, status from bpm_account_info where status =
+        0 and is_deleted = 0) m
+        on c.cust_id = m.cust_id left join (select trade_account, capital_account from bpm_capital_info where status = 1
+        and is_deleted = 0) n
+        on m.trade_account = n.trade_account where 1=1
+        <if test="tradeAccount != null and tradeAccount!=''">
+            and m.trade_account = #{tradeAccount}
+        </if>
+        <if test="custId != null">
+            and c.cust_id = #{custId}
+        </if>
+    </select>
+
+</mapper>

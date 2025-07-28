@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpm.mapper.AcctOpenVerifyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="acctOpenVerifyResultMap" type="com.minigod.zero.bpm.entity.AcctOpenVerifyEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="idcard" property="idcard"/>
+        <result column="real_name" property="realName"/>
+        <result column="bank_card" property="bankCard"/>
+        <result column="bank_code" property="bankCode"/>
+        <result column="risk_start_time" property="riskStartTime"/>
+        <result column="risk_end_time" property="riskEndTime"/>
+        <result column="phone_info" property="phoneInfo"/>
+        <result column="cust_ip" property="custIp"/>
+    </resultMap>
+
+
+    <select id="selectAcctOpenVerifyPage" resultMap="acctOpenVerifyResultMap">
+        select * from acct_open_verify where is_deleted = 0
+    </select>
+
+
+</mapper>

@@ -1,0 +1,1 @@
+﻿UPDATE zero_biz.platform_email_content SET tenant_id = '000000' WHERE tenant_id IS NULL OR tenant_id = '';

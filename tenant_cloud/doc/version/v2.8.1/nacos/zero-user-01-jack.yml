@@ -1,0 +1,7 @@
+
+#zero-auth.yaml
+
+#是否开启二次验证码校验，默认false  生产环境无效
+open:
+  transaction:
+    password: true

@@ -1,0 +1,81 @@
+package com.minigod.zero.flow.workflow.domain.vo;
+
+import com.alibaba.excel.annotation.ExcelProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.util.Date;
+
+
+/**
+ * 流程定义视图对象 workflow_definition
+ *
+ * @author zsdp
+ * @date 2022-01-17
+ */
+@Data
+@ApiModel("流程定义视图对象")
+public class WfDefinitionVo {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 流程定义ID
+     */
+    @ExcelProperty(value = "流程定义ID")
+    @ApiModelProperty("流程定义ID")
+    private String definitionId;
+
+    /**
+     * 流程名称
+     */
+    @ExcelProperty(value = "流程名称")
+    @ApiModelProperty("流程名称")
+    private String processName;
+
+    /**
+     * 流程Key
+     */
+    @ExcelProperty(value = "流程Key")
+    @ApiModelProperty("流程Key")
+    private String processKey;
+
+    /**
+     * 分类编码
+     */
+    @ExcelProperty(value = "分类编码")
+    @ApiModelProperty("分类编码")
+    private String category;
+
+    @ApiModelProperty("版本")
+    private Integer version;
+
+    /**
+     * 部署ID
+     */
+    @ExcelProperty(value = "部署ID")
+    @ApiModelProperty("部署ID")
+    private String deploymentId;
+
+    /**
+     * 流程定义状态: 1:激活 , 2:中止
+     */
+    @ExcelProperty(value = "流程定义状态: 1:激活 , 2:中止")
+    @ApiModelProperty("流程定义状态: 1:激活 , 2:中止")
+    private Boolean suspended;
+
+    /**
+     * 部署时间
+     */
+    @ExcelProperty(value = "部署时间")
+    @ApiModelProperty("部署时间")
+    private Date deploymentTime;
+
+	/**
+	 * 租户ID
+	 */
+    @ApiModelProperty("租户ID")
+    private String tenantId;
+
+}

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.PlatformInvestMsgMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="investMsgResultMap" type="com.minigod.zero.platform.entity.PlatformInvestMsgEntity">
+        <result column="id" property="id"/>
+        <result column="ptf_id" property="ptfId"/>
+        <result column="user_id" property="userId"/>
+        <result column="from_user" property="fromUser"/>
+        <result column="msg_type" property="msgType"/>
+        <result column="display_group" property="displayGroup"/>
+        <result column="title" property="title"/>
+        <result column="title_hant" property="titleHant"/>
+        <result column="title_en" property="titleEn"/>
+        <result column="msg_content" property="msgContent"/>
+        <result column="msg_content_hant" property="msgContentHant"/>
+        <result column="msg_content_en" property="msgContentEn"/>
+        <result column="rela_type" property="relaType"/>
+        <result column="rela_id" property="relaId"/>
+        <result column="rela_text" property="relaText"/>
+        <result column="src_type" property="srcType"/>
+        <result column="src_id" property="srcId"/>
+        <result column="upd_version" property="updVersion"/>
+        <result column="send_way" property="sendWay"/>
+        <result column="send_time" property="sendTime"/>
+        <result column="send_status" property="sendStatus"/>
+        <result column="msg_group" property="msgGroup"/>
+        <result column="client_type" property="clientType"/>
+        <result column="extend" property="extend"/>
+        <result column="send_id" property="sendId"/>
+        <result column="url" property="url"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <select id="selectInvestMsgPage" resultMap="investMsgResultMap">
+        select * from platform_invest_msg where is_deleted = 0
+    </select>
+
+    <insert id="saveInvestMsgs" parameterType="java.util.List">
+        INSERT INTO
+        platform_invest_msg(
+        id,
+        ptf_id,
+        user_id,
+        from_user,
+        msg_type,
+        display_group,
+        title,
+        title_hant,
+        title_en,
+        msg_content,
+        msg_content_hant,
+        msg_content_en,
+        rela_type,
+        rela_id,
+        rela_text,
+        src_type,
+        src_id,
+        upd_version,
+        send_way,
+        send_time,
+        send_status,
+        msg_group,
+        client_type,
+        extend,
+        send_id,
+        url,
+        create_user,
+        create_dept,
+        create_time,
+        update_user,
+        update_time,
+        `status`,
+        is_deleted
+        )
+        VALUES
+        <foreach collection="investMsgList" item="investMsg" index="index" separator=",">
+            (
+            #{investMsg.id},
+            #{investMsg.ptfId},
+            #{investMsg.userId},
+            #{investMsg.fromUser},
+            #{investMsg.msgType},
+            #{investMsg.displayGroup},
+            #{investMsg.title},
+            #{investMsg.titleHant},
+            #{investMsg.titleEn},
+            #{investMsg.msgContent},
+            #{investMsg.msgContentHant},
+            #{investMsg.msgContentEn},
+            #{investMsg.relaType},
+            #{investMsg.relaId},
+            #{investMsg.relaText},
+            #{investMsg.srcType},
+            #{investMsg.srcId},
+            #{investMsg.updVersion},
+            #{investMsg.sendWay},
+            #{investMsg.sendTime},
+            #{investMsg.sendStatus},
+            #{investMsg.msgGroup},
+            #{investMsg.clientType},
+            #{investMsg.extend},
+            #{investMsg.sendId},
+            #{investMsg.url},
+            #{investMsg.createUser},
+            #{investMsg.createDept},
+            #{investMsg.createTime},
+            #{investMsg.updateUser},
+            #{investMsg.updateTime},
+            #{investMsg.status},
+            #{investMsg.isDeleted}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

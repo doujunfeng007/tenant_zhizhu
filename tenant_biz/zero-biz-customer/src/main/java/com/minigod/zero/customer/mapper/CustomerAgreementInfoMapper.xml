@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerAgreementInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerAgreementInfoEntity">
+        <id column="id" property="id" />
+        <result column="cust_id" property="custId" />
+        <result column="account_id" property="accountId" />
+        <result column="hkdir_status" property="hkdirStatus" />
+        <result column="hkdir_sign_date" property="hkdirSignDate" />
+        <result column="hkderi_status" property="hkderiStatus" />
+        <result column="hkderi_sign_date" property="hkderiSignDate" />
+        <result column="hkgem_status" property="hkgemStatus" />
+        <result column="hkgem_sign_date" property="hkgemSignDate" />
+        <result column="hkva_status" property="hkvaStatus" />
+        <result column="hkva_sign_date" property="hkvaSignDate" />
+        <result column="usw8_status" property="usw8Status" />
+        <result column="usw8_sign_date" property="usw8SignDate" />
+        <result column="risk_level" property="riskLevel" />
+        <result column="risk_sign_date" property="riskSignDate" />
+        <result column="pi_level" property="piLevel" />
+        <result column="pi_sign_date" property="piSignDate" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, cust_id, account_id, hkdir_status, hkdir_sign_date, hkderi_status, hkderi_sign_date,
+        hkgem_status, hkgem_sign_date, hkva_status, hkva_sign_date, usw8_status, usw8_sign_date,
+        risk_level, risk_sign_date, pi_level, pi_sign_date, create_time, update_time, is_deleted
+    </sql>
+
+</mapper> 

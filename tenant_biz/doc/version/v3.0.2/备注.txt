@@ -1,0 +1,4 @@
+重启 zero-system 服务  3.0.2分支
+
+补资料: w8文件  http://sit-cloud-api.ifund.live:31075/api/zero-biz-bpmn/back/account/accountOpenInfo/generateReport/W8SelfDeclare
+发提醒: 定时任务 9点执行:w8ConfirmJob

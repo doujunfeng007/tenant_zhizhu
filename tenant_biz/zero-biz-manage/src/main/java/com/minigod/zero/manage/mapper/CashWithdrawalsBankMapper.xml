@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.CashWithdrawalsBankMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="cashWithdrawalsBankResultMap" type="com.minigod.zero.manage.entity.CashWithdrawalsBankEntity">
+        <result column="id" property="id"/>
+        <result column="sort" property="sort"/>
+        <result column="bank_type" property="bankType"/>
+        <result column="receipt_bank_name" property="receiptBankName"/>
+        <result column="receipt_bank_name_hant" property="receiptBankNameHant"/>
+        <result column="receipt_bank_name_en" property="receiptBankNameEn"/>
+        <result column="receipt_bank_code" property="receiptBankCode"/>
+        <result column="charge_money" property="chargeMoney"/>
+        <result column="charge_money_hant" property="chargeMoneyHant"/>
+        <result column="charge_money_en" property="chargeMoneyEn"/>
+        <result column="charge_money_remark" property="chargeMoneyRemark"/>
+        <result column="charge_money_remark_hant" property="chargeMoneyRemarkHant"/>
+        <result column="charge_money_remark_en" property="chargeMoneyRemarkEn"/>
+        <result column="time_arrival" property="timeArrival"/>
+        <result column="time_arrival_hant" property="timeArrivalHant"/>
+        <result column="time_arrival_en" property="timeArrivalEn"/>
+        <result column="effective_time" property="effectiveTime"/>
+        <result column="swift_code" property="swiftCode"/>
+        <result column="is_show" property="isShow"/>
+        <result column="founder" property="founder"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="bg_color" property="bgColor"/>
+        <result column="pc_icon" property="pcIcon"/>
+        <result column="app_icon" property="appIcon"/>
+        <result column="bank_id" property="bankId"/>
+    </resultMap>
+
+
+    <select id="selectCashWithdrawalsBankPage" resultMap="cashWithdrawalsBankResultMap">
+        select * from cash_withdrawals_bank where is_deleted = 0
+    </select>
+
+</mapper>

@@ -1,0 +1,36 @@
+执行地址:	203.86.122.229
+执行库：	    zero_cloud
+执行时间：	2.4 上线前
+-- *********************************************************zero_cloud 库】******************************************************************
+-- ******** 新增表
+-- auto-generated definition
+create table zero_i18n_config
+(
+    id            int auto_increment
+        primary key,
+    sys_model     varchar(32)   null comment '所属模块',
+    config_key    varchar(64)   null comment '参数key',
+    language_type varchar(32)   null comment '语言类型',
+    content       varchar(120)  null comment '内容',
+    create_user   bigint        null comment '创建人',
+    create_time   datetime      null comment '创建时间',
+    update_user   bigint        null comment '修改人',
+    update_time   datetime      null comment '修改时间',
+    status        int default 0 null,
+    is_deleted    int default 0 null
+);
+-- auto-generated definition
+create table zero_i18n_language
+(
+    id            int auto_increment
+        primary key,
+    language_type varchar(32)   null comment '语言类型',
+    language_name varchar(32)   null comment '语言名称',
+    status        int default 0 null,
+    sort          int default 0 null comment '排序字段',
+    create_user   bigint        null comment '创建人',
+    create_time   datetime      null,
+    update_user   tinyint       null,
+    update_time   datetime      null,
+    is_deleted    int default 0 null
+);

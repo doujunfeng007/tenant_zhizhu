@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.minigod.zero.manage.mapper.OperateActPlanMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.minigod.zero.manage.entity.OperateActPlanEntity">
+        <id column="id" property="id"/>
+        <result column="plan_name" property="planName"/>
+        <result column="open_valid_day" property="openValidDay"/>
+        <result column="deposit_valid_day" property="depositValidDay"/>
+        <result column="transfer_valid_day" property="transferValidDay"/>
+        <result column="reward_valid_day" property="rewardValidDay"/>
+        <result column="inv_open_valid_day" property="invOpenValidDay"/>
+        <result column="inv_deposit_valid_day" property="invDepositValidDay"/>
+        <result column="inv_transfer_valid_day" property="invTransferValidDay"/>
+        <result column="is_business_reward" property="isBusinessReward"/>
+        <result column="is_transfer_reward" property="isTransferReward"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        , plan_name, open_valid_day, deposit_valid_day, transfer_valid_day,
+        reward_valid_day, inv_open_valid_day, inv_deposit_valid_day,
+        inv_transfer_valid_day, is_business_reward, is_transfer_reward,
+        create_time, update_time, create_user, update_user, is_deleted,
+        tenant_id, create_dept, status
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM operate_act_plan
+        WHERE is_deleted = 0
+        <if test="planId != null">
+            AND id = #{planId}
+        </if>
+        <if test="planName != null and planName != ''">
+            AND plan_name LIKE CONCAT('%', #{planName}, '%')
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 查询有效的活动方案列表 -->
+    <select id="queryValidPlans" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM operate_act_plan
+        WHERE is_deleted = 0
+        AND status = 0
+        <if test="isBusinessReward != null">
+            AND is_business_reward = #{isBusinessReward}
+        </if>
+        <if test="isTransferReward != null">
+            AND is_transfer_reward = #{isTransferReward}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 更新方案状态 -->
+    <update id="updateStatus">
+        UPDATE operate_act_plan
+        SET status      = #{status},
+            update_time = NOW()
+        WHERE id = #{id}
+          AND is_deleted = 0
+    </update>
+
+    <!-- 更新奖励开关状态 -->
+    <update id="updateRewardSwitch">
+        UPDATE operate_act_plan
+        <set>
+            <if test="isBusinessReward != null">
+                is_business_reward = #{isBusinessReward},
+            </if>
+            <if test="isTransferReward != null">
+                is_transfer_reward = #{isTransferReward},
+            </if>
+            update_time = NOW()
+        </set>
+        WHERE id = #{id}
+        AND is_deleted = 0
+    </update>
+
+</mapper>

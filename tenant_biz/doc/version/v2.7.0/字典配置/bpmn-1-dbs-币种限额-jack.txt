@@ -1,0 +1,8 @@
+字典配置:
+  - 名称: 出金字典
+    WITHDRAW_DICT_KEY
+            FUND_WITHDRAW_LIMIT_CNY 5000000
+    	    FUND_WITHDRAW_LIMIT_HKD 10000000
+
+
+

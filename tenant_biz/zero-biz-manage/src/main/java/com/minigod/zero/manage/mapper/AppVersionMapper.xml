@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.AppVersionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="appVersionResultMap" type="com.minigod.zero.manage.entity.AppVersionEntity">
+        <result column="id" property="id"/>
+        <result column="version_no" property="versionNo"/>
+        <result column="url" property="url"/>
+        <result column="size" property="size"/>
+        <result column="update_declare" property="updateDeclare"/>
+        <result column="update_declare_hant" property="updateDeclareHant"/>
+        <result column="update_declare_en" property="updateDeclareEn"/>
+        <result column="update_declare_vi" property="updateDeclareVi"/>
+        <result column="device_type" property="deviceType"/>
+        <result column="os_type" property="osType"/>
+        <result column="channel" property="channel"/>
+        <result column="md5" property="md5"/>
+        <result column="check_code" property="checkCode"/>
+        <result column="is_new" property="isNew"/>
+        <result column="is_ignore_notice" property="isIgnoreNotice"/>
+        <result column="app_code" property="appCode"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+    <select id="selectAppVersionPage" resultMap="appVersionResultMap">
+        select * from oms_app_version where is_deleted = 0
+        <if test="null != appVersion.versionNo and appVersion.versionNo !='' ">
+            and version_no = #{appVersion.versionNo}
+        </if>
+        <if test="null != appVersion.appCode and appVersion.appCode !='' ">
+            and app_code = #{appVersion.appCode}
+        </if>
+        <if test="null != appVersion.deviceType and appVersion.deviceType !='' ">
+            and device_type = #{appVersion.deviceType}
+        </if>
+        <if test="null != appVersion.osType and appVersion.osType !='' ">
+            and os_type = #{osType}
+        </if>
+        <if test="null != appVersion.startTime and appVersion.startTime !='' ">
+            and create_time <![CDATA[ >= ]]> #{appVersion.startTime}
+        </if>
+        <if test="null != appVersion.endTime and appVersion.endTime !='' ">
+            and create_time <![CDATA[ <= ]]> #{appVersion.endTime}
+        </if>
+        <if test="null != appVersion.tenantId and appVersion.tenantId !='' ">
+            and tenant_id = #{appVersion.tenantId}
+        </if>
+
+        order by version_no desc,create_time desc;
+    </select>
+
+
+</mapper>

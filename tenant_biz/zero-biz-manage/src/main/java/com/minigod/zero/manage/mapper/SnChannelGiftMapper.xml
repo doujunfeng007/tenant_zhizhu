@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.minigod.zero.manage.mapper.SnChannelGiftMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.minigod.zero.manage.entity.SnChannelGiftEntity">
+        <id column="id" property="id"/>
+        <result column="channel_id" property="channelId"/>
+        <result column="gift_name" property="giftName"/>
+        <result column="channel_pwd" property="channelPwd"/>
+        <result column="remain_count" property="remainCount"/>
+        <result column="opr_id" property="oprId"/>
+        <result column="opr_name" property="oprName"/>
+        <result column="introduce" property="introduce"/>
+        <result column="remark" property="remark"/>
+        <result column="plan_id" property="planId"/>
+        <result column="reward_open" property="rewardOpen"/>
+        <result column="handsel_stock" property="handselStock"/>
+        <result column="invite_reward" property="inviteReward"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="create_dept" property="createDept"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, channel_id, gift_name, channel_pwd, remain_count, opr_id, opr_name, introduce,
+        remark, plan_id, reward_open, handsel_stock, invite_reward, status,
+        create_time, update_time, create_user, update_user, is_deleted, tenant_id, create_dept
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_channel_gift
+        WHERE is_deleted = 0
+        <if test="channelId != null and channelId != ''">
+            AND channel_id = #{channelId}
+        </if>
+        <if test="giftName != null and giftName != ''">
+            AND gift_name LIKE CONCAT('%', #{giftName}, '%')
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="queryPageChannelGift" resultType="com.minigod.zero.manage.vo.ChannelGiftVO">
+        SELECT
+            gift.*, usr.channel_name, usr.company_name
+        FROM sn_channel_gift AS gift
+        LEFT JOIN `user_channel_info` AS usr
+        ON gift.channel_id = usr.channel_id
+        <where>
+            gift.is_deleted = 0
+            <if test="searchReqVO.channelId !=null and searchReqVO.channelId != '' ">
+                and gift.channel_id = #{searchReqVO.channelId}
+            </if>
+            <if test="searchReqVO.channelName !=null and searchReqVO.channelName != '' ">
+                and gift.channel_name = #{searchReqVO.channelName}
+            </if>
+            <if test="searchReqVO.companyName !=null and searchReqVO.companyName != '' ">
+                and gift.company_name = #{searchReqVO.companyName}
+            </if>
+            <if test="searchReqVO.channelPwd !=null and searchReqVO.channelPwd != '' ">
+                and gift.channel_pwd = #{searchReqVO.channelPwd}
+            </if>
+            <if test="searchReqVO.giftName !=null and searchReqVO.giftName != '' ">
+                and gift.gift_name like concat('%',#{searchReqVO.giftName},'%')
+            </if>
+            <if test="searchReqVO.status !=null and searchReqVO.status != '' ">
+                and gift.status = #{searchReqVO.status}
+            </if>
+        </where>
+        ORDER BY gift.create_time DESC
+    </select>
+
+    <!-- 根据渠道ID查询礼包 -->
+    <select id="getByChannelId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sn_channel_gift
+        WHERE is_deleted = 0
+        AND channel_id = #{channelId}
+        LIMIT 1
+    </select>
+
+    <!-- 更新礼包库存 -->
+    <update id="updateRemainCount">
+        UPDATE sn_channel_gift
+        SET remain_count = remain_count + #{count}
+        WHERE id = #{id}
+          AND is_deleted = 0
+          AND remain_count + #{count} >= 0
+    </update>
+
+    <!-- 更新礼包状态 -->
+    <update id="updateStatus">
+        UPDATE sn_channel_gift
+        SET status = #{status},
+            update_time = NOW()
+        WHERE id = #{id}
+          AND is_deleted = 0
+    </update>
+
+</mapper>

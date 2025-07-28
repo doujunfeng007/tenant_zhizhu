@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.platform.mapper.PlatformMessagePropertiesMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.platform.entity.PlatformMessageProperties">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+            <result property="channelName" column="channel_name" jdbcType="VARCHAR"/>
+            <result property="appId" column="app_id" jdbcType="VARCHAR"/>
+            <result property="appKey" column="app_key" jdbcType="VARCHAR"/>
+            <result property="channelType" column="channel_type" jdbcType="INTEGER"/>
+            <result property="sender" column="sender" jdbcType="VARCHAR"/>
+            <result property="host" column="host" jdbcType="VARCHAR"/>
+            <result property="port" column="port" jdbcType="VARCHAR"/>
+            <result property="regionId" column="region_id" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,tenant_id,channel_name,
+        app_id,app_key,channel_type,
+        sender,host,port,
+        region_id,create_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from platform_message_properties
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from zero_message_properties
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.platform.entity.PlatformMessageProperties" useGeneratedKeys="true">
+        insert into platform_message_properties
+        ( id,tenant_id,channel_name
+        ,app_id,app_key,channel_type
+        ,sender,host,port
+        ,region_id,create_time)
+        values (#{id,jdbcType=INTEGER},#{tenantId,jdbcType=VARCHAR},#{channelName,jdbcType=VARCHAR}
+        ,#{appId,jdbcType=VARCHAR},#{appKey,jdbcType=VARCHAR},#{channelType,jdbcType=INTEGER}
+        ,#{sender,jdbcType=VARCHAR},#{host,jdbcType=VARCHAR},#{port,jdbcType=VARCHAR}
+        ,#{regionId,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.platform.entity.PlatformMessageProperties" useGeneratedKeys="true">
+        insert into platform_message_properties
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="tenantId != null">tenant_id,</if>
+                <if test="channelName != null">channel_name,</if>
+                <if test="appId != null">app_id,</if>
+                <if test="appKey != null">app_key,</if>
+                <if test="channelType != null">channel_type,</if>
+                <if test="sender != null">sender,</if>
+                <if test="host != null">host,</if>
+                <if test="port != null">port,</if>
+                <if test="regionId != null">region_id,</if>
+                <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="tenantId != null">#{tenantId,jdbcType=VARCHAR},</if>
+                <if test="channelName != null">#{channelName,jdbcType=VARCHAR},</if>
+                <if test="appId != null">#{appId,jdbcType=VARCHAR},</if>
+                <if test="appKey != null">#{appKey,jdbcType=VARCHAR},</if>
+                <if test="channelType != null">#{channelType,jdbcType=INTEGER},</if>
+                <if test="sender != null">#{sender,jdbcType=VARCHAR},</if>
+                <if test="host != null">#{host,jdbcType=VARCHAR},</if>
+                <if test="port != null">#{port,jdbcType=VARCHAR},</if>
+                <if test="regionId != null">#{regionId,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.platform.entity.PlatformMessageProperties">
+        update platform_message_properties
+        <set>
+                <if test="tenantId != null">
+                    tenant_id = #{tenantId,jdbcType=VARCHAR},
+                </if>
+                <if test="channelName != null">
+                    channel_name = #{channelName,jdbcType=VARCHAR},
+                </if>
+                <if test="appId != null">
+                    app_id = #{appId,jdbcType=VARCHAR},
+                </if>
+                <if test="appKey != null">
+                    app_key = #{appKey,jdbcType=VARCHAR},
+                </if>
+                <if test="channelType != null">
+                    channel_type = #{channelType,jdbcType=INTEGER},
+                </if>
+                <if test="sender != null">
+                    sender = #{sender,jdbcType=VARCHAR},
+                </if>
+                <if test="host != null">
+                    host = #{host,jdbcType=VARCHAR},
+                </if>
+                <if test="port != null">
+                    port = #{port,jdbcType=VARCHAR},
+                </if>
+                <if test="regionId != null">
+                    region_id = #{regionId,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.platform.entity.PlatformMessageProperties">
+        update platform_message_properties
+        set
+            tenant_id =  #{tenantId,jdbcType=VARCHAR},
+            channel_name =  #{channelName,jdbcType=VARCHAR},
+            app_id =  #{appId,jdbcType=VARCHAR},
+            app_key =  #{appKey,jdbcType=VARCHAR},
+            channel_type =  #{channelType,jdbcType=INTEGER},
+            sender =  #{sender,jdbcType=VARCHAR},
+            host =  #{host,jdbcType=VARCHAR},
+            port =  #{port,jdbcType=VARCHAR},
+            region_id =  #{regionId,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP}
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="messageProperties" resultMap="BaseResultMap" parameterType="java.lang.Object">
+        select * from platform_message_properties where tenant_id = #{tenantId} and channel_type = #{channelType}
+    </select>
+</mapper>

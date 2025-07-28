@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpm.mapper.BpmCompanyInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BpmCompanyInfoResultMap" type="com.minigod.zero.bpm.entity.BpmCompanyInfoEntity">
+        <result column="id" property="id"/>
+        <result column="appointment_id" property="appointmentId"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="account_type" property="accountType"/>
+        <result column="source_channel_id" property="sourceChannelId"/>
+        <result column="trade_fee" property="tradeFee"/>
+        <result column="service_fee" property="serviceFee"/>
+        <result column="aecode" property="aecode"/>
+        <result column="north_trade" property="northTrade"/>
+        <result column="credit_amount" property="creditAmount"/>
+        <result column="credit_ratio" property="creditRatio"/>
+        <result column="credit_expire_date" property="creditExpireDate"/>
+        <result column="company_type" property="companyType"/>
+        <result column="industry_range" property="industryRange"/>
+        <result column="company_name" property="companyName"/>
+        <result column="company_name_en" property="companyNameEn"/>
+        <result column="contact_name" property="contactName"/>
+        <result column="contact_phone" property="contactPhone"/>
+        <result column="account_name" property="accountName"/>
+        <result column="email" property="email"/>
+        <result column="business_no" property="businessNo"/>
+        <result column="fax_no" property="faxNo"/>
+        <result column="company_entity_type" property="companyEntityType"/>
+        <result column="company_reg_date" property="companyRegDate"/>
+        <result column="company_reg_country" property="companyRegCountry"/>
+        <result column="company_reg_no" property="companyRegNo"/>
+        <result column="msg_type" property="msgType"/>
+        <result column="statement_type" property="statementType"/>
+        <result column="office_phone" property="officePhone"/>
+        <result column="office_country_code" property="officeCountryCode"/>
+        <result column="company_reg_republic_name" property="companyRegRepublicName"/>
+        <result column="company_reg_province_name" property="companyRegProvinceName"/>
+        <result column="company_reg_city_name" property="companyRegCityName"/>
+        <result column="company_reg_county_name" property="companyRegCountyName"/>
+        <result column="office_reg_republic_name" property="officeRegRepublicName"/>
+        <result column="office_reg_province_name" property="officeRegProvinceName"/>
+        <result column="office_reg_city_name" property="officeRegCityName"/>
+        <result column="office_reg_county_name" property="officeRegCountyName"/>
+        <result column="statutory_capital" property="statutoryCapital"/>
+        <result column="paid_up_capital" property="paidUpCapital"/>
+        <result column="statutory_num" property="statutoryNum"/>
+        <result column="issued_num" property="issuedNum"/>
+        <result column="statutory_num_price" property="statutoryNumPrice"/>
+        <result column="issued_num_price" property="issuedNumPrice"/>
+        <result column="finance_flag" property="financeFlag"/>
+        <result column="pay_type" property="payType"/>
+        <result column="capital_source" property="capitalSource"/>
+        <result column="wealth_source" property="wealthSource"/>
+        <result column="invest_target" property="investTarget"/>
+        <result column="stocks_investment_experience_type" property="stocksInvestmentExperienceType"/>
+        <result column="warrants_investment_experience_type" property="warrantsInvestmentExperienceType"/>
+        <result column="futures_investment_experience_type" property="futuresInvestmentExperienceType"/>
+        <result column="fund_investment_experience_type" property="fundInvestmentExperienceType"/>
+        <result column="is_know_derivative_products" property="isKnowDerivativeProducts"/>
+        <result column="derivative_products_study_type" property="derivativeProductsStudyType"/>
+        <result column="financing_institution_work_experience_type" property="financingInstitutionWorkExperienceType"/>
+        <result column="is_traded_derivative_products" property="isTradedDerivativeProducts"/>
+        <result column="product_risk_rating" property="productRiskRating"/>
+        <result column="delivery_risk_rating" property="deliveryRiskRating"/>
+        <result column="client_risk_rating" property="clientRiskRating"/>
+        <result column="country_risk_rating" property="countryRiskRating"/>
+        <result column="over_all_risk_rating" property="overAllRiskRating"/>
+        <result column="last_kyc_day" property="lastKycDay"/>
+        <result column="next_kyc_day" property="nextKycDay"/>
+        <result column="kyc_remark" property="kycRemark"/>
+        <result column="init_pwd" property="initPwd"/>
+        <result column="witness_user" property="witnessUser"/>
+        <result column="witnesses_type" property="witnessesType"/>
+        <result column="license_number" property="licenseNumber"/>
+        <result column="open_account_time" property="openAccountTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="del_sts" property="delSts"/>
+        <result column="lock_version" property="lockVersion"/>
+        <result column="bcan_no" property="bcanNo"/>
+        <result column="bcan_status" property="bcanStatus"/>
+    </resultMap>
+
+
+    <select id="selectBpmCompanyInfoPage" resultMap="BpmCompanyInfoResultMap">
+        select * from bpm_company_info where is_deleted = 0
+    </select>
+
+
+</mapper>

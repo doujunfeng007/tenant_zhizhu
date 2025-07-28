@@ -1,0 +1,101 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+                    "name": "mysqlreader",
+          "parameter": {
+            "username": "X3saU2xIvqh/xJ2natkJRQ==",
+            "password": "bDLTlVUgOz6kcv+kvsVSS6vBjgKzpK/rW8CQFZqbmPQ=",
+            "column": [
+              "`id`",
+              "`cust_id`",
+              "`account_id`",
+              "`trade_account`",
+              "`sub_account`",
+              "`statistical_time`",
+              "`create_time`",
+              "`is_deleted`",
+              "`target_hkd_assets`",
+              "`target_cny_assets`",
+              "`target_usd_assets`",
+              "`hkd_assets`",
+              "`hkd_available`",
+              "`hkd_freeze`",
+              "`hkd_intransit`",
+              "`usd_assets`",
+              "`usd_available`",
+              "`usd_freeze`",
+              "`usd_intransit`",
+              "`cny_assets`",
+              "`cny_available`",
+              "`cny_freeze`",
+              "`cny_intransit`"
+            ],
+            "splitPk": "",
+            "connection": [
+              {
+                "table": [
+                  "customer_cash_assets_history"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://203.86.123.168:43436/ifund_account?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "username": "x23iAGFtBmYzhTgDDjvFPg==",
+            "password": "sTO8zolMP4HE+FE4/Q/juOlJhAfkZyhMvpevvHYrEc8=",
+            "column": [
+              "`id`",
+              "`cust_id`",
+              "`account_id`",
+              "`trade_account`",
+              "`sub_account`",
+              "`statistical_time`",
+              "`create_time`",
+              "`is_deleted`",
+              "`target_hkd_assets`",
+              "`target_cny_assets`",
+              "`target_usd_assets`",
+              "`hkd_assets`",
+              "`hkd_available`",
+              "`hkd_freeze`",
+              "`hkd_intransit`",
+              "`usd_assets`",
+              "`usd_available`",
+              "`usd_freeze`",
+              "`usd_intransit`",
+              "`cny_assets`",
+              "`cny_available`",
+              "`cny_freeze`",
+              "`cny_intransit`"
+            ],
+            "writeMode": "update",
+            "connection": [
+              {
+                "table": [
+                  "customer_cash_assets_history"
+                ],
+                "jdbcUrl": "jdbc:mysql://203.86.123.168:43436/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

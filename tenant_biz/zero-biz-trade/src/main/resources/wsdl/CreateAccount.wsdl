@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://webservice.g3sb.afe.com" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://webservice.g3sb.afe.com">
+    <wsdl:documentation>
+		Please Type your service description here
+	</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://webservice.g3sb.afe.com">
+            <xs:element name="run">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="runResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="queryPhoneNumber">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="queryPhoneNumberResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="queryParameters">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="args1" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="args2" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="queryParametersResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="queryIDNumber">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="queryIDNumberResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="queryMultilingualMessage">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="queryMultilingualMessageResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="queryEmailAddress">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="queryEmailAddressResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="insertOpenAccountMainRecord">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="insertOpenAccountMainRecordResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="queryCommissionScheme">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="queryCommissionSchemeResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="queryMultilingualMessageRequest">
+        <wsdl:part name="parameters" element="ns:queryMultilingualMessage"/>
+    </wsdl:message>
+    <wsdl:message name="queryMultilingualMessageResponse">
+        <wsdl:part name="parameters" element="ns:queryMultilingualMessageResponse"/>
+    </wsdl:message>
+    <wsdl:message name="queryCommissionSchemeRequest">
+        <wsdl:part name="parameters" element="ns:queryCommissionScheme"/>
+    </wsdl:message>
+    <wsdl:message name="queryCommissionSchemeResponse">
+        <wsdl:part name="parameters" element="ns:queryCommissionSchemeResponse"/>
+    </wsdl:message>
+    <wsdl:message name="queryParametersRequest">
+        <wsdl:part name="parameters" element="ns:queryParameters"/>
+    </wsdl:message>
+    <wsdl:message name="queryParametersResponse">
+        <wsdl:part name="parameters" element="ns:queryParametersResponse"/>
+    </wsdl:message>
+    <wsdl:message name="queryIDNumberRequest">
+        <wsdl:part name="parameters" element="ns:queryIDNumber"/>
+    </wsdl:message>
+    <wsdl:message name="queryIDNumberResponse">
+        <wsdl:part name="parameters" element="ns:queryIDNumberResponse"/>
+    </wsdl:message>
+    <wsdl:message name="queryPhoneNumberRequest">
+        <wsdl:part name="parameters" element="ns:queryPhoneNumber"/>
+    </wsdl:message>
+    <wsdl:message name="queryPhoneNumberResponse">
+        <wsdl:part name="parameters" element="ns:queryPhoneNumberResponse"/>
+    </wsdl:message>
+    <wsdl:message name="runRequest">
+        <wsdl:part name="parameters" element="ns:run"/>
+    </wsdl:message>
+    <wsdl:message name="runResponse">
+        <wsdl:part name="parameters" element="ns:runResponse"/>
+    </wsdl:message>
+    <wsdl:message name="insertOpenAccountMainRecordRequest">
+        <wsdl:part name="parameters" element="ns:insertOpenAccountMainRecord"/>
+    </wsdl:message>
+    <wsdl:message name="insertOpenAccountMainRecordResponse">
+        <wsdl:part name="parameters" element="ns:insertOpenAccountMainRecordResponse"/>
+    </wsdl:message>
+    <wsdl:message name="queryEmailAddressRequest">
+        <wsdl:part name="parameters" element="ns:queryEmailAddress"/>
+    </wsdl:message>
+    <wsdl:message name="queryEmailAddressResponse">
+        <wsdl:part name="parameters" element="ns:queryEmailAddressResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="CreateAccountPortType">
+        <wsdl:operation name="queryMultilingualMessage">
+            <wsdl:input message="ns:queryMultilingualMessageRequest" wsaw:Action="urn:queryMultilingualMessage"/>
+            <wsdl:output message="ns:queryMultilingualMessageResponse" wsaw:Action="urn:queryMultilingualMessageResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="queryCommissionScheme">
+            <wsdl:input message="ns:queryCommissionSchemeRequest" wsaw:Action="urn:queryCommissionScheme"/>
+            <wsdl:output message="ns:queryCommissionSchemeResponse" wsaw:Action="urn:queryCommissionSchemeResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="queryParameters">
+            <wsdl:input message="ns:queryParametersRequest" wsaw:Action="urn:queryParameters"/>
+            <wsdl:output message="ns:queryParametersResponse" wsaw:Action="urn:queryParametersResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="queryIDNumber">
+            <wsdl:input message="ns:queryIDNumberRequest" wsaw:Action="urn:queryIDNumber"/>
+            <wsdl:output message="ns:queryIDNumberResponse" wsaw:Action="urn:queryIDNumberResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="queryPhoneNumber">
+            <wsdl:input message="ns:queryPhoneNumberRequest" wsaw:Action="urn:queryPhoneNumber"/>
+            <wsdl:output message="ns:queryPhoneNumberResponse" wsaw:Action="urn:queryPhoneNumberResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="run">
+            <wsdl:input message="ns:runRequest" wsaw:Action="urn:run"/>
+            <wsdl:output message="ns:runResponse" wsaw:Action="urn:runResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="insertOpenAccountMainRecord">
+            <wsdl:input message="ns:insertOpenAccountMainRecordRequest" wsaw:Action="urn:insertOpenAccountMainRecord"/>
+            <wsdl:output message="ns:insertOpenAccountMainRecordResponse" wsaw:Action="urn:insertOpenAccountMainRecordResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="queryEmailAddress">
+            <wsdl:input message="ns:queryEmailAddressRequest" wsaw:Action="urn:queryEmailAddress"/>
+            <wsdl:output message="ns:queryEmailAddressResponse" wsaw:Action="urn:queryEmailAddressResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CreateAccountSoap11Binding" type="ns:CreateAccountPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="queryMultilingualMessage">
+            <soap:operation soapAction="urn:queryMultilingualMessage" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryCommissionScheme">
+            <soap:operation soapAction="urn:queryCommissionScheme" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryParameters">
+            <soap:operation soapAction="urn:queryParameters" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryIDNumber">
+            <soap:operation soapAction="urn:queryIDNumber" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryPhoneNumber">
+            <soap:operation soapAction="urn:queryPhoneNumber" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="run">
+            <soap:operation soapAction="urn:run" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="insertOpenAccountMainRecord">
+            <soap:operation soapAction="urn:insertOpenAccountMainRecord" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryEmailAddress">
+            <soap:operation soapAction="urn:queryEmailAddress" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="CreateAccountSoap12Binding" type="ns:CreateAccountPortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="queryMultilingualMessage">
+            <soap12:operation soapAction="urn:queryMultilingualMessage" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryCommissionScheme">
+            <soap12:operation soapAction="urn:queryCommissionScheme" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryParameters">
+            <soap12:operation soapAction="urn:queryParameters" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryIDNumber">
+            <soap12:operation soapAction="urn:queryIDNumber" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryPhoneNumber">
+            <soap12:operation soapAction="urn:queryPhoneNumber" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="run">
+            <soap12:operation soapAction="urn:run" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="insertOpenAccountMainRecord">
+            <soap12:operation soapAction="urn:insertOpenAccountMainRecord" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryEmailAddress">
+            <soap12:operation soapAction="urn:queryEmailAddress" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="CreateAccountHttpBinding" type="ns:CreateAccountPortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="queryMultilingualMessage">
+            <http:operation location="queryMultilingualMessage"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryCommissionScheme">
+            <http:operation location="queryCommissionScheme"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryParameters">
+            <http:operation location="queryParameters"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryIDNumber">
+            <http:operation location="queryIDNumber"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryPhoneNumber">
+            <http:operation location="queryPhoneNumber"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="run">
+            <http:operation location="run"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="insertOpenAccountMainRecord">
+            <http:operation location="insertOpenAccountMainRecord"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryEmailAddress">
+            <http:operation location="queryEmailAddress"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="CreateAccount">
+        <wsdl:port name="CreateAccountHttpSoap11Endpoint" binding="ns:CreateAccountSoap11Binding">
+            <soap:address location="http://g3back.afe-solutions.com:8080/g3sb_webservice/services/CreateAccount.CreateAccountHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="CreateAccountHttpSoap12Endpoint" binding="ns:CreateAccountSoap12Binding">
+            <soap12:address location="http://g3back.afe-solutions.com:8080/g3sb_webservice/services/CreateAccount.CreateAccountHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="CreateAccountHttpEndpoint" binding="ns:CreateAccountHttpBinding">
+            <http:address location="http://g3back.afe-solutions.com:8080/g3sb_webservice/services/CreateAccount.CreateAccountHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

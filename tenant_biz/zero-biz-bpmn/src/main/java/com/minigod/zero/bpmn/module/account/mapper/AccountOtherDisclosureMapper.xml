@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountOtherDisclosureMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_other_disclosureResultMap"
+               type="com.minigod.zero.bpmn.module.account.entity.AccountOtherDisclosureEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="disclosure_code" property="disclosureCode"/>
+        <result column="disclosure_is_true" property="disclosureIsTrue"/>
+        <result column="disclosure1" property="disclosure1"/>
+        <result column="disclosure2" property="disclosure2"/>
+        <result column="disclosure3" property="disclosure3"/>
+        <result column="disclosure4" property="disclosure4"/>
+    </resultMap>
+    <resultMap id="account_other_disclosureResultMapVo"
+               type="com.minigod.zero.bpmn.module.account.vo.AccountOtherDisclosureVO"
+               extends="account_other_disclosureResultMap">
+    </resultMap>
+    <select id="queryListByApplicationId" resultMap="account_other_disclosureResultMapVo">
+        select *
+        from open_account_other_disclosure
+        where application_id = #{applicationId}
+    </select>
+</mapper>

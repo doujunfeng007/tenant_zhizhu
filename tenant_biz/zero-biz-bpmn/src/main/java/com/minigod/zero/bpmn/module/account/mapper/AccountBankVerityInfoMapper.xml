@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountBankVerityInfoMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_bank_verity_infoResultMap"
+               type="com.minigod.zero.bpmn.module.account.entity.AccountBankVerityInfoEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="user_id" property="userId"/>
+        <result column="client_name" property="clientName"/>
+        <result column="phone_area" property="phoneArea"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="id_no" property="idNo"/>
+        <result column="bank_card" property="bankCard"/>
+        <result column="verify_status" property="verifyStatus"/>
+        <result column="verify_count" property="verifyCount"/>
+        <result column="verify_time" property="verifyTime"/>
+        <result column="verify_reason" property="verifyReason"/>
+        <result column="live_verify_time" property="liveVerifyTime"/>
+    </resultMap>
+    <resultMap id="account_bank_verity_infoResultMapVO"
+               type="com.minigod.zero.bpmn.module.account.vo.AccountBankVerityInfoVO"
+               extends="account_bank_verity_infoResultMap">
+    </resultMap>
+    <select id="queryByApplicationId" resultMap="account_bank_verity_infoResultMapVO">
+        select *
+        from open_account_bank_verity_info
+        where application_id = #{applicationId}
+    </select>
+
+    <select id="queryByBankFourInfo" resultMap="account_bank_verity_infoResultMapVO">
+        select *
+        from open_account_bank_verity_info
+        where id_no = #{idNo} and bank_card = #{bankCard} and client_name = #{name} and phone_area = #{bankMobileArea} and phone_number = #{bankMobile} limit 1
+    </select>
+
+    <select id="queryByIdNo" resultMap="account_bank_verity_infoResultMapVO">
+        select *
+        from open_account_bank_verity_info
+        where id_no = #{idNo} and user_id != #{custId} limit 1
+    </select>
+
+    <select id="queryByBankCard" resultMap="account_bank_verity_infoResultMapVO">
+        select *
+        from open_account_bank_verity_info
+        where bank_card = #{bankCard} and user_id != #{custId} limit 1
+    </select>
+
+    <select id="queryByPhoneNumber" resultMap="account_bank_verity_infoResultMapVO">
+        select *
+        from open_account_bank_verity_info
+        where phone_number = #{bankMobile} and user_id != #{custId} limit 1
+    </select>
+
+    <delete id="deleteByApplicationId">
+        delete
+        from open_account_bank_verity_info
+        where application_id = #{applicationId}
+    </delete>
+</mapper>

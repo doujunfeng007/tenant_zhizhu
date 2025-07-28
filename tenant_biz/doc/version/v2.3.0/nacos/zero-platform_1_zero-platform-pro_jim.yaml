@@ -1,0 +1,17 @@
+email:
+    enabled: true
+#这个配置已经有了需要覆盖
+jg:
+    aos:
+        master_secret: 5d0f0b1f62d1ed8f74e76977
+        app_key: 6395e1730b42c940be263cb7
+    ios:
+        master_secret: 5d0f0b1f62d1ed8f74e76977
+        app_key: 6395e1730b42c940be263cb7
+    apns:
+        istest: true
+    enable: true
+#这个节点下新增
+thirdparty:
+    channel: 100
+    companyCode: DF

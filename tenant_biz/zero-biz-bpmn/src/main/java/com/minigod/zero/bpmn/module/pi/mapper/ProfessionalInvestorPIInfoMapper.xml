@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.pi.mapper.ProfessionalInvestorPIInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="professionalInvestorFIInfoResultMap" type="com.minigod.zero.bpmn.module.pi.vo.ProfessionalInvestorPIInfoVO">
+        <id     column="info_id" property="id" />
+        <result column="info_application_id" property="applicationId" />
+        <result column="info_client_id" property="clientId" />
+        <result column="info_client_account" property="clientAccount" />
+        <result column="info_client_name" property="clientName" />
+        <result column="info_client_eng_name" property="clientEngName" />
+        <result column="info_securities_phone_area" property="securitiesPhoneArea" />
+        <result column="info_securities_phone_number" property="securitiesPhoneNumber" />
+        <result column="info_securities_phone_area_number" property="securitiesPhoneAreaNumber" />
+        <result column="info_gender" property="gender"/>
+        <result column="info_apply_date" property="applyDate" />
+        <result column="info_recognition_date" property="recognitionDate" />
+        <result column="info_expiration_date" property="expirationDate" />
+        <result column="info_revocation_date" property="revocationDate" />
+        <result column="info_treatment" property="treatment" />
+        <result column="info_declaration" property="declaration"/>
+        <result column="info_revocation_reason" property="revocationReason" />
+        <result column="info_application_time" property="applicationTime" />
+        <result column="info_create_time" property="createTime" />
+        <result column="info_create_user" property="createUser" />
+        <result column="info_update_time" property="updateTime" />
+        <result column="info_update_user" property="updateUser" />
+        <result column="info_is_deleted" property="isDeleted" />
+        <result column="info_status" property="status" />
+        <!--<result column="info_renewal_date" property="renewalDate" />-->
+        <result column="info_email" property="email" />
+        <result column="info_account_type" property="accountType" />
+    </resultMap>
+    <resultMap id="professionalInvestorFIInfoVO" type="com.minigod.zero.bpmn.module.pi.vo.ProfessionalInvestorPIInfoVO" extends="professionalInvestorFIInfoResultMap">
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        info.id AS info_id,
+        info.application_id AS info_application_id,
+        info.client_id AS info_client_id,
+        info.client_account AS info_client_account,
+        info.client_name AS info_client_name,
+        info.client_eng_name AS info_client_eng_name,
+        info.securities_phone_area AS info_securities_phone_area,
+        info.securities_phone_number AS info_securities_phone_number,
+        CONCAT(IFNULL(info.securities_phone_area,''), IF(info.securities_phone_area is NULL OR info.securities_phone_area='','','-'), IFNULL(info.securities_phone_number,'')) AS info_securities_phone_area_number,
+        info.gender AS info_gender,
+        info.apply_date AS info_apply_date,
+        info.recognition_date AS info_recognition_date,
+        info.expiration_date AS info_expiration_date,
+        info.revocation_date AS info_revocation_date,
+        info.treatment AS info_treatment,
+        info.declaration AS info_declaration,
+        info.revocation_reason AS info_revocation_reason,
+        info.application_time AS info_application_time,
+        info.create_time AS info_create_time,
+        info.create_user AS info_create_user,
+        info.update_time AS info_update_time,
+        info.update_user AS info_update_user,
+        info.is_deleted AS info_is_deleted,
+        info.status AS info_status,
+        info.email AS info_email,
+        info.account_type AS info_account_type
+    </sql>
+
+    <select id="selectProfessionalInvestorFIInfoPage" resultMap="professionalInvestorFIInfoResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from professional_investor_pi_info AS info where info.is_deleted = 0;
+    </select>
+    <select id="queryByApplicationId" resultType="com.minigod.zero.bpmn.module.pi.vo.ProfessionalInvestorPIInfoVO">
+        select * from professional_investor_pi_info AS info where info.application_id = #{applicationId} and is_deleted = 0 order by info.application_time desc limit 1;
+    </select>
+
+</mapper>

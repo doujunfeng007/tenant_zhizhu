@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.TProductMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.TProduct">
+        <id property="productid" column="productId" jdbcType="INTEGER"/>
+        <result property="isin" column="isin" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="fixinterestrate" column="fixInterestRate" jdbcType="DECIMAL"/>
+        <result property="buyingrate" column="buyingRate" jdbcType="DECIMAL"/>
+        <result property="sellingrate" column="sellingRate" jdbcType="DECIMAL"/>
+        <result property="currency" column="currency" jdbcType="VARCHAR"/>
+        <result property="nominalvalue" column="nominalValue" jdbcType="DECIMAL"/>
+        <result property="facevalue" column="faceValue" jdbcType="DECIMAL"/>
+        <result property="appraisement" column="appraisement" jdbcType="DECIMAL"/>
+        <result property="unit" column="unit" jdbcType="DECIMAL"/>
+        <result property="issueamount" column="issueAmount" jdbcType="DECIMAL"/>
+        <result property="tradingunit" column="tradingUnit" jdbcType="DECIMAL"/>
+        <result property="issuedate" column="issueDate" jdbcType="TIMESTAMP"/>
+        <result property="maturitydate" column="maturityDate" jdbcType="TIMESTAMP"/>
+        <result property="risklevel" column="riskLevel" jdbcType="TINYINT"/>
+        <result property="interestcalculationdays" column="interestCalculationDays" jdbcType="INTEGER"/>
+        <result property="liquidationdate" column="liquidationDate" jdbcType="TIMESTAMP"/>
+        <result property="marketopentime" column="marketOpenTime" jdbcType="TIME"/>
+        <result property="closingtime" column="closingTime" jdbcType="TIME"/>
+        <result property="issuer" column="issuer" jdbcType="VARCHAR"/>
+        <result property="productdescription" column="productDescription" jdbcType="VARCHAR"/>
+        <result property="stamptax" column="stampTax" jdbcType="DECIMAL"/>
+        <result property="brokeragecharges" column="brokerageCharges" jdbcType="DECIMAL"/>
+        <result property="limitorder" column="limitOrder" jdbcType="TINYINT"/>
+        <result property="type" column="type" jdbcType="TINYINT"/>
+        <result property="auditstatus" column="auditStatus" jdbcType="TINYINT"/>
+        <result property="status" column="status" jdbcType="TINYINT"/>
+        <result property="riskwarning" column="riskWarning" jdbcType="TINYINT"/>
+        <result property="creator" column="creator" jdbcType="VARCHAR"/>
+        <result property="lastupdatedby" column="lastUpdatedBy" jdbcType="VARCHAR"/>
+        <result property="synchstate" column="synchState" jdbcType="TINYINT"/>
+        <result property="maturitystatus" column="maturityStatus" jdbcType="TINYINT"/>
+        <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+        <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+        <result property="settlementdate" column="settlementDate" jdbcType="TIMESTAMP"/>
+        <result property="clearingvalue" column="clearingValue" jdbcType="DECIMAL"/>
+        <result property="listingtime" column="listingTime" jdbcType="TIMESTAMP"/>
+        <result property="customerform" column="customerForm" jdbcType="VARCHAR"/>
+        <result property="mininitsubscriptionquantity" column="minInitSubscriptionQuantity" jdbcType="DECIMAL"/>
+        <result property="ipominsubscriptionquantity" column="ipoMinSubscriptionQuantity" jdbcType="DECIMAL"/>
+        <result property="productabbr" column="productAbbr" jdbcType="VARCHAR"/>
+        <result property="clearingstatus" column="clearingStatus" jdbcType="TINYINT"/>
+        <result property="clearingremark" column="clearingRemark" jdbcType="VARCHAR"/>
+        <result property="redemptionunit" column="redemptionUnit" jdbcType="DECIMAL"/>
+        <result property="corporateaccount" column="corporateAccount" jdbcType="VARCHAR"/>
+        <result property="underlyingbondid" column="underlyingbondId" jdbcType="INTEGER"/>
+        <result property="documenturl" column="documentUrl" jdbcType="VARCHAR"/>
+        <result property="archivesurl" column="archivesUrl" jdbcType="VARCHAR"/>
+        <result property="nextinterestdate" column="nextInterestDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        productId
+        ,isin,name,
+        fixInterestRate,buyingRate,sellingRate,
+        currency,nominalValue,faceValue,
+        appraisement,unit,issueAmount,
+        tradingUnit,issueDate,maturityDate,
+        riskLevel,interestCalculationDays,liquidationDate,
+        marketOpenTime,closingTime,issuer,
+        productDescription,stampTax,brokerageCharges,
+        limitOrder,type,auditStatus,
+        status,riskWarning,creator,
+        lastUpdatedBy,synchState,maturityStatus,
+        createTime,updateTime,settlementDate,
+        clearingValue,listingTime,customerForm,
+        minInitSubscriptionQuantity,ipoMinSubscriptionQuantity,productAbbr,
+        clearingStatus,clearingRemark,redemptionUnit,
+        corporateAccount,underlyingbondId,documentUrl,
+        archivesUrl,nextInterestDate
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_product
+        where productId = #{productid,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from t_product
+        where productId = #{productid,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="productId" keyProperty="productid"
+            parameterType="com.minigod.zero.data.entity.TProduct" useGeneratedKeys="true">
+        insert into t_product
+        ( productId, isin, name
+        , fixInterestRate, buyingRate, sellingRate
+        , currency, nominalValue, faceValue
+        , appraisement, unit, issueAmount
+        , tradingUnit, issueDate, maturityDate
+        , riskLevel, interestCalculationDays, liquidationDate
+        , marketOpenTime, closingTime, issuer
+        , productDescription, stampTax, brokerageCharges
+        , limitOrder, type, auditStatus
+        , status, riskWarning, creator
+        , lastUpdatedBy, synchState, maturityStatus
+        , createTime, updateTime, settlementDate
+        , clearingValue, listingTime, customerForm
+        , minInitSubscriptionQuantity, ipoMinSubscriptionQuantity, productAbbr
+        , clearingStatus, clearingRemark, redemptionUnit
+        , corporateAccount, underlyingbondId, documentUrl
+        , archivesUrl, nextInterestDate)
+        values ( #{productid,jdbcType=INTEGER}, #{isin,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
+               , #{fixinterestrate,jdbcType=DECIMAL}, #{buyingrate,jdbcType=DECIMAL}, #{sellingrate,jdbcType=DECIMAL}
+               , #{currency,jdbcType=VARCHAR}, #{nominalvalue,jdbcType=DECIMAL}, #{facevalue,jdbcType=DECIMAL}
+               , #{appraisement,jdbcType=DECIMAL}, #{unit,jdbcType=DECIMAL}, #{issueamount,jdbcType=DECIMAL}
+               , #{tradingunit,jdbcType=DECIMAL}, #{issuedate,jdbcType=TIMESTAMP}, #{maturitydate,jdbcType=TIMESTAMP}
+               , #{risklevel,jdbcType=TINYINT}, #{interestcalculationdays,jdbcType=INTEGER}
+               , #{liquidationdate,jdbcType=TIMESTAMP}
+               , #{marketopentime,jdbcType=TIME}, #{closingtime,jdbcType=TIME}, #{issuer,jdbcType=VARCHAR}
+               , #{productdescription,jdbcType=VARCHAR}, #{stamptax,jdbcType=DECIMAL}
+               , #{brokeragecharges,jdbcType=DECIMAL}
+               , #{limitorder,jdbcType=TINYINT}, #{type,jdbcType=TINYINT}, #{auditstatus,jdbcType=TINYINT}
+               , #{status,jdbcType=TINYINT}, #{riskwarning,jdbcType=TINYINT}, #{creator,jdbcType=VARCHAR}
+               , #{lastupdatedby,jdbcType=VARCHAR}, #{synchstate,jdbcType=TINYINT}, #{maturitystatus,jdbcType=TINYINT}
+               , #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+               , #{settlementdate,jdbcType=TIMESTAMP}
+               , #{clearingvalue,jdbcType=DECIMAL}, #{listingtime,jdbcType=TIMESTAMP}, #{customerform,jdbcType=VARCHAR}
+               , #{mininitsubscriptionquantity,jdbcType=DECIMAL}, #{ipominsubscriptionquantity,jdbcType=DECIMAL}
+               , #{productabbr,jdbcType=VARCHAR}
+               , #{clearingstatus,jdbcType=TINYINT}, #{clearingremark,jdbcType=VARCHAR}
+               , #{redemptionunit,jdbcType=DECIMAL}
+               , #{corporateaccount,jdbcType=VARCHAR}, #{underlyingbondid,jdbcType=INTEGER}
+               , #{documenturl,jdbcType=VARCHAR}
+               , #{archivesurl,jdbcType=VARCHAR}, #{nextinterestdate,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="productId" keyProperty="productid"
+            parameterType="com.minigod.zero.data.entity.TProduct" useGeneratedKeys="true">
+        insert into t_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productid != null">productId,</if>
+            <if test="isin != null">isin,</if>
+            <if test="name != null">name,</if>
+            <if test="fixinterestrate != null">fixInterestRate,</if>
+            <if test="buyingrate != null">buyingRate,</if>
+            <if test="sellingrate != null">sellingRate,</if>
+            <if test="currency != null">currency,</if>
+            <if test="nominalvalue != null">nominalValue,</if>
+            <if test="facevalue != null">faceValue,</if>
+            <if test="appraisement != null">appraisement,</if>
+            <if test="unit != null">unit,</if>
+            <if test="issueamount != null">issueAmount,</if>
+            <if test="tradingunit != null">tradingUnit,</if>
+            <if test="issuedate != null">issueDate,</if>
+            <if test="maturitydate != null">maturityDate,</if>
+            <if test="risklevel != null">riskLevel,</if>
+            <if test="interestcalculationdays != null">interestCalculationDays,</if>
+            <if test="liquidationdate != null">liquidationDate,</if>
+            <if test="marketopentime != null">marketOpenTime,</if>
+            <if test="closingtime != null">closingTime,</if>
+            <if test="issuer != null">issuer,</if>
+            <if test="productdescription != null">productDescription,</if>
+            <if test="stamptax != null">stampTax,</if>
+            <if test="brokeragecharges != null">brokerageCharges,</if>
+            <if test="limitorder != null">limitOrder,</if>
+            <if test="type != null">type,</if>
+            <if test="auditstatus != null">auditStatus,</if>
+            <if test="status != null">status,</if>
+            <if test="riskwarning != null">riskWarning,</if>
+            <if test="creator != null">creator,</if>
+            <if test="lastupdatedby != null">lastUpdatedBy,</if>
+            <if test="synchstate != null">synchState,</if>
+            <if test="maturitystatus != null">maturityStatus,</if>
+            <if test="createtime != null">createTime,</if>
+            <if test="updatetime != null">updateTime,</if>
+            <if test="settlementdate != null">settlementDate,</if>
+            <if test="clearingvalue != null">clearingValue,</if>
+            <if test="listingtime != null">listingTime,</if>
+            <if test="customerform != null">customerForm,</if>
+            <if test="mininitsubscriptionquantity != null">minInitSubscriptionQuantity,</if>
+            <if test="ipominsubscriptionquantity != null">ipoMinSubscriptionQuantity,</if>
+            <if test="productabbr != null">productAbbr,</if>
+            <if test="clearingstatus != null">clearingStatus,</if>
+            <if test="clearingremark != null">clearingRemark,</if>
+            <if test="redemptionunit != null">redemptionUnit,</if>
+            <if test="corporateaccount != null">corporateAccount,</if>
+            <if test="underlyingbondid != null">underlyingbondId,</if>
+            <if test="documenturl != null">documentUrl,</if>
+            <if test="archivesurl != null">archivesUrl,</if>
+            <if test="nextinterestdate != null">nextInterestDate,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productid != null">#{productid,jdbcType=INTEGER},</if>
+            <if test="isin != null">#{isin,jdbcType=VARCHAR},</if>
+            <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+            <if test="fixinterestrate != null">#{fixinterestrate,jdbcType=DECIMAL},</if>
+            <if test="buyingrate != null">#{buyingrate,jdbcType=DECIMAL},</if>
+            <if test="sellingrate != null">#{sellingrate,jdbcType=DECIMAL},</if>
+            <if test="currency != null">#{currency,jdbcType=VARCHAR},</if>
+            <if test="nominalvalue != null">#{nominalvalue,jdbcType=DECIMAL},</if>
+            <if test="facevalue != null">#{facevalue,jdbcType=DECIMAL},</if>
+            <if test="appraisement != null">#{appraisement,jdbcType=DECIMAL},</if>
+            <if test="unit != null">#{unit,jdbcType=DECIMAL},</if>
+            <if test="issueamount != null">#{issueamount,jdbcType=DECIMAL},</if>
+            <if test="tradingunit != null">#{tradingunit,jdbcType=DECIMAL},</if>
+            <if test="issuedate != null">#{issuedate,jdbcType=TIMESTAMP},</if>
+            <if test="maturitydate != null">#{maturitydate,jdbcType=TIMESTAMP},</if>
+            <if test="risklevel != null">#{risklevel,jdbcType=TINYINT},</if>
+            <if test="interestcalculationdays != null">#{interestcalculationdays,jdbcType=INTEGER},</if>
+            <if test="liquidationdate != null">#{liquidationdate,jdbcType=TIMESTAMP},</if>
+            <if test="marketopentime != null">#{marketopentime,jdbcType=TIME},</if>
+            <if test="closingtime != null">#{closingtime,jdbcType=TIME},</if>
+            <if test="issuer != null">#{issuer,jdbcType=VARCHAR},</if>
+            <if test="productdescription != null">#{productdescription,jdbcType=VARCHAR},</if>
+            <if test="stamptax != null">#{stamptax,jdbcType=DECIMAL},</if>
+            <if test="brokeragecharges != null">#{brokeragecharges,jdbcType=DECIMAL},</if>
+            <if test="limitorder != null">#{limitorder,jdbcType=TINYINT},</if>
+            <if test="type != null">#{type,jdbcType=TINYINT},</if>
+            <if test="auditstatus != null">#{auditstatus,jdbcType=TINYINT},</if>
+            <if test="status != null">#{status,jdbcType=TINYINT},</if>
+            <if test="riskwarning != null">#{riskwarning,jdbcType=TINYINT},</if>
+            <if test="creator != null">#{creator,jdbcType=VARCHAR},</if>
+            <if test="lastupdatedby != null">#{lastupdatedby,jdbcType=VARCHAR},</if>
+            <if test="synchstate != null">#{synchstate,jdbcType=TINYINT},</if>
+            <if test="maturitystatus != null">#{maturitystatus,jdbcType=TINYINT},</if>
+            <if test="createtime != null">#{createtime,jdbcType=TIMESTAMP},</if>
+            <if test="updatetime != null">#{updatetime,jdbcType=TIMESTAMP},</if>
+            <if test="settlementdate != null">#{settlementdate,jdbcType=TIMESTAMP},</if>
+            <if test="clearingvalue != null">#{clearingvalue,jdbcType=DECIMAL},</if>
+            <if test="listingtime != null">#{listingtime,jdbcType=TIMESTAMP},</if>
+            <if test="customerform != null">#{customerform,jdbcType=VARCHAR},</if>
+            <if test="mininitsubscriptionquantity != null">#{mininitsubscriptionquantity,jdbcType=DECIMAL},</if>
+            <if test="ipominsubscriptionquantity != null">#{ipominsubscriptionquantity,jdbcType=DECIMAL},</if>
+            <if test="productabbr != null">#{productabbr,jdbcType=VARCHAR},</if>
+            <if test="clearingstatus != null">#{clearingstatus,jdbcType=TINYINT},</if>
+            <if test="clearingremark != null">#{clearingremark,jdbcType=VARCHAR},</if>
+            <if test="redemptionunit != null">#{redemptionunit,jdbcType=DECIMAL},</if>
+            <if test="corporateaccount != null">#{corporateaccount,jdbcType=VARCHAR},</if>
+            <if test="underlyingbondid != null">#{underlyingbondid,jdbcType=INTEGER},</if>
+            <if test="documenturl != null">#{documenturl,jdbcType=VARCHAR},</if>
+            <if test="archivesurl != null">#{archivesurl,jdbcType=VARCHAR},</if>
+            <if test="nextinterestdate != null">#{nextinterestdate,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.TProduct">
+        update t_product
+        <set>
+            <if test="isin != null">
+                isin = #{isin,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="fixinterestrate != null">
+                fixInterestRate = #{fixinterestrate,jdbcType=DECIMAL},
+            </if>
+            <if test="buyingrate != null">
+                buyingRate = #{buyingrate,jdbcType=DECIMAL},
+            </if>
+            <if test="sellingrate != null">
+                sellingRate = #{sellingrate,jdbcType=DECIMAL},
+            </if>
+            <if test="currency != null">
+                currency = #{currency,jdbcType=VARCHAR},
+            </if>
+            <if test="nominalvalue != null">
+                nominalValue = #{nominalvalue,jdbcType=DECIMAL},
+            </if>
+            <if test="facevalue != null">
+                faceValue = #{facevalue,jdbcType=DECIMAL},
+            </if>
+            <if test="appraisement != null">
+                appraisement = #{appraisement,jdbcType=DECIMAL},
+            </if>
+            <if test="unit != null">
+                unit = #{unit,jdbcType=DECIMAL},
+            </if>
+            <if test="issueamount != null">
+                issueAmount = #{issueamount,jdbcType=DECIMAL},
+            </if>
+            <if test="tradingunit != null">
+                tradingUnit = #{tradingunit,jdbcType=DECIMAL},
+            </if>
+            <if test="issuedate != null">
+                issueDate = #{issuedate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="maturitydate != null">
+                maturityDate = #{maturitydate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="risklevel != null">
+                riskLevel = #{risklevel,jdbcType=TINYINT},
+            </if>
+            <if test="interestcalculationdays != null">
+                interestCalculationDays = #{interestcalculationdays,jdbcType=INTEGER},
+            </if>
+            <if test="liquidationdate != null">
+                liquidationDate = #{liquidationdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="marketopentime != null">
+                marketOpenTime = #{marketopentime,jdbcType=TIME},
+            </if>
+            <if test="closingtime != null">
+                closingTime = #{closingtime,jdbcType=TIME},
+            </if>
+            <if test="issuer != null">
+                issuer = #{issuer,jdbcType=VARCHAR},
+            </if>
+            <if test="productdescription != null">
+                productDescription = #{productdescription,jdbcType=VARCHAR},
+            </if>
+            <if test="stamptax != null">
+                stampTax = #{stamptax,jdbcType=DECIMAL},
+            </if>
+            <if test="brokeragecharges != null">
+                brokerageCharges = #{brokeragecharges,jdbcType=DECIMAL},
+            </if>
+            <if test="limitorder != null">
+                limitOrder = #{limitorder,jdbcType=TINYINT},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=TINYINT},
+            </if>
+            <if test="auditstatus != null">
+                auditStatus = #{auditstatus,jdbcType=TINYINT},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="riskwarning != null">
+                riskWarning = #{riskwarning,jdbcType=TINYINT},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="lastupdatedby != null">
+                lastUpdatedBy = #{lastupdatedby,jdbcType=VARCHAR},
+            </if>
+            <if test="synchstate != null">
+                synchState = #{synchstate,jdbcType=TINYINT},
+            </if>
+            <if test="maturitystatus != null">
+                maturityStatus = #{maturitystatus,jdbcType=TINYINT},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatetime != null">
+                updateTime = #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="settlementdate != null">
+                settlementDate = #{settlementdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="clearingvalue != null">
+                clearingValue = #{clearingvalue,jdbcType=DECIMAL},
+            </if>
+            <if test="listingtime != null">
+                listingTime = #{listingtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="customerform != null">
+                customerForm = #{customerform,jdbcType=VARCHAR},
+            </if>
+            <if test="mininitsubscriptionquantity != null">
+                minInitSubscriptionQuantity = #{mininitsubscriptionquantity,jdbcType=DECIMAL},
+            </if>
+            <if test="ipominsubscriptionquantity != null">
+                ipoMinSubscriptionQuantity = #{ipominsubscriptionquantity,jdbcType=DECIMAL},
+            </if>
+            <if test="productabbr != null">
+                productAbbr = #{productabbr,jdbcType=VARCHAR},
+            </if>
+            <if test="clearingstatus != null">
+                clearingStatus = #{clearingstatus,jdbcType=TINYINT},
+            </if>
+            <if test="clearingremark != null">
+                clearingRemark = #{clearingremark,jdbcType=VARCHAR},
+            </if>
+            <if test="redemptionunit != null">
+                redemptionUnit = #{redemptionunit,jdbcType=DECIMAL},
+            </if>
+            <if test="corporateaccount != null">
+                corporateAccount = #{corporateaccount,jdbcType=VARCHAR},
+            </if>
+            <if test="underlyingbondid != null">
+                underlyingbondId = #{underlyingbondid,jdbcType=INTEGER},
+            </if>
+            <if test="documenturl != null">
+                documentUrl = #{documenturl,jdbcType=VARCHAR},
+            </if>
+            <if test="archivesurl != null">
+                archivesUrl = #{archivesurl,jdbcType=VARCHAR},
+            </if>
+            <if test="nextinterestdate != null">
+                nextInterestDate = #{nextinterestdate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where productId = #{productid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.TProduct">
+        update t_product
+        set isin                        = #{isin,jdbcType=VARCHAR},
+            name                        = #{name,jdbcType=VARCHAR},
+            fixInterestRate             = #{fixinterestrate,jdbcType=DECIMAL},
+            buyingRate                  = #{buyingrate,jdbcType=DECIMAL},
+            sellingRate                 = #{sellingrate,jdbcType=DECIMAL},
+            currency                    = #{currency,jdbcType=VARCHAR},
+            nominalValue                = #{nominalvalue,jdbcType=DECIMAL},
+            faceValue                   = #{facevalue,jdbcType=DECIMAL},
+            appraisement                = #{appraisement,jdbcType=DECIMAL},
+            unit                        = #{unit,jdbcType=DECIMAL},
+            issueAmount                 = #{issueamount,jdbcType=DECIMAL},
+            tradingUnit                 = #{tradingunit,jdbcType=DECIMAL},
+            issueDate                   = #{issuedate,jdbcType=TIMESTAMP},
+            maturityDate                = #{maturitydate,jdbcType=TIMESTAMP},
+            riskLevel                   = #{risklevel,jdbcType=TINYINT},
+            interestCalculationDays     = #{interestcalculationdays,jdbcType=INTEGER},
+            liquidationDate             = #{liquidationdate,jdbcType=TIMESTAMP},
+            marketOpenTime              = #{marketopentime,jdbcType=TIME},
+            closingTime                 = #{closingtime,jdbcType=TIME},
+            issuer                      = #{issuer,jdbcType=VARCHAR},
+            productDescription          = #{productdescription,jdbcType=VARCHAR},
+            stampTax                    = #{stamptax,jdbcType=DECIMAL},
+            brokerageCharges            = #{brokeragecharges,jdbcType=DECIMAL},
+            limitOrder                  = #{limitorder,jdbcType=TINYINT},
+            type                        = #{type,jdbcType=TINYINT},
+            auditStatus                 = #{auditstatus,jdbcType=TINYINT},
+            status                      = #{status,jdbcType=TINYINT},
+            riskWarning                 = #{riskwarning,jdbcType=TINYINT},
+            creator                     = #{creator,jdbcType=VARCHAR},
+            lastUpdatedBy               = #{lastupdatedby,jdbcType=VARCHAR},
+            synchState                  = #{synchstate,jdbcType=TINYINT},
+            maturityStatus              = #{maturitystatus,jdbcType=TINYINT},
+            createTime                  = #{createtime,jdbcType=TIMESTAMP},
+            updateTime                  = #{updatetime,jdbcType=TIMESTAMP},
+            settlementDate              = #{settlementdate,jdbcType=TIMESTAMP},
+            clearingValue               = #{clearingvalue,jdbcType=DECIMAL},
+            listingTime                 = #{listingtime,jdbcType=TIMESTAMP},
+            customerForm                = #{customerform,jdbcType=VARCHAR},
+            minInitSubscriptionQuantity = #{mininitsubscriptionquantity,jdbcType=DECIMAL},
+            ipoMinSubscriptionQuantity  = #{ipominsubscriptionquantity,jdbcType=DECIMAL},
+            productAbbr                 = #{productabbr,jdbcType=VARCHAR},
+            clearingStatus              = #{clearingstatus,jdbcType=TINYINT},
+            clearingRemark              = #{clearingremark,jdbcType=VARCHAR},
+            redemptionUnit              = #{redemptionunit,jdbcType=DECIMAL},
+            corporateAccount            = #{corporateaccount,jdbcType=VARCHAR},
+            underlyingbondId            = #{underlyingbondid,jdbcType=INTEGER},
+            documentUrl                 = #{documenturl,jdbcType=VARCHAR},
+            archivesUrl                 = #{archivesurl,jdbcType=VARCHAR},
+            nextInterestDate            = #{nextinterestdate,jdbcType=TIMESTAMP}
+        where productId = #{productid,jdbcType=INTEGER}
+    </update>
+
+    <select id="countProduct" resultType="com.minigod.zero.data.vo.ProductCountVO">
+        -- 统计产品数量（已发行的活利得产品数、已发行的债券易产品数、已发行的IPO产品数）
+        SELECT
+            COUNT(CASE WHEN type = 64 AND issueDate &lt;= now() THEN isin END) as hldCount,  -- hldCount 统计数 排除掉 issueDate 大于当前日期的
+            COUNT(CASE WHEN type = 65 AND issueDate &lt;= now() THEN isin END) as bondCount,  -- boudCount 统计数 排除掉 issueDate 大于当前日期的
+            COUNT(CASE WHEN issueDate > now() THEN isin END) as ipoCount -- ipoCount 统计数 统计 issueDate 大于当前日期的
+        FROM t_product
+        WHERE auditStatus in (3, 6)
+    </select>
+
+    <!-- 正在IPO阶段的产品数量-->
+    <select id="ipoCountProduct" resultType="java.lang.Long">
+        select COUNT(*) as ipoCount
+        from t_product
+        where auditStatus = 3
+          AND issueDate > now() -- 产品审核状态 1 初次提交保存 2 上架待审核（点击上架申请） 3 通过即上架 4 拒绝上架 5 下架审核中 6 已下架 7 拒绝下架
+    </select>
+
+    <!-- 统计不同产品类型的上下架数量 -->
+    <select id="countProductByTypeAndStatus" resultType="java.util.Map">
+        SELECT
+            t.type,
+            s.auditStatus,
+            COALESCE ( stats.count, 0 ) AS count
+        FROM
+            ( SELECT 64 AS type UNION ALL SELECT 65 ) t
+            CROSS JOIN ( SELECT 3 AS auditStatus UNION ALL SELECT 6 ) s
+            LEFT JOIN (
+                SELECT
+                type,
+                auditStatus,
+                COUNT(*) AS count
+                FROM
+                t_product
+                WHERE
+                type IN ( 64, 65 ) -- 64:活利得, 65:债券易
+                AND auditStatus IN ( 3, 6 ) -- 3:已上架, 6:已下架
+                GROUP BY  type, auditStatus
+            ) stats ON t.type = stats.type
+            AND s.auditStatus = stats.auditStatus
+    </select>
+    <select id="hldRateChange" resultType="java.lang.String">
+        WITH RankProductCycle AS (SELECT tn.productId,
+            DATE ( tn.interestDate ) AS interestDate
+           , ROW_NUMBER() OVER ( PARTITION BY tn.productId ORDER BY tn.interestDate DESC ) AS rn
+        FROM
+            t_product_cycle_interest tn
+            )
+        SELECT tp.isin
+        FROM RankProductCycle t1
+                 LEFT JOIN t_product tp ON t1.productId = tp.productId
+        WHERE t1.rn = 1
+          AND tp.type = 64
+          AND DATE_ADD(t1.interestDate, INTERVAL #{month} MONTH) &lt; NOW()
+          AND tp.auditStatus != 6
+    </select>
+    <select id="countProductExpired" resultType="java.lang.Integer">
+        SELECT COUNT(1) AS count
+        FROM
+            t_product
+        WHERE
+            maturityDate BETWEEN CURDATE()
+          AND DATE_ADD( CURDATE()
+            , INTERVAL #{month} MONTH )
+          and auditStatus != 6
+    </select>
+    <select id="productExpiredIsin" resultType="java.lang.String">
+        SELECT isin
+        FROM t_product
+        WHERE maturityDate BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL #{month} MONTH)
+          and auditStatus != 6
+    </select>
+    <select id="countBondDividend" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT t1.productId) AS count
+        FROM
+            t_product_dividend t1
+            LEFT JOIN t_product tp
+        ON t1.productId = tp.productId
+        WHERE
+            tp.type = 65
+          AND tp.auditStatus != 6
+          AND t1.dividentPaymentDate
+            BETWEEN CURDATE()
+          AND DATE_ADD( CURDATE()
+            , INTERVAL #{month} MONTH );
+    </select>
+    <select id="bondDividendIsin" resultType="java.lang.String">
+        SELECT DISTINCT tp.isin
+        FROM t_product_dividend t1
+                 LEFT JOIN t_product tp ON t1.productId = tp.productId
+        WHERE tp.type = 65
+          AND tp.auditStatus != 6
+	        AND t1.dividentPaymentDate
+	        BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL #{month} MONTH );
+    </select>
+</mapper>

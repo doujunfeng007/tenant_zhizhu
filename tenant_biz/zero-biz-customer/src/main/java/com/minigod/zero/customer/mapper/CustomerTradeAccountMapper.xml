@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerTradeAccountMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerTradeAccountEntity">
+        <id column="id" property="id" />
+        <result column="account_id" property="accountId" />
+        <result column="trade_account" property="tradeAccount" />
+        <result column="business_type" property="businessType" />
+        <result column="account_type" property="accountType" />
+        <result column="oper_type" property="operType" />
+        <result column="account_status" property="accountStatus" />
+        <result column="reletion_trade_account" property="reletionTradeAccount" />
+        <result column="is_current" property="isCurrent" />
+        <result column="counter_type" property="counterType" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_delete" property="isDelete" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, account_id, trade_account, business_type, account_type, oper_type, account_status,
+        reletion_trade_account, is_current, counter_type, create_time, update_time, is_delete
+    </sql>
+
+    <select id="selectByAccountId" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List" />
+        FROM customer_trade_account
+        WHERE account_id = #{accountId}
+        AND is_delete = 0
+    </select>
+
+    <update id="updateCurrentStatus">
+        UPDATE customer_trade_account
+        SET is_current = CASE 
+            WHEN trade_account = #{tradeAccount} THEN 1
+            ELSE 0
+        END
+        WHERE account_id = #{accountId}
+        AND is_delete = 0
+    </update>
+</mapper> 

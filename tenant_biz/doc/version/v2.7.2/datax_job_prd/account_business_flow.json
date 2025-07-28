@@ -1,0 +1,81 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "mysqlreader",
+          "parameter": {
+            "username": "X3saU2xIvqh/xJ2natkJRQ==",
+            "password": "bDLTlVUgOz6kcv+kvsVSS6vBjgKzpK/rW8CQFZqbmPQ=",
+            "column": [
+              "`id`",
+              "`cust_id`",
+              "`account_id`",
+              "`business_id`",
+              "`amount`",
+              "`currency`",
+              "`create_time`",
+              "`status`",
+              "`pay_amount`",
+              "`refunding_amount`",
+              "`source`",
+              "`exchange_rate`",
+              "`business_type`"
+            ],
+            "splitPk": "",
+            "connection": [
+              {
+                "table": [
+                  "account_business_flow"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://10.10.1.20:13049/ifund_account?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "username": "x23iAGFtBmYzhTgDDjvFPg==",
+            "password": "sTO8zolMP4HE+FE4/Q/juOlJhAfkZyhMvpevvHYrEc8=",
+            "column": [
+              "`id`",
+              "`cust_id`",
+              "`account_id`",
+              "`business_id`",
+              "`amount`",
+              "`currency`",
+              "`create_time`",
+              "`status`",
+              "`pay_amount`",
+              "`refunding_amount`",
+              "`source`",
+              "`exchange_rate`",
+              "`business_type`"
+            ],
+            "writeMode": "update",
+            "connection": [
+              {
+                "table": [
+                  "account_business_flow"
+                ],
+                "jdbcUrl": "jdbc:mysql://10.10.1.20:13049/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

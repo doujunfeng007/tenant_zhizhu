@@ -1,0 +1,123 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-$K8s_NAMESPACE-$APP_NAME
+  labels:
+    type: nfs
+    env: $K8s_NAMESPACE
+    purpose: $APP_NAME
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  nfs:
+    path: /data/nfs-storage/n1/$K8s_NAMESPACE/$APP_NAME
+    server: 192.168.1.251
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-$K8s_NAMESPACE-$APP_NAME
+  namespace: $K8s_NAMESPACE
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+  selector:
+    matchLabels:
+      type: nfs
+      env: $K8s_NAMESPACE
+      purpose: $APP_NAME
+  storageClassName: ""
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: $APP_NAME
+  name: $APP_NAME
+  namespace: $K8s_NAMESPACE
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      app: $APP_NAME
+  template:
+    metadata:
+      labels:
+        app: $APP_NAME
+    spec:
+      volumes:
+        - name: host-time
+          hostPath:
+            path: /etc/localtime
+            type: ''
+        - name: log-pvc
+          persistentVolumeClaim:
+            claimName: pvc-$K8s_NAMESPACE-$APP_NAME
+      containers:
+        - image: $REGISTRY/$HARBOR_NAMESPACE/ztt/$APP_NAME:$BUILD_NUMBER
+          imagePullPolicy: Always
+          name: $APP_NAME
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          ports:
+            - containerPort: $PORT
+              protocol: TCP
+          volumeMounts:
+            - name: host-time
+              mountPath: /etc/localtime
+              readOnly: true
+            - name: log-pvc
+              mountPath: /data/logs/$APP_NAME  # 日志挂载
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          command: ["java"]
+          args:
+            - "-Dfile.encoding=UTF-8"
+            - "-Djava.security.egd=file:/dev/./urandom"
+            - "-Dnacos.tenant.addr=${Nacos_socket}"
+            - "-Dnacos.tenant.namespace=${Nacos_nsid}"
+            - "-jar"
+            - "app.jar"
+            - "--spring.profiles.active=${Environments}"    
+          resources:  # 添加资源限制
+            requests:
+              memory: "2Gi"  # 请求的内存
+              cpu: "500m"     # 请求的 CPU
+            limits:
+              memory: "4Gi"   # 允许的最大内存
+              cpu: "1"        # 允许的最大 CPU                 
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      nodeSelector:
+        app-type-$Node_Tag: $Node_Tag
+      imagePullSecrets:
+        - name: my-harbor-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: $APP_NAME
+  name: $APP_NAME
+  namespace: $K8s_NAMESPACE
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: $PORT
+      protocol: TCP
+      targetPort: $PORT
+      nodePort: $NODEPORT
+  selector:
+    app: $APP_NAME
+  sessionAffinity: None

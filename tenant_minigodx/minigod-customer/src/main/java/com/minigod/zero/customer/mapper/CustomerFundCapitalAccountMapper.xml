@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerFundCapitalAccountMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="fundCapitalAccountResultMap" type="com.minigod.zero.customer.entity.CustomerFundCapitalAccountEntity">
+        <result column="id" property="id"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="fund_account" property="fundAccount"/>
+        <result column="is_master" property="isMaster"/>
+        <result column="account_status" property="accountStatus"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="transited_amount" property="transitedAmount"/>
+        <result column="freeze_amount" property="freezeAmount"/>
+        <result column="available_amount" property="availableAmount"/>
+        <result column="account_type" property="accountType"/>
+
+    </resultMap>
+
+    <select id="selectCustomerFundCapitalAccountPage" resultMap="fundCapitalAccountResultMap">
+        select * from customer_fund_capital_account where is_deleted = 0
+    </select>
+
+    <select id="selectSubAccountByCustId" parameterType="java.lang.Long" resultMap="fundCapitalAccountResultMap">
+        SELECT fca.* from customer_fund_capital_account fca
+        LEFT JOIN customer_fund_trading_account as fta on fta.trade_account = fca.trade_account
+        where fta.cust_id = #{custId}
+    </select>
+
+    <select id="selectCustAccountBySubId" parameterType="java.lang.String" resultType="java.lang.Long">
+        SELECT fta.cust_id from customer_fund_capital_account fca
+        LEFT JOIN customer_fund_trading_account as fta on fta.trade_account = fca.trade_account
+        where fca.fund_account = #{subAccount}
+    </select>
+
+    <update id="updateBySubAccount" parameterType="java.util.ArrayList">
+        <foreach collection="accountList" item="item" separator=";" open="begin" close=";end;">
+            update customer_fund_capital_account
+            set available_amount =#{item.availableAmount},freeze_amount = #{item.freezeAmount},available_amount = #{item.availableAmount}
+            where fund_account = #{item.fundAccount}
+        </foreach>
+    </update>
+
+    <update id="freezeAvailableAmount" parameterType="java.lang.Object">
+        update customer_fund_capital_account set available_amount = available_amount - #{amount},freeze_amount= freeze_amount + #{amount} ,update_time  = now()
+        where id = #{id} and available_amount > #{amount}
+    </update>
+
+    <update id="reduceFreezeAmount" parameterType="java.lang.Object">
+        update customer_fund_capital_account set freeze_amount= freeze_amount - #{amount} ,update_time  = now()
+        where id = #{id} and freeze_amount >= #{amount}
+    </update>
+
+    <update id="freezeToAvailableAmount" parameterType="java.lang.Object">
+        update customer_fund_capital_account set available_amount = available_amount + #{amount},freeze_amount= freeze_amount - #{amount} ,update_time  = now()
+        where id = #{id} and freeze_amount > #{amount}
+    </update>
+
+    <select id="selectByAccountId" resultMap="fundCapitalAccountResultMap">
+        select * from customer_fund_capital_account as fca
+        left join customer_fund_trading_account fta on fca.trade_account= fta.trade_account
+        where fta.account_id = #{accountId}
+    </select>
+</mapper>

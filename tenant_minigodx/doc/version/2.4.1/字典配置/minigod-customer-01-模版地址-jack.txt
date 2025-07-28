@@ -1,0 +1,4 @@
+statement_template:
+    daily_statement_template:https://minio.ifund.live:9000/minigod-prd/upload/20240830/fa5d3c5dcd7f44d1a68b2a285ed09b16.docx
+    month_statement_template:https://minio.ifund.live:9000/minigod-prd/upload/20240830/cfba529af4de4ab01a95fd6cf9c9e77a.docx
+

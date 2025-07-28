@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountDepositInfoMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_deposit_infoResultMap"
+               type="com.minigod.zero.bpmn.module.account.entity.AccountDepositInfoEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="out_bank" property="outBank"/>
+        <result column="bank_code" property="bankCode"/>
+        <result column="bank_account_number" property="bankAccountNumber"/>
+        <result column="account_holder_name" property="accountHolderName"/>
+        <result column="account_currency_type" property="accountCurrencyType"/>
+        <result column="deposit_currency_type" property="depositCurrencyType"/>
+        <result column="deposit_money" property="depositMoney"/>
+        <result column="deposit_date" property="depositDate"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="audit_opinion" property="auditOpinion"/>
+        <result column="receive_bank" property="receiveBank"/>
+    </resultMap>
+    <resultMap id="account_deposit_infoResultMapVO" type="com.minigod.zero.bpmn.module.account.vo.AccountDepositInfoVO"
+               extends="account_deposit_infoResultMap">
+    </resultMap>
+    <select id="queryByApplicationId" resultMap="account_deposit_infoResultMapVO">
+        select *
+        from open_account_deposit_info
+        where application_id = #{applicationId}
+    </select>
+    <select id="queryByBankAccountNumber" resultMap="account_deposit_infoResultMapVO">
+        select *
+        from open_account_deposit_info
+        where bank_account_number = #{bankAccountNumber} and account_holder_name != #{accountHolderName} limit 1
+    </select>
+    <delete id="deleteByApplicationId">
+        delete
+        from open_account_deposit_info
+        where application_id = #{applicationId}
+    </delete>
+</mapper>

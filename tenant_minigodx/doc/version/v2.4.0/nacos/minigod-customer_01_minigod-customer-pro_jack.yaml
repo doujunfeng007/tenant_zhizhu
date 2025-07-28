@@ -1,0 +1,14 @@
+#minigod-customer-dev.yaml
+minigod:
+    customer:
+        statement:
+            account:
+                placePath: '/data/apps/place'
+                tenantMap:
+                    '000000':
+                        #更改日结单模板
+                        hldBondMonthTemplate: 'http://203.86.123.80:32308/minigod-sit/upload/20240823/8d9d09920fe18fb1342d59629b9d4127.docx'
+                        #hldBondDayTemplate: 'http://203.86.123.80:32308/minigod-sit/upload/20240823/d88f279f4eb9e131c0afb521405778ee.docx'
+                        hldBondDayTemplate: ''
+
+#----------------#

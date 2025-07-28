@@ -1,0 +1,120 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+                    "name": "mysqlreader",
+          "parameter": {
+            "username": "X3saU2xIvqh/xJ2natkJRQ==",
+            "password": "bDLTlVUgOz6kcv+kvsVSS6vBjgKzpK/rW8CQFZqbmPQ=",
+            "column": [
+              "`id`",
+              "`tenant_id`",
+              "`nick_name`",
+              "`signature`",
+              "`gender`",
+              "`cust_icon`",
+              "`cust_channel`",
+              "`password`",
+              "`inv_cust_id`",
+              "`cust_type`",
+              "`lock_version`",
+              "`cell_phone`",
+              "`area_code`",
+              "`reg_source_type`",
+              "`reg_channel`",
+              "`cell_email`",
+              "`create_user`",
+              "`create_time`",
+              "`update_user`",
+              "`update_time`",
+              "`status`",
+              "`cancel_time`",
+              "`bind_cust`",
+              "`is_deleted`",
+              "`create_dept`",
+              "`pi_level`",
+              "`risk_level`",
+              "`pi_risk_level`",
+              "`derivative`",
+              "`risk_expiry_date`",
+              "`pwd_upd_time`",
+              "`pwd_warn_status`"
+            ],
+            "splitPk": "",
+            "where": "(create_time >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 1 DAY) OR update_time >= DATE_SUB( FROM_UNIXTIME( ${lastTime}), INTERVAL 1 DAY ))",
+            "connection": [
+              {
+                "table": [
+                  "customer_info"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://203.86.123.168:43436/ifund_account?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "username": "x23iAGFtBmYzhTgDDjvFPg==",
+            "password": "sTO8zolMP4HE+FE4/Q/juOlJhAfkZyhMvpevvHYrEc8=",
+            "column": [
+              "`id`",
+              "`tenant_id`",
+              "`nick_name`",
+              "`signature`",
+              "`gender`",
+              "`cust_icon`",
+              "`cust_channel`",
+              "`password`",
+              "`inv_cust_id`",
+              "`cust_type`",
+              "`lock_version`",
+              "`cell_phone`",
+              "`area_code`",
+              "`reg_source_type`",
+              "`reg_channel`",
+              "`cell_email`",
+              "`create_user`",
+              "`create_time`",
+              "`update_user`",
+              "`update_time`",
+              "`status`",
+              "`cancel_time`",
+              "`bind_cust`",
+              "`is_deleted`",
+              "`create_dept`",
+              "`pi_level`",
+              "`risk_level`",
+              "`pi_risk_level`",
+              "`derivative`",
+              "`risk_expiry_date`",
+              "`pwd_upd_time`",
+              "`pwd_warn_status`"
+            ],
+            "writeMode": "update",
+            "connection": [
+              {
+                "table": [
+                  "customer_info"
+                ],
+                "jdbcUrl": "jdbc:mysql://203.86.123.168:43436/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

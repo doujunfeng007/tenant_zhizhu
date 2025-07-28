@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.AdFrequencyInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="adFrequencyInfoResultMap" type="com.minigod.zero.manage.entity.AdFrequencyInfoEntity">
+        <result column="id" property="id"/>
+        <result column="ad_id" property="adId"/>
+        <result column="user_id" property="userId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+
+    <select id="selectAdFrequencyInfoPage" resultMap="adFrequencyInfoResultMap">
+        select * from oms_ad_frequency_info where is_deleted = 0
+    </select>
+
+
+</mapper>

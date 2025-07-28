@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.manage.mapper.CashDepositBankMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="cashDepositBankResultMap" type="com.minigod.zero.manage.entity.CashDepositBankEntity">
+        <result column="id" property="id"/>
+        <result column="sort" property="sort"/>
+        <result column="bank_type" property="bankType"/>
+        <result column="remit_bank_name" property="remitBankName"/>
+        <result column="remit_bank_name_hant" property="remitBankNameHant"/>
+        <result column="remit_bank_name_en" property="remitBankNameEn"/>
+        <result column="remit_bank_code" property="remitBankCode"/>
+        <result column="pc_icon" property="pcIcon"/>
+        <result column="app_icon" property="appIcon"/>
+        <result column="charge_money" property="chargeMoney"/>
+        <result column="time_arrival" property="timeArrival"/>
+        <result column="time_arrival_remark" property="timeArrivalRemark"/>
+        <result column="receipt_bank_name" property="receiptBankName"/>
+        <result column="receipt_bank_name_spell" property="receiptBankNameSpell"/>
+        <result column="receipt_bank_code" property="receiptBankCode"/>
+        <result column="receipt_bank_address" property="receiptBankAddress"/>
+        <result column="swift_code" property="swiftCode"/>
+        <result column="account_type" property="accountType"/>
+        <result column="receipt_account_payee_hkd" property="receiptAccountPayeeHkd"/>
+        <result column="receipt_account_payee_hkd_remark" property="receiptAccountPayeeHkdRemark"/>
+        <result column="receipt_account_payee_usd" property="receiptAccountPayeeUsd"/>
+        <result column="receipt_account_payee_usd_remark" property="receiptAccountPayeeUsdRemark"/>
+        <result column="receipt_account_name" property="receiptAccountName"/>
+        <result column="receipt_account_name_remark" property="receiptAccountNameRemark"/>
+        <result column="receipt_payee_address" property="receiptPayeeAddress"/>
+        <result column="app_wy_guide_url_hkd" property="appWyGuideUrlHkd"/>
+        <result column="app_wy_guide_url_usd" property="appWyGuideUrlUsd"/>
+        <result column="pc_wy_guide_url_hkd" property="pcWyGuideUrlHkd"/>
+        <result column="pc_wy_guide_url_usd" property="pcWyGuideUrlUsd"/>
+        <result column="is_show" property="isShow"/>
+        <result column="deposit_cert_img" property="depositCertImg"/>
+        <result column="founder" property="founder"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="support_type" property="supportType"/>
+        <result column="bg_color" property="bgColor"/>
+        <result column="shadow_color" property="shadowColor"/>
+        <result column="account_fps" property="accountFps"/>
+        <result column="receipt_bank_code_fps" property="receiptBankCodeFps"/>
+        <result column="receipt_bank_name_fps" property="receiptBankNameFps"/>
+        <result column="charge_money_fps" property="chargeMoneyFps"/>
+        <result column="charge_money_remark_fps" property="chargeMoneyRemarkFps"/>
+        <result column="time_arrival_fps" property="timeArrivalFps"/>
+        <result column="time_arrival_remark_fps" property="timeArrivalRemarkFps"/>
+        <result column="app_guide_url_fps" property="appGuideUrlFps"/>
+        <result column="pc_guide_url_fps" property="pcGuideUrlFps"/>
+        <result column="deposit_cert_img_fps" property="depositCertImgFps"/>
+        <result column="receipt_account_name_fps" property="receiptAccountNameFps"/>
+        <result column="receipt_bank_no_fps" property="receiptBankNoFps"/>
+        <result column="bank_id_quick" property="bankIdQuick"/>
+    </resultMap>
+
+
+    <select id="selectCashDepositBankPage" resultMap="cashDepositBankResultMap">
+        select * from cash_deposit_bank where is_deleted = 0
+    </select>
+
+    <select id="getAllDepositBank" resultType="com.minigod.zero.manage.vo.DepositBankVO">
+        select
+            cdb.id as depositId,
+            cdb.remit_bank_name as bankName,
+            cdb.remit_bank_name_en as bankEnName,
+            cdb.bank_id_quick as bankId,
+            cdb.remit_bank_code as bankCode,
+            cdb.swift_code as swiftCode,
+            cdb.app_icon as appIcon,
+            cdb.pc_icon as pcIcon,
+            cdb.bank_type as bankType
+        from cash_deposit_bank  as cdb
+        where bank_type = #{bankType}
+    </select>
+</mapper>

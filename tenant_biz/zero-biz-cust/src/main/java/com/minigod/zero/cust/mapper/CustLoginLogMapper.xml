@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.cust.mapper.CustLoginLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="loginLogResultMap" type="com.minigod.zero.cust.entity.CustLoginLogEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="action" property="action"/>
+        <result column="type" property="type"/>
+        <result column="login_type" property="loginType"/>
+        <result column="ip" property="ip"/>
+        <result column="device_code" property="deviceCode"/>
+        <result column="create_time" property="createTime"/>
+        <result column="cust_name" property="custName"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="email" property="email"/>
+        <result column="area_code" property="areaCode"/>
+        <result column="app_version" property="appVersion"/>
+        <result column="device_model" property="deviceModel"/>
+        <result column="os_type" property="osType"/>
+        <result column="country_cn_name" property="countryCnName"/>
+        <result column="country_code" property="countryCode"/>
+        <result column="region_cn_name" property="regionCnName"/>
+        <result column="region_code" property="regionCode"/>
+    </resultMap>
+
+
+    <select id="selectCustLoginLogPage" resultMap="loginLogResultMap">
+        select * from cust_login_log
+        <where>
+            1 = 1
+            <if test="params.custId != null">
+                and `cust_id` = #{params.custId}
+            </if>
+            <if test="params.typeList != null and params.typeList.size > 0">
+                and `type` in
+                <foreach collection="params.typeList" item="type" open="(" separator="," close=")">
+                    #{type}
+                </foreach>
+            </if>
+            <if test="params.action != null">
+                and `action` = #{params.action}
+            </if>
+            <if test="params.createTimeStart != null and params.createTimeEnd == null">
+                and create_time <![CDATA[ >= ]]> #{params.createTimeStart}
+            </if>
+            <if test="params.createTimeStart == null and params.createTimeEnd != null">
+                and create_time <![CDATA[ <= ]]> #{params.createTimeEnd}
+            </if>
+            <if test="params.createTimeStart != null and params.createTimeEnd != null">
+                and create_time between #{params.createTimeStart} and #{params.createTimeEnd}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+
+</mapper>

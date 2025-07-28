@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.deposit.mapper.SecDepositAccountBankMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="baseResultMap" type="com.minigod.zero.bpmn.module.deposit.entity.SecDepositAccountBankEntity">
+        <result column="id" property="id"/>
+        <result column="client_id" property="clientId"/>
+        <result column="client_name" property="clientName"/>
+        <result column="client_name_en" property="clientNameEn"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="open_account_type" property="openAccountType"/>
+        <result column="open_bank_type" property="openBankType"/>
+        <result column="bank_type" property="bankType"/>
+        <result column="bank_name" property="bankName"/>
+        <result column="bank_account_name" property="bankAccountName"/>
+        <result column="bank_account" property="bankAccount"/>
+        <result column="reg_time" property="regTime"/>
+        <result column="reg_cancel_time" property="regCancelTime"/>
+        <result column="reg_status" property="regStatus"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="auth_sign" property="authSign"/>
+        <result column="tenant_id" property="tenantId"/>
+    </resultMap>
+
+
+    <select id="selectSecDepositAccountBankPage" resultMap="baseResultMap">
+        select * from sec_deposit_account_bank where is_deleted = 0
+    </select>
+
+
+</mapper>

@@ -1,0 +1,42 @@
+-- *****************************************************************************************************************************************
+执行地址:	203.86.122.229
+执行库：	    zero_biz
+执行时间：	2.4 上线前
+-- *********************************************************【zero_biz 库】******************************************************************
+alter table platform_common_template
+    change ali_temp_code_hans temp_code_hans varchar(30) null comment '短信模板码(简体)';
+
+alter table platform_common_template
+    change ali_temp_code_hant temp_code_hant varchar(30) null comment '短信模板码(繁体)';
+
+alter table platform_common_template
+    change ali_temp_code_en temp_code_en varchar(30) null comment '短信模板码(英文)';
+
+alter table platform_common_template
+    change ali_temp_param temp_param varchar(600) null comment '短信模板参数';
+
+alter table platform_common_template
+    modify msg_type int default 0 null comment '模板类型1短信，2邮件，3推送';
+
+alter table platform_common_template
+    modify status tinyint(1) default 1 not null comment '状态：0-无效/禁用 1-有效/启用' after url;
+
+alter table platform_common_template
+    modify is_deleted tinyint(1) default 0 not null comment '是否已删除：1-已删除' after status;
+
+alter table platform_common_template
+    add channel int null comment '渠道：
+msgType =1表示短信渠道，1.腾讯云
+msgType =2表示邮件渠道，1.sendcloud
+msgType =3表示推送渠道，1.极光';
+
+alter table platform_common_template
+    drop column bus_id;
+
+alter table platform_common_template
+    modify id bigint auto_increment comment '主键';
+
+alter table platform_common_template
+    add create_user_name varchar(32) null comment '创建人名称';
+
+update platform_mobile_content set channel = 2 where id > 0

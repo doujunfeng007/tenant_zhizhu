@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.TMarketReferencePriceMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.TMarketReferencePrice">
+            <id property="productId" column="productId" jdbcType="INTEGER"/>
+            <result property="price" column="price" jdbcType="DECIMAL"/>
+            <result property="lastUpdatedBy" column="lastUpdatedBy" jdbcType="VARCHAR"/>
+            <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        productId,price,lastUpdatedBy,
+        createTime,updateTime
+    </sql>
+</mapper>

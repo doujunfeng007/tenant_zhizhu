@@ -1,0 +1,14 @@
+#服务器端口
+server:
+  port: 8000
+
+
+#数据源配置
+spring:
+  config:
+    import:
+      - optional:classpath:/minigod-customer-${spring.profiles.active}.yaml
+  datasource:
+    url: ${minigod.datasource.customer.url}
+    username: ${minigod.datasource.customer.username}
+    password: ${minigod.datasource.customer.password}

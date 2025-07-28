@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<t2sdk-configuration>
+	<performance   heartbeatTime="4"
+				   acquireConnWaitTime="10000" registerTime="5" reconnInterval="30"
+				   localServerName="WLS_WEBCLIENT_1"   callBackTime="10000" />
+	<parents>
+		<parent  parentName="sunline_T2_AR" safeLevel="NONE">
+			<limit licenseFile="hs/client_licence.dat" encrypt="HSBlowfish" />
+			<members>
+				<member no="0" address="118.143.140.14" port="1232"
+						charset="gbk" poolSize="5" />
+			</members>
+		</parent>
+		<parent  parentName="sunline_MC" safeLevel="NONE">
+			<limit licenseFile="hs/client_licence.dat" encrypt="HSBlowfish" />
+			<members>
+				<member no="0" address="118.143.140.14" port="1232"
+						charset="gbk" poolSize="1" />
+			</members>
+		</parent>
+	</parents>
+
+	<callBackMethods>
+		<method id="-1" className="com.hundsun.mcapi.MCT2sdkCallback" />
+		<method id="3" className="com.minigod.zero.trade.hs.callback.BizCallBack" />
+	</callBackMethods>
+<!--	<mc parentName="sunline_MC" type="0" cachedir="/temp" inittimeout="3000">-->
+<!--		<subscriber subname="sunline" subcallback="com.sunline.core.grm.v2.push.GrmSubCallback" timeout="3000" />-->
+<!--		<mclog dir="/temp" />-->
+<!--	</mc>-->
+
+	<logAdapter className="com.minigod.zero.trade.hs.constants.EBSLogAdapter" />
+</t2sdk-configuration>
+

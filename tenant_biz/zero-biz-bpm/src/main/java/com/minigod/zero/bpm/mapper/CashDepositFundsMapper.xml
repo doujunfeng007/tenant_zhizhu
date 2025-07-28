@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpm.mapper.CashDepositFundsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="cashDepositFundsResultMap" type="com.minigod.zero.bpm.entity.CashDepositFundsEntity">
+        <result column="id" property="id"/>
+        <result column="cust_id" property="custId"/>
+        <result column="currency" property="currency"/>
+        <result column="bank_type" property="bankType"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="bank_name" property="bankName"/>
+        <result column="bank_code" property="bankCode"/>
+        <result column="deposit_account" property="depositAccount"/>
+        <result column="deposit_account_name" property="depositAccountName"/>
+        <result column="deposit_money" property="depositMoney"/>
+        <result column="inviter" property="inviter"/>
+        <result column="remark" property="remark"/>
+        <result column="status" property="status"/>
+        <result column="is_find" property="isFind"/>
+        <result column="charge_money" property="chargeMoney"/>
+        <result column="acc_img_id" property="accImgId"/>
+        <result column="back_person" property="backPerson"/>
+        <result column="back_reason" property="backReason"/>
+        <result column="json_info" property="jsonInfo"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="modify_time" property="modifyTime"/>
+        <result column="get_account" property="getAccount"/>
+        <result column="get_account_name" property="getAccountName"/>
+        <result column="get_address" property="getAddress"/>
+        <result column="get_bank_name_cn" property="getBankNameCn"/>
+        <result column="get_bank_name_en" property="getBankNameEn"/>
+        <result column="get_bank_address" property="getBankAddress"/>
+        <result column="swift_code" property="swiftCode"/>
+        <result column="is_reward" property="isReward"/>
+        <result column="act_id" property="actId"/>
+        <result column="remittance_bank_name" property="remittanceBankName"/>
+        <result column="remittance_bank_account" property="remittanceBankAccount"/>
+        <result column="remittance_account_name_en" property="remittanceAccountNameEn"/>
+        <result column="acc_img_id_a" property="accImgIdA"/>
+        <result column="push_recved" property="pushRecved"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="err_cnt" property="errCnt"/>
+        <result column="get_bank_code" property="getBankCode"/>
+        <result column="remittance_bank_corde" property="remittanceBankCorde"/>
+        <result column="remittance_bank_id" property="remittanceBankId"/>
+        <result column="edda_application_id" property="eddaApplicationId"/>
+    </resultMap>
+
+
+    <select id="selectCashDepositFundsPage" resultMap="cashDepositFundsResultMap">
+        select * from cash_deposit_funds where is_deleted = 0
+    </select>
+
+    <select id="selectDepositMoneySumByCurrency" resultType="java.math.BigDecimal">
+        select sum(deposit_money) from cash_deposit_funds where currency = #{currency} and cust_id = #{custId} and `status` = 3
+    </select>
+
+
+</mapper>

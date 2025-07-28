@@ -1,0 +1,9 @@
+#服务器端口
+server:
+  port: 6007
+
+spring:
+  datasource:
+    url: ${zero.datasource.sit.url}
+    username: ${zero.datasource.sit.username}
+    password: ${zero.datasource.sit.password}

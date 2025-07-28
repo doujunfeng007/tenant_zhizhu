@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerBondTradingAccountMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerBondTradingAccount">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="custId" column="cust_id" jdbcType="BIGINT"/>
+            <result property="accountId" column="account_id" jdbcType="VARCHAR"/>
+            <result property="tradeAccount" column="trade_account" jdbcType="VARCHAR"/>
+            <result property="accountType" column="account_type" jdbcType="TINYINT"/>
+            <result property="operType" column="oper_type" jdbcType="TINYINT"/>
+            <result property="accountStatus" column="account_status" jdbcType="TINYINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+            <result property="isCurrent" column="is_current" jdbcType="INTEGER"/>
+            <result property="riskLevel" column="risk_level" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,cust_id,trade_account,
+        account_type,oper_type,account_status,
+        create_time,update_time,is_deleted,
+        is_current,risk_level,account_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_bond_trading_account
+        where  id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from customer_bond_trading_account
+        where  id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerBondTradingAccount" useGeneratedKeys="true">
+        insert into customer_bond_trading_account
+        ( id,cust_id,trade_account
+        ,account_type,oper_type,account_status
+        ,create_time,update_time,is_deleted
+        ,is_current,risk_level,account_id)
+        values (#{id,jdbcType=BIGINT},#{custId,jdbcType=BIGINT},#{tradeAccount,jdbcType=VARCHAR}
+        ,#{accountType,jdbcType=TINYINT},#{operType,jdbcType=TINYINT},#{accountStatus,jdbcType=TINYINT}
+        ,#{createTime,jdbcType=TIMESTAMP},#{updateTime,jdbcType=TIMESTAMP},#{isDeleted,jdbcType=TINYINT}
+        ,#{isCurrent,jdbcType=INTEGER},#{riskLevel},#{accountId})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerBondTradingAccount" useGeneratedKeys="true">
+        insert into customer_bond_trading_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="custId != null">cust_id,</if>
+                <if test="tradeAccount != null">trade_account,</if>
+                <if test="accountType != null">account_type,</if>
+                <if test="operType != null">oper_type,</if>
+                <if test="accountStatus != null">account_status,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="isDeleted != null">is_deleted,</if>
+                <if test="isCurrent != null">is_current,</if>
+                <if test="riskLevel != null">risk_level,</if>
+                <if test="accountId != null">account_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="custId != null">#{custId,jdbcType=BIGINT},</if>
+                <if test="tradeAccount != null">#{tradeAccount,jdbcType=VARCHAR},</if>
+                <if test="accountType != null">#{accountType,jdbcType=TINYINT},</if>
+                <if test="operType != null">#{operType,jdbcType=TINYINT},</if>
+                <if test="accountStatus != null">#{accountStatus,jdbcType=TINYINT},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="isDeleted != null">#{isDeleted,jdbcType=TINYINT},</if>
+                <if test="isCurrent != null">#{isCurrent,jdbcType=INTEGER},</if>
+                <if test="riskLevel != null">#{riskLevel},</if>
+                <if test="accountId != null">#{accountId},</if>
+            </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.CustomerBondTradingAccount">
+        update customer_bond_trading_account
+        <set>
+                <if test="custId != null">
+                    cust_id = #{custId,jdbcType=BIGINT},
+                </if>
+                <if test="tradeAccount != null">
+                    trade_account = #{tradeAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="accountType != null">
+                    account_type = #{accountType,jdbcType=TINYINT},
+                </if>
+                <if test="operType != null">
+                    oper_type = #{operType,jdbcType=TINYINT},
+                </if>
+                <if test="accountStatus != null">
+                    account_status = #{accountStatus,jdbcType=TINYINT},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted,jdbcType=TINYINT},
+                </if>
+                <if test="isCurrent != null">
+                    is_current = #{isCurrent,jdbcType=INTEGER},
+                </if>
+                <if test="riskLevel != null">
+                    risk_level = #{riskLevel},
+                </if>
+                <if test="accountId != null">
+                    account_id = #{accountId},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.CustomerBondTradingAccount">
+        update customer_bond_trading_account
+        set
+            cust_id =  #{custId,jdbcType=BIGINT},
+            trade_account =  #{tradeAccount,jdbcType=VARCHAR},
+            account_type =  #{accountType,jdbcType=TINYINT},
+            oper_type =  #{operType,jdbcType=TINYINT},
+            account_status =  #{accountStatus,jdbcType=TINYINT},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            is_deleted =  #{isDeleted,jdbcType=TINYINT},
+            is_current =  #{isCurrent,jdbcType=INTEGER},
+            risk_level = #{riskLevel},
+            account_id = #{accountId},
+        where   id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="selectByCustId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from customer_bond_trading_account where  cust_id =  #{custId}
+    </select>
+</mapper>

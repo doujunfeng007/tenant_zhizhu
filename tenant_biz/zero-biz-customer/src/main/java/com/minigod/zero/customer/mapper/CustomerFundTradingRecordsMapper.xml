@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerFundTradingRecordsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="fundTransactionRecordsResultMap" type="com.minigod.zero.customer.entity.CustomerFundTradingRecordsEntity">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="sub_account_id" jdbcType="VARCHAR" property="subAccountId" />
+        <result column="submit_date" jdbcType="TIMESTAMP" property="submitDate" />
+        <result column="settled_date" jdbcType="TIMESTAMP" property="settledDate" />
+        <result column="confirmed_date" jdbcType="TIMESTAMP" property="confirmedDate" />
+        <result column="rejected_date" jdbcType="TIMESTAMP" property="rejectedDate" />
+        <result column="canceled_date" jdbcType="TIMESTAMP" property="canceledDate" />
+        <result column="fund_code" jdbcType="VARCHAR" property="fundCode" />
+        <result column="fund_name" jdbcType="VARCHAR" property="fundName" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+        <result column="mode" jdbcType="INTEGER" property="mode" />
+        <result column="currency" jdbcType="VARCHAR" property="currency" />
+        <result column="amount" jdbcType="DECIMAL" property="amount" />
+        <result column="business_amount" jdbcType="DECIMAL" property="businessAmount" />
+        <result column="business_balance" jdbcType="DECIMAL" property="businessBalance" />
+        <result column="business_price" jdbcType="DECIMAL" property="businessPrice" />
+        <result column="fee_count" jdbcType="DECIMAL" property="feeCount" />
+        <result column="sequence_no" jdbcType="INTEGER" property="sequenceNo" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="status_desc" jdbcType="VARCHAR" property="statusDesc" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="is_deleted" jdbcType="INTEGER" property="isDeleted" />
+        <result column="transaction_gain_loss" jdbcType="DECIMAL" property="transactionGainLoss" />
+    </resultMap>
+
+
+    <select id="selectCustomerFundTransactionRecordsPage" resultMap="fundTransactionRecordsResultMap">
+        select * from customer_fund_trading_records where is_deleted = 0
+    </select>
+
+
+    <select id="selectTradingBackList" resultType="com.minigod.zero.customer.dto.CustomerFundTradingBackListDTO">
+        select
+            cftr.id,
+            cftr.sub_account_id as fundAccount,
+            cfta.trade_account as tradeAccount,
+            cftr.submit_date as submitDate,
+            cfta.cust_id as custId,
+            cftr.fund_code as fundCode,
+            cftr.type as type,
+            cftr.currency as currency,
+            cftr.amount as amount,
+            cftr.business_amount as businessAmount,
+            cftr.business_balance as businessBalance,
+            cftr.business_price as businessPrice,
+            cftr.status as status,
+            cftr.status_desc as statusDesc,
+            cftr.create_time as createTime
+
+        from customer_fund_trading_records as cftr
+        left join customer_fund_capital_account as cfca on cftr.sub_account_id=cfca.fund_account
+        left join customer_fund_trading_account as cfta on cfca.trade_account=cfta.trade_account
+        <where>
+            <if test="custId != null">
+                and cfta.cust_id = #{custId}
+            </if>
+            <if test="tradeAccount!=null and tradeAccount!=''">
+                and cfca.trade_account = #{tradeAccount}
+            </if>
+            <if test="fundAccount!=null and fundAccount!=''">
+                and cftr.sub_account_id = #{fundAccount}
+            </if>
+            <if test="fundCode!=null and fundCode!=''">
+                and cftr.fund_code = #{fundCode}
+            </if>
+            <if test="tradeStartDate!=null and tradeEndDate!=null ">
+                and cftr.create_time between #{tradeStartDate}  and #{tradeEndDate}
+            </if>
+
+        </where>
+        order by cftr.create_time desc
+
+    </select>
+    <select id="selectTradingAppList" resultType="com.minigod.zero.customer.dto.CustomerFundTradingAppListDTO">
+        select
+            cftr.id,
+            cftr.submit_date as submitDate,
+            cftr.settled_date as settledDate,
+            cftr.confirmed_date as confirmedDate,
+            cftr.rejected_date as rejectedDate,
+            cftr.canceled_date as canceledDate,
+            cftr.status as status,
+            cftr.status_desc as statusDesc,
+            cftr.fund_code as fundCode,
+            cftr.fund_name as fundName,
+            cftr.type as type,
+            cftr.status as amount,
+            cftr.business_amount as businessAmount
+
+        from customer_fund_trading_records as cftr
+                 left join customer_fund_capital_account as cfca on cftr.sub_account_id=cfca.fund_account
+                 left join customer_fund_trading_account as cfta on cfca.trade_account=cfta.trade_account
+        where cfta.cust_id = #{userId}
+
+        <if test="time!=null">
+            and cftr.create_time > #{time}
+        </if>
+        <if test="type!=null and type!=''">
+            and cftr.type = #{type}
+        </if>
+        <if test="type==null and type==''">
+            and (cftr.type = 1 or cftr.type = 2)
+        </if>
+         order by cftr.create_time desc
+    </select>
+
+
+
+</mapper>

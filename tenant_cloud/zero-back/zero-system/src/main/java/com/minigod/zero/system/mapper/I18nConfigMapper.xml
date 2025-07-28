@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.system.mapper.I18nConfigMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="i18nConfigResultMap" type="com.minigod.zero.system.entity.I18nConfigEntity">
+        <result column="id" property="id"/>
+        <result column="sys_module" property="sysModel"/>
+        <result column="config_key" property="configKey"/>
+        <result column="language_type" property="languageType"/>
+        <result column="content" property="content"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+</mapper>

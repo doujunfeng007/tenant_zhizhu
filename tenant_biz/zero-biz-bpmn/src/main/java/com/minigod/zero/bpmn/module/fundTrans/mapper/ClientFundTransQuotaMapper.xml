@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.fundTrans.mapper.ClientFundTransQuotaMapper">
+
+    <resultMap type="com.minigod.zero.bpmn.module.fundTrans.domain.ClientFundTransQuota" id="ClientFundTransQuotaResult">
+                <result property="id" column="id"/>
+                <result property="withdrawBusinessType" column="withdraw_business_type"/>
+                <result property="depositBusinessType" column="deposit_business_type"/>
+                <result property="quota" column="quota"/>
+                <result property="currency" column="currency"/>
+                <result property="status" column="status"/>
+                <result property="createUser" column="create_user"/>
+                <result property="updateUser" column="update_user"/>
+                <result property="createTime" column="create_time"/>
+                <result property="updateTime" column="update_time"/>
+                <result property="delFlag" column="del_flag"/>
+    </resultMap>
+    <resultMap type="com.minigod.zero.bpmn.module.fundTrans.domain.vo.ClientFundTransQuotaVo" id="ClientFundTransQuotaResultVo" extends="ClientFundTransQuotaResult">
+    </resultMap>
+
+    <sql id="selectClientFundTransQuota">
+        select id ,  withdraw_business_type ,  deposit_business_type ,  quota ,  currency ,  status ,  create_user ,  update_user ,  create_time ,  update_time ,  del_flag   from client_fund_trans_quota
+    </sql>
+    <sql id="whereClientFundTransQuota">
+        <where>
+                        <if test="withdrawBusinessType != null  and withdrawBusinessType != ''"> and withdraw_business_type = #{withdrawBusinessType}</if>
+                        <if test="depositBusinessType != null  and depositBusinessType != ''"> and deposit_business_type = #{depositBusinessType}</if>
+                        <if test="quota != null "> and quota = #{quota}</if>
+                        <if test="currency != null  and currency != ''"> and currency = #{currency}</if>
+                        <if test="status != null "> and status = #{status}</if>
+                        <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+                        <if test="updateUser != null  and updateUser != ''"> and update_user = #{updateUser}</if>
+        </where>
+    </sql>
+    <sql id="selectClientFundTransQuotaVo">
+        select t1.id ,  t1.withdraw_business_type ,  t1.deposit_business_type ,  t1.quota ,  t1.currency ,  t1.status ,  t1.create_user ,  t1.update_user ,  t1.create_time ,  t1.update_time ,  t1.del_flag   from client_fund_trans_quota as t1
+    </sql>
+    <sql id="whereClientFundTransQuotaVo">
+        <where>
+                        <if test="withdrawBusinessType != null  and withdrawBusinessType != ''"> and t1.withdraw_business_type = #{withdrawBusinessType}</if>
+                        <if test="depositBusinessType != null  and depositBusinessType != ''"> and t1.deposit_business_type = #{depositBusinessType}</if>
+                        <if test="quota != null "> and t1.quota = #{quota}</if>
+                        <if test="currency != null  and currency != ''"> and t1.currency = #{currency}</if>
+                        <if test="status != null "> and t1.status = #{status}</if>
+                        <if test="createUser != null  and createUser != ''"> and t1.create_user = #{createUser}</if>
+                        <if test="updateUser != null  and updateUser != ''"> and t1.update_user = #{updateUser}</if>
+        </where>
+    </sql>
+    <select id="selectClientFundTransQuotaList" parameterType="com.minigod.zero.bpmn.module.fundTrans.domain.ClientFundTransQuota" resultMap="ClientFundTransQuotaResult">
+        <include refid="selectClientFundTransQuota"/>
+        <where>
+                        <if test="withdrawBusinessType != null  and withdrawBusinessType != ''"> and withdraw_business_type = #{withdrawBusinessType}</if>
+                        <if test="depositBusinessType != null  and depositBusinessType != ''"> and deposit_business_type = #{depositBusinessType}</if>
+                        <if test="quota != null "> and quota = #{quota}</if>
+                        <if test="currency != null  and currency != ''"> and currency = #{currency}</if>
+                        <if test="status != null "> and status = #{status}</if>
+                        <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+                        <if test="updateUser != null  and updateUser != ''"> and update_user = #{updateUser}</if>
+        </where>
+    </select>
+
+    <select id="selectClientFundTransQuotaByid" parameterType="Long" resultMap="ClientFundTransQuotaResult">
+            <include refid="selectClientFundTransQuota"/>
+            where id = #{id}
+    </select>
+
+    <insert id="insertClientFundTransQuota" parameterType="com.minigod.zero.bpmn.module.fundTrans.domain.ClientFundTransQuota" >
+        insert into client_fund_trans_quota
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="id != null">id,</if>
+                    <if test="withdrawBusinessType != null and withdrawBusinessType != ''">withdraw_business_type,</if>
+                    <if test="depositBusinessType != null and depositBusinessType != ''">deposit_business_type,</if>
+                    <if test="quota != null">quota,</if>
+                    <if test="currency != null and currency != ''">currency,</if>
+                    <if test="status != null">status,</if>
+                    <if test="createUser != null and createUser != ''">create_user,</if>
+                    <if test="updateUser != null and updateUser != ''">update_user,</if>
+                    <if test="createTime != null">create_time,</if>
+                    <if test="updateTime != null">update_time,</if>
+                    <if test="delFlag != null">del_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="id != null">#{id},</if>
+                    <if test="withdrawBusinessType != null and withdrawBusinessType != ''">#{withdrawBusinessType},</if>
+                    <if test="depositBusinessType != null and depositBusinessType != ''">#{depositBusinessType},</if>
+                    <if test="quota != null">#{quota},</if>
+                    <if test="currency != null and currency != ''">#{currency},</if>
+                    <if test="status != null">#{status},</if>
+                    <if test="createUser != null and createUser != ''">#{createUser},</if>
+                    <if test="updateUser != null and updateUser != ''">#{updateUser},</if>
+                    <if test="createTime != null">#{createTime},</if>
+                    <if test="updateTime != null">#{updateTime},</if>
+                    <if test="delFlag != null">#{delFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="updateClientFundTransQuota" parameterType="com.minigod.zero.bpmn.module.fundTrans.domain.ClientFundTransQuota">
+        update client_fund_trans_quota
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="withdrawBusinessType != null and withdrawBusinessType != ''">withdraw_business_type = #{withdrawBusinessType},</if>
+                    <if test="depositBusinessType != null and depositBusinessType != ''">deposit_business_type = #{depositBusinessType},</if>
+                    <if test="quota != null">quota = #{quota},</if>
+                    <if test="currency != null and currency != ''">currency = #{currency},</if>
+                    <if test="status != null">status = #{status},</if>
+                    <if test="createUser != null and createUser != ''">create_user = #{createUser},</if>
+                    <if test="updateUser != null and updateUser != ''">update_user = #{updateUser},</if>
+                    <if test="createTime != null">create_time = #{createTime},</if>
+                    <if test="updateTime != null">update_time = #{updateTime},</if>
+                    <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteClientFundTransQuotaByid" parameterType="Long">
+        delete from client_fund_trans_quota where id = #{id}
+    </delete>
+
+    <delete id="deleteClientFundTransQuotaByids" parameterType="String">
+        delete from client_fund_trans_quota where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+</mapper>

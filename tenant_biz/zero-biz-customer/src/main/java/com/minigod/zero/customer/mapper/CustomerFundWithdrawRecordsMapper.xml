@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerFundWithdrawRecordsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="fundWithdrawRecordsResultMap" type="com.minigod.zero.customer.entity.CustomerFundWithdrawRecordsEntity">
+        <result column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="cust_id" property="custId"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="account_id" property="accountId"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="account_type" property="accountType"/>
+        <result column="fund_account" property="fundAccount"/>
+        <result column="entrust_time" property="entrustTime"/>
+        <result column="id_kind" property="idKind"/>
+        <result column="id_node" property="idNode"/>
+        <result column="client_name" property="clientName"/>
+        <result column="client_name_spell" property="clientNameSpell"/>
+        <result column="bank_acct_type" property="bankAcctType"/>
+        <result column="sex" property="sex"/>
+        <result column="mobile" property="mobile"/>
+        <result column="transfer_type" property="transferType"/>
+        <result column="ccy" property="ccy"/>
+        <result column="withdraw_amount" property="withdrawAmount"/>
+        <result column="frozen_balance" property="frozenBalance"/>
+        <result column="drawable_balance" property="drawableBalance"/>
+        <result column="deduct_way" property="deductWay"/>
+        <result column="charge_fee" property="chargeFee"/>
+        <result column="actual_amount" property="actualAmount"/>
+        <result column="refunded_amount" property="refundedAmount"/>
+        <result column="refunded_date" property="refundedDate"/>
+        <result column="init_date" property="initDate"/>
+        <result column="frozen_ref_id" property="frozenRefId"/>
+        <result column="old_charge_fee" property="oldChargeFee"/>
+        <result column="free_fee_flag" property="freeFeeFlag"/>
+        <result column="recv_account_type" property="recvAccountType"/>
+        <result column="recv_bank_code" property="recvBankCode"/>
+        <result column="recv_bank_id" property="recvBankId"/>
+        <result column="recv_bank_name" property="recvBankName"/>
+        <result column="recv_bank_acct" property="recvBankAcct"/>
+        <result column="recv_bank_acct_name" property="recvBankAcctName"/>
+        <result column="recv_swift_code" property="recvSwiftCode"/>
+        <result column="recv_contact_address" property="recvContactAddress"/>
+        <result column="recv_bank_branch_name" property="recvBankBranchName"/>
+        <result column="recv_bank_branch_code" property="recvBankBranchCode"/>
+        <result column="third_recv_flag" property="thirdRecvFlag"/>
+        <result column="third_recv_real" property="thirdRecvReal"/>
+        <result column="third_recv_reason" property="thirdRecvReason"/>
+        <result column="pay_way" property="payWay"/>
+        <result column="pay_type" property="payType"/>
+        <result column="pay_bank_code" property="payBankCode"/>
+        <result column="pay_bank_name" property="payBankName"/>
+        <result column="pay_account_name" property="payAccountName"/>
+        <result column="pay_bank_acct" property="payBankAcct"/>
+        <result column="pay_bank_id" property="payBankId"/>
+        <result column="bank_state" property="bankState"/>
+        <result column="bank_ref_id" property="bankRefId"/>
+        <result column="bank_rt_code" property="bankRtCode"/>
+        <result column="bank_rt_msg" property="bankRtMsg"/>
+        <result column="remittance_id" property="remittanceId"/>
+        <result column="callback_status" property="callbackStatus"/>
+        <result column="gt_business_step" property="gtBusinessStep"/>
+        <result column="gt_deal_status" property="gtDealStatus"/>
+        <result column="gt_deal_date" property="gtDealDate"/>
+        <result column="gt_rt_code" property="gtRtCode"/>
+        <result column="gt_rt_msg" property="gtRtMsg"/>
+        <result column="export_status" property="exportStatus"/>
+        <result column="export_date" property="exportDate"/>
+        <result column="print_status" property="printStatus"/>
+        <result column="print_date" property="printDate"/>
+        <result column="apply_source" property="applySource"/>
+        <result column="cust_remark" property="custRemark"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="bank_reference" property="bankReference"/>
+        <result column="create_dept" property="createDept"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+
+    <select id="selectCustomerFundWithdrawRecordsPage" resultMap="fundWithdrawRecordsResultMap">
+        select * from customer_fund_withdraw_records where is_deleted = 0
+    </select>
+
+
+</mapper>

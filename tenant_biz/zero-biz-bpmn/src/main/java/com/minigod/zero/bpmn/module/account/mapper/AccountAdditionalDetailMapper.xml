@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountAdditionalDetailMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_additional_detailResultMap"
+               type="com.minigod.zero.bpmn.module.account.entity.AccountAdditionalDetailEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result column="application_id" property="applicationId"/>
+        <result column="additional_id" property="additionalId"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+    <resultMap id="account_additional_detailResultMapVo"
+               type="com.minigod.zero.bpmn.module.account.vo.AccountAdditionalDetailVO"
+               extends="account_additional_detailResultMap">
+    </resultMap>
+
+    <select id="queryListByApplicationId" resultMap="account_additional_detailResultMapVo">
+        select *
+        from open_account_additional_detail
+        where application_id = #{applicationId}
+          and is_deleted = 0
+        order by create_time desc
+        limit 1
+    </select>
+</mapper>

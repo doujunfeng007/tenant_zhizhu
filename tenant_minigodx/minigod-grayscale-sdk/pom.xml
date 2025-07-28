@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>minigod</artifactId>
+        <groupId>com.minigod</groupId>
+        <version>4.0.2-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.minigod.grayscale</groupId>
+    <artifactId>minigod-grayscale-sdk</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.minigod.zero</groupId>
+            <artifactId>zero-starter-auth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.minigod</groupId>
+            <artifactId>minigod-common</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!--公共依赖模块，不需要以项目形式启动-->
+                    <skip>true</skip>
+                    <!--普通jar，非可执行jar-->
+                    <classifier>exec</classifier>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>zero-cloud</artifactId>
+        <groupId>com.minigod.zero</groupId>
+        <version>3.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>zero-back</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <description>智珠零号微服务集合</description>
+
+    <modules>
+        <module>zero-resource</module>
+        <module>zero-system</module>
+        <module>zero-user</module>
+        <module>zero-flow</module>
+        <module>zero-report</module>
+        <module>zero-log</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.minigod.zero</groupId>
+            <artifactId>zero-core-boot</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.minigod.zero</groupId>
+            <artifactId>zero-starter-metrics</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.minigod.zero</groupId>
+            <artifactId>zero-starter-tenant</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.minigod.zero</groupId>
+            <artifactId>zero-starter-api-crypto</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.minigod.zero</groupId>
+            <artifactId>zero-dict-api</artifactId>
+            <version>${zero.project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.minigod.zero</groupId>
+            <artifactId>zero-scope-api</artifactId>
+            <version>${zero.project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.minigod.zero</groupId>
+            <artifactId>zero-common</artifactId>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
+</project>

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.data.mapper.CustomerCashAssetsHistoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.data.entity.CustomerCashAssetsHistory">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="custId" column="cust_id" jdbcType="BIGINT"/>
+            <result property="accountId" column="account_id" jdbcType="VARCHAR"/>
+            <result property="tradeAccount" column="trade_account" jdbcType="VARCHAR"/>
+            <result property="subAccount" column="sub_account" jdbcType="VARCHAR"/>
+            <result property="statisticalTime" column="statistical_time" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+            <result property="targetHkdAssets" column="target_hkd_assets" jdbcType="DECIMAL"/>
+            <result property="targetCnyAssets" column="target_cny_assets" jdbcType="DECIMAL"/>
+            <result property="targetUsdAssets" column="target_usd_assets" jdbcType="DECIMAL"/>
+            <result property="hkdAssets" column="hkd_assets" jdbcType="DECIMAL"/>
+            <result property="hkdAvailable" column="hkd_available" jdbcType="DECIMAL"/>
+            <result property="hkdFreeze" column="hkd_freeze" jdbcType="DECIMAL"/>
+            <result property="hkdIntransit" column="hkd_intransit" jdbcType="DECIMAL"/>
+            <result property="usdAssets" column="usd_assets" jdbcType="DECIMAL"/>
+            <result property="usdAvailable" column="usd_available" jdbcType="DECIMAL"/>
+            <result property="usdFreeze" column="usd_freeze" jdbcType="DECIMAL"/>
+            <result property="usdIntransit" column="usd_intransit" jdbcType="DECIMAL"/>
+            <result property="cnyAssets" column="cny_assets" jdbcType="DECIMAL"/>
+            <result property="cnyAvailable" column="cny_available" jdbcType="DECIMAL"/>
+            <result property="cnyFreeze" column="cny_freeze" jdbcType="DECIMAL"/>
+            <result property="cnyIntransit" column="cny_intransit" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,cust_id,account_id,
+        trade_account,sub_account,statistical_time,
+        create_time,is_deleted,target_hkd_assets,
+        target_cny_assets,target_usd_assets,hkd_assets,
+        hkd_available,hkd_freeze,hkd_intransit,
+        usd_assets,usd_available,usd_freeze,
+        usd_intransit,cny_assets,cny_available,
+        cny_freeze,cny_intransit
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_cash_assets_history
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from customer_cash_assets_history
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.CustomerCashAssetsHistory" useGeneratedKeys="true">
+        insert into customer_cash_assets_history
+        ( id,cust_id,account_id
+        ,trade_account,sub_account,statistical_time
+        ,create_time,is_deleted,target_hkd_assets
+        ,target_cny_assets,target_usd_assets,hkd_assets
+        ,hkd_available,hkd_freeze,hkd_intransit
+        ,usd_assets,usd_available,usd_freeze
+        ,usd_intransit,cny_assets,cny_available
+        ,cny_freeze,cny_intransit)
+        values (#{id,jdbcType=INTEGER},#{custId,jdbcType=BIGINT},#{accountId,jdbcType=VARCHAR}
+        ,#{tradeAccount,jdbcType=VARCHAR},#{subAccount,jdbcType=VARCHAR},#{statisticalTime,jdbcType=VARCHAR}
+        ,#{createTime,jdbcType=TIMESTAMP},#{isDeleted,jdbcType=INTEGER},#{targetHkdAssets,jdbcType=DECIMAL}
+        ,#{targetCnyAssets,jdbcType=DECIMAL},#{targetUsdAssets,jdbcType=DECIMAL},#{hkdAssets,jdbcType=DECIMAL}
+        ,#{hkdAvailable,jdbcType=DECIMAL},#{hkdFreeze,jdbcType=DECIMAL},#{hkdIntransit,jdbcType=DECIMAL}
+        ,#{usdAssets,jdbcType=DECIMAL},#{usdAvailable,jdbcType=DECIMAL},#{usdFreeze,jdbcType=DECIMAL}
+        ,#{usdIntransit,jdbcType=DECIMAL},#{cnyAssets,jdbcType=DECIMAL},#{cnyAvailable,jdbcType=DECIMAL}
+        ,#{cnyFreeze,jdbcType=DECIMAL},#{cnyIntransit,jdbcType=DECIMAL})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.data.entity.CustomerCashAssetsHistory" useGeneratedKeys="true">
+        insert into customer_cash_assets_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="custId != null">cust_id,</if>
+                <if test="accountId != null">account_id,</if>
+                <if test="tradeAccount != null">trade_account,</if>
+                <if test="subAccount != null">sub_account,</if>
+                <if test="statisticalTime != null">statistical_time,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="isDeleted != null">is_deleted,</if>
+                <if test="targetHkdAssets != null">target_hkd_assets,</if>
+                <if test="targetCnyAssets != null">target_cny_assets,</if>
+                <if test="targetUsdAssets != null">target_usd_assets,</if>
+                <if test="hkdAssets != null">hkd_assets,</if>
+                <if test="hkdAvailable != null">hkd_available,</if>
+                <if test="hkdFreeze != null">hkd_freeze,</if>
+                <if test="hkdIntransit != null">hkd_intransit,</if>
+                <if test="usdAssets != null">usd_assets,</if>
+                <if test="usdAvailable != null">usd_available,</if>
+                <if test="usdFreeze != null">usd_freeze,</if>
+                <if test="usdIntransit != null">usd_intransit,</if>
+                <if test="cnyAssets != null">cny_assets,</if>
+                <if test="cnyAvailable != null">cny_available,</if>
+                <if test="cnyFreeze != null">cny_freeze,</if>
+                <if test="cnyIntransit != null">cny_intransit,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="custId != null">#{custId,jdbcType=BIGINT},</if>
+                <if test="accountId != null">#{accountId,jdbcType=VARCHAR},</if>
+                <if test="tradeAccount != null">#{tradeAccount,jdbcType=VARCHAR},</if>
+                <if test="subAccount != null">#{subAccount,jdbcType=VARCHAR},</if>
+                <if test="statisticalTime != null">#{statisticalTime,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="isDeleted != null">#{isDeleted,jdbcType=INTEGER},</if>
+                <if test="targetHkdAssets != null">#{targetHkdAssets,jdbcType=DECIMAL},</if>
+                <if test="targetCnyAssets != null">#{targetCnyAssets,jdbcType=DECIMAL},</if>
+                <if test="targetUsdAssets != null">#{targetUsdAssets,jdbcType=DECIMAL},</if>
+                <if test="hkdAssets != null">#{hkdAssets,jdbcType=DECIMAL},</if>
+                <if test="hkdAvailable != null">#{hkdAvailable,jdbcType=DECIMAL},</if>
+                <if test="hkdFreeze != null">#{hkdFreeze,jdbcType=DECIMAL},</if>
+                <if test="hkdIntransit != null">#{hkdIntransit,jdbcType=DECIMAL},</if>
+                <if test="usdAssets != null">#{usdAssets,jdbcType=DECIMAL},</if>
+                <if test="usdAvailable != null">#{usdAvailable,jdbcType=DECIMAL},</if>
+                <if test="usdFreeze != null">#{usdFreeze,jdbcType=DECIMAL},</if>
+                <if test="usdIntransit != null">#{usdIntransit,jdbcType=DECIMAL},</if>
+                <if test="cnyAssets != null">#{cnyAssets,jdbcType=DECIMAL},</if>
+                <if test="cnyAvailable != null">#{cnyAvailable,jdbcType=DECIMAL},</if>
+                <if test="cnyFreeze != null">#{cnyFreeze,jdbcType=DECIMAL},</if>
+                <if test="cnyIntransit != null">#{cnyIntransit,jdbcType=DECIMAL},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.data.entity.CustomerCashAssetsHistory">
+        update customer_cash_assets_history
+        <set>
+                <if test="custId != null">
+                    cust_id = #{custId,jdbcType=BIGINT},
+                </if>
+                <if test="accountId != null">
+                    account_id = #{accountId,jdbcType=VARCHAR},
+                </if>
+                <if test="tradeAccount != null">
+                    trade_account = #{tradeAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="subAccount != null">
+                    sub_account = #{subAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="statisticalTime != null">
+                    statistical_time = #{statisticalTime,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted,jdbcType=INTEGER},
+                </if>
+                <if test="targetHkdAssets != null">
+                    target_hkd_assets = #{targetHkdAssets,jdbcType=DECIMAL},
+                </if>
+                <if test="targetCnyAssets != null">
+                    target_cny_assets = #{targetCnyAssets,jdbcType=DECIMAL},
+                </if>
+                <if test="targetUsdAssets != null">
+                    target_usd_assets = #{targetUsdAssets,jdbcType=DECIMAL},
+                </if>
+                <if test="hkdAssets != null">
+                    hkd_assets = #{hkdAssets,jdbcType=DECIMAL},
+                </if>
+                <if test="hkdAvailable != null">
+                    hkd_available = #{hkdAvailable,jdbcType=DECIMAL},
+                </if>
+                <if test="hkdFreeze != null">
+                    hkd_freeze = #{hkdFreeze,jdbcType=DECIMAL},
+                </if>
+                <if test="hkdIntransit != null">
+                    hkd_intransit = #{hkdIntransit,jdbcType=DECIMAL},
+                </if>
+                <if test="usdAssets != null">
+                    usd_assets = #{usdAssets,jdbcType=DECIMAL},
+                </if>
+                <if test="usdAvailable != null">
+                    usd_available = #{usdAvailable,jdbcType=DECIMAL},
+                </if>
+                <if test="usdFreeze != null">
+                    usd_freeze = #{usdFreeze,jdbcType=DECIMAL},
+                </if>
+                <if test="usdIntransit != null">
+                    usd_intransit = #{usdIntransit,jdbcType=DECIMAL},
+                </if>
+                <if test="cnyAssets != null">
+                    cny_assets = #{cnyAssets,jdbcType=DECIMAL},
+                </if>
+                <if test="cnyAvailable != null">
+                    cny_available = #{cnyAvailable,jdbcType=DECIMAL},
+                </if>
+                <if test="cnyFreeze != null">
+                    cny_freeze = #{cnyFreeze,jdbcType=DECIMAL},
+                </if>
+                <if test="cnyIntransit != null">
+                    cny_intransit = #{cnyIntransit,jdbcType=DECIMAL},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.data.entity.CustomerCashAssetsHistory">
+        update customer_cash_assets_history
+        set
+            cust_id =  #{custId,jdbcType=BIGINT},
+            account_id =  #{accountId,jdbcType=VARCHAR},
+            trade_account =  #{tradeAccount,jdbcType=VARCHAR},
+            sub_account =  #{subAccount,jdbcType=VARCHAR},
+            statistical_time =  #{statisticalTime,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            is_deleted =  #{isDeleted,jdbcType=INTEGER},
+            target_hkd_assets =  #{targetHkdAssets,jdbcType=DECIMAL},
+            target_cny_assets =  #{targetCnyAssets,jdbcType=DECIMAL},
+            target_usd_assets =  #{targetUsdAssets,jdbcType=DECIMAL},
+            hkd_assets =  #{hkdAssets,jdbcType=DECIMAL},
+            hkd_available =  #{hkdAvailable,jdbcType=DECIMAL},
+            hkd_freeze =  #{hkdFreeze,jdbcType=DECIMAL},
+            hkd_intransit =  #{hkdIntransit,jdbcType=DECIMAL},
+            usd_assets =  #{usdAssets,jdbcType=DECIMAL},
+            usd_available =  #{usdAvailable,jdbcType=DECIMAL},
+            usd_freeze =  #{usdFreeze,jdbcType=DECIMAL},
+            usd_intransit =  #{usdIntransit,jdbcType=DECIMAL},
+            cny_assets =  #{cnyAssets,jdbcType=DECIMAL},
+            cny_available =  #{cnyAvailable,jdbcType=DECIMAL},
+            cny_freeze =  #{cnyFreeze,jdbcType=DECIMAL},
+            cny_intransit =  #{cnyIntransit,jdbcType=DECIMAL}
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getMaxStatisticalTime" resultType="java.lang.String">
+        SELECT max(statistical_time) from customer_cash_assets_history;
+    </select>
+    <select id="getMinStatisticalTime" resultType="java.lang.String">
+        SELECT min(statistical_time) from customer_cash_assets_history ;
+    </select>
+
+    <select id="selectCashAssetsHistoryByStatisticalTime" parameterType="java.lang.String" resultType="com.minigod.zero.data.entity.CustomerCashAssetsHistory">
+        SELECT
+            ccah.*,
+            cbi.client_name AS customerName
+        FROM
+            customer_cash_assets_history as ccah
+            LEFT JOIN customer_basic_info AS cbi ON cbi.cust_id = ccah.cust_id
+        <where>
+            <if test="statisticalTime != null and statisticalTime != ''">
+                and ccah.statistical_time &gt; #{statisticalTime}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="selectByAccountIdAndStatisticalTime" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from customer_cash_assets_history
+        where account_id = #{accountId} and statistical_time =#{statisticalTime}
+    </select>
+</mapper>

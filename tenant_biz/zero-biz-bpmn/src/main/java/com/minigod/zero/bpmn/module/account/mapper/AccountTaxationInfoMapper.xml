@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.bpmn.module.account.mapper.AccountTaxationInfoMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="account_taxation_infoResultMap"
+               type="com.minigod.zero.bpmn.module.account.entity.AccountTaxationInfoEntity"
+               extends="com.minigod.zero.bpmn.module.account.mapper.BaseEntityMapper.TenantBaseResultMap">
+        <result column="id" property="id"/>
+        <result property="applicationId" column="application_id"/>
+        <result property="taxCountry" column="tax_country"/>
+        <result property="taxNumber" column="tax_number"/>
+        <result property="hasTaxNumber" column="has_tax_number"/>
+        <result property="reasonType" column="reason_type"/>
+        <result property="reasonDesc" column="reason_desc"/>
+        <result property="additionalDisclosures" column="additional_disclosures"/>
+    </resultMap>
+    <resultMap type="com.minigod.zero.bpmn.module.account.vo.AccountTaxationInfoVO" id="account_taxation_infoResultMapVo"
+               extends="account_taxation_infoResultMap">
+    </resultMap>
+    <select id="queryListByApplicationId" resultMap="account_taxation_infoResultMapVo">
+        select *
+        from open_account_taxation_info
+        where application_id = #{applicationId} and is_deleted = 0
+    </select>
+    <delete id="deleteByApplicationId">
+        delete
+        from open_account_taxation_info
+        where application_id = #{applicationId}
+    </delete>
+</mapper>

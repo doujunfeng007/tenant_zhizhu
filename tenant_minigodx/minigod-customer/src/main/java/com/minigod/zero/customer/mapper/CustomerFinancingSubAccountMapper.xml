@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerFinancingSubAccountMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerFinancingSubAccount">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="accountId" column="account_id" jdbcType="VARCHAR"/>
+            <result property="subAccount" column="sub_account" jdbcType="VARCHAR"/>
+            <result property="roleId" column="role_id" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="creatorId" column="creator_id" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="creatorName" column="creator_name" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,account_id,sub_account,
+        role_id,status,creator_id,
+        create_time,creator_name,
+        update_time,
+        password
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from customer_financing_sub_account
+        where  id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from customer_financing_sub_account
+        where  id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerFinancingSubAccount" useGeneratedKeys="true">
+        insert into customer_financing_sub_account
+        ( id,account_id,sub_account
+        ,role_id,status,creator_id
+        ,create_time,creator_name,update_time,password
+        )
+        values (#{id,jdbcType=INTEGER},#{accountId,jdbcType=VARCHAR},#{subAccount,jdbcType=VARCHAR}
+        ,#{roleId,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{creatorId,jdbcType=VARCHAR}
+        ,#{createTime,jdbcType=TIMESTAMP},#{creatorName,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP},#{password}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.minigod.zero.customer.entity.CustomerFinancingSubAccount" useGeneratedKeys="true">
+        insert into customer_financing_sub_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="accountId != null">account_id,</if>
+                <if test="subAccount != null">sub_account,</if>
+                <if test="roleId != null">role_id,</if>
+                <if test="status != null">status,</if>
+                <if test="creatorId != null">creator_id,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="creatorName != null">creator_name,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="password != null">password,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="accountId != null">#{accountId,jdbcType=VARCHAR},</if>
+                <if test="subAccount != null">#{subAccount,jdbcType=VARCHAR},</if>
+                <if test="roleId != null">#{roleId,jdbcType=INTEGER},</if>
+                <if test="status != null">#{status,jdbcType=INTEGER},</if>
+                <if test="creatorId != null">#{creatorId,jdbcType=VARCHAR},</if>
+                <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+                <if test="creatorName != null">#{creatorName,jdbcType=VARCHAR},</if>
+                <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+                <if test="password != null">#{password},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.minigod.zero.customer.entity.CustomerFinancingSubAccount">
+        update customer_financing_sub_account
+        <set>
+                <if test="accountId != null">
+                    account_id = #{accountId,jdbcType=VARCHAR},
+                </if>
+                <if test="subAccount != null">
+                    sub_account = #{subAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="roleId != null">
+                    role_id = #{roleId,jdbcType=INTEGER},
+                </if>
+                <if test="status != null">
+                    status = #{status,jdbcType=INTEGER},
+                </if>
+                <if test="creatorId != null">
+                    creator_id = #{creatorId,jdbcType=VARCHAR},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="creatorName != null">
+                    creator_name = #{creatorName,jdbcType=VARCHAR},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="password != null">
+                    password = #{password},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.minigod.zero.customer.entity.CustomerFinancingSubAccount">
+        update customer_financing_sub_account
+        set
+            account_id =  #{accountId,jdbcType=VARCHAR},
+            sub_account =  #{subAccount,jdbcType=VARCHAR},
+            role_id =  #{roleId,jdbcType=INTEGER},
+            status =  #{status,jdbcType=INTEGER},
+            creator_id =  #{creatorId,jdbcType=VARCHAR},
+            create_time =  #{createTime,jdbcType=TIMESTAMP},
+            creator_name =  #{creatorName,jdbcType=VARCHAR},
+            update_time =  #{updateTime,jdbcType=TIMESTAMP},
+            password = #{password}
+        where   id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="selectByAccountIdAndRoleId" resultMap="BaseResultMap" parameterType="java.lang.Object">
+        select
+            <include refid="Base_Column_List" />
+        from customer_financing_sub_account
+        WHERE account_id = #{accountId} and status = 0
+        <if test="roleId != null">
+            and role_id = #{roleId}
+        </if>
+    </select>
+
+    <select id="selectByAccountIdAndSubAccount" resultMap="BaseResultMap" parameterType="java.lang.Object">
+        select
+            <include refid="Base_Column_List" />
+        from customer_financing_sub_account
+        WHERE account_id = #{accountId}  and status = 0
+        <if test="subAccount != null">
+            and sub_account = #{subAccount}
+        </if>
+    </select>
+
+
+    <select id="selectSubAccount" parameterType="java.lang.Object" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from customer_financing_sub_account
+        WHERE account_id = #{accountId} and status = 0
+        <if test="subAccount != null">
+            and sub_account = #{subAccount}
+        </if>
+        <if test="roleId != null">
+            and role_id = #{roleId}
+        </if>
+        order by create_time desc
+    </select>
+
+    <select id="selectByRoleId" parameterType="java.lang.Integer" resultType="com.minigod.zero.customer.vo.OrganizationInfoVO">
+        select
+            bi.*,
+            fa.account_id as accountId
+        from customer_identity_info as ii
+        LEFT JOIN organization_basic_info as bi on bi.cust_id = ii.cust_id
+        LEFT JOIN customer_financing_account as fa on fa.cust_id = ii.cust_id
+        where ii.role_id = #{roleId} and bi.id is not null
+        GROUP BY ii.cust_id
+        order by create_time desc
+    </select>
+</mapper>

@@ -1,0 +1,91 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+                    "name": "mysqlreader",
+          "parameter": {
+            "username": "X3saU2xIvqh/xJ2natkJRQ==",
+            "password": "bDLTlVUgOz6kcv+kvsVSS6vBjgKzpK/rW8CQFZqbmPQ=",
+            "column": [
+              "`id`",
+              "`cust_id`",
+              "`account_id`",
+              "`hkd_market_value`",
+              "`cny_market_value`",
+              "`usd_market_value`",
+              "`statistical_time`",
+              "`create_time`",
+              "`is_deleted`",
+              "`hkd_income`",
+              "`cny_income`",
+              "`usd_income`",
+              "`target_hkd_market_value`",
+              "`target_cny_market_value`",
+              "`target_usd_market_value`",
+              "`target_hkd_income`",
+              "`target_cny_income`",
+              "`target_usd_income`"
+            ],
+            "splitPk": "",
+            "connection": [
+              {
+                "table": [
+                  "customer_bond_assets_history"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://203.86.123.168:43436/ifund_account?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "username": "x23iAGFtBmYzhTgDDjvFPg==",
+            "password": "sTO8zolMP4HE+FE4/Q/juOlJhAfkZyhMvpevvHYrEc8=",
+            "column": [
+              "`id`",
+              "`cust_id`",
+              "`account_id`",
+              "`hkd_market_value`",
+              "`cny_market_value`",
+              "`usd_market_value`",
+              "`statistical_time`",
+              "`create_time`",
+              "`is_deleted`",
+              "`hkd_income`",
+              "`cny_income`",
+              "`usd_income`",
+              "`target_hkd_market_value`",
+              "`target_cny_market_value`",
+              "`target_usd_market_value`",
+              "`target_hkd_income`",
+              "`target_cny_income`",
+              "`target_usd_income`"
+            ],
+            "writeMode": "update",
+            "connection": [
+              {
+                "table": [
+                  "customer_bond_assets_history"
+                ],
+                "jdbcUrl": "jdbc:mysql://203.86.123.168:43436/ifund_report?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&generateSimpleParameterMetadata=true"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

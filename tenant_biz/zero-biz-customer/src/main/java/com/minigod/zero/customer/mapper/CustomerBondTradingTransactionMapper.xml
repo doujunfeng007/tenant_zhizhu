@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minigod.zero.customer.mapper.CustomerBondTradingTransactionMapper">
+
+    <resultMap id="BaseResultMap" type="com.minigod.zero.customer.entity.CustomerBondTradingTransaction">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="nomineeTransId" column="nomineeTransId" jdbcType="INTEGER"/>
+            <result property="orderId" column="orderId" jdbcType="INTEGER"/>
+            <result property="subAccountId" column="subAccountId" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="INTEGER"/>
+            <result property="mode" column="mode" jdbcType="INTEGER"/>
+            <result property="fundCode" column="fundCode" jdbcType="VARCHAR"/>
+            <result property="currency" column="currency" jdbcType="VARCHAR"/>
+            <result property="amount" column="amount" jdbcType="DECIMAL"/>
+            <result property="quantity" column="quantity" jdbcType="DECIMAL"/>
+            <result property="price" column="price" jdbcType="DECIMAL"/>
+            <result property="transactionDate" column="transactionDate" jdbcType="TIMESTAMP"/>
+            <result property="confirmedDate" column="confirmedDate" jdbcType="TIMESTAMP"/>
+            <result property="expectedSettledDate" column="expectedSettledDate" jdbcType="TIMESTAMP"/>
+            <result property="settledDate" column="settledDate" jdbcType="TIMESTAMP"/>
+            <result property="effectiveSettledDate" column="effectiveSettledDate" jdbcType="TIMESTAMP"/>
+            <result property="settledAmount" column="settledAmount" jdbcType="DECIMAL"/>
+            <result property="fee" column="fee" jdbcType="DECIMAL"/>
+            <result property="source" column="source" jdbcType="VARCHAR"/>
+            <result property="location" column="location" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,nomineeTransId,orderId,
+        subAccountId,type,mode,
+        fundCode,currency,amount,
+        quantity,price,transactionDate,
+        confirmedDate,expectedSettledDate,settledDate,
+        effectiveSettledDate,settledAmount,fee,
+        source,location,remark,
+        status,createTime,updateTime
+    </sql>
+
+    <select id="getDailyBuyConfirmFormList" resultType="com.minigod.zero.customer.vo.CustomerHldBondDailyAccountVO$BuyConfirmForm">
+        select t2.name ,
+               t2.isin as fundCode,
+        t.orderId,
+        t.transactionDate AS transactionDateOnly,
+        t.currency AS currency,
+        COALESCE(t2.nominalValue ,0)as  nominalValue,
+        COALESCE(t.quantity,0)as quantity,
+        COALESCE(t.quantity, 0) * COALESCE(t2.nominalValue, 0)  as faceAmount,
+        COALESCE(t.price,0)as businessPrice,
+        COALESCE(t.amount,0)as amount,
+        COALESCE(t1.transaction_gain_loss,0)as transactionGainLoss,
+        COALESCE(t.amount,0)+COALESCE(t1.transaction_gain_loss,0)+COALESCE(t.fee,0) as totalSettlementAmount,
+        COALESCE(t3.rate, 1) as rate,
+        t1.type as orderType
+        from customer_bond_trading_transaction t
+        left join customer_bond_trading_records t1 on t.orderId = t1.id
+        left join t_product t2 on t.fundCode = t2.productId
+        left join t_exch_rate t3 on t.currency = t3.srcCurrency and t3.dstCurrency = 'HKD'
+
+        where t.type = 3200
+          and t.createTime &gt; #{custStatementDTO.startDate}
+          and t.createTime &lt; #{custStatementDTO.endDate}
+        and t.subAccountId = #{custStatementDTO.subAccountId};
+    </select>
+
+    <select id="getDailySellConfirmFormList" resultType="com.minigod.zero.customer.vo.CustomerHldBondDailyAccountVO$SellConfirmForm">
+        select t2.name ,
+               t2.isin as fundCode,
+        t.orderId,
+        t.transactionDate AS transactionDateOnly,
+        t.currency AS currency,
+        COALESCE(t2.nominalValue ,0)as  nominalValue,
+        COALESCE(t.quantity,0)as quantity,
+        COALESCE(t.quantity, 0) * COALESCE(t2.nominalValue, 0)  as faceAmount,
+        COALESCE(t.price,0)as businessPrice,
+        COALESCE(t.amount,0)as amount,
+        COALESCE(t1.transaction_gain_loss,0)as transactionGainLoss,
+        COALESCE(t.amount,0) as totalSettlementAmount,
+        COALESCE(t3.rate, 1) as rate,
+        t1.type as orderType
+
+        from customer_bond_trading_transaction t
+        left join customer_bond_trading_records t1 on t.orderId = t1.id
+        left join t_product t2 on t.fundCode = t2.productId
+        left join t_exch_rate t3 on t.currency = t3.srcCurrency and t3.dstCurrency = 'HKD'
+
+        where t.type = 3300
+        and  t.createTime &gt; #{custStatementDTO.startDate}
+        and t.createTime &lt; #{custStatementDTO.endDate}
+        and t.subAccountId = #{custStatementDTO.subAccountId};
+    </select>
+
+    <select id="getDailyHoldingOverViewList" resultType="com.minigod.zero.customer.vo.CustomerHldBondDailyAccountVO$HoldingOverView">
+        select t2.isin as bondCode,
+               t2.productId as productId,
+               t.bond_name,
+               t.currency,
+               t.total_quantity,
+               COALESCE(t2.nominalValue, 0)                    as nominalValue,
+               COALESCE(t.total_quantity, 0) * COALESCE(t2.nominalValue, 0)  as faceAmount,
+               COALESCE(t2.nominalValue, 100)                           as price,
+               COALESCE(t.realized_gain_loss, 0)               as realizedGainLoss,
+               COALESCE(t.total_quantity, 0)                   as totalQuantity,
+               COALESCE(t.total_quantity, 0) * COALESCE(t2.nominalValue, 0) * COALESCE(t1.price, 100)    as marketValue,
+               COALESCE(t.average_cost, 0)                     as averageCost,
+               COALESCE(t.total_quantity, 0) * COALESCE(t2.nominalValue, 0) * COALESCE(t.average_cost, 0) +
+               COALESCE(t.realized_gain_loss, 0)               as averageValue,
+               COALESCE(t3.rate, 1) as rate ,
+               COALESCE(t.total_quantity,0) * COALESCE(t2.nominalValue, 0) * COALESCE(t1.price, 100) +
+               COALESCE(t.realized_gain_loss, 0) *  COALESCE(t3.rate, 1)       as hkMarketValue,
+               COALESCE(t.total_quantity, 0) * COALESCE(t2.nominalValue, 0) * COALESCE(t.average_cost, 0) +
+               COALESCE(t.realized_gain_loss, 0) * COALESCE(t3.rate, 1)     as hkAverageValue
+        from customer_bond_holding_records t
+                 left join t_market_reference_price t1 on t.bond_code = t1.productId
+                 left join t_product t2 on t.bond_code = t2.productId
+                 left join t_exch_rate t3 on t.currency = t3.srcCurrency and t3.dstCurrency = 'HKD'
+        where t.sub_account_id = #{custStatementDTO.subAccountId}
+          and t.total_quantity &gt; 0;
+    </select>
+
+    <select id="getMonthTradeDetailList" resultType="com.minigod.zero.customer.vo.CustomerHldBondMonthAccountVO$TradeDetail">
+        select t2.name ,
+        t.fundCode,
+        t.transactionDate AS transactionDateOnly,
+        CASE
+        WHEN t.type = 3200 THEN '买入'
+        WHEN t.type = 3300 THEN '卖出'
+        END AS transaction_alias ,
+        t.currency,
+        t.quantity,
+        t2.nominalValue,
+        t.quantity * t2.nominalValue as faceAmount,
+        t.settledAmount,
+        t.amount+t.fee as sumAmount
+/*        t3.realized_gain_loss as realizedGainLoss
+*/
+        from customer_bond_trading_transaction t
+        left join t_product t2 on t.fundCode = t2.productId
+        left join customer_bond_holding_records t3 on t.fundCode = t3.bond_code and t.subAccountId = t3.sub_account_id
+        where t.type in (3200,3300)
+        and t.createTime &gt; #{custStatementDTO.startDate}
+        and t.createTime &lt; #{custStatementDTO.endDate}
+        and t.subAccountId = #{custStatementDTO.subAccountId};
+    </select>
+
+    <select id="getMonthHoldingOverviewList" resultType="com.minigod.zero.customer.vo.CustomerHldBondMonthAccountVO$HoldingOverView">
+        select t.bond_code,
+        t.bond_name ,
+        t.currency,
+        COALESCE(t.total_quantity , 0)  as totalQuantity,
+        COALESCE(t2.nominalValue, 0)                    as nominalValue,
+        COALESCE(t.total_quantity, 0) * COALESCE(t2.nominalValue,0) as faceAmount,
+        COALESCE(t1.price, 100)                           as price,
+        COALESCE(t.realized_gain_loss, 0)               as realizedGainLoss,
+               COALESCE(t.total_quantity , 0) * COALESCE(t2.nominalValue,0) * COALESCE(t1.price, 100)  + COALESCE( t.realized_gain_loss, 0) as marketValue,
+               COALESCE(t.average_cost , 0) as averageCost,
+               COALESCE(t.total_quantity , 0) * COALESCE(t2.nominalValue, 0)  * COALESCE(t.average_cost , 0) + COALESCE( t.realized_gain_loss, 0) as averageValue,
+               COALESCE(t3.rate, 1) as rate ,
+               COALESCE(t.total_quantity , 0) * COALESCE(t2.nominalValue,0) * COALESCE(t1.price, 100)  + COALESCE( t.realized_gain_loss, 0)  * COALESCE(t3.rate, 1) as hkMarketValue,
+        (COALESCE(t.total_quantity , 0) * COALESCE(t2.nominalValue,0) * COALESCE(t.average_cost , 0) + COALESCE( t.realized_gain_loss, 0)) * COALESCE(t3.rate, 1) as hkAverageValue
+        from customer_bond_holding_records t
+        left join t_market_reference_price t1 on t.bond_code = t1.productId
+        left join t_product t2 on t.bond_code = t2.productId
+        left join t_exch_rate t3 on t.currency = t3.srcCurrency and t3.dstCurrency = 'HKD'
+        where   t.sub_account_id = #{custStatementDTO.subAccountId}
+          and t.total_quantity &gt; 0;
+    </select>
+    <select id="getDailyHoldingHistoryOverViewList"
+            resultType="com.minigod.zero.customer.vo.CustomerHldBondDailyAccountVO$HoldingOverView">
+        select t.id,
+            t2.isin as bondCode,
+               t2.productId as productId,
+               t2.name as bondName,
+               t.currency,
+               t.totalQuantity,
+               COALESCE(t2.nominalValue, 0)                    as nominalValue,
+               COALESCE(t.totalQuantity, 0) * COALESCE(t2.nominalValue, 0)  as faceAmount,
+               (COALESCE(t2.nominalValue, 100)* COALESCE(t1.price, 100)) / COALESCE(t2.faceValue, 100)as price,
+               COALESCE(t.realizedGainLoss, 0)               as realizedGainLoss,
+               COALESCE(t.totalQuantity, 0)                   as totalQuantity,
+               COALESCE(t.totalQuantity, 0) * COALESCE(t2.nominalValue, 0) * COALESCE(t1.price, 100)    as marketValue,
+               COALESCE(t.averageCost, 0)                     as averageCost,
+               COALESCE(t.totalQuantity, 0) * COALESCE(t2.nominalValue, 0) * COALESCE(t.averageCost, 0) +
+               COALESCE(t.realizedGainLoss, 0)               as averageValue,
+               COALESCE(t.totalQuantity,0) * COALESCE(t2.nominalValue, 0) * COALESCE(t1.price, 100) +
+               COALESCE(t.realizedGainLoss, 0)       as hkMarketValue,
+               COALESCE(t.totalQuantity, 0) * COALESCE(t2.nominalValue, 0) * COALESCE(t.averageCost, 0) +
+               COALESCE(t.realizedGainLoss, 0)       as hkAverageValue,
+            t.createTime
+        from customer_bond_holding_history t
+                 INNER JOIN (
+            SELECT
+                fundCode,
+                MAX(createTime) AS MaxTransactionTime
+            FROM
+                customer_bond_holding_history
+            where   subAccountId = #{custStatementDTO.subAccountId}
+              and createTime  <![CDATA[ <= ]]> #{custStatementDTO.endDate}
+              and holdingType = 65
+            GROUP BY
+                fundCode
+        ) t5 ON t5.fundCode = t.fundCode AND t.createTime = t5.MaxTransactionTime
+                 left join t_market_reference_price t1 on t.fundCode = t1.productId
+                 left join t_product t2 on t.fundCode = t2.productId
+
+    </select>
+    <select id="getDailyHoldingHistoryOverViewByFundCode" resultType="java.math.BigDecimal">
+        SELECT
+            totalQuantity
+        FROM
+            customer_bond_holding_history
+        where   subAccountId = #{custStatementDTO.subAccountId}
+          and createTime  <![CDATA[ <= ]]> #{custStatementDTO.endDate}
+          and holdingType = 65
+            and  fundCode = #{productId}
+        order by createTime desc
+        limit 1
+    </select>
+</mapper>
